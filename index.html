@@ -4,24 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>ai test bank 2025</title>
+    <style>body { display: none; }</style>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
         const correctPassword = "55556366";
-        const input = prompt("請輸入密碼才能瀏覽內容");
+        const input = prompt("請輸入密碼才能進入");
     
-        if (!input || input !== correctPassword) {
-          document.body.innerHTML = "";
+        if (!input || input.trim() !== correctPassword) {
+          document.open();
           document.write("<h1 style='color:red; text-align:center; margin-top:20%;'>密碼錯誤或已取消，無法瀏覽</h1>");
-          throw new Error("Blocked by password lock");
+          document.close();
+          throw new Error("Access denied");
         }
     
-        // 輸入正確 → 顯示頁面
-        document.body.style.display = "block";
-      });
-    
-      // 預防閃現內容：預設隱藏整頁
-      document.write('<style>body{display:none;}</style>');
-    </script>
+        // 密碼正確，顯示內容
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+        });
+      </script>
 <style>
         * {
             margin: 0;
