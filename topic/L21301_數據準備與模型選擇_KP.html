@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 考試重點整理 - L21301 數據準備與模型選擇</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+            display: block; /* Center image */
+            margin: 15px auto; /* Add some margin */
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        strong[style*="color: #0000FF"] { /* Chinese Term Blue */
+            color: #0000FF;
+            font-weight: bold;
+        }
+        strong[style*="color: #800080"] { /* English Abbreviation Purple */
+            color: #800080;
+            font-weight: bold;
+        }
+         strong[style*="color: #FF0000"] { /* English Full Name Red */
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .details-content span[style*="background-color:#ffff0030"] { /* Keyword highlighting style */
+            background-color: #ffff0030;
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+         }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 考試重點</h1> <!-- Updated Title -->
+            <div>L21301 數據準備與模型選擇</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                    <option value="1">主題一</option>
+                    <option value="2">主題二</option>
+                    <option value="3">主題三</option>
+                    <option value="4">主題四</option>
+                    <option value="5">主題五</option>
+                    <option value="6">主題六</option>
+                    <option value="7">主題七</option>
+                    <option value="8">主題八</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                 <!-- Updated filter function call and text for Data Prep & Model Selection -->
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">數據準備概述與流程</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">數據收集與探索性分析</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">數據清理技術</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">數據預處理技術</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">特徵工程</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">模型選擇基礎與考量</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">常見模型類型與適用場景</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">模型評估與選擇方法</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Category 1: 數據準備概述與流程 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據準備</strong > (<strong style="color: #FF0000;">Data Preparation</strong >) 的重要性</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">數據準備是<span style="background-color:#ffff0030">機器學習專案中最關鍵且耗時的階段之一</span>。俗話說「<span style="background-color:#ffff0030">Garbage In, Garbage Out</span>」，<span style="background-color:#ffff0030">數據的品質直接決定了模型的性能上限</span>。良好的數據準備可以顯著提升模型效果、穩定性和泛化能力。</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">數據準備的<strong style="color: #0000FF;">主要流程</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">典型步驟 (L21301, K11)</div>
+                    <div class="details-content">數據準備通常包含以下步驟：
+                        <ul>
+                            <li><strong style="color: #0000FF;">數據收集</strong > (<strong style="color: #FF0000;">Data Collection</strong >): 從各種來源獲取原始數據。</li>
+                            <li><strong style="color: #0000FF;">數據探索與理解</strong > (<strong style="color: #FF0000;">Data Exploration & Understanding</strong >): 分析數據特性、分佈和潛在問題。</li>
+                            <li><strong style="color: #0000FF;">數據清理</strong > (<strong style="color: #FF0000;">Data Cleaning</strong >): <span style="background-color:#ffff0030">處理缺失值、異常值、重複值、不一致數據</span>等。</li>
+                            <li><strong style="color: #0000FF;">數據預處理/轉換</strong > (<strong style="color: #FF0000;">Data Preprocessing/Transformation</strong >): <span style="background-color:#ffff0030">將數據轉換成適合模型訓練的格式</span>，如數值化、標準化。</li>
+                            <li><strong style="color: #0000FF;">特徵工程</strong > (<strong style="color: #FF0000;">Feature Engineering</strong >): <span style="background-color:#ffff0030">創建、選擇或轉換特徵</span>，以提升模型性能。</li>
+                            <li><strong style="color: #0000FF;">數據集劃分</strong > (<strong style="color: #FF0000;">Data Splitting</strong >): 將數據分為訓練集、驗證集和測試集。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="1" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">數據準備的<strong style="color: #0000FF;">迭代性</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">流程特性</div>
+                    <div class="details-content">數據準備<span style="background-color:#ffff0030">並非嚴格的線性流程</span>，通常需要根據數據探索的發現和模型訓練的反饋<span style="background-color:#ffff0030">進行反覆調整和優化</span>。例如，模型效果不佳可能需要回頭重新進行特徵工程或數據清理。</div>
+                </div>
+            </div>
+
+            <!-- Category 2: 數據收集與探索性分析 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據收集</strong > (<strong style="color: #FF0000;">Data Collection</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">獲取數據 (L21301, L22201, K11, S01)</div>
+                    <div class="details-content">從多種來源收集與問題相關的數據。來源可能包括：
+                        <ul>
+                            <li><span style="background-color:#ffff0030">內部資料庫/系統</span> (如 CRM, ERP)</li>
+                            <li><span style="background-color:#ffff0030">公開數據集</span></li>
+                            <li><span style="background-color:#ffff0030">網路爬蟲</span></li>
+                            <li><span style="background-color:#ffff0030">感測器數據</span></li>
+                            <li><span style="background-color:#ffff0030">第三方數據供應商</span></li>
+                            <li><span style="background-color:#ffff0030">問卷調查/實驗</span></li>
+                        </ul>
+                        需確保數據收集的<span style="background-color:#ffff0030">合法性和合規性</span>。
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">探索性數據分析</strong > (<strong style="color: #800080;">EDA</strong > - <strong style="color: #FF0000;">Exploratory Data Analysis</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">理解數據</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">EDA</strong > 的目的是<span style="background-color:#ffff0030">初步理解數據的特性、分佈、關係和潛在問題</span>。常用方法包括：
+                        <ul>
+                            <li><strong style="color: #0000FF;">描述性統計</strong > (<strong style="color: #FF0000;">Descriptive Statistics</strong >): 計算平均數、中位數、標準差、最大/最小值等 (L22101)。</li>
+                            <li><strong style="color: #0000FF;">數據視覺化</strong > (<strong style="color: #FF0000;">Data Visualization</strong >): <span style="background-color:#ffff0030">繪製直方圖、散佈圖、箱型圖</span>等，直觀展示數據分佈和關係 (L22303)。</li>
+                            <li><span style="background-color:#ffff0030">檢查缺失值和異常值</span>。</li>
+                            <li><span style="background-color:#ffff0030">分析特徵之間的相關性</span>。</li>
+                        </ul>
+                        EDA 的發現將指導後續的數據清理和預處理步驟。
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="2" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">理解<strong style="color: #0000FF;">數據類型</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">數據特性</div>
+                    <div class="details-content">區分不同的數據類型對於選擇合適的處理方法和模型至關重要：
+                        <ul>
+                            <li><strong style="color: #0000FF;">數值型數據</strong > (<strong style="color: #FF0000;">Numerical Data</strong >):
+                                <ul>
+                                    <li>連續型 (Continuous): 如身高、溫度。</li>
+                                    <li>離散型 (Discrete): 如購買次數、網頁點擊數。</li>
+                                </ul>
+                            </li>
+                            <li><strong style="color: #0000FF;">類別型數據</strong > (<strong style="color: #FF0000;">Categorical Data</strong >):
+                                <ul>
+                                    <li>定類 (Nominal): 無序類別，如顏色（紅、藍、綠）。</li>
+                                    <li>定序 (Ordinal): 有序類別，如教育程度（高中、大學、碩士）。</li>
+                                </ul>
+                            </li>
+                            <li>其他類型：文本、圖像、時間序列等。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 3: 數據清理技術 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">處理<strong style="color: #0000FF;">缺失值</strong > (<strong style="color: #FF0000;">Missing Values</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">常見清理任務 (L21301, L22201, K11)</div>
+                    <div class="details-content">缺失值是真實世界數據中常見的問題。處理方法包括：
+                        <ul>
+                            <li><strong style="color: #0000FF;">刪除</strong > (<strong style="color: #FF0000;">Deletion</strong >): <span style="background-color:#ffff0030">直接刪除包含缺失值的樣本（行）或特徵（列）</span>。適用於缺失比例小或該特徵不重要時，但可能損失資訊。</li>
+                            <li><strong style="color: #0000FF;">填充</strong > (<strong style="color: #FF0000;">Imputation</strong >): <span style="background-color:#ffff0030">用估計值替換缺失值</span>。常用方法：
+                                <ul>
+                                    <li><span style="background-color:#ffff0030">平均數/中位數/眾數填充</span>: 用該特徵的平均數（數值）、中位數（數值，對異常值穩健）或眾數（類別）填充。</li>
+                                    <li><span style="background-color:#ffff0030">回歸填充</span>: 使用其他特徵預測缺失值。</li>
+                                    <li><span style="background-color:#ffff0030">K-近鄰填充</span> (<strong style="color: #800080;">KNN Imputation</strong >): 使用與缺失樣本最相似的 K 個樣本的值來估計。</li>
+                                </ul>
+                            </li>
+                            <li><strong style="color: #0000FF;">將缺失本身作為訊息</strong >: 對於某些情況，缺失本身可能是一種信號，可以創建一個指示變量標記是否缺失。</li>
+                        </ul>
+                        選擇何種方法取決於數據特性、缺失比例和模型需求。
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">處理<strong style="color: #0000FF;">異常值/離群值</strong > (<strong style="color: #FF0000;">Outliers</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">常見清理任務 (K11)</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">異常值是指與數據集中大部分數據顯著不同的數據點</span>。可能由測量錯誤、輸入錯誤或真實的極端情況引起。處理方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">檢測方法</strong >: <span style="background-color:#ffff0030">基於統計（如 Z-score, IQR）、基於距離（如 KNN）、基於密度（如 DBSCAN）</span>。</li>
+                            <li><strong style="color: #0000FF;">處理策略</strong >:
+                                <ul>
+                                    <li><span style="background-color:#ffff0030">刪除</span>: 直接移除異常值（需謹慎，可能損失訊息）。</li>
+                                    <li><span style="background-color:#ffff0030">替換/修正</span>: 用較合理的值（如上限/下限值、平均數/中位數）替換。</li>
+                                    <li><span style="background-color:#ffff0030">保留</span>: 如果確認是真實且重要的極端值，則保留。</li>
+                                    <li><span style="background-color:#ffff0030">使用對異常值穩健的模型</span>。</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="3" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#9</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">處理<strong style="color: #0000FF;">重複值</strong > (<strong style="color: #FF0000;">Duplicates</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">常見清理任務</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">識別並處理數據集中完全相同或幾乎相同的記錄</span>。重複值可能導致模型評估偏差或訓練效率降低。通常的處理方式是<span style="background-color:#ffff0030">直接刪除重複的記錄，只保留一份</span>。</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="3" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#10</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">處理<strong style="color: #0000FF;">不一致數據</strong > (<strong style="color: #FF0000;">Inconsistent Data</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">常見清理任務</div>
+                    <div class="details-content">指數據中存在<span style="background-color:#ffff0030">邏輯矛盾或格式不統一</span>的情況。例如，年齡為負數、同一類別有多種寫法（"男", "男性"）、單位不一致等。需要<span style="background-color:#ffff0030">根據業務規則或常識進行修正或統一化</span>。</div>
+                </div>
+            </div>
+
+            <!-- Category 4: 數據預處理技術 -->
+             <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#11</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵縮放</strong > (<strong style="color: #FF0000;">Feature Scaling</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">數值預處理 (L21301, K11)</div>
+                    <div class="details-content">將<span style="background-color:#ffff0030">不同範圍的數值特徵縮放到相似的範圍內</span>。這對於許多<span style="background-color:#ffff0030">基於距離或梯度的演算法</span>（如 KNN, SVM, 神經網路）非常重要，可以<span style="background-color:#ffff0030">避免數值範圍大的特徵主導模型訓練</span>，並加速收斂。常用方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">標準化</strong > (<strong style="color: #FF0000;">Standardization</strong > / Z-score): 將數據轉換為<span style="background-color:#ffff0030">平均數為 0，標準差為 1</span> 的分佈。公式: (x - mean) / std_dev。</li>
+                            <li><strong style="color: #0000FF;">正規化</strong > (<strong style="color: #FF0000;">Normalization</strong > / Min-Max Scaling): 將數據<span style="background-color:#ffff0030">縮放到 [0, 1] 或 [-1, 1] 的區間</span>。公式: (x - min) / (max - min)。</li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <img src="image/Standardization and Normalization for feature scaling.webp" class="responsive-img">
+            </div>
+            <div class="focus-card" data-category="4" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#12</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">類別特徵編碼</strong > (<strong style="color: #FF0000;">Categorical Feature Encoding</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">類別預處理 (L21301, K11)</div>
+                    <div class="details-content">大多數機器學習模型<span style="background-color:#ffff0030">只能處理數值數據</span>，需要將類別特徵轉換為數值表示。常用方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">標籤編碼</strong > (<strong style="color: #FF0000;">Label Encoding</strong >): <span style="background-color:#ffff0030">為每個類別分配一個唯一的整數</span>（如 0, 1, 2...）。適用於<span style="background-color:#ffff0030">定序類別</span>，但可能給模型帶來<span style="background-color:#ffff0030">錯誤的大小關係暗示</span>（對於定類不適用）。</li>
+                                <br>
+                                <img src="image/Label Encoding.jpg" class="responsive-img">
+                            <li><strong style="color: #0000FF;">獨熱編碼</strong > (<strong style="color: #FF0000;">One-Hot Encoding</strong >): <span style="background-color:#ffff0030">為每個類別創建一個新的二元（0 或 1）特徵</span>。優點是<span style="background-color:#ffff0030">避免了大小關係暗示</span>，適用於定類特徵。缺點是當<span style="background-color:#ffff0030">類別數量很多時會導致維度急劇增加</span>（維度災難）。</li>
+                                <br>
+                                <img src="image/One-Hot Encoding.png" class="responsive-img">
+                            <li>其他方法：二進制編碼 (Binary Encoding), 目標編碼 (Target Encoding) 等。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="4" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#13</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據集劃分</strong > (<strong style="color: #FF0000;">Data Splitting</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">模型評估基礎</div>
+                    <div class="details-content">將數據集劃分為獨立的子集，用於不同的目的：
+                        <ul>
+                            <li><strong style="color: #0000FF;">訓練集</strong > (<strong style="color: #FF0000;">Training Set</strong >): <span style="background-color:#ffff0030">用於訓練模型</span>，讓模型學習數據中的模式。</li>
+                            <li><strong style="color: #0000FF;">驗證集</strong > (<strong style="color: #FF0000;">Validation Set</strong >): 用於<span style="background-color:#ffff0030">調整模型超參數</span>（如學習率、正規化強度）和<span style="background-color:#ffff0030">選擇最佳模型</span>。</li>
+                            <li><strong style="color: #0000FF;">測試集</strong > (<strong style="color: #FF0000;">Test Set</strong >): 在模型訓練和超參數調整完成後，用於<span style="background-color:#ffff0030">最終評估模型在未見數據上的泛化性能</span>。<span style="background-color:#ffff0030">測試集絕對不能用於訓練或調優</span>。</li>
+                        </ul>
+                        常用的劃分比例是 60-80% 訓練，10-20% 驗證，10-20% 測試。
+                    </div>
+                </div>
+                <br>
+                <img src="image/train validation and test set.webp" class="responsive-img">
+            </div>
+
+            </div>
+             <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#14</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">處理<strong style="color: #0000FF;">類別不平衡</strong > (<strong style="color: #FF0000;">Class Imbalance</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">數據分佈問題</div>
+                    <div class="details-content">當數據集中<span style="background-color:#ffff0030">不同類別的樣本數量差異很大</span>時（例如，欺詐檢測中，欺詐樣本遠少於正常樣本），會出現類別不平衡問題。這可能導致模型<span style="background-color:#ffff0030">傾向於預測多數類</span>，而忽略少數類。處理方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">重採樣</strong > (<strong style="color: #FF0000;">Resampling</strong >):
+                                <ul>
+                                    <li><strong style="color: #0000FF;">過採樣</strong > (<strong style="color: #FF0000;">Oversampling</strong >): <span style="background-color:#ffff0030">複製少數類樣本</span>或生成合成樣本（如 <strong style="color: #800080;">SMOTE</strong > - Synthetic Minority Over-sampling Technique）。</li>
+                                    <li><strong style="color: #0000FF;">欠採樣</strong > (<strong style="color: #FF0000;">Undersampling</strong >): <span style="background-color:#ffff0030">隨機刪除多數類樣本</span>。</li>
+                                </ul>
+                            </li>
+                            <li><strong style="color: #0000FF;">調整類別權重</strong > (<strong style="color: #FF0000;">Class Weighting</strong >): 在模型訓練時，<span style="background-color:#ffff0030">為少數類樣本賦予更高的權重（損失）</span>。</li>
+                            <li><strong style="color: #0000FF;">使用合適的評估指標</strong >: <span style="background-color:#ffff0030">避免使用準確率</span>，改用 Precision, Recall, F1-Score, AUC 等。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 5: 特徵工程 -->
+            <div class="focus-card" data-category="5" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#15</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵工程</strong > (<strong style="color: #FF0000;">Feature Engineering</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念 (L21301, L23301, K11)</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">利用領域知識和數據洞察，對原始數據進行轉換、組合或創建新的特徵</span>，以<span style="background-color:#ffff0030">提高機器學習模型的性能</span>。好的特徵工程往往比選擇複雜模型更重要。<span style="background-color:#ffff0030">是數據準備中的關鍵環節</span>。</div>
+                </div>
+                <br>
+                <img src="image/Feature-Engineering.png" class="responsive-img">
+            </div>
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#16</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵創建</strong > (<strong style="color: #FF0000;">Feature Creation</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">生成新特徵</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">根據現有特徵創建新的、可能更有預測力的特徵</span>。例如：
+                        <ul>
+                            <li>從日期時間中提取年、月、日、星期、小時等。</li>
+                            <li>計算不同數值特徵之間的比例、差值、乘積。</li>
+                            <li>將多個類別特徵組合創建交互特徵。</li>
+                            <li>對文本數據進行 <strong style="color: #800080;">TF-IDF</strong > 計算或詞嵌入 (<strong style="color: #FF0000;">Word Embedding</strong >)。</li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                
+            </div>
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#17</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵選擇</strong > (<strong style="color: #FF0000;">Feature Selection</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">篩選重要特徵</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">從所有特徵中選擇與目標變量最相關的子集</span>。目的：
+                        <ul>
+                            <li><span style="background-color:#ffff0030">降低模型複雜度</span>，減少過擬合風險。</li>
+                            <li><span style="background-color:#ffff0030">減少訓練時間</span>。</li>
+                            <li><span style="background-color:#ffff0030">提高模型可解釋性</span>。</li>
+                        </ul>
+                       常用方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">過濾法</strong > (<strong style="color: #FF0000;">Filter Methods</strong >): <span style="background-color:#ffff0030">基於統計指標（如相關係數、卡方檢驗）評估特徵重要性</span>，獨立於模型。</li>
+                            <li><strong style="color: #0000FF;">包裹法</strong > (<strong style="color: #FF0000;">Wrapper Methods</strong >): <span style="background-color:#ffff0030">將特徵選擇視為搜索問題</span>，用模型性能作為評估標準（如遞迴特徵消除 <strong style="color: #800080;">RFE</strong >）。</li>
+                            <li><strong style="color: #0000FF;">嵌入法</strong > (<strong style="color: #FF0000;">Embedded Methods</strong >): <span style="background-color:#ffff0030">在模型訓練過程中自動進行特徵選擇</span>（如 Lasso 回歸）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#18</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">降維</strong > (<strong style="color: #FF0000;">Dimensionality Reduction</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">減少特徵數量</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">在高維數據中，通過保留大部分資訊的同時減少特徵數量</span>。目的類似於特徵選擇，但通常是<span style="background-color:#ffff0030">創建新的、較少數量的組合特徵</span>。常用方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">主成分分析</strong > (<strong style="color: #800080;">PCA</strong > - <strong style="color: #FF0000;">Principal Component Analysis</strong >): <span style="background-color:#ffff0030">線性降維方法</span>，尋找數據方差最大的方向（主成分）。</li>
+                                <br>
+                                <img src="image/PCA.jpg" class="responsive-img">
+                            
+                            <li><strong style="color: #0000FF;">線性判別分析</strong > (<strong style="color: #800080;">LDA</strong > - <strong style="color: #FF0000;">Linear Discriminant Analysis</strong >): <span style="background-color:#ffff0030">有監督的線性降維方法</span>，尋找最有利於分類的方向。</li>
+                                <br>
+                                <img src="image/LDA.png" class="responsive-img">
+                            <li><strong style="color: #0000FF;">t-分佈隨機鄰域嵌入</strong > (<strong style="color: #800080;">t-SNE</strong >): <span style="background-color:#ffff0030">非線性降維方法</span>，主要用於高維數據視覺化。</li>
+                                <br>
+                                <img src="image/t-SNE.jpg" class="responsive-img">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Category 6: 模型選擇基礎與考量 -->
+            <div class="focus-card" data-category="6" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#19</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">模型選擇</strong > (<strong style="color: #FF0000;">Model Selection</strong >) 的目標</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心任務 (L21301)</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">根據特定的問題、數據特性和業務需求，從眾多可用的機器學習演算法中，選擇最適合的模型</span>。目標是找到一個在<span style="background-color:#ffff0030">未見數據上具有良好泛化性能</span>的模型。</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="6" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#20</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">模型選擇的<strong style="color: #0000FF;">關鍵考量因素</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">決策依據 (K11)</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><strong style="color: #0000FF;">問題類型</strong >: 是<span style="background-color:#ffff0030">分類、回歸、聚類、降維</span>還是其他任務？</li>
+                            <li><strong style="color: #0000FF;">數據特性</strong >: <span style="background-color:#ffff0030">數據量大小、特徵維度、數據類型（數值/類別）、線性/非線性關係、是否有異常值、類別是否平衡</span>。</li>
+                            <li><strong style="color: #0000FF;">性能要求</strong >: <span style="background-color:#ffff0030">對準確率、速度、延遲的要求</span>如何？</li>
+                            <li><strong style="color: #0000FF;">可解釋性需求</strong >: 是否需要<span style="background-color:#ffff0030">理解模型的決策過程</span>？（例如，線性模型通常比深度學習模型更易解釋）。</li>
+                            <li><strong style="color: #0000FF;">訓練時間與計算資源</strong >: <span style="background-color:#ffff0030">是否有足夠的時間和計算資源來訓練複雜模型</span>？</li>
+                            <li><strong style="color: #0000FF;">模型複雜度</strong > vs. <strong style="color: #0000FF;">過擬合風險</strong >: <span style="background-color:#ffff0030">更複雜的模型可能性能更好，但也更容易過擬合</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#21</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">不同模型的優缺點</strong > (<strong style="color: #FF0000;">Pros and Cons</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">模型比較 (L21301)</div>
+                    <div class="details-content">理解<span style="background-color:#ffff0030">不同類型模型的內在特性、優點和缺點</span>是做出明智選擇的基礎。例如：
+                        <ul>
+                            <li><strong style="color: #0000FF;">線性模型</strong >: 簡單、快速、易解釋，但<span style="background-color:#ffff0030">難以捕捉非線性關係</span>。</li>
+                            <li><strong style="color: #0000FF;">決策樹</strong >: 易解釋，能處理數值和類別特徵，但<span style="background-color:#ffff0030">容易過擬合</span>。</li>
+                            <li><strong style="color: #800080;">SVM</strong >: 在<span style="background-color:#ffff0030">高維空間和非線性問題</span>上表現良好，但對<span style="background-color:#ffff0030">參數選擇和核函數敏感</span>，計算成本高。</li>
+                            <li><strong style="color: #0000FF;">集成模型</strong > (如 Random Forest, Gradient Boosting): 通常<span style="background-color:#ffff0030">性能強大、不易過擬合</span>，但<span style="background-color:#ffff0030">可解釋性較差</span>。</li>
+                            <li><strong style="color: #0000FF;">神經網路/深度學習</strong >: 能<span style="background-color:#ffff0030">學習複雜模式、自動進行特徵提取</span>，但<span style="background-color:#ffff0030">需要大量數據和計算資源，可解釋性差</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="6" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#22</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">奧卡姆剃刀</strong > (<strong style="color: #FF0000;">Occam's Razor</strong >) 原則</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">簡約原則</div>
+                    <div class="details-content">在<span style="background-color:#ffff0030">多個性能相近的模型中，應優先選擇結構最簡單的模型</span>。更簡單的模型通常<span style="background-color:#ffff0030">更易於理解、解釋和維護，且泛化能力可能更好</span>。</div>
+                </div>
+                <br>
+                <img src="image/Occam's Razor.jpg" class="responsive-img">
+            </div>
+
+            <!-- Category 7: 常見模型類型與適用場景 -->
+            <div class="focus-card" data-category="7" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#23</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">監督式學習</strong > (<strong style="color: #FF0000;">Supervised Learning</strong >) 模型</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">常用模型</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">用於有標籤數據的學習任務</span>。
+                        <ul>
+                            <li><strong style="color: #0000FF;">分類</strong > (<strong style="color: #FF0000;">Classification</strong >): 預測離散類別標籤。
+                                <ul>
+                                    <li><strong style="color: #0000FF;">邏輯回歸</strong > (<strong style="color: #FF0000;">Logistic Regression</strong >)</li>
+                                    <li><strong style="color: #0000FF;">支持向量機</strong > (<strong style="color: #800080;">SVM</strong > - <strong style="color: #FF0000;">Support Vector Machine</strong >)</li>
+                                    <li><strong style="color: #0000FF;">決策樹</strong > (<strong style="color: #FF0000;">Decision Tree</strong >)</li>
+                                    <li><strong style="color: #0000FF;">隨機森林</strong > (<strong style="color: #FF0000;">Random Forest</strong >)</li>
+                                    <li><strong style="color: #0000FF;">梯度提升機</strong > (<strong style="color: #FF0000;">Gradient Boosting Machine, GBM</strong >), 如 XGBoost, LightGBM</li>
+                                    <li><strong style="color: #0000FF;">神經網路</strong > (<strong style="color: #800080;">NN</strong >) / <strong style="color: #0000FF;">卷積神經網路</strong > (<strong style="color: #800080;">CNN</strong >) (圖像)</li>
+                                </ul>
+                            </li>
+                            <li><strong style="color: #0000FF;">回歸</strong > (<strong style="color: #FF0000;">Regression</strong >): 預測連續數值。
+                                <ul>
+                                    <li><strong style="color: #0000FF;">線性回歸</strong > (<strong style="color: #FF0000;">Linear Regression</strong >)</li>
+                                    <li><strong style="color: #800080;">SVM</strong > 回歸 (<strong style="color: #800080;">SVR</strong >)</li>
+                                    <li><strong style="color: #0000FF;">決策樹回歸</strong ></li>
+                                    <li><strong style="color: #0000FF;">隨機森林回歸</strong ></li>
+                                    <li><strong style="color: #0000FF;">梯度提升回歸</strong ></li>
+                                    <li><strong style="color: #0000FF;">神經網路</strong ></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="7" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#24</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">非監督式學習</strong > (<strong style="color: #FF0000;">Unsupervised Learning</strong >) 模型</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">常用模型</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">用於無標籤數據的學習任務</span>，旨在發現數據中的結構或模式。
+                        <ul>
+                            <li><strong style="color: #0000FF;">聚類</strong > (<strong style="color: #FF0000;">Clustering</strong >): <span style="background-color:#ffff0030">將相似的數據點分組</span>。
+                                <ul>
+                                    <li><strong style="color: #0000FF;">K-平均數</strong > (<strong style="color: #800080;">K-Means</strong >)</li>
+                                    <li><strong style="color: #0000FF;">層次聚類</strong > (<strong style="color: #FF0000;">Hierarchical Clustering</strong >)</li>
+                                    <li><strong style="color: #800080;">DBSCAN</strong > (<strong style="color: #FF0000;">Density-Based Spatial Clustering of Applications with Noise</strong >)</li>
+                                </ul>
+                            </li>
+                            <li><strong style="color: #0000FF;">降維</strong > (<strong style="color: #FF0000;">Dimensionality Reduction</strong >): <span style="background-color:#ffff0030">減少數據的特徵數量</span>。
+                                <ul>
+                                    <li><strong style="color: #800080;">PCA</strong ></li>
+                                    <li><strong style="color: #800080;">t-SNE</strong ></li>
+                                </ul>
+                            </li>
+                             <li><strong style="color: #0000FF;">關聯規則學習</strong > (<strong style="color: #FF0000;">Association Rule Learning</strong >): <span style="background-color:#ffff0030">發現數據項之間的關聯性</span>（如購物籃分析中的 Apriori 演算法）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="7" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#25</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">集成學習</strong > (<strong style="color: #FF0000;">Ensemble Learning</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">組合模型</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">結合多個基學習器（通常是決策樹）的預測結果來獲得比單個學習器更好、更穩定的性能</span>。主要方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">Bagging</strong > (Bootstrap Aggregating): 如<strong style="color: #0000FF;">隨機森林</strong > (<strong style="color: #FF0000;">Random Forest</strong >)，<span style="background-color:#ffff0030">並行訓練多個基學習器，結果取平均或投票</span>。</li>
+                            <li><strong style="color: #0000FF;">Boosting</strong >: 如<strong style="color: #0000FF;">梯度提升機</strong > (<strong style="color: #FF0000;">GBM</strong >), AdaBoost，<span style="background-color:#ffff0030">串行訓練基學習器，後續模型重點關注前面模型預測錯誤的樣本</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <img src="image/Ensemble_Learning_Bagging_Boosting.avif" class="responsive-img">
+            </div>
+             <div class="focus-card" data-category="7" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#26</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">深度學習</strong > (<strong style="color: #FF0000;">Deep Learning</strong >) 模型</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">神經網路應用</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">基於多層神經網路的模型</span>，擅長處理複雜的模式和非結構化數據。
+                        <ul>
+                            <li><strong style="color: #0000FF;">卷積神經網路</strong > (<strong style="color: #800080;">CNN</strong >): 主要用於<span style="background-color:#ffff0030">圖像相關任務</span>（分類、偵測、分割）。</li>
+                            <li><strong style="color: #0000FF;">循環神經網路</strong > (<strong style="color: #800080;">RNN</strong > - <strong style="color: #FF0000;">Recurrent Neural Network</strong >) / <strong style="color: #800080;">LSTM</strong > / <strong style="color: #800080;">GRU</strong >: 主要用於<span style="background-color:#ffff0030">序列數據</span>（文本、時間序列）。</li>
+                            <li><strong style="color: #0000FF;">Transformer</strong >: 在<span style="background-color:#ffff0030">自然語言處理</strong > (<strong style="color: #800080;">NLP</strong >) 領域取得巨大成功，也應用於視覺等領域。</li>
+                            <li><strong style="color: #0000FF;">生成對抗網路</strong > (<strong style="color: #800080;">GAN</strong >) / <strong style="color: #0000FF;">變分自動編碼器</strong > (<strong style="color: #800080;">VAE</strong >) / <strong style="color: #0000FF;">擴散模型</strong >: 用於<span style="background-color:#ffff0030">生成式任務</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 8: 模型評估與選擇方法 -->
+             <div class="focus-card" data-category="8" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#27</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">選擇合適的<strong style="color: #0000FF;">評估指標</strong > (<strong style="color: #FF0000;">Evaluation Metrics</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">性能衡量標準 (L23303)</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">根據具體的業務目標和問題類型選擇最能反映模型真實性能的指標</span>。
+                        <ul>
+                            <li><strong style="color: #0000FF;">分類任務</strong >: <span style="background-color:#ffff0030">Accuracy, Precision, Recall, F1-Score, AUC (Area Under the ROC Curve), Confusion Matrix</span>。注意<span style="background-color:#ffff0030">類別不平衡</span>時 Accuracy 的局限性。</li>
+                            <li><strong style="color: #0000FF;">回歸任務</strong >: <span style="background-color:#ffff0030">MSE (Mean Squared Error), RMSE (Root Mean Squared Error), MAE (Mean Absolute Error), R-squared</span>。</li>
+                            <li><strong style="color: #0000FF;">聚類任務</strong >: <span style="background-color:#ffff0030">輪廓係數 (Silhouette Score), Davies-Bouldin Index</span> (內部指標), ARI (Adjusted Rand Index) (外部指標，需有真實標籤)。</li>
+                            <li><strong style="color: #0000FF;">物件偵測任務</strong >: <span style="background-color:#ffff0030">mAP, IoU</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="8" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#28</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">交叉驗證</strong > (<strong style="color: #FF0000;">Cross-Validation</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">穩健評估方法 (L23303)</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">為了更可靠地評估模型性能並選擇超參數，尤其是在數據量有限時</span>，使用交叉驗證。最常用的是 <strong style="color: #0000FF;">K-摺交叉驗證</strong > (<strong style="color: #FF0000;">K-Fold Cross-Validation</strong >):
+                        <ol>
+                            <li>將訓練數據<span style="background-color:#ffff0030">隨機分成 K 個互斥的子集（摺）</span>。</li>
+                            <li>進行 K 輪訓練和評估：每輪<span style="background-color:#ffff0030">選擇其中一摺作為驗證集</span>，<span style="background-color:#ffff0030">其餘 K-1 摺作為訓練集</span>。</li>
+                            <li>最終<span style="background-color:#ffff0030">將 K 輪的評估結果平均</span>，作為模型的整體性能估計。</li>
+                        </ol>
+                        交叉驗證有助於<span style="background-color:#ffff0030">減少因單次劃分驗證集帶來的隨機性</span>，得到更穩健的性能評估。
+                    </div>
+                </div>
+                <br>
+                <img src="image/Cross-validation.webp" class="responsive-img">
+            </div>
+            <div class="focus-card" data-category="8" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#29</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">超參數調優</strong > (<strong style="color: #FF0000;">Hyperparameter Tuning</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">模型優化 (L23304)</div>
+                    <div class="details-content"><span style="background-color:#ffff0030">尋找模型最佳超參數組合</span>的過程。常用方法：
+                        <ul>
+                            <li><strong style="color: #0000FF;">網格搜索</strong > (<strong style="color: #FF0000;">Grid Search</strong >): <span style="background-color:#ffff0030">嘗試所有預先定義的超參數組合</span>，找到性能最佳的組合。計算成本高。</li>
+                            <li><strong style="color: #0000FF;">隨機搜索</strong > (<strong style="color: #FF0000;">Random Search</strong >): 在<span style="background-color:#ffff0030">指定的範圍內隨機抽樣超參數組合</span>進行嘗試。通常比網格搜索更高效。</li>
+                            <li><strong style="color: #0000FF;">貝葉斯優化</strong > (<strong style="color: #FF0000;">Bayesian Optimization</strong >): <span style="background-color:#ffff0030">利用先前的評估結果來指導後續的超參數選擇</span>，試圖更快地找到最優組合。</li>
+                        </ul>
+                       通常<span style="background-color:#ffff0030">結合交叉驗證</span>來評估不同超參數組合的性能。
+                    </div>
+                </div>
+                <br>
+                <img src="image/Grid random Search.png" class="responsive-img">
+            </div>
+             <div class="focus-card" data-category="8" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#30</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">模型選擇中的<strong style="color: #0000FF;">偏差-方差權衡</strong > (<strong style="color: #FF0000;">Bias-Variance Tradeoff</strong >)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">理論基礎</div>
+                    <div class="details-content">模型預測誤差可以分解為偏差、方差和不可避免的誤差。
+                        <ul>
+                            <li><strong style="color: #0000FF;">偏差</strong > (<strong style="color: #FF0000;">Bias</strong >): 模型<span style="background-color:#ffff0030">預測值與真實值之間的差異</span>，高偏差表示<span style="background-color:#ffff0030">欠擬合</span>。</li>
+                            <li><strong style="color: #0000FF;">方差</strong > (<strong style="color: #FF0000;">Variance</strong >): 模型<span style="background-color:#ffff0030">對訓練數據微小變化的敏感度</span>，高方差表示<span style="background-color:#ffff0030">過擬合</span>。</li>
+                        </ul>
+                       通常，<span style="background-color:#ffff0030">增加模型複雜度會降低偏差但增加方差</span>，反之亦然。模型選擇的目標是找到<span style="background-color:#ffff0030">偏差和方差之間的一個良好平衡點</span>，以最小化總體誤差。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Add 30 more focus points -->
+            <div class="focus-card" data-category="1" data-stars="2"><div class="focus-header"><div class="focus-id">#31</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic">數據準備的<strong style="color: #0000FF;">工具與平台</strong></div></div><div class="focus-details-container"><div class="details-header">常用工具 (L22203)</div><div class="details-content">常用的數據準備工具和函式庫包括：<strong style="color: #FF0000;">Python</strong > (主導語言), <strong style="color: #FF0000;">Pandas</strong > (數據處理), <strong style="color: #FF0000;">NumPy</strong > (數值計算), <strong style="color: #FF0000;">Scikit-learn</strong > (預處理、特徵工程、模型選擇), <strong style="color: #FF0000;">Matplotlib/Seaborn</strong > (視覺化)。</div></div></div>
+            <div class="focus-card" data-category="2" data-stars="2"><div class="focus-header"><div class="focus-id">#32</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據抽樣</strong > (<strong style="color: #FF0000;">Data Sampling</strong >)</div></div><div class="focus-details-container"><div class="details-header">數據選擇</div><div class="details-content">當數據量過大時，可能需要從原始數據中抽取一部分樣本進行分析或模型訓練。常用的抽樣方法有<span style="background-color:#ffff0030">簡單隨機抽樣、分層抽樣（保持類別比例）、系統抽樣</span>等。需確保<span style="background-color:#ffff0030">抽取的樣本能代表整體數據</span>。</div></div></div>
+            <div class="focus-card" data-category="3" data-stars="2"><div class="focus-header"><div class="focus-id">#33</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據驗證</strong > (<strong style="color: #FF0000;">Data Validation</strong >)</div></div><div class="focus-details-container"><div class="details-header">品質確保</div><div class="details-content"><span style="background-color:#ffff0030">建立規則或檢查機制來驗證數據的品質和一致性</span>。例如，檢查數值是否在合理範圍內、類別是否為預期值、數據格式是否正確等。</div></div></div>
+            <div class="focus-card" data-category="4" data-stars="2"><div class="focus-header"><div class="focus-id">#34</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">時間序列數據</strong >的預處理</div></div><div class="focus-details-container"><div class="details-header">特殊數據處理</div><div class="details-content">時間序列數據具有<span style="background-color:#ffff0030">時間依賴性</span>，預處理可能包括<span style="background-color:#ffff0030">填充缺失時間點、平滑處理、差分（使序列平穩）、提取時間窗口特徵</span>等。劃分訓練/驗證/測試集時<span style="background-color:#ffff0030">不能隨機打亂</span>，需按時間順序劃分。</div></div></div>
+            <div class="focus-card" data-category="5" data-stars="3"><div class="focus-header"><div class="focus-id">#35</div><div class="focus-importance">★★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">自動特徵工程</strong > (<strong style="color: #800080;">AutoFE</strong >)</div></div><div class="focus-details-container"><div class="details-header">自動化趨勢</div><div class="details-content">利用<span style="background-color:#ffff0030">演算法自動探索和生成新的候選特徵</span>。雖然還處於發展階段，但可以減輕手動特徵工程的負擔，尤其在複雜數據上可能發現人類難以想到的有效特徵。</div></div></div>
+            <div class="focus-card" data-category="6" data-stars="2"><div class="focus-header"><div class="focus-id">#36</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic">考量模型的<strong style="color: #0000FF;">訓練效率</strong></div></div><div class="focus-details-container"><div class="details-header">速度考量</div><div class="details-content">不同的模型訓練所需的時間和計算資源差異很大。在模型選擇時，需<span style="background-color:#ffff0030">根據可用的硬體資源和專案時程要求</span>，評估備選模型的訓練效率。</div></div></div>
+            <div class="focus-card" data-category="7" data-stars="2"><div class="focus-header"><div class="focus-id">#37</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">半監督學習</strong > (<strong style="color: #FF0000;">Semi-supervised Learning</strong >) 模型</div></div><div class="focus-details-container"><div class="details-header">混合數據學習</div><div class="details-content"><span style="background-color:#ffff0030">介於監督式和非監督式學習之間</span>，利用<span style="background-color:#ffff0030">少量有標籤數據和大量無標籤數據</span>進行學習。適用於標註成本高昂但無標籤數據豐富的場景。</div></div></div>
+            <div class="focus-card" data-category="8" data-stars="3"><div class="focus-header"><div class="focus-id">#38</div><div class="focus-importance">★★★</div></div><div class="focus-topic-container"><div class="focus-topic">模型<strong style="color: #0000FF;">可部署性</strong > (<strong style="color: #FF0000;">Deployability</strong >)</div></div><div class="focus-details-container"><div class="details-header">部署考量</div><div class="details-content">模型選擇不僅要看性能，還要考慮<span style="background-color:#ffff0030">模型是否容易部署到目標環境</span>（雲端、邊緣設備）。包括<span style="background-color:#ffff0030">模型大小、依賴庫、與現有系統的兼容性</span>等。</div></div></div>
+            <div class="focus-card" data-category="1" data-stars="2"><div class="focus-header"><div class="focus-id">#39</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據生命週期管理</strong ></div></div><div class="focus-details-container"><div class="details-header">數據管理</div><div class="details-content">建立<span style="background-color:#ffff0030">管理數據從產生到銷毀整個過程的策略和流程</span>，包括數據儲存、備份、版本控制、訪問權限、安全性和合規性。</div></div></div>
+            <div class="focus-card" data-category="3" data-stars="1"><div class="focus-header"><div class="focus-id">#40</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據清洗</strong >中的正則表達式 (<strong style="color: #FF0000;">Regex</strong >)</div></div><div class="focus-details-container"><div class="details-header">文本處理</div><div class="details-content">正則表達式是<span style="background-color:#ffff0030">處理和匹配文本模式</span>的強大工具，常用於<span style="background-color:#ffff0030">清洗非結構化文本數據</span>中的特定格式或提取訊息。</div></div></div>
+            <div class="focus-card" data-category="5" data-stars="2"><div class="focus-header"><div class="focus-id">#41</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">領域知識</strong > (<strong style="color: #FF0000;">Domain Knowledge</strong >) 的重要性</div></div><div class="focus-details-container"><div class="details-header">專業背景</div><div class="details-content"><span style="background-color:#ffff0030">深入理解應用領域的知識對於數據準備（尤其是特徵工程）和模型選擇至關重要</span>。領域知識有助於<span style="background-color:#ffff0030">判斷數據的意義、識別關鍵特徵、選擇合適的模型假設</span>。</div></div></div>
+            <div class="focus-card" data-category="6" data-stars="2"><div class="focus-header"><div class="focus-id">#42</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic">避免<strong style="color: #0000FF;">數據洩漏</strong > (<strong style="color: #FF0000;">Data Leakage</strong >)</div></div><div class="focus-details-container"><div class="details-header">評估陷阱</div><div class="details-content"><span style="background-color:#ffff0030">指在模型訓練過程中無意中引入了測試集或未來數據的資訊</span>，導致模型性能被高估。例如，在劃分數據集之前進行了基於整體數據的標準化或特徵選擇。</div></div></div>
+            <div class="focus-card" data-category="8" data-stars="3"><div class="focus-header"><div class="focus-id">#43</div><div class="focus-importance">★★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">學習曲線</strong > (<strong style="color: #FF0000;">Learning Curves</strong >)</div></div><div class="focus-details-container"><div class="details-header">診斷工具</div><div class="details-content"><span style="background-color:#ffff0030">繪製模型在訓練集和驗證集上的性能（如誤差或準確率）隨訓練樣本數量變化的曲線</span>。學習曲線可以幫助<span style="background-color:#ffff0030">診斷模型是否存在高偏差（欠擬合）或高方差（過擬合）</span>問題。<br><img src="image/learning-curve.webp" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="1" data-stars="1"><div class="focus-header"><div class="focus-id">#44</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">ETL</strong > 流程 (<strong style="color: #FF0000;">Extract, Transform, Load</strong >)</div></div><div class="focus-details-container"><div class="details-header">數據整合</div><div class="details-content">指從<span style="background-color:#ffff0030">多個數據源提取 (Extract) 數據，進行清洗和轉換 (Transform)，然後載入 (Load) 到目標數據倉庫或數據湖</span>的過程。是構建數據基礎設施和準備分析數據的常用流程。<br><img src="image/ETL.jpg" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="5" data-stars="1"><div class="focus-header"><div class="focus-id">#45</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵哈希</strong > (<strong style="color: #FF0000;">Feature Hashing</strong >)</div></div><div class="focus-details-container"><div class="details-header">高維類別處理</div><div class="details-content">一種<span style="background-color:#ffff0030">處理高基數（類別數量極多）類別特徵</span>的技術，通過<span style="background-color:#ffff0030">哈希函數將類別映射到一個固定維度的向量</span>，避免了 One-Hot 編碼的維度爆炸問題，但可能<span style="background-color:#ffff0030">產生哈希碰撞。</span><br><img src="image/Feature Hashing.png" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="7" data-stars="1"><div class="focus-header"><div class="focus-id">#46</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">強化學習</strong > (<strong style="color: #800080;">RL</strong > - <strong style="color: #FF0000;">Reinforcement Learning</strong >)</div></div><div class="focus-details-container"><div class="details-header">不同學習範式</div><div class="details-content">雖然本單元主要關注監督和非監督學習的模型選擇，但了解強化學習是 AI 的另一重要分支。RL 讓<span style="background-color:#ffff0030">智能體 (Agent) 在與環境互動中學習</span>，通過<span style="background-color:#ffff0030">最大化累積獎勵 (Reward)</span> 來優化其<span style="background-color:#ffff0030">策略 (Policy)</span>。適用於遊戲、機器人控制等順序決策問題。<br><img src="image/Reinforcement Learning.jpg" class= "responsive-img"</div></div></div>
+            <div class="focus-card" data-category="8" data-stars="2"><div class="focus-header"><div class="focus-id">#47</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">模型選擇的陷阱</strong >：在測試集上調優</div></div><div class="focus-details-container"><div class="details-header">常見錯誤</div><div class="details-content"><span style="background-color:#ffff0030">絕對不能使用測試集來進行模型選擇或超參數調優</span>。這樣做會導致模型對測試集過擬合，使得<span style="background-color:#ffff0030">最終報告的模型性能評估過於樂觀</span>，無法反映模型在真實未見數據上的表現。<span style="background-color:#ffff0030">應使用獨立的驗證集或交叉驗證</span>。</div></div></div>
+            <div class="focus-card" data-category="2" data-stars="2"><div class="focus-header"><div class="focus-id">#48</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據審計</strong > (<strong style="color: #FF0000;">Data Auditing</strong >)</div></div><div class="focus-details-container"><div class="details-header">數據治理</div><div class="details-content">對<span style="background-color:#ffff0030">數據收集、處理、儲存和使用的流程進行審查</span>，以確保其<span style="background-color:#ffff0030">符合內部政策、法規要求和品質標準</span>。</div></div></div>
+            <div class="focus-card" data-category="4" data-stars="1"><div class="focus-header"><div class="focus-id">#49</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據漂移</strong > (<strong style="color: #FF0000;">Data Drift</strong >)</div></div><div class="focus-details-container"><div class="details-header">數據變化</div><div class="details-content">指<span style="background-color:#ffff0030">生產環境中的數據統計特性隨時間發生變化</span>，與訓練數據產生差異。這是導致<span style="background-color:#ffff0030">模型漂移 (Model Drift)</span> 的主要原因之一。需要監控數據漂移並觸發模型重新訓練。<br><img src="image/Data Drift.png" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="5" data-stars="2"><div class="focus-header"><div class="focus-id">#50</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵重要性</strong > (<strong style="color: #FF0000;">Feature Importance</strong >)</div></div><div class="focus-details-container"><div class="details-header">特徵理解</div><div class="details-content">評估<span style="background-color:#ffff0030">不同特徵對模型預測結果的貢獻程度</span>。有助於<span style="background-color:#ffff0030">特徵選擇、模型解釋和理解業務驅動因素</span>。可通過模型內建屬性（如樹模型的 feature_importances_）或 SHAP, LIME 等方法獲得。</div></div></div>
+            <div class="focus-card" data-category="6" data-stars="1"><div class="focus-header"><div class="focus-id">#51</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">無免費午餐定理</strong > (<strong style="color: #FF0000;">No Free Lunch Theorem</strong >)</div></div><div class="focus-details-container"><div class="details-header">模型選擇理論</div><div class="details-content">該定理指出，<span style="background-color:#ffff0030">沒有任何一種機器學習演算法能在所有可能的數據集和問題上都表現最佳</span>。因此，<span style="background-color:#ffff0030">模型選擇需要根據具體問題和數據進行實驗和評估</span>。</div></div></div>
+            <div class="focus-card" data-category="8" data-stars="2"><div class="focus-header"><div class="focus-id">#52</div><div class="focus-importance">★★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #800080;">ROC</strong > 曲線與 <strong style="color: #800080;">AUC</strong ></div></div><div class="focus-details-container"><div class="details-header">分類評估</div><div class="details-content"><strong style="color: #800080;">ROC</strong > (<strong style="color: #FF0000;">Receiver Operating Characteristic</strong >) 曲線以<span style="background-color:#ffff0030">偽陽性率 (FPR) 為橫軸，真陽性率 (TPR, Recall) 為縱軸</span>，繪製不同分類閾值下的點。曲線下面積 <strong style="color: #800080;">AUC</strong > (<strong style="color: #FF0000;">Area Under the Curve</strong >) 是<span style="background-color:#ffff0030">衡量模型整體分類性能的常用指標</span>，值越接近 1 越好。<br><img src="image/ROC.webp" class="responsive-img">  </div></div></div>
+            <div class="focus-card" data-category="1" data-stars="1"><div class="focus-header"><div class="focus-id">#53</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">元數據管理</strong > (<strong style="color: #FF0000;">Metadata Management</strong >)</div></div><div class="focus-details-container"><div class="details-header">數據描述</div><div class="details-content">管理<span style="background-color:#ffff0030">描述數據的數據</span>（元數據），例如數據來源、定義、格式、品質規則、血緣關係等。良好的元數據管理有助於<span style="background-color:#ffff0030">數據的發現、理解和治理</span>。</div></div></div>
+            <div class="focus-card" data-category="3" data-stars="1"><div class="focus-header"><div class="focus-id">#54</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據脫敏</strong > (<strong style="color: #FF0000;">Data Masking/Anonymization</strong >)</div></div><div class="focus-details-container"><div class="details-header">隱私保護</div><div class="details-content">對<span style="background-color:#ffff0030">數據中的敏感資訊（如姓名、身分證號）進行替換、遮蔽或加密</span>處理，以<span style="background-color:#ffff0030">保護個人隱私</span>，同時盡量保留數據的可用性。</div></div></div>
+            <div class="focus-card" data-category="5" data-stars="1"><div class="focus-header"><div class="focus-id">#55</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">特徵交叉</strong > (<strong style="color: #FF0000;">Feature Crossing</strong >)</div></div><div class="focus-details-container"><div class="details-header">創建交互特徵</div><div class="details-content">通過<span style="background-color:#ffff0030">組合（通常是相乘或笛卡爾積）兩個或多個原始特徵來創建新的特徵</span>，以<span style="background-color:#ffff0030">捕捉特徵之間的非線性交互作用</span>。常用於線性模型或淺層模型。<br><img src="image/Feature Crossing.png" class="responsive-img">  </div></div></div>
+            <div class="focus-card" data-category="7" data-stars="1"><div class="focus-header"><div class="focus-id">#56</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">樸素貝葉斯</strong > (<strong style="color: #FF0000;">Naive Bayes</strong >)</div></div><div class="focus-details-container"><div class="details-header">機率分類器</div><div class="details-content">基於<span style="background-color:#ffff0030">貝葉斯定理</span>和<span style="background-color:#ffff0030">特徵條件獨立假設</span>的分類演算法。簡單、快速，<span style="background-color:#ffff0030">尤其在文本分類任務中表現良好</span>。<img src="image/Naive Bayes.webp" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="8" data-stars="1"><div class="focus-header"><div class="focus-id">#57</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">自助法</strong > (<strong style="color: #FF0000;">Bootstrap</strong >)</div></div><div class="focus-details-container"><div class="details-header">重採樣技術</div><div class="details-content">一種<span style="background-color:#ffff0030">從原始數據集中有放回地重複抽樣</span>，以<span style="background-color:#ffff0030">生成多個模擬樣本集</span>的技術。常用於<span style="background-color:#ffff0030">估計統計量的穩定性（如標準誤、信賴區間）和 Bagging 等集成學習方法</span>中。<img src="image/bootstrap.png" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="4" data-stars="1"><div class="focus-header"><div class="focus-id">#58</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">數據增強</strong > (<strong style="color: #FF0000;">Data Augmentation</strong >)</div></div><div class="focus-details-container"><div class="details-header">擴充數據</div><div class="details-content">在數據準備階段，通過對現有數據（尤其是圖像、文本）<span style="background-color:#ffff0030">進行微小的、合理的變換來人工生成更多樣化的訓練樣本</span>，以<span style="background-color:#ffff0030">擴充數據集、提高模型泛化能力、減少過擬合</span>。<img src="image/Data Augmentation.png" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="6" data-stars="1"><div class="focus-header"><div class="focus-id">#59</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">自動機器學習</strong > (<strong style="color: #800080;">AutoML</strong >)</div></div><div class="focus-details-container"><div class="details-header">自動化流程</div><div class="details-content">旨在<span style="background-color:#ffff0030">自動化機器學習流程中的部分或全部環節</span>，包括數據預處理、特徵工程、模型選擇和超參數調優。可以<span style="background-color:#ffff0030">降低 AI 應用的門檻，提高開發效率</span>。<img src="image/AutoML.png" class="responsive-img"></div></div></div>
+            <div class="focus-card" data-category="8" data-stars="1"><div class="focus-header"><div class="focus-id">#60</div><div class="focus-importance">★</div></div><div class="focus-topic-container"><div class="focus-topic"><strong style="color: #0000FF;">A/B 測試</strong >在模型選擇中的應用</div></div><div class="focus-details-container"><div class="details-header">線上評估</div><div class="details-content">在模型選擇的最後階段，可以將<span style="background-color:#ffff0030">表現最好的幾個候選模型部署到線上進行 A/B 測試</span>，<span style="background-color:#ffff0030">直接比較它們在真實用戶流量下的實際業務指標</span>（如點擊率、轉換率），作為最終模型選擇的依據。<img src="image/AB testing.png" class="responsive-img"></div></div></div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

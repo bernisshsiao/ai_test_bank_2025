@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 考試重點整理 - L11401 鑑別式AI與生成式AI的基本原理</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+         /* Chinese Terminology: Blue bold */
+        .chinese-term { color: #0000FF; font-weight: bold; }
+        /* English Abbreviation: Purple bold */
+        .english-abbr { color: #800080; font-weight: bold; }
+        /* English Full Name: Red bold */
+        .english-fullname { color: #FF0000; font-weight: bold; }
+        /* Keyword Highlighting: Light yellow background */
+        .highlight { background-color: #ffff0030; }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 考試重點</h1>
+            <div>L11401 鑑別式AI與生成式AI的基本原理</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">基本定義與目標</option>
+                    <option value="2">核心原理與機制</option>
+                    <option value="3">主要差異比較</option>
+                    <option value="4">輸入與輸出特性</option>
+                    <option value="5">常見模型類型(概觀)</option>
+                    <option value="6">典型應用場景</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">基本定義與目標</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">核心原理與機制</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">主要差異比較</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">輸入與輸出特性</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">常見模型類型(概觀)</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">典型應用場景</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">鑑別式AI</span> (<span class="english-fullname">Discriminative AI</span>) 的<span class="chinese-term">基本定義與目標</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="chinese-term">鑑別式AI</span> 主要<span class="highlight">學習數據之間的<span class="chinese-term">決策邊界</span>或<span class="chinese-term">條件機率</span> P(Y|X)</span>。其目標是<span class="highlight">根據輸入特徵 (X) 來預測或分類輸出標籤 (Y)</span>。簡單來說，它專注於<span class="highlight">「區分」不同類別</span>或<span class="highlight">「預測」某個數值</span>。(<span class="highlight">課程規劃書 L114</span>)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">生成式AI</span> (<span class="english-fullname">Generative AI</span>) 的<span class="chinese-term">基本定義與目標</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="chinese-term">生成式AI</span> 主要<span class="highlight">學習數據的<span class="chinese-term">潛在分佈</span>或<span class="chinese-term">聯合機率</span> P(X,Y)</span>。其目標是<span class="highlight">理解數據是如何生成的，並能夠<span class="chinese-term">創造出新的、與原始數據相似但又不同的數據</span></span>。它專注於<span class="highlight">「生成」新的內容</span>。(<span class="highlight">公部門手冊 P6; 課程規劃書 L114</span>)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">鑑別式AI</span> 的<span class="chinese-term">核心原理</span>：<span class="chinese-term">學習決策邊界</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="chinese-term">鑑別式模型</span><span class="highlight">直接學習如何區分不同類別的數據</span>。它們在特徵空間中<span class="highlight">尋找一個「邊界」</span>，能最好地將不同類別的樣本分開。例如，<span class="highlight">支持向量機</span> (<span class="english-abbr">SVM</span>) 就是尋找最大邊界超平面。它<span class="highlight">不關心數據本身的生成過程</span>，只關心如何劃分。(<span class="highlight">課程規劃書 L114</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">生成式AI</span> 的<span class="chinese-term">核心原理</span>：<span class="chinese-term">學習數據分佈</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="chinese-term">生成式模型</span>試圖<span class="highlight">理解訓練數據的內在結構和機率分佈</span>。透過學習這個分佈，模型能夠<span class="highlight">生成新的樣本</span>，這些樣本看起來像是從原始數據分佈中抽取出來的。例如，<span class="highlight">生成對抗網路</span> (<span class="english-abbr">GAN</span>) 就包含一個生成器來學習數據分佈並生成新樣本。(<span class="highlight">課程規劃書 L114</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">主要差異</span>：<span class="chinese-term">目標任務</span>不同
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="highlight">最根本的差異在於它們解決的問題類型</span>：
+                        <ul>
+                            <li><span class="chinese-term">鑑別式AI</span>：<span class="highlight">回答「這是什麼？」</span>的問題（分類、預測）。</li>
+                            <li><span class="chinese-term">生成式AI</span>：<span class="highlight">回答「創造一個像這樣的東西」</span>的問題（生成新內容）。</li>
+                        </ul>
+                        (<span class="highlight">製造業指引 P10-11; 課程規劃書 L114</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 6 -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">主要差異</span>：<span class="chinese-term">學習的機率模型</span>不同
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-term">鑑別式AI</span>：<span class="highlight">學習條件機率 P(Y|X)</span>，即給定輸入X，輸出Y的機率。</li>
+                            <li><span class="chinese-term">生成式AI</span>：<span class="highlight">學習聯合機率 P(X,Y) 或邊緣機率 P(X)</span>，即數據X和標籤Y共同出現的機率，或數據X本身出現的機率。</li>
+                        </ul>
+                        這個差異決定了它們的能力和應用方向。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 7 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">鑑別式AI</span> 的<span class="chinese-term">輸入</span>與<span class="chinese-term">輸出</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="chinese-term">鑑別式AI</span> 的<span class="highlight">輸入通常是需要被分類或預測的數據</span>（如圖像、文本、結構化數據特徵），<span class="highlight">輸出則是該數據對應的類別標籤</span>（如「貓」、「狗」、「垃圾郵件」）或<span class="highlight">一個連續的數值</span>（如房價、溫度）。<span class="highlight">輸出空間通常是有限的或預先定義的</span>。(<span class="highlight">製造業指引 P10-11</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 8 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">生成式AI</span> 的<span class="chinese-term">輸入</span>與<span class="chinese-term">輸出</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="chinese-term">生成式AI</span> 的<span class="highlight">輸入通常是<span class="chinese-term">提示</span> (<span class="english-abbr">Prompt</span>) 或<span class="chinese-term">條件</span></span>（例如文本描述、隨機種子、風格指令），<span class="highlight">輸出則是全新的、生成的內容</span>（如文章、圖像、音樂、程式碼）。<span class="highlight">輸出空間非常廣闊且多樣化</span>。(<span class="highlight">公部門手冊 P6; 製造業指引 P10-11</span>)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 9 -->
+            <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#9</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        常見的<span class="chinese-term">鑑別式模型</span>類型 (概觀)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        一些基礎且常見的鑑別式模型包括：
+                        <ul>
+                           <li><span class="highlight"><span class="chinese-term">邏輯迴歸</span> (<span class="english-fullname">Logistic Regression</span>)</span></li>
+                           <li><span class="highlight"><span class="chinese-term">支持向量機</span> (<span class="english-abbr">SVM</span> - <span class="english-fullname">Support Vector Machine</span>)</span></li>
+                           <li><span class="highlight"><span class="chinese-term">決策樹</span> (<span class="english-fullname">Decision Tree</span>)</span></li>
+                           <li><span class="highlight"><span class="chinese-term">隨機森林</span> (<span class="english-fullname">Random Forest</span>)</span></li>
+                           <li><span class="highlight">傳統的<span class="chinese-term">神經網路</span>用於分類任務</span></li>
+                        </ul>
+                        (初級僅需了解其屬於鑑別式)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 10 -->
+             <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#10</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        常見的<span class="chinese-term">生成式模型</span>類型 (概觀)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                         一些驅動現代<span class="english-abbr">GenAI</span>的關鍵模型類型包括：
+                        <ul>
+                           <li><span class="highlight"><span class="chinese-term">生成對抗網路</span> (<span class="english-abbr">GAN</span> - <span class="english-fullname">Generative Adversarial Network</span>)</span></li>
+                           <li><span class="highlight"><span class="chinese-term">變分自動編碼器</span> (<span class="english-abbr">VAE</span> - <span class="english-fullname">Variational Autoencoder</span>)</span></li>
+                           <li><span class="highlight"><span class="chinese-term">轉換器模型</span> (<span class="english-fullname">Transformer</span>)，尤其是大型語言模型 (<span class="english-abbr">LLM</span>) 的基礎</span></li>
+                           <li><span class="highlight"><span class="chinese-term">擴散模型</span> (<span class="english-fullname">Diffusion Model</span>)，常用於圖像生成</span></li>
+                        </ul>
+                         (初級僅需了解其屬於生成式) (<span class="highlight">課程規劃書 L114</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 11 -->
+             <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#11</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">鑑別式AI</span> 的<span class="chinese-term">典型應用</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       <span class="chinese-term">鑑別式AI</span>廣泛應用於：
+                        <ul>
+                           <li><span class="highlight"><span class="chinese-term">垃圾郵件偵測</span></span></li>
+                           <li><span class="highlight"><span class="chinese-term">圖像分類</span>（判斷圖像是貓還是狗）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">情感分析</span>（判斷文本是正面還是負面情緒）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">信用風險評估</span>（預測客戶是否會違約）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">醫療診斷輔助</span>（根據症狀或影像判斷疾病）</span></li>
+                        </ul>
+                        (<span class="highlight">製造業指引 P10</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 12 -->
+             <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#12</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">生成式AI</span> 的<span class="chinese-term">典型應用</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       <span class="chinese-term">生成式AI</span>的應用場景包括：
+                        <ul>
+                           <li><span class="highlight"><span class="chinese-term">內容創作</span>（文本、圖像、音樂、程式碼）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">對話式AI</span>（聊天機器人、虛擬助理）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">資料增強</span>（生成合成數據）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">藥物發現</span>（生成新的分子結構）</span></li>
+                           <li><span class="highlight"><span class="chinese-term">藝術與設計</span></span></li>
+                        </ul>
+                         (<span class="highlight">公部門手冊 P8; 製造業指引 P10; 課程規劃書 L122</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 13 -->
+             <div class="focus-card" data-category="3" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#13</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">關係</span>：<span class="chinese-term">生成式模型</span>是否能用於<span class="chinese-term">鑑別任務</span>？
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       理論上，<span class="highlight">學習了聯合機率 P(X,Y) 的<span class="chinese-term">生成式模型</span>可以透過貝氏定理推導出條件機率 P(Y|X)</span>，從而執行分類等<span class="chinese-term">鑑別任務</span>。然而，<span class="highlight">實務上，直接學習 P(Y|X) 的<span class="chinese-term">鑑別式模型</span>在<span class="chinese-term">鑑別任務</span>上通常表現更好、更有效率</span>。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 14 -->
+            <div class="focus-card" data-category="3" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#14</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       <span class="chinese-term">關係</span>：<span class="chinese-term">鑑別式模型</span>是否能用於<span class="chinese-term">生成任務</span>？
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       <span class="highlight">一般來說，<span class="chinese-term">鑑別式模型</span>無法直接用於生成新的數據</span>。因為它們學習的是類別間的邊界，而<span class="highlight">沒有學習數據本身的潛在分佈</span>，所以不知道如何從無到有地創造出新的、符合該分佈的數據樣本。
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

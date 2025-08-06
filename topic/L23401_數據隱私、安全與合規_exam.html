@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 經典題庫 - L23401 數據隱私、安全與合規</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif; /* More specific font */
+            background: #f5f5f5;
+            /* Changed default text color to pure black */
+            color: #000;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 1.8rem;
+            color: #2c3e50; /* Header color kept for contrast */
+        }
+        .header-container {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+        }
+        /* 出題方向區塊樣式 */
+        .directions-container {
+            background-color: #fffbeb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f1c40f;
+            border-radius: 5px;
+        }
+        .directions-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50; /* Header color kept for contrast */
+        }
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .direction-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .direction-item:hover {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .direction-number {
+            width: 25px;
+            height: 25px;
+            background-color: #f1c40f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .direction-item:hover .direction-number {
+            background-color: white;
+            color: #f1c40f;
+        }
+        /* 問題卡片樣式 */
+        .questions-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .question-card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-id {
+            font-weight: bold;
+            color: #3498db; /* Kept for visual distinction */
+        }
+        .question-frequency {
+            color: #e74c3c; /* Kept for visual distinction */
+            font-weight: bold;
+        }
+        .question-content {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .option-item {
+            display: flex;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option-item:hover {
+            background-color: #e9ecef;
+        }
+        .option-item.correct {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+        .option-item.correct:hover {
+            background-color: #c3e6cb;
+        }
+        .option-label {
+            width: 25px;
+            height: 25px;
+            background-color: #3498db; /* Kept for visual distinction */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .option-item.correct .option-label {
+            background-color: #28a745; /* Kept for visual distinction */
+        }
+        .explanation-container {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: block; /* Initially shown */
+        }
+        .explanation-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50; /* Header color kept for contrast */
+        }
+        .explanation-content {
+            line-height: 1.6;
+        }
+        /* 控制區塊樣式 */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Add gap for better spacing */
+        }
+        .filter-container, .search-container, .star-filter-container { /* Added star filter container */
+            margin-bottom: 10px;
+            display: flex; /* Align items nicely */
+            align-items: center; /* Vertically align */
+        }
+        .filter-label, .search-label, .star-filter-label { /* Added star filter label */
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap; /* Prevent label wrapping */
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1; /* Allow input/select to grow */
+            min-width: 150px; /* Ensure minimum width */
+        }
+         input[type="text"] {
+            flex-grow: 2; /* Allow search input to be wider */
+         }
+        button {
+            padding: 8px 15px;
+            background-color: #3498db; /* Kept for visual distinction */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s;
+            margin-left: 5px; /* Add margin for buttons */
+        }
+        button:hover {
+            background-color: #2980b9; /* Kept for visual distinction */
+        }
+        /* RWD調整 */
+        @media (max-width: 992px) { /* Adjust breakpoint */
+             .controls {
+                flex-direction: column;
+                align-items: stretch; /* Make items full width */
+            }
+            .filter-container, .search-container, .star-filter-container {
+                width: 100%;
+            }
+             select, input[type="text"] {
+                 width: auto; /* Reset width */
+                 flex-grow: 1; /* Allow growth */
+             }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* 顯示/隱藏解析的按鈕 */
+        .toggle-explanations {
+            margin-bottom: 10px; /* Adjusted margin */
+            display: flex; /* Align button */
+            align-items: center; /* Vertically align */
+        }
+        /* 返回頂部按鈕 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db; /* Kept for visual distinction */
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+        }
+        .back-to-top:hover {
+            background-color: #2980b9; /* Kept for visual distinction */
+            opacity: 1;
+        }
+        /* 進度指示器 */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db; /* Kept for visual distinction */
+            width: 0%;
+        }
+        /* No results message styling */
+        #noResultsMessage {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            display: none; /* Hidden by default */
+        }
+
+        /* Added styles for terminology and highlighting */
+        .term-zh {
+            color: blue;
+            font-weight: bold;
+        }
+        .term-en-abbr {
+            color: purple;
+            font-weight: bold;
+        }
+        .term-en-full {
+            color: red;
+            font-weight: bold;
+        }
+        .highlight-keyword {
+            background-color: #ffff0030; /* Light yellow background */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 經典題庫</h1>
+            <div>L23401 數據隱私、安全與合規</div>
+        </div>
+
+        <!-- Controls and Directions sections remain unchanged -->
+        <div class="controls">
+            <div class="filter-container">
+                <label for="directionFilter" class="filter-label">篩選出題方向：</label>
+                <select id="directionFilter">
+                    <option value="all">全部方向</option>
+                    <option value="1">數據隱私基本概念與法規</option>
+                    <option value="2">數據安全基礎與技術</option>
+                    <option value="3">AI/ML 中的隱私保護技術</option>
+                    <option value="4">數據生命週期管理與安全</option>
+                    <option value="5">AI倫理與偏見</option>
+                    <option value="6">數據治理與合規性</option>
+                    <option value="7">常見的數據安全威脅與防禦</option>
+                    <option value="8">雲端數據安全與合規</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>            <div class="toggle-explanations">
+                <button id="toggleExplanations">隱藏全部解析</button>
+                <button id="toggleAnswers">隱藏全部解答</button>
+            </div>
+        </div>
+
+        <div class="directions-container">
+            <div class="directions-title">出題方向</div>
+            <div class="directions-grid" id="directionsGrid">
+                <div class="direction-item" onclick="filterByDirection(1)">
+                    <div class="direction-number">1</div>
+                    <div class="direction-text">數據隱私基本概念與法規</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(2)">
+                    <div class="direction-number">2</div>
+                    <div class="direction-text">數據安全基礎與技術</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(3)">
+                    <div class="direction-number">3</div>
+                    <div class="direction-text">AI/ML 中的隱私保護技術</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(4)">
+                    <div class="direction-number">4</div>
+                    <div class="direction-text">數據生命週期管理與安全</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(5)">
+                    <div class="direction-number">5</div>
+                    <div class="direction-text">AI倫理與偏見</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(6)">
+                    <div class="direction-number">6</div>
+                    <div class="direction-text">數據治理與合規性</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(7)">
+                    <div class="direction-number">7</div>
+                    <div class="direction-text">常見的數據安全威脅與防禦</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(8)">
+                    <div class="direction-number">8</div>
+                    <div class="direction-text">雲端數據安全與合規</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <!-- Question 1 -->
+            <div class="question-card" data-direction="1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">歐盟的《<span class="term-zh">一般資料保護規範</span>》（<span class="term-en-full">General Data Protection Regulation</span>, <span class="term-en-abbr">GDPR</span>）中，對於「<span class="term-zh">個人資料</span>」（<span class="term-en-full">Personal Data</span>）的定義，下列何者最為精確？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">僅指個人的姓名和地址</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">任何與已識別或可識別之自然人相關的資訊</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">僅指個人的敏感資訊，如健康狀況或宗教信仰</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">僅指個人在網路上公開發表的資訊</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">GDPR</span> 對<span class="term-zh">個人資料</span>的定義<span class="highlight-keyword">非常廣泛</span>，涵蓋任何可以直接或間接識別特定個人的資訊，例如姓名、身分證號碼、位置數據、<span class="highlight-keyword">線上識別碼</span>（如 <span class="term-en-abbr">IP</span> 位址、<span class="term-en-full">Cookie ID</span>），甚至包括個人的生理、遺傳、心理、經濟、文化或社會身份的特定因素。選項A和C僅涵蓋部分個人資料，選項D則忽略了非公開資訊。</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">資訊安全</span>的三大基本要素（<span class="highlight-keyword"><span class="term-en-abbr">CIA Triad</span></span>）<span class="highlight-keyword">不包含</span>下列哪一項？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">機密性</span> (<span class="term-en-full">Confidentiality</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-zh">完整性</span> (<span class="term-en-full">Integrity</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">可用性</span> (<span class="term-en-full">Availability</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">不可否認性</span> (<span class="term-en-full">Non-repudiation</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">資訊安全</span>的 <span class="term-en-abbr">CIA</span> 三要素是指：<span class="highlight-keyword">機密性</span>（確保資訊僅被授權者存取）、<span class="highlight-keyword">完整性</span>（確保資訊在儲存或傳輸過程中不被未授權修改）和<span class="highlight-keyword">可用性</span>（確保資訊和系統在需要時可被授權者使用）。<span class="term-zh">不可否認性</span>（確保行為的發起者無法否認其行為）雖然也是<span class="term-zh">資訊安全</span>的重要概念，但通常不被列為核心的 <span class="term-en-abbr">CIA</span> 三要素之一，有時會與<span class="term-zh">問責性</span> (<span class="term-en-full">Accountability</span>) 等一起被視為延伸要素。</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一種技術旨在允許在<span class="highlight-keyword">加密數據</span>上直接進行計算，而無需先解密，從而保護數據<span class="term-zh">隱私</span>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">差分隱私</span> (<span class="term-en-full">Differential Privacy</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">同態加密</span> (<span class="term-en-full">Homomorphic Encryption</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">聯邦學習</span> (<span class="term-en-full">Federated Learning</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-zh">數據遮罩</span> (<span class="term-en-full">Data Masking</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight-keyword">同態加密</span>是一種特殊的加密技術，允許第三方在不知道原始數據內容的情況下，對<span class="highlight-keyword">加密後的數據進行計算處理</span>（如加法、乘法），其計算結果解密後與直接在原始數據上計算的結果相同。這使得數據可以在不犧牲<span class="term-zh">隱私</span>的情況下被外包處理。<span class="term-zh">差分隱私</span>是在數據分析結果中加入噪音以保護個體<span class="term-zh">隱私</span>。<span class="term-zh">聯邦學習</span>是將模型訓練分散到數據所在的本地端。<span class="term-zh">數據遮罩</span>是用虛假但看起來真實的數據替換敏感數據。</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" data-direction="4" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在<span class="term-zh">數據生命週期</span>的哪個階段，最需要關注數據的「<span class="term-zh">最小化收集</span>」原則？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="highlight-keyword">數據收集</span> (<span class="term-en-full">Collection</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">數據儲存 (<span class="term-en-full">Storage</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">數據使用 (<span class="term-en-full">Usage</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">數據銷毀 (<span class="term-en-full">Destruction</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight-keyword">數據最小化原則</span> (<span class="term-en-full">Data Minimization</span>) 是許多隱私法規（如 <span class="term-en-abbr">GDPR</span>）的核心要求，意指組織應<span class="highlight-keyword">僅收集</span>為達成特定、明確且合法目的所<span class="highlight-keyword">必需</span>的個人資料。這個原則主要應用在<span class="term-zh">數據生命週期</span>的<span class="highlight-keyword">起始點</span>，即<span class="highlight-keyword">數據收集階段</span>，以從源頭限制所持有的個人資料量，從而降低後續的<span class="term-zh">隱私</span>風險。其他階段雖然也需考慮合規性，但最小化原則的重點在於收集行為本身。</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card" data-direction="5" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#5</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在<span class="term-zh">人工智慧</span> (<span class="term-en-abbr">AI</span>) 應用中，由於訓練數據中存在的歷史偏見或不平衡，導致模型對某些群體產生<span class="highlight-keyword">不公平</span>或<span class="highlight-keyword">歧視性</span>結果的現象，稱為什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">模型漂移 (<span class="term-en-full">Model Drift</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-zh">過度擬合</span> (<span class="term-en-full">Overfitting</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="highlight-keyword">演算法偏見</span> (<span class="term-en-full">Algorithmic Bias</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">對抗性攻擊 (<span class="term-en-full">Adversarial Attack</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight-keyword">演算法偏見</span>是指 <span class="term-en-abbr">AI</span> 系統性地產生對特定人口群體<span class="highlight-keyword">不公平</span>的結果。這種偏見可能源於<span class="highlight-keyword">訓練數據本身的偏差</span>（如歷史社會偏見、數據抽樣不均）、模型設計的缺陷或演算法的目標函數設定不當。模型漂移是指模型性能隨時間推移因數據分佈變化而下降。<span class="term-zh">過度擬合</span>是指模型過度學習訓練數據的細節和噪音，導致在新數據上表現不佳。對抗性攻擊是故意輸入惡意數據以欺騙模型。</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列何者是實施<span class="term-zh">數據治理</span> (<span class="term-en-full">Data Governance</span>) 的主要目的？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">最大化數據收集量</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">僅僅為了符合法規要求</div>
+                    </div>
+                    <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">確保數據的<span class="highlight-keyword">品質</span>、<span class="highlight-keyword">安全</span>、<span class="highlight-keyword">合規性</span>，並提升其作為組織<span class="highlight-keyword">資產的價值</span></div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">將所有數據儲存在單一的中央數據庫</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據治理</span>是一個涵蓋數據<span class="highlight-keyword">政策</span>、<span class="highlight-keyword">標準</span>、<span class="highlight-keyword">流程</span>、<span class="highlight-keyword">角色</span>和<span class="highlight-keyword">控制</span>的框架，旨在有效管理組織的數據資產。其目標是多方面的，包括確保數據的準確性、一致性和完整性（<span class="highlight-keyword">品質</span>），保護數據免受未授權訪問和濫用（<span class="highlight-keyword">安全</span>），滿足法律和法規要求（<span class="highlight-keyword">合規性</span>），並最終使數據能夠被有效地利用以支持業務決策和<span class="highlight-keyword">創造價值</span>。選項A與<span class="term-zh">數據最小化</span>原則相悖。選項B過於狹隘，合規只是治理的一部分。選項D是一種儲存策略，而非治理目標。</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card" data-direction="7" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#7</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">駭客發送大量看似合法的請求，<span class="highlight-keyword">癱瘓目標伺服器</span>或網路資源，使其無法為正常使用者提供服務的攻擊手法，稱為什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">網路釣魚</span> (<span class="term-en-full">Phishing</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-zh">勒索軟體</span> (<span class="term-en-full">Ransomware</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="highlight-keyword">阻斷服務攻擊</span> (<span class="term-en-full">Denial of Service</span>, <span class="term-en-abbr">DoS</span>) 或 <span class="highlight-keyword">分散式阻斷服務攻擊</span> (<span class="term-en-full">Distributed Denial of Service</span>, <span class="term-en-abbr">DDoS</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-zh">中間人攻擊</span> (<span class="term-en-full">Man-in-the-Middle</span>, <span class="term-en-abbr">MitM</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">阻斷服務</span> (<span class="term-en-abbr">DoS</span>) 攻擊旨在<span class="highlight-keyword">消耗目標系統的資源</span>（如頻寬、處理能力、記憶體），使其無法回應合法請求。<span class="term-zh">分散式阻斷服務</span> (<span class="term-en-abbr">DDoS</span>) 攻擊則是利用<span class="highlight-keyword">大量受感染的電腦</span>（<span class="term-zh">殭屍網路</span>）同時發動攻擊，規模更大，更難防禦。<span class="term-zh">網路釣魚</span>是誘騙使用者洩露敏感資訊。<span class="term-zh">勒索軟體</span>是加密受害者檔案並要求贖金。<span class="term-zh">中間人攻擊</span>是竊聽或篡改雙方之間的通訊。</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card" data-direction="8" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#8</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在公有雲環境中（如 <span class="term-en-abbr">AWS</span>, <span class="term-en-abbr">Azure</span>, <span class="term-en-abbr">GCP</span>），客戶與<span class="term-zh">雲端服務供應商</span>之間的安全責任劃分模型通常被稱為什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">零信任模型</span> (<span class="term-en-full">Zero Trust Model</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">責任共擔模型</span> (<span class="term-en-full">Shared Responsibility Model</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">分層防禦模型 (<span class="term-en-full">Defense in Depth Model</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">客戶全責模型 (<span class="term-en-full">Customer Full Responsibility Model</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight-keyword">責任共擔模型</span>是雲端安全的基本概念。它明確指出<span class="highlight-keyword">雲端服務供應商</span> (<span class="term-en-abbr">CSP</span>) 負責「<span class="highlight-keyword">雲本身</span>」的安全（如基礎設施、硬體、網路），而<span class="highlight-keyword">客戶</span>則負責「<span class="highlight-keyword">在雲中</span>」的安全（如數據、應用程式、作業系統配置、身份和存取管理）。具體的責任劃分會因服務模式 (<span class="term-en-abbr">IaaS</span>, <span class="term-en-abbr">PaaS</span>, <span class="term-en-abbr">SaaS</span>) 而異。<span class="term-zh">零信任</span>是一種安全策略，要求對所有訪問請求進行驗證。<span class="term-zh">分層防禦</span>是部署多層安全控制。客戶全責模型不適用於公有雲。</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">根據台灣的《<span class="term-zh">個人資料保護法</span>》，當企業收集個人資料時，必須履行的<span class="highlight-keyword">告知義務不包含</span>下列何者？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">機關名稱</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">蒐集之目的</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">個人資料之類別</div>
+                    </div>
+                    <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">預計處理該資料的演算法細節</span></div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">台灣《<span class="term-zh">個人資料保護法</span>》第8條規定了<span class="highlight-keyword">告知義務</span>的內容，主要包括：(1) 公務機關或非公務機關名稱；(2) 蒐集之目的；(3) 個人資料之類別；(4) 個人資料利用之期間、地區、對象及方式；(5) 當事人依第三條規定得行使之權利及方式；(6) 當事人得自由選擇提供個人資料時，不提供將對其權益之影響。告知義務<span class="highlight-keyword">不要求</span>企業揭露處理資料所使用的具體<span class="highlight-keyword">演算法細節</span>。</div>
+                </div>
+            </div>
+
+             <!-- Question 10 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#10</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">使用<span class="term-zh">對稱加密</span> (<span class="term-en-full">Symmetric Encryption</span>) 時，其主要的安全挑戰是什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">加密和解密速度非常慢</div>
+                    </div>
+                     <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">如何<span class="highlight-keyword">安全地分發和管理共享的金鑰</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">無法用於大量數據的加密</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">需要兩把不同的金鑰（公鑰和私鑰）</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">對稱加密</span>使用<span class="highlight-keyword">同一把金鑰</span>進行加密和解密。其優點是速度快，適合加密大量數據。然而，最大的挑戰在於<span class="highlight-keyword">金鑰管理</span>：通訊雙方必須在開始通訊前，透過一個安全的管道共享這把密鑰。如果金鑰在分發過程中被竊取，則加密的機密性將蕩然無存。選項A不正確，對稱加密通常比非對稱加密快。選項C不正確。選項D描述的是<span class="term-zh">非對稱加密</span> (<span class="term-en-full">Asymmetric Encryption</span>)。</div>
+                </div>
+            </div>
+
+             <!-- Question 11 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#11</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">差分隱私</span> (<span class="term-en-full">Differential Privacy</span>) 的主要目標是？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">在發布數據分析結果時，<span class="highlight-keyword">保護數據集中個體的隱私</span></div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">確保數據在傳輸過程中的<span class="term-zh">機密性</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">驗證數據的來源是否可信</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">防止未經授權的系統存取</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">差分隱私</span>是一種提供嚴格數學定義的<span class="term-zh">隱私保護</span>框架。其核心思想是，在對數據集進行查詢或分析時，<span class="highlight-keyword">加入經過仔細計算的隨機噪音</span>，使得查詢結果對於數據集中是否存在任何<span class="highlight-keyword">單一個體</span>（或單一紀錄）<span class="highlight-keyword">不敏感</span>。換句話說，無論某個特定個體的數據是否包含在數據集中，查詢結果的變化都非常小（在統計上難以區分），從而保護了個體<span class="term-zh">隱私</span>不被從匯總結果中推斷出來。它主要用於數據發布和分析階段。</div>
+                </div>
+            </div>
+
+             <!-- Question 12 -->
+            <div class="question-card" data-direction="4" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#12</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">數據去識別化</span> (<span class="term-en-full">De-identification</span>) 過程中，常用的技術「<span class="term-zh">遮罩</span>」(<span class="term-en-full">Masking</span>) 指的是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">完全刪除敏感數據欄位</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">用<span class="highlight-keyword">無意義或虛構的字元替換</span>部分或全部<span class="highlight-keyword">敏感數據</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">對數據進行加密處理</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">將數據轉換為統計摘要信息</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據遮罩</span>是一種<span class="term-zh">去識別化</span>技術，通過<span class="highlight-keyword">替換</span>數據中的<span class="highlight-keyword">敏感部分</span>來保護<span class="term-zh">隱私</span>，同時盡可能保持數據的格式和可用性。例如，將身分證號碼的後幾位替換為'X'（如 A12345XXXX），或將姓名替換為隨機生成的假名。目的是讓數據對於測試、開發或分析等非生產環境仍然有用，但無法直接識別個體。完全刪除是另一種技術（<span class="term-zh">抑制</span> <span class="term-en-full">Suppression</span>）。加密是保護數據<span class="term-zh">機密性</span>，而<span class="term-zh">去識別化</span>旨在移除身份關聯。轉換為摘要信息屬於<span class="term-zh">彙總</span> (<span class="term-en-full">Aggregation</span>)。</div>
+                </div>
+            </div>
+
+             <!-- Question 13 -->
+            <div class="question-card" data-direction="5" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#13</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-en-abbr">AI</span> 系統的「<span class="term-zh">可解釋性</span>」(<span class="term-en-full">Explainability</span>) 為何在<span class="term-zh">倫理</span>和<span class="term-zh">合規性</span>方面很重要？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">可解釋的模型通常訓練速度更快</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-zh">可解釋性</span>保證模型100%的<span class="term-zh">準確率</span></div>
+                    </div>
+                    <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">有助於<span class="highlight-keyword">理解模型決策過程</span>、<span class="highlight-keyword">發現偏見</span>、<span class="highlight-keyword">建立信任</span>和<span class="highlight-keyword">滿足法規要求</span></div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-zh">可解釋性</span>使模型的程式碼更簡短</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">可解釋性</span>是指人類能夠理解 <span class="term-en-abbr">AI</span> 模型做出特定決策或預測的原因。這對於：(1) 建立使用者和利益相關者的<span class="highlight-keyword">信任</span>；(2) 偵測和修正模型中潛在的<span class="highlight-keyword">偏見</span>或不公平性；(3) 確保模型行為符合預期和<span class="highlight-keyword">倫理</span>規範；(4) 滿足特定法規（如 <span class="term-en-abbr">GDPR</span> 中的解釋權要求）對<span class="highlight-keyword">透明度</span>的要求；(5) 除錯和改進模型性能，都至關重要。<span class="term-zh">可解釋性</span>與訓練速度、<span class="term-zh">準確率</span>保證或程式碼長度沒有直接必然的關係。</div>
+                </div>
+            </div>
+
+             <!-- Question 14 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#14</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列何者通常<span class="highlight-keyword">不屬於數據治理</span> (<span class="term-en-full">Data Governance</span>) 框架中的核心組成部分？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">數據政策與標準</span> (<span class="term-en-full">Data Policies and Standards</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">數據管理的<span class="term-zh">角色與職責</span> (<span class="term-en-full">Roles and Responsibilities</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">數據品質</span>監控與度量 (<span class="term-en-full">Data Quality Monitoring and Metrics</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">具體的資料庫查詢語法</span> (<span class="term-en-full">Specific Database Query Syntax</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據治理</span>關注的是管理數據的高層次<span class="highlight-keyword">策略、規則和流程</span>。其核心組件通常包括定義數據相關的<span class="highlight-keyword">政策</span>和<span class="highlight-keyword">標準</span>、明確數據擁有者 (<span class="term-en-full">Owner</span>)、管理者 (<span class="term-en-full">Steward</span>) 等<span class="highlight-keyword">角色</span>及其<span class="highlight-keyword">職責</span>、建立<span class="highlight-keyword">數據品質</span>的衡量標準和監控機制、管理<span class="term-zh">數據字典</span>和<span class="term-zh">元數據</span>、確保<span class="highlight-keyword">數據安全</span>和<span class="highlight-keyword">合規性</span>等。而具體的資料庫查詢語法（如 <span class="term-en-abbr">SQL</span> 語句）屬於數據操作層面的<span class="highlight-keyword">技術細節</span>，不屬於<span class="term-zh">數據治理</span>框架本身的核心內容。</div>
+                </div>
+            </div>
+
+             <!-- Question 15 -->
+            <div class="question-card" data-direction="7" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#15</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content">下列哪項措施最能有效防禦<span class="term-zh">網路釣魚</span> (<span class="term-en-full">Phishing</span>) 攻擊？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">安裝最新的防毒軟體</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">定期更換複雜的密碼</div>
+                    </div>
+                    <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="highlight-keyword">提高使用者的安全意識</span>，教育他們<span class="highlight-keyword">辨識可疑郵件和連結</span></div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">使用<span class="term-zh">防火牆</span>阻擋外部連線</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">網路釣魚</span>主要利用<span class="highlight-keyword">社交工程</span>手法誘騙使用者點擊惡意連結或開啟附件，從而竊取帳密或植入惡意軟體。雖然防毒軟體、強密碼和<span class="term-zh">防火牆</span>都是重要的安全措施，但它們可能無法完全阻擋精心設計的釣魚攻擊。最關鍵的防線是<span class="highlight-keyword">使用者本身</span>，透過<span class="highlight-keyword">安全意識培訓</span>，讓使用者學會辨識可疑郵件的特徵（如寄件人地址異常、語氣緊迫、要求提供敏感資訊、連結指向不明網域等），並謹慎處理，是降低釣魚攻擊成功率最有效的方法。<span class="term-zh">多因素驗證</span> (<span class="term-en-abbr">MFA</span>) 也是一個重要的技術防禦手段。</div>
+                </div>
+            </div>
+
+             <!-- Question 16 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#16</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在<span class="term-zh">雲端</span>環境中，下列哪項安全措施是<span class="highlight-keyword">客戶</span>的主要責任（尤其是在 <span class="term-en-abbr">IaaS</span> 模式下）？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">實體資料中心的物理安全</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">網路基礎設施的維護</div>
+                    </div>
+                    <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="highlight-keyword">作業系統的補丁管理</span>和<span class="highlight-keyword">安全配置</span></div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">虛擬化管理程式 (<span class="term-en-full">Hypervisor</span>) 的安全性</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據<span class="term-zh">雲端責任共擔模型</span>，在<span class="highlight-keyword">基礎設施即服務</span> (<span class="term-en-full">Infrastructure as a Service</span>, <span class="term-en-abbr">IaaS</span>) 模式下，<span class="term-zh">雲端供應商</span>負責底層的基礎設施，包括物理安全、網路基礎設施和 <span class="term-en-full">Hypervisor</span>。而<span class="highlight-keyword">客戶</span>則負責在此基礎設施之上部署和管理的部分，包括<span class="highlight-keyword">作業系統</span> (<span class="term-en-abbr">OS</span>) 的安裝、<span class="highlight-keyword">補丁更新</span>、<span class="highlight-keyword">安全配置</span>、應用程式的部署與安全、數據的加密與備份、以及<span class="highlight-keyword">身份和存取管理</span> (<span class="term-en-full">Identity and Access Management</span>, <span class="term-en-abbr">IAM</span>) 等。因此，<span class="term-en-abbr">OS</span> 的補丁和配置是客戶的主要責任。</div>
+                </div>
+            </div>
+
+             <!-- Question 17 -->
+            <div class="question-card" data-direction="1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#17</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content"><span class="term-en-abbr">GDPR</span> 賦予<span class="term-zh">數據主體</span> (<span class="term-en-full">Data Subject</span>) 多項權利，下列何者<span class="highlight-keyword">不是</span> <span class="term-en-abbr">GDPR</span> 保障的權利？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">存取權</span> (<span class="term-en-full">Right of Access</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-zh">被遺忘權</span> (<span class="term-en-full">Right to be Forgotten / Erasure</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">資料可攜權</span> (<span class="term-en-full">Right to Data Portability</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">無限制分享</span>其個人資料的權利 (<span class="term-en-full">Right to Share Personal Data without Limitation</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">GDPR</span> 保障<span class="term-zh">數據主體</span>多項權利，包括：<span class="highlight-keyword">知情權</span>、<span class="highlight-keyword">存取權</span>、<span class="highlight-keyword">更正權</span>、<span class="highlight-keyword">刪除權</span>（<span class="term-zh">被遺忘權</span>）、<span class="highlight-keyword">限制處理權</span>、<span class="highlight-keyword">資料可攜權</span>、<span class="highlight-keyword">反對權</span>，以及與<span class="highlight-keyword">自動化決策和剖析相關</span>的權利。這些權利旨在賦予個人對其數據更大的控制權。<span class="term-en-abbr">GDPR</span> <span class="highlight-keyword">並未賦予</span>個人「<span class="highlight-keyword">無限制分享</span>」其資料的權利，相反地，它規範的是數據控制者（企業）如何處理和保護個人資料，以及個人如何控制自己的資料被他人使用。</div>
+                </div>
+            </div>
+
+             <!-- Question 18 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#18</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">為了驗證使用者身份，除了密碼之外，還要求使用者提供手機驗證碼或使用<span class="term-zh">生物辨識</span>（如指紋），這種安全機制稱為什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">單一登入</span> (<span class="term-en-full">Single Sign-On</span>, <span class="term-en-abbr">SSO</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">多因素驗證</span> (<span class="term-en-full">Multi-Factor Authentication</span>, <span class="term-en-abbr">MFA</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">存取控制列表</span> (<span class="term-en-full">Access Control List</span>, <span class="term-en-abbr">ACL</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">加密<span class="term-zh">雜湊函數</span> (<span class="term-en-full">Cryptographic Hash Function</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight-keyword">多因素驗證</span> (<span class="term-en-abbr">MFA</span>) 是一種要求使用者提供<span class="highlight-keyword">兩種或兩種以上</span>不同類型<span class="highlight-keyword">驗證因素</span> (<span class="term-en-full">Credentials</span>) 來證明其身份的安全機制。常見的驗證因素類型包括：(1) <span class="highlight-keyword">你所知道的事物</span> (<span class="term-en-full">Something you know</span>)，如密碼、<span class="term-en-abbr">PIN</span>碼；(2) <span class="highlight-keyword">你所擁有的物品</span> (<span class="term-en-full">Something you have</span>)，如手機（接收驗證碼）、實體安全金鑰；(3) <span class="highlight-keyword">你是誰</span> (<span class="term-en-full">Something you are</span>)，如指紋、臉部辨識等<span class="term-zh">生物特徵</span>。<span class="term-en-abbr">MFA</span> 能顯著提升帳戶安全性，因為即使密碼被盜，攻擊者通常也難以同時獲取其他驗證因素。</div>
+                </div>
+            </div>
+
+             <!-- Question 19 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#19</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">聯邦學習</span> (<span class="term-en-full">Federated Learning</span>) 的主要優勢在於？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">模型訓練速度比傳統集中式訓練快很多</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">允許在<span class="highlight-keyword">分散的數據源</span>上訓練模型，而<span class="highlight-keyword">無需將原始數據集中</span>起來</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">可以完全消除模型中的所有偏見</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">生成的模型不需要任何更新</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">聯邦學習</span>是一種<span class="highlight-keyword">分散式</span>的機器學習方法。其核心思想是將模型訓練任務推送到數據所在的<span class="highlight-keyword">本地設備</span>（如手機、醫院伺服器），而不是將原始數據上傳到中央伺服器。各個設備使用本地數據訓練模型，然後只將模型的<span class="highlight-keyword">更新</span>（如梯度或權重）傳回中央伺服器進行<span class="highlight-keyword">聚合</span>，以更新全域模型。這樣做可以在利用分散數據的同時，保護本地數據的<span class="highlight-keyword">隱私和安全</span>，因為<span class="highlight-keyword">原始數據不出本地</span>。訓練速度不一定更快，偏見問題仍然存在，模型仍需更新。</div>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card" data-direction="4" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#20</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content">當數據不再具有業務或法規保留的必要性時，應如何處理以降低風險？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">將其移動到成本較低的儲存設備</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">進行<span class="highlight-keyword">安全的數據銷毀</span>或<span class="highlight-keyword">匿名化</span>處理</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">將其公開發布到網路上</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">永遠保留所有數據以備不時之需</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據生命週期</span>的最後階段是處置或銷毀。根據<span class="highlight-keyword">數據保留政策</span> (<span class="term-en-full">Data Retention Policy</span>)，當數據的保留期限已過，且不再有法律、法規或業務需求時，應將其<span class="highlight-keyword">安全地銷毀</span>（例如，物理銷毀儲存介質、使用軟體覆寫數據）或進行徹底的<span class="highlight-keyword">匿名化</span>，使其無法再關聯到任何個人。這樣做可以最大限度地減少因<span class="term-zh">數據洩露</span>或不當使用而帶來的<span class="term-zh">隱私</span>和安全風險。僅僅移動到低成本儲存或無限期保留數據會增加不必要的風險。公開發布顯然違反<span class="term-zh">隱私</span>原則。</div>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question-card" data-direction="5" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#21</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何種作法有助於<span class="highlight-keyword">減輕</span> <span class="term-en-abbr">AI</span> 模型中的<span class="term-zh">演算法偏見</span>？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">僅使用更多數據進行訓練，不考慮數據的代表性</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">選擇最複雜的模型架構</div>
+                    </div>
+                     <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="highlight-keyword">審查和平衡訓練數據</span>，使用<span class="highlight-keyword">公平性指標評估</span>模型，並採用<span class="highlight-keyword">偏見緩解技術</span></div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">完全避免使用任何受保護特徵（如性別、種族）作為輸入</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">減輕<span class="term-zh">演算法偏見</span>需要多方面的努力：(1) <span class="highlight-keyword">數據層面</span>：仔細審查訓練數據是否存在偏見，並採取措施（如<span class="term-zh">過採樣</span>、<span class="term-zh">欠採樣</span>、重加權）使其更具代表性；(2) <span class="highlight-keyword">模型層面</span>：選擇合適的模型，並在訓練過程中或訓練後應用<span class="highlight-keyword">偏見緩解技術</span>（如公平性約束、後處理調整）；(3) <span class="highlight-keyword">評估層面</span>：使用多種<span class="highlight-keyword">公平性指標</span>（如人口均等性、機會均等性）來評估模型在不同群體上的表現。僅增加數據量或選擇複雜模型可能無法解決甚至加劇偏見。完全移除受保護特徵有時可能導致代理歧視 (<span class="term-en-full">Proxy Discrimination</span>)。</div>
+                </div>
+            </div>
+
+             <!-- Question 22 -->
+            <div class="question-card" data-direction="6" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#22</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">數據分類</span> (<span class="term-en-full">Data Classification</span>) 在<span class="term-zh">數據治理</span>中的主要作用是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">將所有數據轉換成統一的格式</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">根據數據的<span class="highlight-keyword">敏感性</span>和<span class="highlight-keyword">重要性</span>對其進行<span class="highlight-keyword">分級</span>，以應用適當的<span class="highlight-keyword">安全控制</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">為數據建立索引以便快速搜尋</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">預測數據未來的趨勢</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據分類</span>是<span class="term-zh">數據治理</span>和安全管理的重要實踐。它涉及根據預定義的標準（通常是數據的<span class="highlight-keyword">敏感度</span>、價值或法規要求）將數據劃分為不同的類別或級別（例如，公開、內部、機密、高度機密）。這樣做的目的是為了能夠根據數據的級別，應用相應的、強度適當的<span class="highlight-keyword">安全控制措施</span>（如<span class="term-zh">存取控制</span>、<span class="term-zh">加密</span>、監控），從而更有效地保護敏感數據，並合理分配安全資源。</div>
+                </div>
+            </div>
+
+             <!-- Question 23 -->
+            <div class="question-card" data-direction="7" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#23</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪項是針對<span class="term-zh">惡意軟體</span> (<span class="term-en-full">Malware</span>) 的主要防禦措施？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="highlight-keyword">安裝和及時更新防毒/反惡意軟體</span>，並定期掃描系統</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">僅使用 <span class="term-en-abbr">HTTPS</span> 協定瀏覽網站</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">增加伺服器的記憶體容量</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">定期備份數據</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">惡意軟體</span>（包括病毒、蠕蟲、木馬、<span class="term-zh">勒索軟體</span>、間諜軟體等）是常見的安全威脅。主要的防禦手段是使用信譽良好的<span class="highlight-keyword">防毒</span>或<span class="highlight-keyword">反惡意軟體</span>解決方案，保持其病毒定義碼為最新狀態，並定期對系統進行掃描以檢測和清除威脅。此外，及時更新作業系統和應用程式補丁、不點擊可疑連結或下載不明附件、使用<span class="term-zh">防火牆</span>等也是重要的輔助措施。<span class="term-en-abbr">HTTPS</span> 主要保護傳輸中的數據<span class="term-zh">機密性</span>和<span class="term-zh">完整性</span>。增加記憶體與防禦<span class="term-zh">惡意軟體</span>無關。定期備份是應對<span class="term-zh">勒索軟體</span>等攻擊後果的重要恢復手段，但不是主要的預防措施。</div>
+                </div>
+            </div>
+
+             <!-- Question 24 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#24</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">雲端存取安全代理</span> (<span class="term-en-full">Cloud Access Security Broker</span>, <span class="term-en-abbr">CASB</span>) 解決方案的主要功能<span class="highlight-keyword">不包含</span>下列哪項？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">提供對<span class="term-zh">雲端應用程式</span>使用的<span class="highlight-keyword">可見性</span></div>
+                    </div>
+                    <div class="option-item correct" data-option="D"> <!-- Corrected the correct option attribute -->
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">管理本地數據中心的物理伺服器</span></div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">強制執行<span class="highlight-keyword">數據安全</span>和<span class="highlight-keyword">合規性政策</span></div>
+                    </div>
+                     <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">檢測和防禦<span class="term-zh">雲端</span>環境中的<span class="highlight-keyword">威脅</span></div>
+                    </div>
+
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">CASB</span> 是一種位於使用者和<span class="term-zh">雲端服務供應商</span>之間的安全策略執行點，旨在擴展企業的安全控制到<span class="highlight-keyword">雲端</span>環境。其核心功能通常包括四大支柱：(1) <span class="highlight-keyword">可見性</span> (<span class="term-en-full">Visibility</span>)：監控使用者對<span class="term-zh">雲端服務</span>的訪問和活動；(2) <span class="highlight-keyword">合規性</span> (<span class="term-en-full">Compliance</span>)：幫助組織滿足數據駐留和<span class="term-zh">隱私</span>法規要求；(3) <span class="highlight-keyword">數據安全</span> (<span class="term-en-full">Data Security</span>)：實施<span class="term-zh">數據丟失防護</span> (<span class="term-en-abbr">DLP</span>)、加密、<span class="term-zh">存取控制</span>等策略；(4) <span class="highlight-keyword">威脅防護</span> (<span class="term-en-full">Threat Protection</span>)：檢測<span class="term-zh">惡意軟體</span>、異常行為和未授權訪問。<span class="term-en-abbr">CASB</span> 主要關注<span class="term-zh">雲端服務</span>的安全，<span class="highlight-keyword">不負責</span>管理本地數據中心的物理硬體。</div>
+                </div>
+            </div>
+
+             <!-- Question 25 -->
+            <div class="question-card" data-direction="1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#25</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">「<span class="term-zh">隱私設計</span>」(<span class="term-en-full">Privacy by Design</span>, <span class="term-en-abbr">PbD</span>) 的核心理念是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">在發生<span class="term-zh">隱私洩露</span>事件後才採取補救措施</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">在系統或服務<span class="highlight-keyword">設計開發的早期階段</span>就將<span class="highlight-keyword">隱私保護措施嵌入</span>其中</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">僅依賴法律條款來保護<span class="term-zh">隱私</span></div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">將<span class="term-zh">隱私保護</span>的責任完全交給使用者</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">隱私設計</span> (<span class="term-en-abbr">PbD</span>) 是一種主張採取<span class="highlight-keyword">預防性而非補救性</span>措施來保護<span class="term-zh">隱私</span>的方法論。它強調應在技術、業務實踐和基礎設施設計的<span class="highlight-keyword">最開始階段</span>就<span class="highlight-keyword">主動地</span>、<span class="highlight-keyword">預設地</span>將<span class="term-zh">隱私</span>考量和保護措施納入其中，而不是事後才添加。<span class="term-en-abbr">PbD</span> 包含七項基本原則，如<span class="highlight-keyword">預設隱私</span> (<span class="term-en-full">Privacy by Default</span>)、<span class="highlight-keyword">嵌入設計的隱私</span> (<span class="term-en-full">Privacy Embedded into Design</span>)、<span class="highlight-keyword">端到端的安全</span> (<span class="term-en-full">End-to-End Security</span>) 等，旨在將<span class="term-zh">隱私保護</span>作為系統的核心功能，而非附加選項。</div>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#26</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">雜湊函數</span> (<span class="term-en-full">Hash Function</span>) 在密碼儲存中的主要用途是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">將密碼加密，以便後續可以解密還原</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">將密碼轉換為固定長度的<span class="highlight-keyword">不可逆字串</span>，用於驗證而<span class="highlight-keyword">不儲存原始密碼</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">壓縮密碼以節省儲存空間</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">生成隨機密碼</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">安全的密碼儲存實踐要求<span class="highlight-keyword">不直接儲存</span>使用者的原始密碼。取而代之的是，使用密碼學上的<span class="highlight-keyword">雜湊函數</span>（如 <span class="term-en-abbr">SHA-256</span>）將使用者密碼轉換成一個固定長度的<span class="highlight-keyword">雜湊值</span> (<span class="term-en-full">Hash</span>)。<span class="term-zh">雜湊函數</span>具有<span class="highlight-keyword">單向性</span>（不可逆），即無法從<span class="term-zh">雜湊值</span>反推出原始密碼。當使用者登入時，系統會將輸入的密碼進行同樣的<span class="term-zh">雜湊</span>運算，並比較結果是否與資料庫中儲存的<span class="term-zh">雜湊值</span>匹配。這樣即使資料庫被盜，攻擊者也無法直接獲取原始密碼。通常還會結合<span class="highlight-keyword">加鹽</span> (<span class="term-en-full">Salting</span>) 技術進一步提高安全性。</div>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card" data-direction="3" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#27</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">K-匿名</span> (<span class="term-en-full">K-Anonymity</span>) 是一種<span class="term-zh">數據去識別化</span>技術，其目標是？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">確保數據集中的每條紀錄至少與其他 <span class="highlight-keyword">K-1</span> 條紀錄在<span class="highlight-keyword">準標識符</span> (<span class="term-en-full">Quasi-Identifiers</span>) 上<span class="highlight-keyword">無法區分</span></div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">在查詢結果中加入 K 個單位的噪音</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">將數據集劃分為 K 個群集</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">僅保留數據集中的前 K 條紀錄</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">K-匿名</span>旨在防止透過<span class="highlight-keyword">連結攻擊</span> (<span class="term-en-full">Linking Attack</span>) 重新識別個人。<span class="highlight-keyword">準標識符</span>是指那些本身不是唯一識別碼，但組合起來可能識別個人的屬性（如郵遞區號、出生日期、性別）。<span class="term-zh">K-匿名</span>要求對數據進行修改（通常透過<span class="highlight-keyword">泛化</span> <span class="term-en-full">Generalization</span> 或<span class="highlight-keyword">抑制</span> <span class="term-en-full">Suppression</span>），使得對於任何一組<span class="term-zh">準標識符</span>的組合，至少有 <span class="highlight-keyword">K 條紀錄</span>具有相同的組合值。這樣一來，即使攻擊者知道某人的<span class="term-zh">準標識符</span>，也無法將其精確地對應到數據集中的唯一紀錄，只能確定其屬於至少包含 K 個人的群組之一。</div>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card" data-direction="4" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#28</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在數據處理活動前進行「<span class="term-zh">數據保護影響評估</span>」(<span class="term-en-full">Data Protection Impact Assessment</span>, <span class="term-en-abbr">DPIA</span>) 的主要目的是？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">評估數據處理活動的經濟效益</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">識別、評估和<span class="highlight-keyword">減輕高風險數據處理活動</span>對個人<span class="highlight-keyword">隱私</span>可能造成的<span class="highlight-keyword">風險</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">決定數據儲存的最佳格式</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">設計數據庫的結構</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">DPIA</span>（在 <span class="term-en-abbr">GDPR</span> 等法規下要求）是一個系統性的過程，用於評估預計進行的數據處理活動（特別是涉及新技術或可能對個人權利和自由產生<span class="highlight-keyword">高風險</span>的活動）對個人數據保護的影響。其目的是在處理活動開始前，<span class="highlight-keyword">主動識別潛在的隱私風險</span>，評估其嚴重性和可能性，並規劃採取適當的技術和組織措施來<span class="highlight-keyword">減輕這些風險</span>，以確保<span class="term-zh">合規性</span>並保護<span class="term-zh">數據主體</span>的權利。</div>
+                </div>
+            </div>
+
+             <!-- Question 29 -->
+            <div class="question-card" data-direction="5" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#29</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-en-abbr">AI</span> <span class="term-zh">倫理</span>中的「<span class="term-zh">透明度</span>」(<span class="term-en-full">Transparency</span>) 原則主要關注？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 模型的預測<span class="term-zh">準確率</span></div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 系統的<span class="highlight-keyword">運作方式</span>、使用的<span class="highlight-keyword">數據</span>以及<span class="highlight-keyword">決策過程的可理解性</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 系統的開發成本</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 系統的程式碼行數</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">透明度</span>原則是指 <span class="term-en-abbr">AI</span> 系統的設計和運作應該是<span class="highlight-keyword">可理解和可追溯</span>的。這涉及到向使用者和受影響者提供關於系統能力、局限性、所用數據來源以及決策邏輯的清晰資訊。透明度有助於<span class="highlight-keyword">建立信任</span>、促進<span class="term-zh">問責</span>、發現和糾正錯誤或偏見，並使用戶能夠就系統的輸出做出明智的判斷。它與<span class="term-zh">可解釋性</span> (<span class="term-en-full">Explainability</span>) 密切相關，但更側重於資訊的公開和可獲得性。</div>
+                </div>
+            </div>
+
+             <!-- Question 30 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#30</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪項是確保<span class="term-zh">數據合規性</span> (<span class="term-en-full">Compliance</span>) 的關鍵活動？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">盡可能收集所有類型的數據</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">忽略所有外部的數據<span class="term-zh">隱私</span>法規</div>
+                    </div>
+                     <div class="option-item correct" data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="highlight-keyword">定期進行內部審計</span>，確保數據處理活動符合相關<span class="highlight-keyword">法律、法規和內部政策</span></div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">將數據備份儲存在不安全的位置</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">數據<span class="highlight-keyword">合規性</span>是指組織的數據處理活動<span class="highlight-keyword">遵守</span>適用的<span class="highlight-keyword">法律</span>（如 <span class="term-en-abbr">GDPR</span>、個資法）、行業法規（如 <span class="term-en-abbr">HIPAA</span>、<span class="term-en-abbr">PCI DSS</span>）以及自身制定的內部政策和標準。確保<span class="term-zh">合規性</span>的關鍵活動包括：了解適用的法規要求、制定和實施合規的數據政策和流程、對員工進行培訓、部署適當的技術控制（如加密、存取控制），以及<span class="highlight-keyword">定期進行內部或外部審計</span>，以驗證合規狀態並識別需要改進的領域。</div>
+                </div>
+            </div>
+
+            <!-- Question 31 -->
+            <div class="question-card" data-direction="7" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#31</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪種安全威脅是透過在合法網站的輸入欄位中注入<span class="highlight-keyword">惡意程式碼</span>，使其在其他使用者瀏覽器中執行，從而竊取資訊或劫持會話？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="highlight-keyword">跨網站指令碼</span> (<span class="term-en-full">Cross-Site Scripting</span>, <span class="term-en-abbr">XSS</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="term-zh">SQL 資料隱碼攻擊</span> (<span class="term-en-full">SQL Injection</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">分散式阻斷服務攻擊</span> (<span class="term-en-abbr">DDoS</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">暴力破解攻擊 (<span class="term-en-full">Brute Force Attack</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight-keyword"><span class="term-en-abbr">XSS</span></span> 是一種常見的網站應用程式漏洞。攻擊者將<span class="highlight-keyword">惡意腳本</span>（通常是 <span class="term-en-full">JavaScript</span>）<span class="highlight-keyword">注入</span>到受信任網站的內容中（例如，透過留言板、搜尋框）。當其他使用者瀏覽包含惡意腳本的頁面時，該腳本會在他們的瀏覽器中執行，使得攻擊者可以竊取 <span class="term-en-full">Cookies</span>、<span class="term-en-full">Session Tokens</span>，或者執行其他惡意操作。<span class="term-zh">SQL Injection</span> 是注入惡意 <span class="term-en-abbr">SQL</span> 語句來操縱後端數據庫。<span class="term-en-abbr">DDoS</span> 是癱瘓服務。暴力破解是嘗試大量密碼組合。</div>
+                </div>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question-card" data-direction="8" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#32</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content">在選擇<span class="term-zh">雲端服務供應商</span> (<span class="term-en-full">Cloud Service Provider</span>, <span class="term-en-abbr">CSP</span>) 時，下列哪個因素與<span class="term-zh">數據主權</span> (<span class="term-en-full">Data Sovereignty</span>) 最相關？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">服務的價格</div>
+                    </div>
+                     <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">數據中心所在的地理位置</span>及其適用的<span class="highlight-keyword">法律管轄權</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-en-abbr">CSP</span> 提供的 <span class="term-en-abbr">CPU</span> 核心數量</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">使用者介面的美觀程度</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據主權</span>是指數據受到其<span class="highlight-keyword">儲存所在地國家</span>的法律和治理結構約束的概念。當企業將數據儲存在<span class="term-zh">雲端</span>時，需要考慮 <span class="term-en-abbr">CSP</span> 的<span class="highlight-keyword">數據中心位於哪個國家或地區</span>，因為這將決定該數據受到哪個<span class="highlight-keyword">司法管轄區</span>的法律（例如，關於政府監控、數據存取要求、<span class="term-zh">隱私保護</span>標準等）的約束。某些行業或國家可能有特定要求，規定敏感數據必須儲存在本國境內。因此，<span class="term-zh">數據中心</span>的地理位置是評估<span class="term-zh">數據主權</span>風險和<span class="term-zh">合規性</span>的關鍵因素。</div>
+                </div>
+            </div>
+
+             <!-- Question 33 -->
+            <div class="question-card" data-direction="1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#33</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">根據<span class="term-zh">數據隱私</span>原則，「<span class="term-zh">目的限制</span>」(<span class="term-en-full">Purpose Limitation</span>) 指的是？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">個人資料只能儲存有限的時間</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">個人資料的收集和處理應基於<span class="highlight-keyword">特定、明確且合法</span>的目的，且<span class="highlight-keyword">不得以與該目的不符</span>的方式進一步處理</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">只有特定的人員可以存取個人資料</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">個人資料的收集量應限制在最小必要範圍</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">目的限制</span>是 <span class="term-en-abbr">GDPR</span> 等隱私法規的關鍵原則之一。它要求數據控制者在收集個人資料時就必須確定<span class="highlight-keyword">清晰、具體的處理目的</span>，並且告知<span class="term-zh">數據主體</span>。後續對資料的處理<span class="highlight-keyword">不得超出原先告知且合法的目的範圍</span>，除非獲得<span class="term-zh">數據主體</span>的同意或有其他法律依據。這項原則旨在防止數據被濫用或用於未預期的目的。選項A是<span class="term-zh">儲存限制</span>原則。選項C涉及<span class="term-zh">存取控制</span>。選項D是<span class="term-zh">數據最小化</span>原則。</div>
+                </div>
+            </div>
+
+             <!-- Question 34 -->
+            <div class="question-card" data-direction="2" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#34</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">滲透測試</span> (<span class="term-en-full">Penetration Testing</span>) 的主要目的是？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">備份組織的所有數據</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">模擬真實世界的攻擊</span>，<span class="highlight-keyword">主動發現</span>和利用系統中的<span class="highlight-keyword">安全漏洞</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">監控網路流量以檢測入侵</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">對員工進行安全意識培訓</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">滲透測試</span>（也稱<span class="term-zh">道德駭客</span> <span class="term-en-full">Ethical Hacking</span>）是一種授權的、<span class="highlight-keyword">模擬的網路攻擊</span>，旨在評估組織資訊系統的安全性。測試人員（滲透測試者）會嘗試利用各種技術和工具來繞過安全控制、發現並利用漏洞，以評估系統的弱點以及成功入侵可能造成的影響。其目的是在真正的攻擊者利用這些漏洞之前，<span class="highlight-keyword">主動識別風險</span>並提出修補建議。監控流量是<span class="term-zh">入侵檢測系統</span> (<span class="term-en-abbr">IDS</span>) 的功能。</div>
+                </div>
+            </div>
+
+             <!-- Question 35 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#35</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">安全多方計算</span> (<span class="term-en-full">Secure Multi-Party Computation</span>, <span class="term-en-abbr">SMPC</span>) 允許一組<span class="highlight-keyword">互不信任</span>的參與方？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">公開分享他們的所有私密數據</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">在<span class="highlight-keyword">不洩露各自私密輸入數據</span>的情況下，<span class="highlight-keyword">共同計算</span>一個函數的結果</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">建立一個共享的中央數據庫</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">僅能進行簡單的加法運算</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">SMPC</span> 是一組密碼學技術，允許多個持有私密數據的參與方<span class="highlight-keyword">協作計算</span>一個共同的函數（例如，計算平均薪資、找出最高出價者），而過程中任何一方都<span class="highlight-keyword">無法得知其他方輸入的具體數據內容</span>，只能得到最終的計算結果。這使得在保護各方數據<span class="term-zh">隱私</span>的前提下進行聯合數據分析或計算成為可能。</div>
+                </div>
+            </div>
+
+             <!-- Question 36 -->
+            <div class="question-card" data-direction="4" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#36</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">數據保留政策</span> (<span class="term-en-full">Data Retention Policy</span>) 應基於哪些主要因素來制定？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">僅基於數據的儲存成本</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">法律法規要求</span>、<span class="highlight-keyword">業務需求</span>以及潛在的<span class="highlight-keyword">訴訟風險</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">僅基於數據的收集日期</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">僅基於伺服器的可用空間</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據保留政策</span>規定了不同類型的數據應該被保留多長時間以及何時應該被安全銷毀。制定這項政策需要綜合考慮多種因素：(1) <span class="highlight-keyword">法律和法規要求</span>（某些法律可能規定了特定類型數據的最短或最長保留期）；(2) <span class="highlight-keyword">業務需求</span>（數據對於營運、分析或報告是否仍有價值）；(3) 潛在的<span class="highlight-keyword">法律訴訟或調查需求</span>（可能需要保留特定數據作為證據）。儲存成本、收集日期和伺服器空間是次要考量或操作細節，而非決定保留期限的主要依據。</div>
+                </div>
+            </div>
+
+             <!-- Question 37 -->
+            <div class="question-card" data-direction="5" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#37</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-en-abbr">AI</span> <span class="term-zh">倫理</span>中的「<span class="term-zh">問責性</span>」(<span class="term-en-full">Accountability</span>) 原則強調？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 模型必須能夠自我修復</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">應明確 <span class="term-en-abbr">AI</span> 系統的開發者、部署者和使用者對其<span class="highlight-keyword">行為和結果</span>所應承擔的<span class="highlight-keyword">責任</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 系統的決策必須永遠正確</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-en-abbr">AI</span> 系統必須能夠處理所有類型的數據</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">問責性</span>是指對於 <span class="term-en-abbr">AI</span> 系統在其整個生命週期中的決策和結果，應有<span class="highlight-keyword">明確的責任歸屬機制</span>。這意味著需要確定誰（開發者、部署者、擁有者、使用者等）應該對系統的設計、部署、運營以及可能造成的影響（包括錯誤、偏見或損害）<span class="highlight-keyword">負責</span>。建立<span class="term-zh">問責性</span>有助於確保 <span class="term-en-abbr">AI</span> 的開發和使用是負責任的，並為受到影響的人提供追索和補救的途徑。</div>
+                </div>
+            </div>
+
+             <!-- Question 38 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#38</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">數據血緣</span> (<span class="term-en-full">Data Lineage</span>) 追蹤的主要目的是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">計算數據處理所需的總時間</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">了解數據的<span class="highlight-keyword">來源</span>、<span class="highlight-keyword">經過的轉換和處理流程</span>，以及最終的<span class="highlight-keyword">去向</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">將數據劃分為不同的敏感級別</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">為數據分配唯一的識別碼</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據血緣</span>記錄了數據在其<span class="term-zh">生命週期</span>中<span class="highlight-keyword">移動和變化</span>的完整路徑。它描述了數據從何而來（來源系統、原始數據集），經歷了哪些處理步驟（清洗、轉換、聚合、模型訓練），以及最終流向何處（報告、儀表板、目標系統）。理解<span class="term-zh">數據血緣</span>對於<span class="term-zh">數據治理</span>、<span class="term-zh">品質保證</span>、故障排除、影響分析、<span class="term-zh">合規性審計</span>（例如，追蹤個人資料的使用）以及建立對數據分析結果的信任至關重要。</div>
+                </div>
+            </div>
+
+             <!-- Question 39 -->
+            <div class="question-card" data-direction="7" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#39</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">社交工程</span> (<span class="term-en-full">Social Engineering</span>) 攻擊的主要目標是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">利用軟體漏洞入侵系統</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">操縱或欺騙人類</span>，使其違反安全程序或<span class="highlight-keyword">洩露敏感資訊</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">攔截網路通訊</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">癱瘓目標伺服器</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">社交工程</span>是一種非技術性的攻擊手段，它利用<span class="highlight-keyword">人性的弱點</span>（如信任、好奇心、恐懼、助人為樂的傾向）來<span class="highlight-keyword">誘騙或操縱</span>受害者，使其做出不安全的行為，例如點擊惡意連結（<span class="term-zh">網路釣魚</span>）、提供密碼、透露機密資訊、安裝<span class="term-zh">惡意軟體</span>或授予未授權的訪問權限。攻擊者可能透過電話、電子郵件、社交媒體甚至面對面的方式進行。防禦<span class="term-zh">社交工程</span>的關鍵在於提高人員的<span class="highlight-keyword">安全意識</span>。</div>
+                </div>
+            </div>
+
+             <!-- Question 40 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#40</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">雲端存取安全代理</span> (<span class="term-en-full">Cloud Access Security Broker</span>, <span class="term-en-abbr">CASB</span>) 解決方案的主要功能<span class="highlight-keyword">不包含</span>下列哪項？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">提供對<span class="term-zh">雲端應用程式</span>使用的<span class="term-zh">可見性</span></div>
+                    </div>
+                     <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">強制執行<span class="term-zh">數據安全</span>和<span class="term-zh">合規性政策</span></div>
+                    </div>
+                     <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">檢測和防禦<span class="term-zh">雲端</span>環境中的<span class="term-zh">威脅</span></div>
+                    </div>
+                    <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">管理本地數據中心的物理伺服器</span></div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">CASB</span> 是一種位於使用者和<span class="term-zh">雲端服務供應商</span>之間的<span class="highlight-keyword">安全策略執行點</span>，旨在擴展企業的安全控制到<span class="highlight-keyword">雲端</span>環境。其核心功能通常包括四大支柱：(1) <span class="highlight-keyword">可見性</span> (<span class="term-en-full">Visibility</span>)：監控使用者對<span class="term-zh">雲端服務</span>的訪問和活動；(2) <span class="highlight-keyword">合規性</span> (<span class="term-en-full">Compliance</span>)：幫助組織滿足數據駐留和<span class="term-zh">隱私</span>法規要求；(3) <span class="highlight-keyword">數據安全</span> (<span class="term-en-full">Data Security</span>)：實施<span class="term-zh">數據丟失防護</span> (<span class="term-en-abbr">DLP</span>)、加密、<span class="term-zh">存取控制</span>等策略；(4) <span class="highlight-keyword">威脅防護</span> (<span class="term-en-full">Threat Protection</span>)：檢測<span class="term-zh">惡意軟體</span>、異常行為和未授權訪問。<span class="term-en-abbr">CASB</span> 主要關注<span class="term-zh">雲端服務</span>的安全，<span class="highlight-keyword">不負責</span>管理本地數據中心的物理硬體。</div>
+                </div>
+            </div>
+
+              <!-- Question 41 -->
+             <div class="question-card" data-direction="1" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#41</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">個人可識別資訊</span> (<span class="term-en-full">Personally Identifiable Information</span>, <span class="term-en-abbr">PII</span>) 是指？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="highlight-keyword">任何可用於識別、聯繫或定位特定個人</span>的資訊</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">僅指個人的財務資訊</div>
+                    </div>
+                     <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">所有<span class="term-zh">匿名化</span>的數據</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">公司的商業機密</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">PII</span> 是一個廣泛使用的術語，指任何<span class="highlight-keyword">單獨或與其他資訊結合</span>後可用於<span class="highlight-keyword">識別特定個人</span>的資訊。這包括<span class="highlight-keyword">直接標識符</span>（如姓名、身分證號碼、電子郵件地址、電話號碼）和<span class="highlight-keyword">間接標識符</span>（如出生日期、地址、<span class="term-zh">生物特徵數據</span>、某些情況下的 <span class="term-en-abbr">IP</span> 位址等）。保護 <span class="term-en-abbr">PII</span> 是數據<span class="term-zh">隱私</span>法規的核心要求。財務資訊是 <span class="term-en-abbr">PII</span> 的一種，但 <span class="term-en-abbr">PII</span> 範圍更廣。<span class="term-zh">匿名化</span>數據旨在移除 <span class="term-en-abbr">PII</span>。商業機密是公司資訊，不是個人資訊。</div>
+                </div>
+            </div>
+
+              <!-- Question 42 -->
+             <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#42</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">防火牆</span> (<span class="term-en-full">Firewall</span>) 的主要功能是？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">檢測和清除電腦病毒</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">根據預設的<span class="highlight-keyword">安全規則</span>，<span class="highlight-keyword">監控和控制進出網路的流量</span></div>
+                    </div>
+                     <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">加密硬碟上的所有數據</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">驗證使用者登入系統的身份</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">防火牆</span>是位於兩個或多個網路（通常是內部私有網路和外部公共網路，如網際網路）之間的網路安全設備或軟體。它的主要作用是像一道屏障，根據管理員設定的<span class="highlight-keyword">安全規則</span>（例如，基於來源/目的 <span class="term-en-abbr">IP</span> 位址、埠號、協定等），檢查流經它的網路封包，並<span class="highlight-keyword">決定允許哪些流量通過，阻止哪些流量</span>，從而保護內部網路免受來自外部的未授權訪問和潛在威脅。清除病毒是防毒軟體的功能。加密硬碟是磁碟加密工具的功能。身份驗證是認證系統的功能。</div>
+                </div>
+            </div>
+
+              <!-- Question 43 -->
+             <div class="question-card" data-direction="3" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#43</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content">下列哪項<span class="highlight-keyword">不是</span>使用<span class="term-zh">合成數據</span> (<span class="term-en-full">Synthetic Data</span>) 作為<span class="term-zh">隱私保護</span>技術的潛在優點？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">可以模擬真實數據的統計特性</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">不包含真實的個人身份資訊，降低<span class="term-zh">隱私</span>風險</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">可用於擴增數據集或創建難以獲取的場景數據</div>
+                    </div>
+                    <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">生成的數據保證 100% 反映真實世界</span>的每一個細節</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">合成數據</span>是<span class="highlight-keyword">人工生成</span>的、旨在模仿真實數據統計模式和結構的數據，但<span class="highlight-keyword">不包含</span>任何真實個體的記錄。其優點包括：(1) <span class="highlight-keyword">隱私保護</span>：因為不含真實 <span class="term-en-abbr">PII</span>，可用於測試、開發或共享，而風險較低；(2) <span class="highlight-keyword">數據擴增</span>：可生成大量數據用於訓練模型；(3) 模擬稀有事件：可創建難以在現實中收集的數據。然而，<span class="term-zh">合成數據</span>是基於模型生成的，其品質取決於生成模型的能力，它可能<span class="highlight-keyword">無法完全捕捉</span>真實數據的所有細微差別和複雜關係，因此<span class="highlight-keyword">不能保證 100% 反映</span>真實世界的每一個細節。</div>
+                </div>
+            </div>
+
+             <!-- Question 44 -->
+            <div class="question-card" data-direction="4" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#44</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">數據生命週期管理</span> (<span class="term-en-full">Data Lifecycle Management</span>, <span class="term-en-abbr">DLM</span>) 中，將<span class="highlight-keyword">不常存取</span>但仍需保留的數據移至<span class="highlight-keyword">成本較低</span>的儲存層級的過程稱為什麼？</div>
+                <div class="options-container">
+                     <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">數據加密</span> (<span class="term-en-full">Data Encryption</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">數據歸檔</span> (<span class="term-en-full">Data Archiving</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">數據備份</span> (<span class="term-en-full">Data Backup</span>)</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-zh">數據銷毀</span> (<span class="term-en-full">Data Destruction</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">數據歸檔</span>是指將<span class="highlight-keyword">不再頻繁使用</span>（或處於非活動狀態）但仍需根據法規或業務需求保留的數據，從主要、高性能的儲存系統遷移到<span class="highlight-keyword">成本較低</span>、容量較大的<span class="highlight-keyword">次級儲存</span>（如磁帶、低成本雲儲存）的過程。目的是釋放主要儲存空間、降低儲存成本，同時確保數據在需要時仍可被檢索。<span class="term-zh">數據備份</span>是為了數據恢復而創建數據副本。<span class="term-zh">數據加密</span>是保護<span class="term-zh">機密性</span>。<span class="term-zh">數據銷毀</span>是最終處置。</div>
+                </div>
+            </div>
+
+              <!-- Question 45 -->
+             <div class="question-card" data-direction="5" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#45</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">「<span class="term-zh">公平性</span>」(<span class="term-en-full">Fairness</span>) 作為 <span class="term-en-abbr">AI</span> <span class="term-zh">倫理</span>的重要考量，其評估通常是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">有一個普遍適用於所有情況的單一、絕對的定義</div>
+                    </div>
+                     <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">具有<span class="highlight-keyword">多種不同的定義和指標</span>，需根據<span class="highlight-keyword">具體應用場景</span>和<span class="highlight-keyword">社會價值觀</span>來選擇</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">僅與模型的預測<span class="term-zh">準確率</span>有關</div>
+                    </div>
+                     <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">完全可以透過技術手段自動達成，無需人工判斷</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-en-abbr">AI</span> 中的<span class="term-zh">公平性</span>是一個<span class="highlight-keyword">複雜且多維度</span>的概念，<span class="highlight-keyword">沒有單一</span>的、放諸四海皆準的定義。不同的<span class="term-zh">公平性</span>定義（如<span class="highlight-keyword">群體公平性</span> <span class="term-en-full">Group Fairness</span> vs. <span class="highlight-keyword">個體公平性</span> <span class="term-en-full">Individual Fairness</span>）和指標（如<span class="term-zh">人口均等</span> <span class="term-en-full">Demographic Parity</span>、<span class="term-zh">機會均等</span> <span class="term-en-full">Equal Opportunity</span>、<span class="term-zh">預測均等</span> <span class="term-en-full">Predictive Parity</span> 等）可能相互衝突。選擇哪種<span class="term-zh">公平性</span>標準取決於特定的應用背景、<span class="term-zh">倫理</span>考量和社會價值觀。評估和實現<span class="term-zh">公平性</span>往往需要在不同目標（如<span class="term-zh">準確率</span>與<span class="term-zh">公平性</span>）之間進行<span class="highlight-keyword">權衡</span>，並涉及技術和非技術（如社會、法律）層面的考量。</div>
+                </div>
+            </div>
+
+             <!-- Question 46 -->
+            <div class="question-card" data-direction="6" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#46</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">元數據管理</span> (<span class="term-en-full">Metadata Management</span>) 在<span class="term-zh">數據治理</span>中的重要性在於？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">提供關於數據的<span class="highlight-keyword">描述性資訊</span>（數據的數據），有助於<span class="highlight-keyword">理解、查找和使用</span>數據</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">自動修正數據中的錯誤</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">直接加密敏感數據內容</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">生成數據的視覺化圖表</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">元數據</span>是「<span class="highlight-keyword">關於數據的數據</span>」，它描述了數據的背景資訊，例如數據的<span class="highlight-keyword">定義</span>、<span class="highlight-keyword">來源</span>、<span class="highlight-keyword">格式</span>、<span class="highlight-keyword">結構</span>、創建日期、擁有者、<span class="term-zh">數據品質</span>規則、<span class="term-zh">存取權限</span>、<span class="highlight-keyword">數據血緣</span>等。有效的<span class="term-zh">元數據管理</span>對於<span class="term-zh">數據治理</span>至關重要，因為它：(1) 提高了數據的<span class="highlight-keyword">可發現性</span>（讓人們能找到所需數據）；(2) 增強了數據的<span class="highlight-keyword">可理解性</span>（讓人們明白數據的意義和用法）；(3) 促進了數據標準化和一致性；(4) 支持了<span class="term-zh">數據品質</span>和<span class="term-zh">合規性</span>活動；(5) 建立了對數據的<span class="highlight-keyword">信任</span>。</div>
+                </div>
+            </div>
+
+             <!-- Question 47 -->
+            <div class="question-card" data-direction="7" data-stars="1">
+                <div class="question-header">
+                    <div class="question-id">#47</div>
+                    <div class="question-frequency">★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">零時差攻擊</span> (<span class="term-en-full">Zero-day Attack</span>) 指的是？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">利用軟體或硬體中<span class="highlight-keyword">尚未被開發商或公眾所知悉</span>且<span class="highlight-keyword">尚未有修補程式</span>的<span class="highlight-keyword">安全漏洞</span>發起的攻擊</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">僅在每天午夜零時發動的攻擊</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">需要零個使用者互動即可成功的攻擊</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">針對<span class="term-zh">零信任</span>架構的特定攻擊</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">「<span class="highlight-keyword">零時差</span>」(<span class="term-en-full">Zero-day</span>) 指的是軟體開發商對於某個<span class="term-zh">安全漏洞</span>的知曉和修補時間為零天。<span class="term-zh">零時差攻擊</span>就是指駭客利用了這樣一個剛剛被發現（甚至還未被發現）且還<span class="highlight-keyword">沒有可用補丁</span>的<span class="term-zh">安全漏洞</span>來進行攻擊。因為沒有現成的防禦措施（如補丁或更新的病毒定義），<span class="term-zh">零時差攻擊</span>通常非常危險且難以防禦，需要依賴更主動的威脅檢測技術（如行為分析、<span class="term-zh">入侵防禦系統</span> <span class="term-en-abbr">IPS</span>）來應對。</div>
+                </div>
+            </div>
+
+             <!-- Question 48 -->
+            <div class="question-card" data-direction="8" data-stars="2">
+                <div class="question-header">
+                    <div class="question-id">#48</div>
+                    <div class="question-frequency">★★</div>
+                </div>
+                <div class="question-content">在<span class="term-zh">雲端</span>環境中，確保<span class="term-zh">虛擬機器</span> (<span class="term-en-full">Virtual Machine</span>, <span class="term-en-abbr">VM</span>) 之間<span class="highlight-keyword">網路流量隔離</span>的常用技術是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text"><span class="term-zh">負載平衡器</span> (<span class="term-en-full">Load Balancer</span>)</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">虛擬區域網路</span> (<span class="term-en-full">Virtual Local Area Network</span>, <span class="term-en-abbr">VLAN</span>) 或 <span class="highlight-keyword">虛擬私有雲</span> (<span class="term-en-full">Virtual Private Cloud</span>, <span class="term-en-abbr">VPC</span>) 的<span class="highlight-keyword">安全群組</span>/<span class="highlight-keyword">網路安全群組</span> (<span class="term-en-full">Security Groups</span> / <span class="term-en-full">Network Security Groups</span>, <span class="term-en-abbr">NSG</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text"><span class="term-zh">內容傳遞網路</span> (<span class="term-en-full">Content Delivery Network</span>, <span class="term-en-abbr">CDN</span>)</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="term-zh">網域名稱系統</span> (<span class="term-en-full">Domain Name System</span>, <span class="term-en-abbr">DNS</span>)</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">在<span class="term-zh">雲端</span>環境中，通常使用<span class="highlight-keyword">邏輯隔離</span>機制來控制<span class="term-zh">虛擬機器</span>之間的網路通訊。<span class="term-en-abbr">VLAN</span> 是一種傳統的網路分段技術。在現代公有雲平台（如 <span class="term-en-abbr">AWS</span>, <span class="term-en-abbr">Azure</span>, <span class="term-en-abbr">GCP</span>）中，更常見的是使用 <span class="term-en-abbr">VPC</span> 來創建邏輯上隔離的私有網路環境，並在其中配置<span class="term-zh">子網</span> (<span class="term-en-full">Subnets</span>)。而控制進出 <span class="term-en-abbr">VM</span> 流量的關鍵機制是<span class="highlight-keyword">安全群組</span>（<span class="term-en-abbr">AWS</span>）或<span class="highlight-keyword">網路安全群組</span>（<span class="term-en-abbr">Azure</span>, <span class="term-en-abbr">GCP</span>），它們作為<span class="highlight-keyword">狀態化的虛擬防火牆</span>，允許定義基於 <span class="term-en-abbr">IP</span> 位址、埠號和協定的入站和出站規則，從而實現精細的流量隔離和<span class="term-zh">訪問控制</span>。</div>
+                </div>
+            </div>
+
+             <!-- Question 49 -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#49</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">當發生<span class="term-zh">個人資料外洩</span>事件時，根據台灣《<span class="term-zh">個人資料保護法</span>》施行細則，非公務機關應在查明後，以「<span class="highlight-keyword">適當方式</span>」通知當事人。下列何者<span class="highlight-keyword">最不</span>可能是「適當方式」？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">個別以書面、電子郵件或簡訊通知</div>
+                    </div>
+                    <div class="option-item " data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text">在公司網站上發布公告</div>
+                    </div>
+                     <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">透過大眾媒體公開</div>
+                    </div>
+                     <div class="option-item correct" data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text"><span class="highlight-keyword">僅口頭告知少數內部員工</span></div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">台灣《<span class="term-zh">個人資料保護法</span>》第12條規定，發生個資外洩事故後，應查明事實並以<span class="highlight-keyword">適當方式通知當事人</span>。其施行細則第22條進一步說明「適當方式」應考量事故狀況、通知成本等因素，可採言詞、書面、電話、簡訊、電子郵件、傳真、電子報或其他足以使當事人知悉或可得知悉的方式。當無法逐一通知時，可採網路公告、大眾傳播媒體公告或其他適當公開方式。目的是要讓<span class="highlight-keyword">受影響的當事人知情</span>。僅口頭告知少數內部員工，顯然無法達到通知受影響當事人的目的，因此最不可能是適當方式。</div>
+                </div>
+            </div>
+
+              <!-- Question 50 -->
+            <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#50</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><span class="term-zh">最小權限原則</span> (<span class="term-en-full">Principle of Least Privilege</span>) 在<span class="term-zh">資訊安全</span>中的核心思想是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A">
+                        <div class="option-label">A</div>
+                        <div class="option-text">給予所有使用者系統管理員權限，以方便操作</div>
+                    </div>
+                    <div class="option-item correct" data-option="B">
+                        <div class="option-label">B</div>
+                        <div class="option-text"><span class="highlight-keyword">僅授予</span>使用者或程式執行其指定功能所<span class="highlight-keyword">必需的最低級別權限</span></div>
+                    </div>
+                    <div class="option-item " data-option="C">
+                        <div class="option-label">C</div>
+                        <div class="option-text">盡可能減少系統中安裝的軟體數量</div>
+                    </div>
+                    <div class="option-item " data-option="D">
+                        <div class="option-label">D</div>
+                        <div class="option-text">要求使用者設定最短的密碼</div>
+                    </div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="term-zh">最小權限原則</span>是<span class="term-zh">資訊安全</span>和<span class="term-zh">存取控制</span>的基本原則。它要求任何使用者、程式或系統元件都應該只被授予能夠完成其被授權任務所需的<span class="highlight-keyword">最小權限集合</span>。這樣做的好處是，即使帳戶被盜用或程式出現漏洞，其可能造成的<span class="highlight-keyword">損害範圍</span>也會被限制在該帳戶或程式的<span class="term-zh">最小權限</span>內，從而顯著降低安全風險。給予過多權限（如選項A）會增加風險。選項C和D與<span class="term-zh">最小權限原則</span>的定義無直接關係。</div>
+                </div>
+            </div>
+            <!-- End of 50 questions -->
+
+        </div>
+
+        <div id="noResultsMessage" style="display: none;">沒有找到符合條件的題目。</div>
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <!-- Script section remains unchanged -->
+    <script>
+        let explanationsVisible = true; // Explanations start visible
+        let answersVisible = true; // Answers start visible
+        let correctAnswers = []; // Store information about correct answers
+        const allQuestions = document.querySelectorAll(".question-card"); // Cache all questions
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%"; // Handle case where content height is less than viewport
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        backToTopButton.addEventListener("click", function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter elements
+        const directionFilter = document.getElementById("directionFilter");
+        const starFilter = document.getElementById("starFilter");
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Filter by direction (called from direction items)
+        function filterByDirection(directionNumber) {
+            directionFilter.value = directionNumber === 'all' ? 'all' : String(directionNumber);
+             // Reset search when direction is clicked
+            searchInput.value = "";
+            runFiltersAndSearch();
+        }
+
+        // Event listeners for filters and search
+        directionFilter.addEventListener("change", runFiltersAndSearch);
+        starFilter.addEventListener("change", runFiltersAndSearch);
+        searchButton.addEventListener("click", runFiltersAndSearch);
+        searchInput.addEventListener("keyup", function(event) {
+            // Trigger search on Enter key or when input is cleared
+            if (event.key === "Enter" || searchInput.value === "") {
+                 runFiltersAndSearch();
+            }
+        });
+
+        // Combined filter and search function
+        function runFiltersAndSearch() {
+            let direction = directionFilter.value;
+            let stars = starFilter.value;
+            let searchText = searchInput.value.toLowerCase().trim();
+            let anyVisible = false;
+
+            allQuestions.forEach(function(question) {
+                const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+                const matchesStars = (stars === "all" || question.dataset.stars === stars);
+                const questionText = question.textContent.toLowerCase();
+                const matchesSearch = (searchText === "" || questionText.includes(searchText));
+
+                if (matchesDirection && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+            // Show or hide the 'no results' message
+            if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 if (!anyVisible) { // Update message if nothing is visible
+                     if(searchText !== "") {
+                          noResultsMessage.textContent = '沒有找到符合所有篩選條件和搜尋關鍵字的題目。';
+                     } else {
+                          noResultsMessage.textContent = '沒有找到符合條件的題目。';
+                     }
+                 }
+            }
+             // Update progress bar after filtering potentially changes page height
+             updateProgressBar();
+        }
+
+        // Toggle explanations visibility
+        const toggleExplanationsButton = document.getElementById("toggleExplanations");
+        toggleExplanationsButton.addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+
+            explanations.forEach(function(explanation) {
+                explanation.style.display = explanationsVisible ? "block" : "none";
+            });            toggleExplanationsButton.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+
+        // Initialize correct answers data
+        function initializeCorrectAnswers() {
+            let correctOptions = document.querySelectorAll(".option-item.correct");
+            correctAnswers = [];
+            
+            correctOptions.forEach(function(option) {
+                let strongElements = option.querySelectorAll("strong[style*='background-color'], .highlight-keyword, .term-en-full, .term-zh, .term-en-abbr");
+                let strongData = [];
+                
+                strongElements.forEach(function(strong) {
+                    strongData.push({
+                        element: strong,
+                        originalStyle: strong.getAttribute('style'),
+                        text: strong.textContent
+                    });
+                });
+                
+                correctAnswers.push({
+                    element: option,
+                    strongElements: strongData
+                });
+            });
+        }
+
+        // Toggle answers visibility
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            
+            correctAnswers.forEach(function(correctAnswer) {
+                if (answersVisible) {
+                    // Show answers: restore correct class and strong styling
+                    correctAnswer.element.classList.add("correct");
+                    correctAnswer.strongElements.forEach(function(strongData) {
+                        if (strongData.element.classList.contains('highlight-keyword') || 
+                            strongData.element.classList.contains('term-en-full') || 
+                            strongData.element.classList.contains('term-zh') || 
+                            strongData.element.classList.contains('term-en-abbr')) {
+                            // For CSS class elements, restore the styles
+                            strongData.element.style.backgroundColor = "#ffff0030";
+                            strongData.element.style.fontWeight = "bold";
+                        } else {
+                            // For inline style elements
+                            strongData.element.style.backgroundColor = "#ffff0030";
+                            strongData.element.style.fontWeight = "bold";
+                        }
+                    });
+                } else {
+                    // Hide answers: remove correct class and strong styling
+                    correctAnswer.element.classList.remove("correct");
+                    correctAnswer.strongElements.forEach(function(strongData) {
+                        if (strongData.element.classList.contains('highlight-keyword') || 
+                            strongData.element.classList.contains('term-en-full') || 
+                            strongData.element.classList.contains('term-zh') || 
+                            strongData.element.classList.contains('term-en-abbr')) {
+                            // For CSS class elements, override the class styles
+                            strongData.element.style.backgroundColor = "transparent";
+                            strongData.element.style.fontWeight = "normal";
+                        } else {
+                            // For inline style elements
+                            strongData.element.style.backgroundColor = "";
+                            strongData.element.style.fontWeight = "normal";
+                        }
+                    });
+                }
+            });
+            
+            button.textContent = answersVisible ? "隱藏全部解答" : "顯示全部解答";
+        });
+
+        // Click options (no grading logic, just for potential interaction feedback)
+        let options = document.querySelectorAll(".option-item");
+        options.forEach(function(option) {
+            option.addEventListener("click", function() {
+                // Optional: Add visual feedback on click if desired
+            });
+        });
+
+         // Initial setup
+         
+         initializeCorrectAnswers(); // Initialize correct answers data
+         toggleBackToTopButton(); // Check initial scroll position
+         updateProgressBar(); // Set initial progress bar state
+         runFiltersAndSearch(); // Apply default filters (all/all) on load
+         // Set initial state for toggle button text
+         toggleExplanationsButton.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+         // Ensure the message div exists and setup initial text
+        if (!document.getElementById('noResultsMessage')) {
+             const questionsContainer = document.getElementById('questionsContainer');
+             const messageDiv = document.createElement('div');
+             messageDiv.id = 'noResultsMessage';
+             messageDiv.style.display = 'none';
+             messageDiv.style.textAlign = 'center';
+             messageDiv.style.marginTop = '20px';
+             messageDiv.style.padding = '20px'; // Added padding
+             messageDiv.style.color = '#777'; // Kept grey for less critical messages
+             questionsContainer.insertAdjacentElement('afterend', messageDiv);
+        }
+        // Set initial message
+        document.getElementById('noResultsMessage').textContent = '沒有找到符合條件的題目。';
+
+    </script>
+</body>
+</html>

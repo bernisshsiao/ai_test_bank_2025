@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>檔案7：L11302 常見的機器學習模型（100題）</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置皆能良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 1.8rem;
+            color: #444;
+        }
+        .question-block {
+            border: 3px solid #888;
+            border-radius: 6px;
+            margin: 25px 0;
+            padding: 15px;
+            background: #fdfdfd;
+        }
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #0b3d86; /* 藍色字體凸顯 */
+        }
+        .question {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .options {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+        .reference {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .answer {
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+        .correct {
+            color: red; /* 正確答案用紅色標示 */
+            font-weight: bold;
+        }
+        .explanation {
+            margin-top: 5px;
+            color: blue; /* 解析用藍色 */
+        }
+        /* :hover 效果，用於強調每個區塊 */
+        .question-block:hover {
+            background: #eef;
+            transition: 0.3s;
+        }
+        /* 簡易JS按鈕相關，可自行改寫 */
+        .toggle-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 10px;
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .toggle-content {
+            display: none; 
+            margin-top: 8px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+        }
+        @media (max-width: 768px) {
+            .question-header {
+                font-size: 1rem;
+            }
+            .question {
+                font-size: 0.95rem;
+            }
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+    <script>
+        /* 顯示或隱藏答案解析的JS，可自行調整 */
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if(content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+        let explanationsVisible = false;
+        let answersVisible = true;
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+            let button = document.getElementById("toggleExplanations");
+            explanations.forEach(function(explanation) {
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // ... existing code ...
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            allOptions.forEach(function(opt) {
+                if (opt.classList.contains('correct')) {
+                    opt.dataset.originalCorrect = 'true';
+                } else {
+                    opt.dataset.originalCorrect = 'false';
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>檔案7：L11302 常見的機器學習模型（100題）</h1>
+        <h2>共100題（難度比照初級樣題）</h2>
+
+        <!-- 題目 1 -->
+        <div class="question-block">
+            <div class="question-header">
+                1. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">
+                由大綱出題：Yes（參考：初級大綱.txt - L11302 常見的機器學習模型）
+            </div>
+            <div class="question">
+                「線性迴歸 (Linear Regression)」屬於何種機器學習模型範疇？
+            </div>
+            <div class="options">
+                A. 分群 (Clustering)<br>
+                <span class="correct">B. 監督式學習，用於預測連續數值</span><br>
+                C. 無監督式學習<br>
+                D. 強化式學習
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：線性迴歸為典型的監督式迴歸模型，依據標籤(連續值)訓練。
+                </div>
+                <br>
+                <img src="image/Linear Regression.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 2 -->
+        <div class="question-block">
+            <div class="question-header">
+                2. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">
+                由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第12頁）
+            </div>
+            <div class="question">
+                「羅吉斯迴歸 (Logistic Regression)」實際上最常用於？
+            </div>
+            <div class="options">
+                A. 迴歸預測房價<br>
+                B. 分群演算法<br>
+                <span class="correct">C. 二元分類，將輸出映射到0或1</span><br>
+                D. 強化式策略學習
+            </div>
+            <div class="answer">
+                答案：<span class="correct">C</span>
+                <div class="explanation">
+                    解析：Logistic Regression雖名為迴歸，實際透過sigmoid函式做二元分類。
+                    
+                </div>
+                <img src="image/Logistic Regression.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 3 -->
+        <div class="question-block">
+            <div class="question-header">
+                3. 出題頻率/重要性：★
+            </div>
+            <div class="reference">
+                由講義出題：No（外部延伸參考）
+            </div>
+            <div class="question">
+                決策樹 (Decision Tree) 通常是透過什麼原則進行特徵選擇？
+            </div>
+            <div class="options">
+                <span class="correct">A. 最大化資訊增益或最小化不純度(如基尼係數)</span><br>
+                B. 隨機指定<br>
+                C. 根據特徵名排序<br>
+                D. 完全不考慮分裂準則
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：常用的決策樹演算法(如ID3, C4.5, CART)皆透過量測分裂後資訊增益或基尼係數以決定最佳分裂特徵。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 4 -->
+        <div class="question-block">
+            <div class="question-header">
+                4. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">
+                由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第20頁）
+            </div>
+            <div class="question">
+                「隨機森林 (Random Forest)」中的每棵樹，樣本和特徵的選擇方式是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 有放回地隨機抽取部分資料 + 隨機抽取特徵子集，再訓練樹</span><br>
+                B. 全部資料+全特徵<br>
+                C. 依序修剪<br>
+                D. 僅針對樹根做隨機
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Random Forest使用Bagging概念對資料做bootstrap抽樣，且每分裂節點時隨機選部分特徵。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 5 -->
+        <div class="question-block">
+            <div class="question-header">
+                5. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">
+                由大綱出題：Yes（參考：初級大綱.txt - L11302 常見的機器學習模型）
+            </div>
+            <div class="question">
+                支持向量機 (SVM) 的關鍵概念為？
+            </div>
+            <div class="options">
+                A. 只適用回歸<br>
+                <span class="correct">B. 尋找能最大化類別間邊界距離的超平面，常用於分類</span><br>
+                C. 不考慮間隔<br>
+                D. 與核函式無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：SVM 透過最大化類別間的margin，提高泛化能力，核函式可處理非線性。
+                    
+                </div>
+                <img src="image/SVM.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 6 -->
+        <div class="question-block">
+            <div class="question-header">
+                6. 出題頻率/重要性：★
+            </div>
+            <div class="reference">
+                由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第28頁）
+            </div>
+            <div class="question">
+                「KNN (K-Nearest Neighbors)」的主要決策依據是什麼？
+            </div>
+            <div class="options">
+                <span class="correct">A. 計算測試樣本與訓練樣本之距離，取最接近的K個鄰居投票決策</span><br>
+                B. 建立一棵決策樹<br>
+                C. 加權線性方程<br>
+                D. 使用隱含馬可夫模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：KNN 屬於懶惰學習算法，不需要明確的訓練階段，只在預測時找最近鄰居決定類別或數值。
+                   
+                </div>
+                <img src="image/KNN.webp" class ="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 7 -->
+        <div class="question-block">
+            <div class="question-header">
+                7. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">
+                由講義出題：No（外部延伸參考）
+            </div>
+            <div class="question">
+                「Naive Bayes」在文字分類（如垃圾郵件分類）中常見原因是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 訓練與預測速度快，對高維稀疏資料表現尚可</span><br>
+                B. 無法處理文字<br>
+                C. 須龐大計算量<br>
+                D. 容易過度擬合
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Naive Bayes 假設特徵條件獨立，對文本型高維特徵仍能有效學習，且計算簡單。
+                    
+                </div>
+                <img src="image/Naive Bayes.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 8 -->
+        <div class="question-block">
+            <div class="question-header">
+                8. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">
+                由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第38頁）
+            </div>
+            <div class="question">
+                「集成學習 (Ensemble)」如Bagging、Boosting的核心想法是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 結合多個弱模型的預測，透過投票或加權讓最終結果更佳</span><br>
+                B. 單模組必然勝過集成<br>
+                C. 只適用線性回歸<br>
+                D. 與多模型無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Bagging(如隨機森林)並行投票；Boosting(如XGBoost)序列補誤差，共同提升效能。
+                    
+                </div>
+                <img src="image/Ensemble_Learning_Bagging_Boosting.avif" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 9 -->
+        <div class="question-block">
+            <div class="question-header">
+                9. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                線性模型常做特徵工程，原因是？
+            </div>
+            <div class="options">
+                A. 無法加入新特徵<br>
+                <span class="correct">B. 線性模型本身只擬合線性關係，透過人工新增交叉或多項式特徵可處理複雜關係</span><br>
+                C. 保持原樣最佳<br>
+                D. 與模型無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：線性模型要學到彎曲或交互效應，需顯式加入非線性特徵(如x1*x2,x^2)。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 10 -->
+        <div class="question-block">
+            <div class="question-header">
+                10. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第52頁）</div>
+            <div class="question">
+                在樹模型中，若沒有任何限制，可能會如何？
+            </div>
+            <div class="options">
+                <span class="correct">A. 樹會持續深度生長，最終過擬合</span><br>
+                B. 準確率一直提升，無上限<br>
+                C. 無法生成樹<br>
+                D. 僅能生成一層
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：決策樹若不做max_depth或最小樣本分裂等限制，易高度擬合訓練集雜訊。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 11 -->
+        <div class="question-block">
+            <div class="question-header">
+                11. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第80頁）</div>
+            <div class="question">
+                「深度學習 (Deep Learning)」中的神經網路與傳統ML模型相比，關鍵不同在於？
+            </div>
+            <div class="options">
+                <span class="correct">A. 多層神經網路可自行學習複雜特徵表示，尤其在影像、語音等領域有優勢</span><br>
+                B. 深度學習不需要資料<br>
+                C. 一定比傳統模型更快<br>
+                D. 僅能做回歸
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：多層網路具自動特徵學習能力，且在大數據與GPU運算支持下大放異彩。
+                    
+                </div>
+                <img src="image/Deep_Learning_vs_Machine_Learning.jpeg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 12 -->
+        <div class="question-block">
+            <div class="question-header">
+                12. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「神經網路 (Neural Network)」中，激活函式 (Activation) 的作用是？
+            </div>
+            <div class="options">
+                A. 僅做線性輸出<br>
+                <span class="correct">B. 引入非線性，使網路能表達更複雜的函式關係</span><br>
+                C. 加速資料讀取<br>
+                D. 不在訓練流程中
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：若無激活函式，每層都是線性疊加，最終仍是線性模型，無法學習高階非線性。
+                    
+                </div>
+                <img src="image/neural network activation function.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 13 -->
+        <div class="question-block">
+            <div class="question-header">
+                13. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「深度前饋網路 (Feedforward NN)」與「捲積神經網路 (CNN)」差異為？
+            </div>
+            <div class="options">
+                <span class="correct">A. CNN在隱藏層中使用捲積與池化結構，擅長處理影像等具有空間資訊的資料</span><br>
+                B. 完全無差別<br>
+                C. 前饋網路只能處理序列資料<br>
+                D. CNN無法用於影像
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：CNN特點是卷積層與池化層，可抽取空間結構特徵，常用於影像任務。
+                    
+                </div>
+                <img src="image/CNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 14 -->
+        <div class="question-block">
+            <div class="question-header">
+                14. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第45頁）</div>
+            <div class="question">
+                隨機森林與梯度提升樹 (GBM) 的主要差異在？
+            </div>
+            <div class="options">
+                <span class="correct">A. RF採Bagging並行訓練多樹；GBM序列訓練，後續樹補前面殘差</span><br>
+                B. RF只可處理回歸<br>
+                C. GBM只可處理分類<br>
+                D. 無本質差異
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：RF並行投票；GBM序列boost。兩者都是樹集成，但過程截然不同。
+                    
+                </div>
+                <img src="image/Ensemble_Learning_Bagging_Boosting.avif" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 15 -->
+        <div class="question-block">
+            <div class="question-header">
+                15. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「Multinomial Naive Bayes」通常應用於？
+            </div>
+            <div class="options">
+                A. 處理二分類連續特徵<br>
+                <span class="correct">B. 文字分類(如Bag of Words計數) 等多分類場景</span><br>
+                C. 數值回歸<br>
+                D. 與文本無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：多項式NB特別適合詞頻向量(計數型)的多分類任務，如文本分類。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 16 -->
+        <div class="question-block">
+            <div class="question-header">
+                16. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第60頁）</div>
+            <div class="question">
+                「Lasso (L1)」與「Ridge (L2)」回歸的相同點是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 皆屬正則化方法，透過懲罰權重大小來抑制過擬合</span><br>
+                B. L1是正則化，L2不是<br>
+                C. Ridge會使權重=0<br>
+                D. 兩者都只能做二元分類
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：L1與L2都在目標函式中加入權重懲罰項，只是形式不同(L1=|w|、L2=w^2)。
+                </div>
+                <br>
+                <img src="image/Lasso ridge.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 17 -->
+        <div class="question-block">
+            <div class="question-header">
+                17. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第85頁）</div>
+            <div class="question">
+                「RNN (Recurrent Neural Network)」特別適合處理哪種資料型態？
+            </div>
+            <div class="options">
+                <span class="correct">A. 序列型(如時間序列、自然語言)資料</span><br>
+                B. 靜態影像<br>
+                C. 圖像分割<br>
+                D. 純結構化表格
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：RNN使用隱狀態可記錄序列上下文資訊，常應用於語音、語言、時間序列預測等。
+                    
+                </div>
+                <img src="image/RNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 18 -->
+        <div class="question-block">
+            <div class="question-header">
+                18. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「強化學習 (Reinforcement Learning)」的學習方式與監督式學習不同點是？
+            </div>
+            <div class="options">
+                A. RL有明確輸入輸出標籤<br>
+                <span class="correct">B. RL透過與環境互動並獲得獎勵或懲罰，累積試誤經驗</span><br>
+                C. RL不能學習策略<br>
+                D. 監督式無需標籤
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：強化式學習不預先提供每一步正確答案，而是透過獎懲在連續行動中學得最佳策略。
+                    
+                </div>
+                <img src="image/Reinforcement Learning.jpg" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 19 -->
+        <div class="question-block">
+            <div class="question-header">
+                19. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第70頁）</div>
+            <div class="question">
+                「GBDT (Gradient Boosting Decision Tree)」與「XGBoost」之差異？
+            </div>
+            <div class="options">
+                <span class="correct">A. XGBoost是GBDT的工程升級版本，增加並行、正則化與缺失值處理等優化</span><br>
+                B. 兩者毫無關係<br>
+                C. XGBoost只能做回歸<br>
+                D. GBDT較快於XGBoost
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：XGBoost 在GBDT基礎上做了許多工程改進(如並行、樹方法優化)，效能普遍較好。
+                    
+                </div>
+                <img src="image/Gradient Boosting Tree.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 20 -->
+        <div class="question-block">
+            <div class="question-header">
+                20. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第88頁）</div>
+            <div class="question">
+                卷積神經網路 (CNN) 最早在哪種領域展現強大效果？
+            </div>
+            <div class="options">
+                <span class="correct">A. 圖像辨識，如ImageNet</span><br>
+                B. 時序預測<br>
+                C. 強化式學習遊戲<br>
+                D. 客戶分群
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：CNN在影像分類中大幅超越傳統手工特徵方法，如LeNet, AlexNet的誕生即突破ImageNet。
+                    
+                </div>
+                <img src="image/CNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 21 -->
+        <div class="question-block">
+            <div class="question-header">
+                21. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                K-Means屬於哪一類模型？
+            </div>
+            <div class="options">
+                <span class="correct">A. 非監督式分群</span><br>
+                B. 監督式分類<br>
+                C. 迴歸分析<br>
+                D. 強化式學習
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：K-Means是將資料自動分成K群的演算法，並無標籤，屬非監督式分群。
+                    
+                </div>
+                <img src="image/K-Means.avif" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 22 -->
+        <div class="question-block">
+            <div class="question-header">
+                22. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「DBSCAN」與「K-Means」在分群時有何差別？
+            </div>
+            <div class="options">
+                <span class="correct">A. DBSCAN不需預設群數，根據密度區域形成群，能發現任意形狀叢集</span><br>
+                B. DBSCAN需要固定K<br>
+                C. K-Means可找任意形狀<br>
+                D. 兩者無任何差異
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：DBSCAN透過ε鄰域和MinPts定義密度，能自動發現叢集並標記雜點；K-Means要固定K且適用球形叢集。
+                    
+                </div>
+                <img src="image/DBSCAN.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 23 -->
+        <div class="question-block">
+            <div class="question-header">
+                23. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第92頁）</div>
+            <div class="question">
+                在隨機森林中，哪些方法可用來防止樹過度擬合？
+            </div>
+            <div class="options">
+                <span class="correct">A. 限制樹深 (max_depth)、設定最小樣本葉數 (min_samples_leaf) 等參數</span><br>
+                B. 無法防止<br>
+                C. 測試集調整<br>
+                D. 只需移除隨機性
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：雖然RF本身已平均多樹降低過擬合，但仍可透過樹的max_depth等參數控制單棵樹複雜度。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 24 -->
+        <div class="question-block">
+            <div class="question-header">
+                24. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                假設你要做「文件分類」，初步會選哪種常見模型做 baseline？
+            </div>
+            <div class="options">
+                <span class="correct">A. Naive Bayes 或 Logistic Regression 搭配TF-IDF</span><br>
+                B. K-Means<br>
+                C. 隨機森林無法做分類<br>
+                D. 僅能KNN
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：文本分類初級基線往往用朴素貝氏或Logistic Regression配合TF-IDF，速度快成效可觀。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 25 -->
+        <div class="question-block">
+            <div class="question-header">
+                25. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                Gradient Boosting為何能不斷改善模型表現？
+            </div>
+            <div class="options">
+                <span class="correct">A. 每階段學習前一階段殘差，逐步修正誤差</span><br>
+                B. 一次性平均多棵樹<br>
+                C. 只隨機挑特徵<br>
+                D. 不適用迭代
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Boosting(尤其GBM)透過序列化加強，後面模型集中學習前面尚未解決的錯誤。
+                    
+                </div>
+                <img src="image/Gradient Boosting Tree.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 26 -->
+        <div class="question-block">
+            <div class="question-header">
+                26. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第92頁）</div>
+            <div class="question">
+                使用「RNN (Recurrent Neural Network)」時，長序列會出現何種常見問題？
+            </div>
+            <div class="options">
+                <span class="correct">A. 梯度消失或爆炸，導致難以學習遠距資訊</span><br>
+                B. 記憶所有序列<br>
+                C. 只可做影像<br>
+                D. 迴歸分析
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：RNN在長序列下梯度反傳時可能指數衰減(消失)或增長(爆炸)，故有LSTM/GRU改進。
+                </div>
+                <br>
+                <img src="image/RNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 27 -->
+        <div class="question-block">
+            <div class="question-header">
+                27. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                KNN 做回歸時，預測值如何計算？
+            </div>
+            <div class="options">
+                A. 無法做回歸<br>
+                <span class="correct">B. 找到K個最近鄰樣本的平均值或加權平均</span><br>
+                C. 距離越遠權重越大<br>
+                D. 僅能投票
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：KNN除用於分類，也可用於回歸，將K鄰點的標籤取平均(或加權平均)即為預測。
+                    
+                </div>
+                <br>
+                <img src="image/KNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 28 -->
+        <div class="question-block">
+            <div class="question-header">
+                28. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第72頁）</div>
+            <div class="question">
+                「Perceptron」是什麼？
+            </div>
+            <div class="options">
+                <span class="correct">A. 最早期的線性分類器，單層感知器能處理可線性分的問題</span><br>
+                B. CNN網路<br>
+                C. 回歸演算法<br>
+                D. 貝氏方法
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：感知器(Perceptron)是啟蒙時期的神經元模型，對線性可分問題可收斂，但無法處理非線性。
+                    
+                </div>
+                <img src="image/perceptron.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 29 -->
+        <div class="question-block">
+            <div class="question-header">
+                29. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「GAN (Generative Adversarial Network)」屬於哪種類型的模型？
+            </div>
+            <div class="options">
+                A. 鑑別式 (Discriminative) 模型<br>
+                <span class="correct">B. 生成式 (Generative) 模型，由生成器與鑑別器互相對抗</span><br>
+                C. 僅能回歸<br>
+                D. 不能生成資料
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：GAN 由生成器(產生假樣本)與判別器(判定真偽)對抗訓練，可生成接近真實的資料，如圖像。
+                    
+                </div>
+                <img src="image/GAN.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 30 -->
+        <div class="question-block">
+            <div class="question-header">
+                30. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在LSTM與GRU等改進型RNN中，為何能緩解梯度消失問題？
+            </div>
+            <div class="options">
+                <span class="correct">A. 透過門控機制 (Gate) 保留長期記憶並有選擇地忘記不必要資訊</span><br>
+                B. 大幅增加參數<br>
+                C. 與梯度消失無關<br>
+                D. 全部改用線性激活
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：LSTM/GRU 引入輸入/遺忘/輸出門，保留長期依賴信息、減少梯度衰減。
+                                       
+                </div>
+                <img src="image/LSTM_gate.png" class="responsive-img"> 
+            </div>
+        </div>
+
+        <!-- 題目 31 -->
+        <div class="question-block">
+            <div class="question-header">
+                31. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第82頁）</div>
+            <div class="question">
+                「凸優化 (Convex Optimization)」在某些模型中的重要性是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 若損失函式是凸的，就能保證找到全域最小值，像線性/邏輯迴歸即是</span><br>
+                B. 只表示梯度消失<br>
+                C. 使模型不收斂<br>
+                D. 與優化無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：凸函式只存在一個全域極小點，梯度下降能收斂到該點；例如線性回歸 MSE, logistic回歸 cross-entropy 都是凸問題。
+                </div>
+                <br>
+                <img src="image/Convex Optimization.svg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 32 -->
+        <div class="question-block">
+            <div class="question-header">
+                32. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第98頁）</div>
+            <div class="question">
+                「LightGBM」相較於 XGBoost，哪項特色最為人熟知？
+            </div>
+            <div class="options">
+                <span class="correct">A. 採用葉節點增長(Leaf-wise)策略 + 直方圖優化，速度更快並能處理大規模資料</span><br>
+                B. 僅能小資料<br>
+                C. 與XGBoost無差別<br>
+                D. 須固定特徵數不變
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：LightGBM用leaf-wise生長和直方圖加速技術，可降低計算量，對大數據更高效。
+                    
+                </div>
+                <img src="image/LightGBM.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 33 -->
+        <div class="question-block">
+            <div class="question-header">
+                33. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「貝葉斯最佳化 (Bayesian Optimization)」主要在解決什麼問題？
+            </div>
+            <div class="options">
+                <span class="correct">A. 高成本函式或黑箱函式的參數尋優，如模型超參數</span><br>
+                B. K-Means初始中心選擇<br>
+                C. 直接梯度下降<br>
+                D. 與調參無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：貝葉斯最佳化不需要顯式梯度，可用於超參數搜尋，尤其評估昂貴時優於網格/隨機搜索。
+                </div>
+                <br>
+                <img src="image/Bayesian Optimization.PNG" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 34 -->
+        <div class="question-block">
+            <div class="question-header">
+                34. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                下列哪一個不是「集成學習」的方法？
+            </div>
+            <div class="options">
+                <span class="correct">A. PCA降維</span><br>
+                B. Bagging (如隨機森林)<br>
+                C. Boosting (如XGBoost)<br>
+                D. Stacking (堆疊集成)
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：PCA是降維技術，不屬於集成學習。B、C、D皆為結合多模型提升表現的方法。
+                    
+                </div>
+                <img src="image/PCA.jpg" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 35 -->
+        <div class="question-block">
+            <div class="question-header">
+                35. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第108頁）</div>
+            <div class="question">
+                在GBDT中，學習率 (learning rate) 與樹棵數 (n_estimators) 的取捨是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 較低的學習率通常需要更多棵樹，較穩定但訓練時間較長</span><br>
+                B. 學習率越大越好<br>
+                C. 棵數越少效果越好<br>
+                D. 與調參無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：學習率小 → 每次修正幅度小，需更多迭代；學習率大 → 易震盪或過擬合。需同時調整二者。
+                    
+                </div>
+                <img src="image/learning rate.png" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 36 -->
+        <div class="question-block">
+            <div class="question-header">
+                36. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                LGBM (LightGBM)與CatBoost都屬何種模型家族？
+            </div>
+            <div class="options">
+                A. 深度神經網路<br>
+                <span class="correct">B. 梯度提升樹(Boosting) 的變體</span><br>
+                C. CNN卷積模型<br>
+                D. 純線性模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：LightGBM與CatBoost均是提升樹模型(Boosting)的實作，針對速度與類別特徵等做優化。
+                    
+                </div>
+                <img src="image/Ensemble_Learning_Bagging_Boosting.avif" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 37 -->
+        <div class="question-block">
+            <div class="question-header">
+                37. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第115頁）</div>
+            <div class="question">
+                SVM若要處理多類別問題，一般採哪種策略？
+            </div>
+            <div class="options">
+                <span class="correct">A. One-vs-One 或 One-vs-Rest 的二分類擴充</span><br>
+                B. 直接端到端多分類<br>
+                C. 只能做二分類<br>
+                D. 與多分類無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：SVM本身為二分類器，多類別可透過OvO(每對類別一分類器) 或OvR 方式擴充。
+                    
+                </div>
+                <img src="image/OvO OvR.jpg" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 38 -->
+        <div class="question-block">
+            <div class="question-header">
+                38. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「K-Means」演算法對初始中心的選擇敏感嗎？
+            </div>
+            <div class="options">
+                <span class="correct">A. 是，初始中心不同可能導致收斂到不同局部最小</span><br>
+                B. K-Means不需初始中心<br>
+                C. 一定可得到全域最佳<br>
+                D. 與初始無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：K-Means對初始質心敏感，故常用K-Means++等方法改良初始點選擇。
+                    
+                </div>
+                <img src="image/K-Means.avif" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 39 -->
+        <div class="question-block">
+            <div class="question-header">
+                39. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                若使用線性SVM時發現資料並非線性可分，可以怎麼辦？
+            </div>
+            <div class="options">
+                A. 放棄<br>
+                <span class="correct">B. 引入核函式 (RBF、多項式等) 轉為非線性SVM</span><br>
+                C. 只能做決策樹<br>
+                D. 與可分無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：核SVM可映射到高維特徵空間來做線性可分，進而解決非線性問題。
+                </div>
+                <br>
+                <img src="image/svm Kernel.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 40 -->
+        <div class="question-block">
+            <div class="question-header">
+                40. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在CNN中，為何使用「池化層 (Pooling)」？
+            </div>
+            <div class="options">
+                <span class="correct">A. 降低空間維度，減少參數並增強平移不變性</span><br>
+                B. 增加計算量<br>
+                C. 提高解析度<br>
+                D. 與CNN無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Pooling(如 max/average pooling)能縮小特徵圖大小並保留關鍵訊號，提升模型穩健性。
+                    
+                </div>
+                <img src="image/CNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 41 -->
+        <div class="question-block">
+            <div class="question-header">
+                41. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第95頁）</div>
+            <div class="question">
+                訓練神經網路時常使用「Dropout」層，其功用為？
+            </div>
+            <div class="options">
+                <span class="correct">A. 隨機丟棄部分神經元，避免過度擬合</span><br>
+                B. 增加過擬合<br>
+                C. 僅做資料標註<br>
+                D. 刪除整個隱藏層
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Dropout在訓練中隨機使一些神經元失活，減少互相依賴並提升泛化能力。
+                    
+                </div>
+                <img src="image/dropout.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 42 -->
+        <div class="question-block">
+            <div class="question-header">
+                42. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在SVM中使用 L1 損失或 L2 損失，有何差異？
+            </div>
+            <div class="options">
+                <span class="correct">A. L1損失對錯誤分類懲罰方式不同於L2，L2更平滑而L1更易稀疏</span><br>
+                B. 與懲罰無關<br>
+                C. 相同<br>
+                D. SVM不含損失
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：SVM可定義不同形式的Hinge損失(L1 or L2)；L2 Hinge更平滑，L1對誤差線性懲罰。
+                   
+                </div>
+                <img src="image/SVM_L1_L2.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 43 -->
+        <div class="question-block">
+            <div class="question-header">
+                43. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                若要做「主成分分析 (PCA)」後再餵入分類模型，其目標是？
+            </div>
+            <div class="options">
+                A. 用PCA當最終分類<br>
+                <span class="correct">B. 先降維移除雜訊與冗餘，再以較少特徵訓練分類器</span><br>
+                C. 增加模型參數<br>
+                D. 與分類無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：先降維能加速訓練並減少過擬合風險，保留主要變異資訊後再做分類。
+                    
+                </div>
+                <img src="image/PCA.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 44 -->
+        <div class="question-block">
+            <div class="question-header">
+                44. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第140頁）</div>
+            <div class="question">
+                「梯度提升樹 (Gradient Boosted Tree)」若連續疊加太多樹且學習率過大，會怎樣？
+            </div>
+            <div class="options">
+                <span class="correct">A. 容易過擬合，需配合Early Stopping或適度正則化</span><br>
+                B. 準確率一定最高<br>
+                C. 只能用在小資料<br>
+                D. 不受影響
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Boosting在過多疊加+大學習率下易記住雜訊，故要監控驗證誤差或用正則化方式避免。
+                    
+                </div>
+                <img src="image/Early Stopping.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 45 -->
+        <div class="question-block">
+            <div class="question-header">
+                45. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                KNN 在高維度（如百維以上）為什麼常表現不佳？
+            </div>
+            <div class="options">
+                <span class="correct">A. 距離度量失去區分度，大部分點都相似距離</span><br>
+                B. 高維度更好找鄰居<br>
+                C. 無任何影響<br>
+                D. KNN不需要距離
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：高維度下，樣本間距離差異變小，「維度詛咒」使KNN鄰居概念不再有效。
+                    
+                </div>
+                <img src="image/Curse-of-Dimensionality.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 46 -->
+        <div class="question-block">
+            <div class="question-header">
+                46. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第155頁）</div>
+            <div class="question">
+                CatBoost 相較於 XGBoost、LightGBM，有何特色？
+            </div>
+            <div class="options">
+                <span class="correct">A. 針對類別特徵 (Categorical Feature) 有更好的原生編碼方式，減少人工處理</span><br>
+                B. 無法處理類別特徵<br>
+                C. 只能做回歸<br>
+                D. 僅在小資料能用
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：CatBoost有自動處理類別特徵(Ordered Target Statistics等)，對含類別欄位的資料成效好。
+                    
+                </div>
+                <img src="image/CatBoost.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 47 -->
+        <div class="question-block">
+            <div class="question-header">
+                47. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「AutoEncoder」屬於哪種模型類別？
+            </div>
+            <div class="options">
+                <span class="correct">A. 一種非監督式神經網路，用於壓縮與重建資料</span><br>
+                B. 只能分類<br>
+                C. 只能做迴歸<br>
+                D. 貝氏方法
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：自編碼器(AutoEncoder)透過中間瓶頸層學到資料低維表示，再解碼重建輸入，用於降維或特徵學習。
+                    
+                </div>
+                <img src="image/AutoEncoder.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 48 -->
+        <div class="question-block">
+            <div class="question-header">
+                48. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在迴歸問題中，使用「Huber Loss」的好處是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 結合MSE與MAE的特性，對outlier有更高的韌性</span><br>
+                B. 無法處理outlier<br>
+                C. 一定比MSE更差<br>
+                D. 只適合樹模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Huber在誤差小時類似MSE(平滑)，誤差大時類似MAE(對異常值敏感度低)。
+                    
+                </div>
+                <img src="image/Huber-loss-and-outliers.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 49 -->
+        <div class="question-block">
+            <div class="question-header">
+                49. 出題頻率/重要性：★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第100頁）</div>
+            <div class="question">
+                「Transormer 變形模型」最大的創新之一是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 透過注意力機制 (Self-Attention) 替代RNN/CNN處理序列，可大幅並行訓練</span><br>
+                B. 只做圖像<br>
+                C. 只能單向資訊<br>
+                D. 放棄任何注意力
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Transformer在自然語言等領域成功主要靠多頭注意力機制與並行結構，擺脫RNN序列依賴。
+                    
+                </div>
+                <img src="image/Transformer.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 50 -->
+        <div class="question-block">
+            <div class="question-header">
+                50. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第200頁）</div>
+            <div class="question">
+                綜觀「L11302 常見的機器學習模型」上半部分，下列哪句最能代表重點？
+            </div>
+            <div class="options">
+                <span class="correct">A. 不同模型各有特長，需根據資料性質與目標選擇</span><br>
+                B. 只有隨機森林能應用<br>
+                C. CNN可取代所有模型<br>
+                D. 機器學習模型都必須是神經網路
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：各種模型（線性、樹、貝氏、SVM、神經網路等）都在不同情境有優勢，應依需求與資料特性選擇。                    
+                </div>
+            </div>
+        </div>
+	        <!-- 題目 51 -->
+        <div class="question-block">
+            <div class="question-header">51. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                使用隨機森林 (Random Forest) 時，若樣本數很多但特徵非常少，模型會怎樣？
+            </div>
+            <div class="options">
+                A. 會失效，無法預測<br>
+                <span class="correct">B. 仍可投票，不過若特徵太少，也可能受限難以提升效果</span><br>
+                C. 一定表現更好<br>
+                D. 與特徵多少無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：RF需依賴特徵隨機抽樣來形成多樣性，若特徵少則樹之間差異化不明顯，效果有限。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 52 -->
+        <div class="question-block">
+            <div class="question-header">52. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第210頁）</div>
+            <div class="question">
+                「One-Class SVM」可用於何種情形？
+            </div>
+            <div class="options">
+                <span class="correct">A. 偵測只有一類樣本的異常狀態，如異常偵測</span><br>
+                B. 分類多類問題<br>
+                C. 多元線性回歸<br>
+                D. 僅做增強學習
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：One-Class SVM在只有正常樣本資料情況下學習該分佈，若有異常則判定為外部樣本。
+                    
+                </div>
+                <img src="image/One-Class SVM.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 53 -->
+        <div class="question-block">
+            <div class="question-header">53. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第110頁）</div>
+            <div class="question">
+                在RNN中為處理長期依賴而提出的「LSTM (Long Short-Term Memory)」其核心為？
+            </div>
+            <div class="options">
+                <span class="correct">A. 透過細胞狀態 (Cell State) 與門機制 (Gates) 來保留/忘記資訊，維持長期記憶</span><br>
+                B. 只是一種線性變換<br>
+                C. 與RNN相同<br>
+                D. 只能短序列
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：LSTM用門機制控制資訊流動，減輕梯度消失問題，能捕捉較長距資訊。
+                    
+                </div>
+                <img src="image/LSTM_gate.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 54 -->
+        <div class="question-block">
+            <div class="question-header">54. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「GRU (Gated Recurrent Unit)」與 LSTM 的差異在？
+            </div>
+            <div class="options">
+                A. GRU更複雜多了輸入輸出門<br>
+                B. LSTM只有一個門<br>
+                <span class="correct">C. GRU結構更精簡，只含Update/Reset門，沒有獨立Cell State</span><br>
+                D. 二者毫無差異
+            </div>
+            <div class="answer">
+                答案：<span class="correct">C</span>
+                <div class="explanation">
+                    解析：GRU簡化了LSTM結構(合併Cell + hidden state)，只需兩個門，計算更快，但效果近似。
+                                      
+                </div>
+                <img src="image/GRU.png" class="responsive-img">  
+            </div>
+        </div>
+
+        <!-- 題目 55 -->
+        <div class="question-block">
+            <div class="question-header">55. 出題頻率/重要性：★★</div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                若訓練一個多層感知器 (MLP) 來做分類，常用的輸出層激活函式是什麼？
+            </div>
+            <div class="options">
+                A. ReLU<br>
+                B. Tanh<br>
+                <span class="correct">C. Softmax，用來生成多類別機率分佈</span><br>
+                D. Sigmoid
+            </div>
+            <div class="answer">
+                答案：<span class="correct">C</span>
+                <div class="explanation">
+                    解析：多類分類最後一層通常用Softmax將輸出映射到(0,1)且總和=1的機率向量。
+                    
+                </div>
+                <img src="image/Softmax-function-in-MLP.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 56 -->
+        <div class="question-block">
+            <div class="question-header">56. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第220頁）</div>
+            <div class="question">
+                「多標籤分類 (Multi-label Classification)」與多類別 (Multi-class) 有何區別？
+            </div>
+            <div class="options">
+                <span class="correct">A. 多標籤：同一樣本可同時屬於多個標籤；多類別：每樣本僅屬其中一類</span><br>
+                B. 兩者相同<br>
+                C. 多標籤=多類別<br>
+                D. 一定使用樹模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：多類別是單選一；多標籤則允許一個樣本同屬數個標籤(如同時包含音樂與體育)。
+                    
+                </div>
+                <img src="image/multi_label.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 57 -->
+        <div class="question-block">
+            <div class="question-header">57. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                做KNN回歸時，若K太小，會？
+            </div>
+            <div class="options">
+                <span class="correct">A. 易過度貼合局部雜訊，導致過擬合</span><br>
+                B. 更能泛化<br>
+                C. 與K無關<br>
+                D. 只影響分類
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：K值很小就只考慮很少的鄰居，容易受異常值影響；K太大則忽視細節。
+                    
+                </div>
+                <img src="image/KNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 58 -->
+        <div class="question-block">
+            <div class="question-header">58. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第230頁）</div>
+            <div class="question">
+                在影像辨識中，傳統方法與CNN最大的差異是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 傳統需手工設計特徵(Canny、SIFT等)，CNN能自動學習卷積核抓取階層特徵</span><br>
+                B. CNN也需人工定義特徵<br>
+                C. 沒有差別<br>
+                D. 傳統方法更適合大數據
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：CNN能以大量數據自動抽取影像特徵，取代人工設計邊緣/角點等特徵。
+                                       
+                </div>
+                <img src="image/CNN.webp" class="responsive-img">  
+            </div>
+        </div>
+
+        <!-- 題目 59 -->
+        <div class="question-block">
+            <div class="question-header">59. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第105頁）</div>
+            <div class="question">
+                在圖像分類裡常見的「VGGNet」「ResNet」「Inception」都是？
+            </div>
+            <div class="options">
+                <span class="correct">A. CNN網路架構，用於深度影像辨識</span><br>
+                B. 強化學習模型<br>
+                C. RNN變體<br>
+                D. Bagging集成
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：VGG、ResNet、Inception都是不同時期的CNN結構，大幅提升ImageNet分類精度。
+                                
+                </div>
+                <img src="image/CNN.webp" class="responsive-img">         
+            </div>
+        </div>
+
+        <!-- 題目 60 -->
+        <div class="question-block">
+            <div class="question-header">60. 出題頻率/重要性：★</div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                若要進行「序列文字生成」，下列哪種模型較常被使用？
+            </div>
+            <div class="options">
+                <span class="correct">A. RNN/LSTM/Transformer等序列模型</span><br>
+                B. 決策樹<br>
+                C. 卷積神經網路<br>
+                D. SVM
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：文字生成需考慮上下文序列，RNN/LSTM/GRU可用於此，近年Transformer效果更好。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 61 -->
+        <div class="question-block">
+            <div class="question-header">61. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「Softmax 回歸 (Softmax Regression)」與「Logistic Regression」關係？
+            </div>
+            <div class="options">
+                <span class="correct">A. Softmax是一種擴展版，用於多類別；Logistic是二元</span><br>
+                B. 無關<br>
+                C. Softmax只能用於回歸<br>
+                D. Logistic可同時做多類別
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Softmax回歸(多元邏輯迴歸)將二元logistic擴展到多類型。                    
+                </div>
+                <img src="image/Softmax-function-in-MLP.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 62 -->
+        <div class="question-block">
+            <div class="question-header">62. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第240頁）</div>
+            <div class="question">
+                「層次式分群 (Hierarchical Clustering)」與 K-Means 最大差異？
+            </div>
+            <div class="options">
+                <span class="correct">A. 層次式分群不需先設定 K，可形成樹狀叢集結構；K-Means需指定 K</span><br>
+                B. 層次式一定快於K-Means<br>
+                C. K-Means不需K<br>
+                D. 層次式只能2群
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Hierarchical可由下而上(凝聚)或上而下(分割)形成樹狀叢集，不必預先給定群數。
+                </div>
+                <img src="image/Hierarchical Clustering.webp" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 63 -->
+        <div class="question-block">
+            <div class="question-header">63. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「One-vs-One (OvO)」策略在多類分類中做法是什麼？
+            </div>
+            <div class="options">
+                A. 對所有類別同時做單一分類器<br>
+                <span class="correct">B. 每兩類組合都訓練一個分類器，最終投票</span><br>
+                C. 只對一類做預測<br>
+                D. 與OvR相同
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：在C個類別時，OvO需 C(C-1)/2 個二分類器，最終以投票決定。
+                </div>     
+                <br>
+                <img src="image/OvO OvR.jpg" class="responsive-img">           
+            </div>
+        </div>
+
+        <!-- 題目 64 -->
+        <div class="question-block">
+            <div class="question-header">64. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第115頁）</div>
+            <div class="question">
+                「增強式學習 (Reinforcement Learning)」在AlphaGo那樣的棋類應用中做法為何？
+            </div>
+            <div class="options">
+                <span class="correct">A. 圍棋動作對應獎勵/懲罰，透過自我對弈不斷試錯學到最優策略</span><br>
+                B. 只靠監督式標籤<br>
+                C. 用分群演算法<br>
+                D. 無法達到超人水準
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：AlphaGo結合深度學習與增強式學習，在對弈過程中不斷調整策略以最大化勝率。
+                </div>
+                <img src="image/alpha_go.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 65 -->
+        <div class="question-block">
+            <div class="question-header">65. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第250頁）</div>
+            <div class="question">
+                在生成式模型中，「VAE (Variational AutoEncoder)」與GAN的差別？
+            </div>
+            <div class="options">
+                <span class="correct">A. VAE以概率圖模型方式學習隱變量分布；GAN透過生成器與判別器對抗</span><br>
+                B. 兩者原理相同<br>
+                C. VAE不生成資料<br>
+                D. GAN不包含生成器
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：VAE透過最大化邊界似然(ELBO)學隱變量分布；GAN以對抗方式學到映射，兩者皆能生成資料，但方法不同。
+                </div>
+                <img src="image/VAE.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 66 -->
+        <div class="question-block">
+            <div class="question-header">66. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                若在預測股市漲跌時，打算用「SVM + RBF核」處理。RBF核的參數 gamma 代表？
+            </div>
+            <div class="options">
+                <span class="correct">A. 控制高斯函式影響範圍，值越大越關注局部</span><br>
+                B. 學習率<br>
+                C. 不影響結果<br>
+                D. 只在回歸模式有用
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：RBF 核 K(x,x')=exp(-gamma||x-x'||^2)，gamma越大，距離影響急劇衰減，更局部化。
+                </div>
+                <img src="image/SVM_gamma.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 67 -->
+        <div class="question-block">
+            <div class="question-header">67. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第260頁）</div>
+            <div class="question">
+                做序列標注（如詞性標注、命名實體識別）時，哪種模型常被使用？
+            </div>
+            <div class="options">
+                A. K-Means<br>
+                <span class="correct">B. CRF (Conditional Random Field) 或 Bi-LSTM-CRF 等序列模型</span><br>
+                C. CNN圖像<br>
+                D. 隨機森林
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：CRF能同時考慮上下文標籤依存；Bi-LSTM-CRF則結合RNN與CRF處理序列標記。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 68 -->
+        <div class="question-block">
+            <div class="question-header">68. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第120頁）</div>
+            <div class="question">
+                自然語言處理近年崛起的「Transformer」架構依賴什麼關鍵機制？
+            </div>
+            <div class="options">
+                <span class="correct">A. Self-Attention(自注意力)機制，可同時關注序列不同位置</span><br>
+                B. RNN階層<br>
+                C. CNN卷積層<br>
+                D. 僅線性層
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Transformer不使用RNN/CNN，而以多頭注意力並行處理上下文，成為NLP主流。
+                </div>
+                <img src="image/Transformer.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 69 -->
+        <div class="question-block">
+            <div class="question-header">69. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「半監督式學習」與「遷移學習 (Transfer Learning)」差別為何？
+            </div>
+            <div class="options">
+                <span class="correct">A. 半監督：少量標籤+大量無標籤同分佈資料；遷移：從不同但相關領域的已訓練模型遷移</span><br>
+                B. 兩者相同<br>
+                C. 遷移學習需完全相同資料<br>
+                D. 半監督要求不同領域
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：半監督是在同一領域內使用無標籤資料；遷移是從其他領域或任務的模型/權重來適應新任務。
+                </div>
+                <img src="image/Transfer Learning.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 70 -->
+        <div class="question-block">
+            <div class="question-header">70. 出題頻率/重要性：★★</div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「餘弦相似度 (Cosine Similarity)」經常應用於？
+            </div>
+            <div class="options">
+                A. 數值回歸<br>
+                <span class="correct">B. 文字向量或高維稀疏向量的相似度量</span><br>
+                C. 只用於決策樹<br>
+                D. CNN卷積核
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：在文本向量或高維嵌入中，常用cosine量度角度差異，避免量級差影響。
+                </div>
+                <img src="image/Cosine Similarity.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 71 -->
+        <div class="question-block">
+            <div class="question-header">71. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                L1正則 (Lasso) 有助於特徵選擇，原因是？
+            </div>
+            <div class="options">
+                <span class="correct">A. L1會推動部分權重降至0，達到稀疏化效果</span><br>
+                B. 與特徵無關<br>
+                C. 使權重變很大<br>
+                D. 只能用在樹模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：L1懲罰|w|之和，小權重更易被壓到0，等於自動刪除不重要特徵。
+                </div>
+                <br>
+                <img src="image/L1-and-L2-Regularization-Penalty.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 72 -->
+        <div class="question-block">
+            <div class="question-header">72. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第280頁）</div>
+            <div class="question">
+                「Stacking (堆疊集成)」的一般流程是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 訓練多個初級模型，將其預測結果作為次級模型的輸入特徵，再輸出最終預測</span><br>
+                B. 與Bagging相同<br>
+                C. 用於回歸時無法集成<br>
+                D. 只需要單一模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：Stacking先訓練N個模型，將它們對驗證集的輸出形成新的特徵，再訓練一個meta模型去做最終預測。
+                </div>
+                <img src="image/Stacking.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 73 -->
+        <div class="question-block">
+            <div class="question-header">73. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在二元分類中，若正類樣本極少，可能需要關注哪種指標？
+            </div>
+            <div class="options">
+                A. Accuracy即可<br>
+                <span class="correct">B. Precision, Recall, F1 等不平衡度量</span><br>
+                C. ARIMA<br>
+                D. 無需關注
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：不平衡問題下Accuracy不可靠，建議觀察Precision, Recall, F1, AUC等指標。
+                </div>
+                <br>
+                <img src="image/Confusion-matrix-Precision-Recall-Accuracy-and-F1-score.png" class="responsive-img">
+
+            </div>
+        </div>
+
+        <!-- 題目 74 -->
+        <div class="question-block">
+            <div class="question-header">74. 出題頻率/重要性：★★</div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                若某模型對有些特徵相當敏感，表示什麼？
+            </div>
+            <div class="options">
+                A. 代表該特徵不重要<br>
+                <span class="correct">B. 可能該特徵對結果有重大影響，或模型依賴此特徵較高</span><br>
+                C. 與模型無關<br>
+                D. 需刪除該特徵
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：敏感表示該特徵一變動就改變預測，顯示它對決策非常關鍵，但也要留意過擬合風險。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 75 -->
+        <div class="question-block">
+            <div class="question-header">75. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第290頁）</div>
+            <div class="question">
+                深度強化學習 (Deep Reinforcement Learning) 結合了哪兩種思路？
+            </div>
+            <div class="options">
+                <span class="correct">A. 深度神經網路自動特徵 + 強化式學習環境獎懲</span><br>
+                B. KNN與Bagging<br>
+                C. GBDT與PCA<br>
+                D. 僅用RNN
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：如DQN等方法，用神經網路替代Q表來近似策略或價值函式，並在環境中透過獎懲學習。
+                </div>
+                <img src="image/Deep Reinforcement Learning.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 76 -->
+        <div class="question-block">
+            <div class="question-header">76. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在PCA中，若我們選前k個主成分，能保留多少資訊？
+            </div>
+            <div class="options">
+                <span class="correct">A. 看對應特徵值(variance)累積比例，可決定多少方差被保留</span><br>
+                B. 一律100%<br>
+                C. 不知道<br>
+                D. PCA不處理資訊保留
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：PCA根據特徵值大小排序主成分，每個主成分對應一部分總方差，前k個累加即保留多少資訊。
+                </div>
+                <img src="image/PCA_variance.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 77 -->
+        <div class="question-block">
+            <div class="question-header">77. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第125頁）</div>
+            <div class="question">
+                在文本分析中，常將字詞轉為 embedding，如Word2Vec, GloVe, BERT embedding，其好處？
+            </div>
+            <div class="options">
+                <span class="correct">A. 可將語意相近詞映射到向量空間中距離更近，更具語意資訊</span><br>
+                B. 僅回傳字串<br>
+                C. 跟傳統One-hot無差<br>
+                D. embedding無語意
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：embedding能學習詞與詞之語意相似度；傳統One-hot則無法表達詞語之間的關聯。
+                </div>
+                <img src="image/embedding.webp" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 78 -->
+        <div class="question-block">
+            <div class="question-header">78. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第300頁）</div>
+            <div class="question">
+                哪種技術能量化特徵對預測結果的重要度，並不局限於樹模型？
+            </div>
+            <div class="options">
+                <span class="correct">A. SHAP (SHapley Additive exPlanations)</span><br>
+                B. 只用Gini index<br>
+                C. PCA<br>
+                D. 沒法解釋
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：SHAP基於賽局理論，能對任意模型(樹、深度網路、線性等)衡量各特徵對個體預測的貢獻度。
+                </div>
+                <img src="image/SHAP.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 79 -->
+        <div class="question-block">
+            <div class="question-header">79. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                做深度CNN時，增加多少層就越好嗎？
+            </div>
+            <div class="options">
+                <span class="correct">A. 需要平衡參數量與訓練資料，過深可能梯度問題或過擬合</span><br>
+                B. 絕對層數越多越準<br>
+                C. 完全不影響<br>
+                D. CNN通常只有一層
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：深層CNN確有更強表現力，但也面臨梯度消失或資料不足導致過擬合等問題，需要架構(如ResNet)或正則化助力。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 80 -->
+        <div class="question-block">
+            <div class="question-header">80. 出題頻率/重要性：★★</div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「Mini-Batch Gradient Descent」在大型資料中很常用，原因是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 平衡了批量GD的穩定性和SGD的速度，可以分批處理以減少記憶體負擔</span><br>
+                B. 數值更不穩定<br>
+                C. 只能小數據使用<br>
+                D. 不適用GPU
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：大型資料無法一次載入記憶體，mini-batch能並行計算梯度，兼顧效率與穩定。
+                </div>
+                <img src="image/Mini-Batch Gradient Descent.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 81 -->
+        <div class="question-block">
+            <div class="question-header">81. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「對比學習 (Contrastive Learning)」在自監督學習中做什麼？
+            </div>
+            <div class="options">
+                <span class="correct">A. 將相似樣本拉近，不相似樣本推遠，學到更好的表徵</span><br>
+                B. 做監督式標籤<br>
+                C. 與自監督無關<br>
+                D. 僅用在樹模型
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：對比學習(contrastive)廣泛用於圖像、語言表徵學習，如SimCLR等，無需人工標籤也能學到有意義的向量表示。
+                </div>
+                <img src="image/Contrastive Learning.jpg" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 82 -->
+        <div class="question-block">
+            <div class="question-header">82. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第310頁）</div>
+            <div class="question">
+                下列何者最能代表「貝氏網路 (Bayesian Network)」的特徵？
+            </div>
+            <div class="options">
+                <span class="correct">A. 以有向圖表示隨機變量間的條件獨立性，可對機率推理與不確定性建模</span><br>
+                B. 與條件機率無關<br>
+                C. 僅能做監督式學習<br>
+                D. 只用於強化式
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：貝氏網路將變量與邊表徵條件依賴關係，可用於推斷/預測/診斷等機率圖模型應用。
+                </div>
+                <img src="image/Bayesian Network.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 83 -->
+        <div class="question-block">
+            <div class="question-header">83. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「對抗範例 (Adversarial Example)」對深度模型是什麼含意？
+            </div>
+            <div class="options">
+                <span class="correct">A. 人類看似無差的輸入，通過微小擾動便可導致模型誤判</span><br>
+                B. 增強模型穩定<br>
+                C. 與深度學習無關<br>
+                D. 測試集保留
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：對抗範例利用深度模型對特徵分布敏感性，使輸入加少量雜訊就能欺騙模型。
+                </div>
+                <img src="image/Adversarial Example.png" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 84 -->
+        <div class="question-block">
+            <div class="question-header">84. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第320頁）</div>
+            <div class="question">
+                做推薦系統常見的協同過濾 (Collaborative Filtering) 有哪兩種？
+            </div>
+            <div class="options">
+                <span class="correct">A. 基於記憶(Memory-based)與基於模型(Model-based)，前者例：UserKNN；後者例：矩陣分解</span><br>
+                B. 只有User-based<br>
+                C. 僅回歸<br>
+                D. 與推薦無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：協同過濾分Memory-based(如UserCF/ItemCF)和Model-based(如SVD矩陣分解，NN等)。
+                </div>
+                <img src="image/Collaborative Filtering.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 85 -->
+        <div class="question-block">
+            <div class="question-header">85. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第130頁）</div>
+            <div class="question">
+                「對比學習 (Contrastive Learning)」與「GAN (Generative Adversarial Network)」最大不同點是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 對比學習主要在embedding空間分辨相似/不相似樣本；GAN在生成器與判別器對抗產生新資料</span><br>
+                B. 兩者均用判別器<br>
+                C. 都是監督式分類<br>
+                D. 相同原理
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：對比學習在學習表徵(embedding)；GAN在學習生成分佈。兩者皆稱「對抗」，但機制用途不同。
+                </div>
+                <img src="image/Contrastive Learning.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 86 -->
+        <div class="question-block">
+            <div class="question-header">86. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                決策樹若樣本含大量類別特徵時，如何最佳處理？
+            </div>
+            <div class="options">
+                A. 無需任何轉換<br>
+                <span class="correct">B. 大多樹實作需將類別特徵做One-Hot或Target Encoding，而像CatBoost有內建處理</span><br>
+                C. 不能處理類別<br>
+                D. 樹並不受類別特徵影響
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：常見樹實作(CART,RF,XGBoost等)對類別特徵無內建支援，需轉換；CatBoost可直接處理類別特徵。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 87 -->
+        <div class="question-block">
+            <div class="question-header">87. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第340頁）</div>
+            <div class="question">
+                「樸素貝氏 (Naive Bayes)」為何稱作"樸素(naive)"?
+            </div>
+            <div class="options">
+                A. 計算複雜<br>
+                <span class="correct">B. 假設特徵在給定類別後彼此條件獨立，這在現實中往往太過簡化</span><br>
+                C. 一定最精確<br>
+                D. 與條件獨立無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：此「樸素」指簡化假設特徵之間不相關，但實務仍能取得不錯效果。
+                </div>
+                <img src="image/Naive Bayes.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 88 -->
+        <div class="question-block">
+            <div class="question-header">
+                88. 出題頻率/重要性：★
+            </div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                做異常檢測 (Anomaly Detection) 常可用？
+            </div>
+            <div class="options">
+                A. 監督式標記<br>
+                <span class="correct">B. One-Class SVM, Isolation Forest, 或自編碼器(重建誤差)等</span><br>
+                C. 只能K-Means<br>
+                D. 回歸
+            </div>
+            <div class="answer">
+                答案：<span class="correct">B</span>
+                <div class="explanation">
+                    解析：異常檢測常採用無(或少)標籤的方式，如One-Class SVM, IsolationForest(樹法), 自編碼器(看重建差)。
+                </div>
+                <img src="image/SVM One-Class Classifier For Anomaly Detection.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 89 -->
+        <div class="question-block">
+            <div class="question-header">89. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第360頁）</div>
+            <div class="question">
+                面對高維稀疏特徵（如廣告點擊預測），哪種模型常見？
+            </div>
+            <div class="options">
+                <span class="correct">A. LR、FM (Factorization Machines)、FFM等，能處理大量稀疏編碼</span><br>
+                B. RNN<br>
+                C. DBSCAN<br>
+                D. CNN
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：廣告CTR預測常用LR或FM等表格模型處理大量one-hot稀疏特徵；FM可以學到特徵交互。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 90 -->
+        <div class="question-block">
+            <div class="question-header">90. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第140頁）</div>
+            <div class="question">
+                深度Q網路 (DQN) 是結合了何者？
+            </div>
+            <div class="options">
+                <span class="correct">A. Q-learning (強化學習) + 深度神經網路，用網路近似Q函式</span><br>
+                B. 監督式回歸<br>
+                C. CNN做分群<br>
+                D. Lasso回歸
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：DQN在 Atari等遊戲中大放異彩，透過CNN將畫面映射成狀態，再以Q-learning策略學習。
+                </div>
+                <img src="image/DQN.png" class="responsive-img">"
+            </div>
+        </div>
+
+        <!-- 題目 91 -->
+        <div class="question-block">
+            <div class="question-header">91. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                集成學習中，「多樣性 (diversity)」為何重要？
+            </div>
+            <div class="options">
+                <span class="correct">A. 若各模型錯誤模式不同，最終投票或加權效果更佳</span><br>
+                B. 只用同樣模型和資料<br>
+                C. 與集成無關<br>
+                D. 不可改變
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：若所有模型彼此相似就無法互補，故需要模型或訓練資料具多樣性來提高最終結果。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 92 -->
+        <div class="question-block">
+            <div class="question-header">
+                92. 出題頻率/重要性：★★★
+            </div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                做「時間序列預測 (Time Series Forecasting)」時，若使用樹模型 (如XGBoost) 該注意？
+            </div>
+            <div class="options">
+                <span class="correct">A. 需將時序資訊特徵化(如滯後值、移動平均等) 並避免未來資訊洩漏</span><br>
+                B. 和普通回歸一樣<br>
+                C. 可以隨機打亂樣本<br>
+                D. 不用資料預處理
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：樹模型本身並不理解時間，需人工構建時序特徵(如前n步值...)且要確保訓練不包含未來。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 93 -->
+        <div class="question-block">
+            <div class="question-header">93. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「貝氏決策理論 (Bayesian Decision Theory)」在分類時強調？
+            </div>
+            <div class="options">
+                <span class="correct">A. 最小化後驗錯誤或期望損失，考量各類別先驗與條件機率</span><br>
+                B. 只用線性方程<br>
+                C. 與先驗無關<br>
+                D. 僅可做回歸
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：貝氏決策透過p(y|x)的分佈比較做最小風險決策，也可依成本矩陣挑選最優類別。
+                </div>
+                <img src="image/Bayesian-Decision-Theory.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 94 -->
+        <div class="question-block">
+            <div class="question-header">94. 出題頻率/重要性：★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第370頁）</div>
+            <div class="question">
+                若你在深度模型上看「測試損失」不斷升高，但「訓練損失」持續降低，代表什麼？
+            </div>
+            <div class="options">
+                <span class="correct">A. 過擬合：模型只在訓練資料越來越好，在測試資料卻越來越差</span><br>
+                B. 欠擬合：訓練也差<br>
+                C. 和深度學習無關<br>
+                D. 代表模型完美
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：很典型的過擬合徵兆，應採用正則化或Early Stopping等策略。
+                </div>
+            </div>
+        </div>
+
+        <!-- 題目 95 -->
+        <div class="question-block">
+            <div class="question-header">95. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：01_AI基礎理論_講義.pdf 第135頁）</div>
+            <div class="question">
+                「BERT」模型在NLP領域的核心創新是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 雙向Transformer編碼器 + Masked Language Model，能同時看上下文</span><br>
+                B. 單向LSTM<br>
+                C. 僅CNN<br>
+                D. 不用Attention
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：BERT以Transformer雙向注意力結構，透過MLM與NSP預訓練學習語言表徵，再下游微調。
+                </div>
+                <img src="image/BERT.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 96 -->
+        <div class="question-block">
+            <div class="question-header">96. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                在KNN中，若要對鄰居做加權通常依據？
+            </div>
+            <div class="options">
+                <span class="correct">A. 與測試樣本的距離，越近權重越大</span><br>
+                B. 權重全相同<br>
+                C. 隨機分配<br>
+                D. 與KNN無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：在加權KNN中，距離越近表示相似度越高，給予更大的權重。
+                </div>
+                <br>
+                <img src="image/KNN.webp" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 97 -->
+        <div class="question-block">
+            <div class="question-header">97. 出題頻率/重要性：★★</div>
+            <div class="reference">由大綱出題：Yes（初級大綱.txt - L11302 常見的機器學習模型）</div>
+            <div class="question">
+                「線性判別分析 (LDA)」的核心思路是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 在可分離投影空間上最大化類別間距離，最小化類別內距離</span><br>
+                B. 僅做分群<br>
+                C. 僅做迴歸<br>
+                D. 不考慮類別內距離
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：LDA要找一條投影方向，使不同類分離度最大，同類緊密度最小，可用於降維或分類。
+                </div>
+                <img src="image/LDA.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 98 -->
+        <div class="question-block">
+            <div class="question-header">98. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第380頁）</div>
+            <div class="question">
+                在機器學習比賽或實務中，為何常最後用「集成 (Ensemble)」方法？
+            </div>
+            <div class="options">
+                <span class="correct">A. 能綜合不同模型的優勢，通常可提升預測分數或穩定度</span><br>
+                B. 單模型必然最好<br>
+                C. 集成必然過擬合<br>
+                D. 只適用文字分類
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：競賽中常見Blending/Stacking方法，實務可提高穩定性與效能，但成本較高。
+                </div>
+                <br>
+                <img src="image/ensemble-learning.png" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 99 -->
+        <div class="question-block">
+            <div class="question-header">99. 出題頻率/重要性：★</div>
+            <div class="reference">由講義出題：No（外部延伸參考）</div>
+            <div class="question">
+                「GMM (Gaussian Mixture Model)」在分群中是？
+            </div>
+            <div class="options">
+                <span class="correct">A. 用多個高斯分佈混合擬合資料分布，常用EM演算法估參數</span><br>
+                B. 僅用樹結構<br>
+                C. K-Means的變形，無高斯概念<br>
+                D. 與機率無關
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：GMM假設樣本來源於不同高斯分佈，透過EM算法估各成分的均值、協方差、混合權重來做分群。
+                </div>
+                <img src="image/gaussian-mixture-model.jpg" class="responsive-img">
+            </div>
+        </div>
+
+        <!-- 題目 100 -->
+        <div class="question-block">
+            <div class="question-header">100. 出題頻率/重要性：★★★</div>
+            <div class="reference">由講義出題：Yes（參考：04_機器學習技術理論與案例_講義.pdf 第400頁）</div>
+            <div class="question">
+                綜觀「L11302 常見的機器學習模型」整體要點，下列哪句最能總結？
+            </div>
+            <div class="options">
+                <span class="correct">A. 各模型(線性、樹、貝氏、SVM、深度網路...等)在不同資料型態有其優勢，應靈活應用並考慮泛化、可解釋性等</span><br>
+                B. 只要CNN<br>
+                C. K-Means適合全部任務<br>
+                D. SVM絕對優於所有方法
+            </div>
+            <div class="answer">
+                答案：<span class="correct">A</span>
+                <div class="explanation">
+                    解析：沒有萬能模型，需依據資料規模/性質及應用情境，選擇或集成不同模型來達成最佳效能。
+                </div>
+            </div>
+    </div>
+    <div class="toggle-explanations">
+        <button id="toggleExplanations">顯示全部解析</button>
+        <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+    </div>
+</body>
+</html>

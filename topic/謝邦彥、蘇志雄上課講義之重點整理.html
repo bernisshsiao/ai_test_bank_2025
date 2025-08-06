@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 謝邦彥、蘇志雄上課講義之重點整理)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 0; font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6; color: #333; line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px; margin: 20px auto; padding: 25px;
+            background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.08); border-radius: 8px;
+        }
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); color: white;
+            padding: 30px 20px; margin: -25px -25px 25px -25px; border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0; color: white; font-size: 2.2rem; font-weight: 600; margin-bottom: 5px;
+        }
+        .header-container div { font-size: 1.2rem; opacity: 0.9; margin-top: 5px; font-weight: 300; }
+        .categories-container {
+            background-color: #e8f0f5; padding: 20px; margin-bottom: 25px;
+            border-left: 5px solid #5dade2; border-radius: 5px;
+        }
+        .categories-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; color: #2c3e50; }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
+        .category-item {
+            display: flex; align-items: center; padding: 12px 15px; background-color: white;
+            border-radius: 5px; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #d6e0ea;
+        }
+        .category-item:hover {
+            background-color: #5dade2; color: white; transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-color: #5dade2;
+        }
+        .category-number {
+            width: 30px; height: 30px; background-color: #5dade2; color: white;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            margin-right: 12px; font-weight: bold; flex-shrink: 0; transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number { background-color: white; color: #5dade2; }
+        .category-text { font-size: 0.95rem; }
+        .key-point-count { color: red; font-weight: bold; margin-left: auto; padding-left: 10px; }
+
+        .focus-points-container { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .focus-card {
+            background-color: #ffffff; border-radius: 8px; padding: 0;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1);
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0; overflow: hidden;
+        }
+        .focus-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15); }
+        .focus-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 25px; background-color: #f8f9fa; border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id {
+            font-weight: bold; color: #5dade2; font-size: 1rem;
+            background-color: #e8f0f5; padding: 3px 8px; border-radius: 4px;
+        }
+        .focus-importance { color: #e74c3c; font-weight: bold; font-size: 1rem; }
+        .focus-topic-container { padding: 25px 25px 20px 25px; border-bottom: 1px dashed #eee; }
+        .focus-topic { font-size: 1.5rem; font-weight: 600; margin-bottom: 0; line-height: 1.4; color: #2c3e50; }
+
+        .chinese-proper-noun { color: #0000FF; font-weight: bold; }
+        .english-abbr { color: purple; font-weight: bold; }
+        .english-fullname { color: red; font-weight: bold; }
+
+        .focus-details-container { padding: 20px 25px 25px 25px; }
+        .details-header {
+            font-weight: bold; margin-bottom: 15px; color: #34495e; font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        .details-content { line-height: 1.75; color: #444; font-size: 1.05rem; }
+        .details-content ul { padding-left: 25px; margin-top: 10px; margin-bottom: 10px; }
+        .details-content li { margin-bottom: 8px; }
+        .highlight { background-color: #ffff0030; padding: 0.1em 0.2em; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師(初級)</h1>
+            <div>謝邦彥、蘇志雄上課講義之重點整理</div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory('L111')">
+                    <div class="category-number">1</div>
+                    <div class="category-text">L111 人工智慧概念</div>
+                    <div class="key-point-count">(5)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('L112')">
+                    <div class="category-number">2</div>
+                    <div class="category-text">L112 資料處理與分析概念</div>
+                    <div class="key-point-count">(5)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('L113')">
+                    <div class="category-number">3</div>
+                    <div class="category-text">L113 機器學習基本原理</div>
+                    <div class="key-point-count">(6)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('L114')">
+                    <div class="category-number">4</div>
+                    <div class="category-text">L114 鑑別式與生成式AI</div>
+                    <div class="key-point-count">(5)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('L121')">
+                    <div class="category-number">5</div>
+                    <div class="category-text">L121 No Code/Low Code</div>
+                    <div class="key-point-count">(3)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('L122')">
+                    <div class="category-number">6</div>
+                    <div class="category-text">L122 生成式AI應用與工具</div>
+                    <div class="key-point-count">(5)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('L123')">
+                    <div class="category-number">7</div>
+                    <div class="category-text">L123 生成式AI導入與規劃</div>
+                    <div class="key-point-count">(6)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- L111 人工智慧概念 -->
+            <div class="focus-card" data-category="L111" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">人工智慧</span>、<span class="chinese-proper-noun">機器學習</span>與<span class="chinese-proper-noun">深度學習</span>的關係</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        理解三者間的<span class="highlight">層次與包含關係</span>。
+                        <ul>
+                            <li><span class="chinese-proper-noun">人工智慧</span> (<span class="english-abbr">AI</span>): 最廣泛的領域，目標是讓機器<span class="highlight">模仿人類智慧</span>以解決問題。</li>
+                            <li><span class="chinese-proper-noun">機器學習</span> (<span class="english-abbr">ML</span>): <span class="highlight">實現AI的一種主要方法</span>，核心是設計演算法，讓機器從資料中<span class="highlight">自動學習</span>模式與規律。</li>
+                            <li><span class="chinese-proper-noun">深度學習</span> (<span class="english-abbr">DL</span>): <span class="english-abbr">ML</span> 的一個強大分支，使用<span class="highlight">多層神經網路</span>模擬人腦進行學習，特別擅長從<span class="highlight">複雜的非結構化資料</span>中識別模式。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L111" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-fullname">弱AI</span> vs. <span class="english-fullname">強AI</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-fullname">弱AI</span> (<span class="english-fullname">Weak AI</span>) / <span class="english-fullname">狹義AI</span> (<span class="english-fullname">Narrow AI</span>): <span class="highlight">專注於執行單一或特定任務</span>的AI，是目前所有AI應用的現實。例如：Siri、AlphaGo、人臉辨識。</li>
+                            <li><span class="english-fullname">強AI</span> (<span class="english-fullname">Strong AI</span>) / <span class="english-fullname">通用AI</span> (<span class="english-abbr">AGI</span>): 具備<span class="highlight">與人類同等或超越人類的通用智慧</span>，能理解、學習並應用智慧於<span class="highlight">任何領域的問題</span>，仍是<span class="highlight">理論與研究階段</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L111" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">負責任的AI</span> (<span class="english-fullname">Responsible AI</span>) 與倫理</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        這是目前產業極度重視的議題，旨在確保AI系統的開發與使用是<span class="highlight">安全、可信賴且符合倫理</span>的。核心原則包括：
+                        <ul>
+                            <li><span class="english-fullname">Fairness</span> (公平性): <span class="highlight">避免演算法偏見</span>，確保AI系統不會對特定群體(如性別、種族)產生系統性歧視。</li>
+                            <li><span class="english-fullname">Accountability</span> (當責性): <span class="highlight">責任歸屬要明確</span>，當AI系統出錯時，能夠追溯並確定由誰負責。</li>
+                            <li><span class="english-fullname">Transparency</span> (透明度): AI的<span class="highlight">決策過程應可被理解和檢視</span>，也就是<span class="chinese-proper-noun">可解釋性AI</span>(<span class="english-abbr">XAI</span>)。</li>
+                            <li><span class="english-fullname">Privacy & Security</span> (隱私與安全): 在AI生命週期中，<span class="highlight">保護用戶數據</span>不被洩漏，並防禦惡意攻擊。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L111" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">歐盟人工智慧法</span> (<span class="english-abbr">EU AI Act</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念：風險金字塔模型</div>
+                    <div class="details-content">
+                        全球首個針對<span class="english-abbr">AI</span>的全面性法規，採用<span class="highlight">以風險為基礎</span>的方法進行監管。風險等級由高至低分為四層：
+                        <ul>
+                            <li><span class="english-fullname">Unacceptable Risk</span> (不可接受的風險): <span class="highlight">全面禁止</span>。如：政府的社會評分系統、剝削弱勢群體的<span class="english-abbr">AI</span>、無差別的人臉辨識。</li>
+                            <li><span class="english-fullname">High Risk</span> (高風險): <span class="highlight">需嚴格監管</span>。如：關鍵基礎設施、醫療設備、招募、信貸評分等<span class="english-abbr">AI</span>系統。上市前需通過<span class="highlight">嚴格的合規評估</span>。</li>
+                            <li><span class="english-fullname">Limited Risk</span> (有限風險): <span class="highlight">需履行透明度義務</span>。如：聊天機器人、<span class="english-fullname">Deepfake</span>。必須<span class="highlight">告知用戶正在與AI互動</span>。</li>
+                            <li><span class="english-fullname">Minimal Risk</span> (微小/無風險): <span class="highlight">不需額外管制</span>，鼓勵遵守自願行為準則。如：垃圾郵件過濾器、AI電玩。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L111" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI</span>發展簡史與三波浪潮</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li>第一波 (1950s-80s): <span class="highlight">符號主義</span>。基於邏輯和規則的<span class="chinese-proper-noun">專家系統</span>，但<span class="highlight">知識獲取困難</span>、<span class="highlight">缺乏彈性</span>、<span class="highlight">無法處理不確定性</span>。</li>
+                            <li>第二波 (1980s-2010s): <span class="highlight">機器學習</span>。基於<span class="highlight">統計模型</span>，從數據中學習，如<span class="chinese-proper-noun">支持向量機</span>(<span class="english-abbr">SVM</span>)。</li>
+                            <li>第三波 (2010s-至今): <span class="highlight">深度學習</span>。三大驅動力：<span class="highlight">演算法突破</span>(如反向傳播)、<span class="highlight">大數據</span>(Big Data)的普及、<span class="highlight">硬體算力</span>(<span class="english-abbr">GPU</span>)的飛躍。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- L112 資料處理與分析概念 -->
+            <div class="focus-card" data-category="L112" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">資料的類型</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">結構化資料</span>: <span class="highlight">高度組織化</span>，有固定欄位和格式，如<span class="english-fullname">Excel</span>表格、資料庫。</li>
+                            <li><span class="chinese-proper-noun">半結構化資料</span>: 有<span class="highlight">一些組織結構</span>，但不像結構化資料那樣嚴格，透過標籤(<span class="english-fullname">tags</span>)來分隔，如<span class="english-abbr">JSON</span>、<span class="english-abbr">XML</span>。</li>
+                            <li><span class="chinese-proper-noun">非結構化資料</span>: <span class="highlight">沒有預定義的格式</span>，佔數據的大宗(約80%)。如文章、圖片、音檔、影片。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L112" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">大數據的<span class="english-fullname">5V</span>特性</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-fullname">Volume</span> (巨量): 資料規模極大，從<span class="english-abbr">TB</span>到<span class="english-abbr">PB</span>、<span class="english-abbr">EB</span>。</li>
+                            <li><span class="english-fullname">Velocity</span> (高速): 資料生成和處理速度快，強調<span class="highlight">即時性</span>。</li>
+                            <li><span class="english-fullname">Variety</span> (多樣): 資料類型多樣，包含上述三種資料類型。</li>
+                            <li><span class="english-fullname">Veracity</span> (真實性): <span class="highlight">資料的品質、可信度和準確性</span>。是分析結果是否可信的基礎。</li>
+                            <li><span class="english-fullname">Value</span> (價值): 能從中<span class="highlight">提煉出有價值的資訊</span>，但密度通常很低。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L112" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">資料前處理 (<span class="english-fullname">Data Preprocessing</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="highlight">Garbage In, Garbage Out</span>。這是模型成功的關鍵，佔據AI專案大量時間。主要步驟包括：
+                        <ul>
+                            <li><span class="chinese-proper-noun">資料清理</span>: 處理<span class="highlight">缺失值</span>(<span class="english-fullname">Missing Values</span>)（可刪除或填補）、<span class="highlight">異常值</span>(<span class="english-fullname">Outliers</span>)、不一致的資料。</li>
+                            <li><span class="chinese-proper-noun">資料轉換</span>: <span class="highlight">標準化</span>(<span class="english-fullname">Standardization</span>)與<span class="highlight">正規化</span>(<span class="english-fullname">Normalization</span>)，使不同單位的特徵能公平比較。</li>
+                            <li><span class="chinese-proper-noun">特徵工程</span> (<span class="english-fullname">Feature Engineering</span>): <span class="highlight">創造新的特徵</span>或選取最重要的特徵，以提升模型效能。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L112" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#9</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料倉儲</span> vs. <span class="chinese-proper-noun">資料湖</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">資料倉儲</span> (<span class="english-fullname">Data Warehouse</span>): 儲存<span class="highlight">經過處理、整合、結構化</span>的資料，主要用於<span class="highlight">商業智慧(BI)和報表</span>。</li>
+                            <li><span class="chinese-proper-noun">資料湖</span> (<span class="english-fullname">Data Lake</span>): 以<span class="highlight">原始格式</span>儲存<span class="highlight">所有類型</span>(結構化、非結構化)的資料，提供<span class="highlight">高度彈性</span>給資料科學家進行探索。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L112" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#10</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">資料隱私與<span class="chinese-proper-noun">個資法</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        瞭解<span class="chinese-proper-noun">個人資料保護法</span>的基本要求，在資料處理過程中需採取的保護措施，如<span class="highlight">去識別化</span>、<span class="highlight">匿名化</span>、<span class="highlight">加密</span>等，以保護個人隱私。特別是<span class="chinese-proper-noun">個人可識別資訊</span> (<span class="english-abbr">PII</span>) 的處理需非常謹慎。
+                    </div>
+                </div>
+            </div>
+
+            <!-- L113 機器學習基本原理 -->
+            <div class="focus-card" data-category="L113" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#11</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">機器學習</span>的三大類型</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-fullname">Supervised Learning</span> (監督式學習): <span class="highlight">資料有標籤</span> (答案)。演算法學習輸入與輸出間的映射關係。用於<span class="highlight">分類</span>(<span class="english-fullname">Classification</span>)和<span class="highlight">迴歸</span>(<span class="english-fullname">Regression</span>)。</li>
+                            <li><span class="english-fullname">Unsupervised Learning</span> (非監督式學習): <span class="highlight">資料無標籤</span>。演算法自行探索資料中的內在結構。用於<span class="highlight">分群</span>(<span class="english-fullname">Clustering</span>)和<span class="highlight">關聯分析</span>(<span class="english-fullname">Association</span>)。</li>
+                            <li><span class="english-fullname">Reinforcement Learning</span> (強化學習): 智能體(<span class="english-fullname">Agent</span>)透過<span class="highlight">與環境互動</span>，從<span class="highlight">獎勵/懲罰</span>(回饋)中學習達成目標的最佳策略。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L113" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#12</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">模型評估指標 (<span class="english-fullname">Classification</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念：混淆矩陣</div>
+                    <div class="details-content">
+                        <span class="chinese-proper-noun">混淆矩陣</span> (<span class="english-fullname">Confusion Matrix</span>) 是評估分類模型的基礎。
+                        <ul>
+                            <li><span class="english-fullname">Accuracy</span> (準確率): <span class="highlight">(TP+TN)/總數</span>。整體預測正確的比例，但在<span class="highlight">資料不平衡時有誤導性</span>。</li>
+                            <li><span class="english-fullname">Precision</span> (精確率): <span class="highlight">TP/(TP+FP)</span>。預測為正的樣本中，實際為正的比例 (預測的準)。</li>
+                            <li><span class="english-fullname">Recall</span> (召回率): <span class="highlight">TP/(TP+FN)</span>。實際為正的樣本中，被成功預測為正的比例 (找得全)。</li>
+                            <li><span class="english-fullname">F1-Score</span>: <span class="english-fullname">Precision</span> 和 <span class="english-fullname">Recall</span> 的<span class="highlight">調和平均數</span>，是個綜合指標。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L113" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#13</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-fullname">Overfitting</span> vs. <span class="english-fullname">Underfitting</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-fullname">Overfitting</span> (過度擬合): 模型<span class="highlight">對訓練資料學習得太好</span>，連雜訊都學進去，導致<span class="highlight">在測試資料上表現差</span>，泛化能力低。</li>
+                            <li><span class="english-fullname">Underfitting</span> (擬合不足): 模型<span class="highlight">過於簡單</span>，無法捕捉資料的趨勢，<span class="highlight">在訓練和測試資料上表現都不佳</span>。</li>
+                        </ul>
+                        解決方法：交叉驗證、正規化、增加數據、調整模型複雜度等。
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L113" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#14</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">訓練、驗證、測試集</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">訓練集</span> (<span class="english-fullname">Training Set</span>): 用於<span class="highlight">訓練模型</span>，讓模型學習資料中的模式。</li>
+                            <li><span class="chinese-proper-noun">驗證集</span> (<span class="english-fullname">Validation Set</span>): 用於在訓練過程中<span class="highlight">調整模型的超參數</span>(如學習率)，並<span class="highlight">初步評估模型效能</span>，避免過度擬合。</li>
+                            <li><span class="chinese-proper-noun">測試集</span> (<span class="english-fullname">Test Set</span>): <span class="highlight">模型訓練完成後</span>，用來<span class="highlight">最終評估模型泛化能力</span>的<span class="highlight">從未見過</span>的資料。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L113" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#15</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-fullname">Cross-Validation</span> (交叉驗證)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        一種<span class="highlight">更穩健的模型評估方法</span>，特別是在<span class="highlight">數據量有限</span>時。最常見的 <span class="english-fullname">K-fold Cross-Validation</span> 將資料分成K份，輪流將其中一份作為測試集，其餘K-1份作為訓練集，重複K次後<span class="highlight">取平均性能指標</span>。這能有效<span class="highlight">避免因單次數據劃分造成的偶然性</span>。
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L113" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#16</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">常見<span class="english-abbr">ML</span>演算法</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li>監督式: <span class="chinese-proper-noun">線性/邏輯迴歸</span>、<span class="chinese-proper-noun">決策樹</span>、<span class="chinese-proper-noun">隨機森林</span>、<span class="english-abbr">SVM</span>。</li>
+                            <li>非監督式: <span class="chinese-proper-noun">K-Means分群</span>、<span class="chinese-proper-noun">主成分分析</span>(<span class="english-abbr">PCA</span>)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- L114 鑑別式與生成式AI -->
+            <div class="focus-card" data-category="L114" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#17</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">鑑別式AI</span> vs. <span class="chinese-proper-noun">生成式AI</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">鑑別式AI</span> (<span class="english-fullname">Discriminative AI</span>): <span class="highlight">學習不同類別之間的邊界</span> P(Y|X)。目標是<span class="highlight">做判斷、分類、預測</span>。問的是 "這是A還是B?"。</li>
+                            <li><span class="chinese-proper-noun">生成式AI</span> (<span class="english-fullname">Generative AI</span>): <span class="highlight">學習數據的聯合機率分佈</span> P(X,Y)。目標是<span class="highlight">創造新的、相似的內容</span>。問的是 "A是什麼樣子?"。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L114" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#18</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">生成式AI</span>的核心技術</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">生成對抗網路</span> (<span class="english-abbr">GAN</span>): 包含一個<span class="highlight">生成器</span>和一個<span class="highlight">判別器</span>，兩者互相对弈，常用於圖像生成。</li>
+                            <li><span class="chinese-proper-noun">Transformer</span>: <span class="highlight">注意力機制</span>(<span class="english-fullname">Attention Mechanism</span>)是其核心，能處理長序列數據，是當前<span class="highlight">大型語言模型的基礎架構</span>。</li>
+                            <li><span class="chinese-proper-noun">大型語言模型</span> (<span class="english-abbr">LLM</span>): 基於<span class="chinese-proper-noun">Transformer</span>，在海量文本上預訓練而成。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L114" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#19</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">生成式AI</span>的風險與挑戰</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-fullname">Hallucination</span> (幻覺): <span class="highlight">模型捏造看似真實但不正確的資訊</span>。</li>
+                            <li><span class="english-fullname">Bias</span> (偏見): 訓練資料中的偏見會被模型學習並放大。</li>
+                            <li><span class="english-fullname">Copyright</span> (版權): 生成內容的版權歸屬問題。</li>
+                            <li><span class="english-fullname">Deepfake</span> (深度偽造): 用於製造虛假影像或音訊，帶來倫理和安全風險。</li>
+                            <li><span class="english-fullname">Data Privacy</span> (資料隱私): 用戶輸入的提示詞可能被用於再訓練。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L114" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#20</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-abbr">RAG</span> vs. <span class="english-fullname">Fine-tuning</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        兩種讓<span class="english-abbr">LLM</span>具備特定知識的方法：
+                        <ul>
+                            <li><span class="english-fullname">Fine-tuning</span> (微調): <span class="highlight">用自有資料對模型進行二次訓練</span>，改變模型<span class="highlight">權重</span>。成本高，適合學習特定<span class="highlight">風格或語氣</span>。</li>
+                            <li><span class="english-abbr">RAG</span> (<span class="english-fullname">Retrieval-Augmented Generation</span>): <span class="highlight">不改變模型</span>，而是<span class="highlight">在提問時從外部知識庫中檢索相關資訊</span>，一併提供給模型作為參考。成本較低，適合需要<span class="highlight">即時、準確知識</span>的場景，且<span class="highlight">可追溯來源</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L114" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#21</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">多模態AI</span> (<span class="english-fullname">Multimodal AI</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        指能夠<span class="highlight">同時理解和處理多種不同類型資料</span>（如文字、圖像、聲音）的<span class="english-abbr">AI</span>模型。例如，可以看一張圖，並用文字描述圖中內容。這是當前<span class="english-abbr">AI</span>發展的重要方向。
+                    </div>
+                </div>
+            </div>
+
+            <!-- L121 No Code/Low Code -->
+            <div class="focus-card" data-category="L121" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#22</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-fullname">No-Code</span> vs. <span class="english-fullname">Low-Code</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-fullname">No-Code</span>: <span class="highlight">完全不需要寫程式碼</span>，透過<span class="highlight">視覺化拖拉介面</span>建構應用。目標用戶是<span class="highlight">業務人員</span>、<span class="highlight">公民開發者</span>。</li>
+                            <li><span class="english-fullname">Low-Code</span>: <span class="highlight">需要少量程式碼</span>來客製化功能或整合，提供比<span class="english-fullname">No-Code</span>更高的彈性。目標用戶是<span class="highlight">IT專業人員</span>或<span class="highlight">開發者</span>，用以加速開發。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L121" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#23</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">公民開發者</span> (<span class="english-fullname">Citizen Developer</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        指<span class="highlight">企業中非IT部門的員工</span>，他們利用<span class="english-fullname">No-Code/Low-Code</span>平台來<span class="highlight">為自己或團隊開發業務應用程式</span>，以解決實際工作中的問題。這是<span class="highlight">賦能員工、推動數位轉型</span>的關鍵角色。
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L121" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#24</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">平台的優勢與限制</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li>優勢: <span class="highlight">開發速度快、降低技術門檻、賦能業務人員、促進創新</span>。</li>
+                            <li>限制: <span class="highlight">客製化能力有限、可能有效能瓶頸、安全性與治理問題、被平台綁定</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- L122 生成式AI應用與工具 -->
+            <div class="focus-card" data-category="L122" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#25</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">提示工程</span> (<span class="english-fullname">Prompt Engineering</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="highlight">與LLM溝通的藝術</span>。這不是簡單的提問，而是<span class="highlight">設計結構化、清晰、包含足夠上下文的提示</span>，以引導模型產生<span class="highlight">最佳輸出</span>。常用技巧包括：
+                        <ul>
+                            <li><span class="english-fullname">Zero-shot Prompting</span>: 直接提問。</li>
+                            <li><span class="english-fullname">Few-shot Prompting</span>: <span class="highlight">在提示中提供幾個範例</span>，讓模型學習輸出格式。</li>
+                            <li><span class="english-fullname">Chain of Thought (CoT)</span>: <span class="highlight">要求模型分步思考</span>，引導其進行複雜推理。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L122" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#26</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">常見<span class="chinese-proper-noun">生成式AI</span>工具</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li>文本生成: <span class="english-fullname">ChatGPT</span>, <span class="english-fullname">Google Gemini</span>, <span class="english-fullname">Claude</span></li>
+                            <li>圖像生成: <span class="english-fullname">Midjourney</span>, <span class="english-fullname">Stable Diffusion</span>, <span class="english-abbr">DALL-E</span></li>
+                            <li>程式碼輔助: <span class="english-fullname">GitHub Copilot</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L122" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#27</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">企業級應用場景</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">知識管理</span>: 建立企業內部知識庫的智能問答系統 (<span class="english-abbr">RAG</span>應用)。</li>
+                            <li><span class="chinese-proper-noun">客戶服務</span>: 打造更自然的對話式AI客服。</li>
+                            <li><span class="chinese-proper-noun">行銷文案</span>: 自動生成廣告詞、社群貼文、電子郵件。</li>
+                            <li><span class="chinese-proper-noun">軟體開發</span>: 輔助程式碼撰寫、除錯、產生測試案例。</li>
+                            <li><span class="chinese-proper-noun">數據分析</span>: 輔助生成<span class="english-abbr">SQL</span>查詢、製作報表摘要。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L122" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#28</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-abbr">AI Agent</span> (AI代理人)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        不僅僅是問答，<span class="english-abbr">AI Agent</span>是能<span class="highlight">自主理解目標、規劃步驟、並執行一系列任務</span>的系統。例如，用戶說“幫我規劃一趟去東京的五日遊”，Agent會自動上網查機票、訂飯店、安排行程。這是<span class="english-abbr">LLM</span>應用的下一步發展方向。
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L122" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#29</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AIGC</span> (<span class="english-fullname">AI-Generated Content</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        指由<span class="highlight">人工智慧技術自動生成的內容</span>，是<span class="chinese-proper-noun">生成式AI</span>的直接產物。涵蓋文本、圖像、音訊、影片和程式碼等多種類型。AIGC正在改變內容創作的生態。
+                    </div>
+                </div>
+            </div>
+
+            <!-- L123 生成式AI導入與規劃 -->
+            <div class="focus-card" data-category="L123" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#30</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI專案生命週期</span> (<span class="english-abbr">CRISP-DM</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        跨產業資料探勘標準流程，是一個<span class="highlight">高度迭代</span>的過程：
+                        <ol>
+                            <li><span class="english-fullname">Business Understanding</span> (商業理解): <span class="highlight">定義要解決的問題和成功指標</span>。</li>
+                            <li><span class="english-fullname">Data Understanding</span> (資料理解): 探索與評估現有資料。</li>
+                            <li><span class="english-fullname">Data Preparation</span> (資料準備): 清理、整合、格式化資料 (最耗時)。</li>
+                            <li><span class="english-fullname">Modeling</span> (模型建立): 選擇、訓練和評估模型。</li>
+                            <li><span class="english-fullname">Evaluation</span> (評估): 從<span class="highlight">業務角度</span>評估模型是否滿足需求。</li>
+                            <li><span class="english-fullname">Deployment</span> (部署): 將模型整合到現有系統中。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L123" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#31</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">導入<span class="english-abbr">AI</span>的評估框架</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        在決定導入AI前，需從四個方面進行評估：
+                        <ul>
+                            <li><span class="chinese-proper-noun">需求分析</span>: <span class="highlight">要解決的痛點是什麼？</span>AI是最佳解法嗎？</li>
+                            <li><span class="chinese-proper-noun">可行性評估</span>: <span class="highlight">技術</span>上可行嗎？有足夠且品質好的<span class="highlight">資料</span>嗎？有對應的<span class="highlight">人才</span>嗎？</li>
+                            <li><span class="chinese-proper-noun">成本效益分析</span>: <span class="highlight">投入成本</span>(開發、維護、算力)和<span class="highlight">預期回報</span>(<span class="english-abbr">ROI</span>)是否合理？</li>
+                            <li><span class="chinese-proper-noun">風險評估</span>: 有哪些<span class="highlight">技術、資料、倫理、法律</span>風險？</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L123" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#32</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">選擇<span class="english-fullname">Build, Buy, or Ally</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        企業導入AI的策略：
+                        <ul>
+                            <li><span class="english-fullname">Build</span> (自建): <span class="highlight">完全自己開發</span>。掌控度最高，但成本和技術門檻也最高。</li>
+                            <li><span class="english-fullname">Buy</span> (購買): <span class="highlight">直接採購成熟的AI服務或產品</span>。導入快速，但彈性較低。</li>
+                            <li><span class="english-fullname">Ally</span> (合作): <span class="highlight">與外部AI公司或顧問合作</span>。結合外部專業與內部知識，是常見模式。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L123" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#33</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI專案團隊</span>的關鍵角色</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-proper-noun">領域專家</span> (<span class="english-fullname">Domain Expert</span>): 提供<span class="highlight">業務知識</span>，定義問題和需求。</li>
+                            <li><span class="chinese-proper-noun">資料科學家</span> (<span class="english-fullname">Data Scientist</span>): 負責<span class="highlight">資料分析、模型開發與評估</span>。</li>
+                            <li><span class="chinese-proper-noun">資料工程師</span> (<span class="english-fullname">Data Engineer</span>): 負責<span class="highlight">建立和維護資料管道</span>(<span class="english-fullname">Data Pipeline</span>)。</li>
+                            <li><span class="chinese-proper-noun">機器學習工程師</span> (<span class="english-abbr">ML Engineer</span>): 負責將模型<span class="highlight">產品化、部署與維運</span>(<span class="english-abbr">MLOps</span>)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L123" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#34</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="english-fullname">POC</span>, <span class="english-fullname">POV</span>, <span class="english-fullname">MVP</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        AI專案導入的驗證階段：
+                        <ul>
+                            <li><span class="english-abbr">POC</span> (<span class="english-fullname">Proof of Concept</span>): <span class="highlight">概念驗證</span>。證明某個想法或技術是<span class="highlight">可行的</span>。</li>
+                            <li><span class="english-abbr">POV</span> (<span class="english-fullname">Proof of Value</span>): <span class="highlight">價值驗證</span>。證明這個可行的技術能<span class="highlight">帶來商業價值</span>。</li>
+                            <li><span class="english-abbr">MVP</span> (<span class="english-fullname">Minimum Viable Product</span>): <span class="highlight">最小可行性產品</span>。用最少的功能和資源開發出一個<span class="highlight">可用的產品版本</span>，快速投入市場以獲取用戶反饋。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="L123" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#35</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">機器學習運維</span> (<span class="english-abbr">MLOps</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        結合<span class="chinese-proper-noun">機器學習</span>、<span class="chinese-proper-noun">開發</span>(<span class="english-fullname">Dev</span>)與<span class="chinese-proper-noun">維運</span>(<span class="english-fullname">Ops</span>)的實踐。目標是<span class="highlight">自動化和簡化</span>機器學習模型的<span class="highlight">整個生命週期</span>，從資料準備、模型訓練、部署到監控，實現<span class="highlight">持續整合、持續交付(CI/CD)</span>，確保模型的品質與可靠性。
+                    </div>
+                </div>
+            </div>
+
+            <div id="noResultsMessage" style="display: none;">沒有找到符合條件的重點。</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 L12201 生成式AI應用領域與常見工具</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", sans-serif; /* Using example's font stack preference */
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7; /* Added from source for potential base style consistency */
+        }
+        .container {
+            max-width: 1200px; /* Using example's width */
+            margin: 25px auto; /* Adjusted margin slightly */
+            padding: 20px 30px; /* Adjusted padding slightly */
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Using example's shadow */
+            border-radius: 8px; /* Added from source */
+        }
+        h1, h2 { /* Added h2 from example */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 { /* Modified from source */
+            text-align: center;
+            color: #0056b3; /* Using source color */
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0056b3; /* Using source border */
+            padding-bottom: 10px;
+            font-size: 1.8rem; /* Using example size */
+        }
+        .header-container { /* From example */
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 { /* Overriding base h1 for header */
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+            border-bottom: none; /* Remove border inside header */
+            padding-bottom: 0;
+            margin-bottom: 5px; /* Adjust spacing */
+        }
+        .header-container div { /* Style for subtitle in header */
+             font-size: 1.1rem;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+            display: block; /* Center image */
+            margin: 15px auto; /* Add some margin */
+        }
+        /* 出題方向區塊樣式 (From example) */
+        .directions-container {
+            background-color: #fffbeb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f1c40f;
+            border-radius: 5px;
+        }
+        .directions-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .direction-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .direction-item:hover {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .direction-number {
+            width: 25px;
+            height: 25px;
+            background-color: #f1c40f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .direction-item:hover .direction-number {
+            background-color: white;
+            color: #f1c40f;
+        }
+         .direction-text { /* Added to allow text wrapping */
+            flex-grow: 1;
+         }
+        /* 問題卡片樣式 (Merging styles from both) */
+        .questions-container {
+            /* display: grid; */ /* Removed grid to allow natural flow */
+            /* grid-template-columns: 1fr; */
+            /* gap: 20px; */ /* From example */
+        }
+        .question-card { /* Renamed qa-item */
+            background-color: white;
+            border: 1px solid #e0e0e0; /* From source */
+            border-radius: 6px; /* From source */
+            padding: 18px; /* From source */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* From example */
+            transition: transform 0.3s, box-shadow 0.3s ease; /* Combined transitions */
+            margin-bottom: 20px; /* From source */
+        }
+        .question-card:hover { /* From example */
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Example's hover shadow */
+        }
+        .question-header { /* From example */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Added from source */
+            margin-bottom: 15px; /* Example */
+            padding-bottom: 10px; /* Example */
+            border-bottom: 1px solid #eee; /* Example */
+        }
+        .question-id { /* From example (replacing question-number) */
+            font-weight: bold;
+            color: #3498db; /* Example color */
+            font-size: 0.95em; /* Source size */
+        }
+        .question-frequency { /* From example */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9em; /* Adjust size if needed */
+        }
+        .question-content { /* Renamed question */
+            font-weight: 600; /* Source weight */
+            margin-bottom: 15px; /* Source margin */
+            color: #2c3e50; /* Source color */
+            font-size: 1.1rem; /* Example size */
+            line-height: 1.6; /* Example line-height */
+            cursor: pointer; /* Make question clickable to toggle explanation */
+        }
+        .options-container { /* Replacing ul.options */
+            display: grid;
+            grid-template-columns: 1fr; /* Example layout */
+            gap: 10px; /* Example gap */
+            margin-bottom: 20px; /* Example margin */
+            list-style: none; /* From source */
+            padding-left: 0; /* From source */
+        }
+        .option-item { /* Replacing li */
+            display: flex; /* From example */
+            padding: 10px 15px; /* Source padding */
+            background-color: #f8f9fa; /* Source background */
+            border: 1px solid #e9ecef; /* Source border */
+            border-radius: 4px; /* Source radius */
+            cursor: default; /* Change cursor for options - click question instead */
+            transition: background-color 0.2s ease; /* Source transition */
+            font-size: 0.98em; /* Source size */
+            align-items: center; /* Vertically align label and text */
+        }
+        .option-item:hover { /* From source */
+            background-color: #e9ecef;
+        }
+        .option-item.correct { /* From example */
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            font-weight: bold; /* Make correct answer bold */
+        }
+        .option-item.correct:hover { /* From example */
+            background-color: #c3e6cb;
+        }
+        .option-label { /* From example */
+            width: 25px;
+            height: 25px;
+            min-width: 25px; /* Ensure width doesn't shrink */
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent label from shrinking */
+        }
+        .option-item.correct .option-label { /* From example */
+            background-color: #28a745;
+        }
+        .option-text { /* New element for text part */
+             flex-grow: 1; /* Allow text to take remaining space */
+             word-break: break-word; /* Prevent long words from overflowing */
+        }
+        .explanation-container { /* Renamed answer-explanation */
+            background-color: #eef7ff; /* Source background */
+            padding: 15px; /* Source padding */
+            border-radius: 5px; /* Source radius */
+            margin-top: 15px; /* Source margin */
+            /* display: block; */ /* Initially shown (controlled by JS) */
+            display: none; /* Start hidden */
+            border-top: 1px dashed #ced4da; /* From source */
+            font-size: 0.95em; /* Source font size */
+        }
+        .explanation-header { /* From example */
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .explanation-content { /* From example (holds explanation text) */
+            line-height: 1.6; /* Example */
+            color: #000000; /* Source color */
+        }
+        /* Formatting Styles */
+        .highlight {
+            background-color: #ffff0030; /* Light yellow background */
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+        .chinese-term {
+             color: rgb(0, 0, 255);
+             font-weight: bold;
+        }
+         .acronym-term {
+             color: rgb(128, 0, 128); /* Purple */
+             font-weight: bold;
+        }
+         .english-term {
+             color: rgb(255, 0, 0); /* Red */
+             font-weight: bold;
+        }
+
+        /* Controls styling (From example) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Add gap for better spacing */
+        }
+        .filter-container, .search-container, .star-filter-container, .toggle-explanations { /* Grouped controls */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap; /* Prevent label wrapping */
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1; /* Allow input/select to grow */
+            min-width: 150px; /* Ensure minimum width */
+        }
+         input[type="text"] {
+            flex-grow: 2; /* Allow search input to be wider */
+         }
+        button { /* Base button style */
+            padding: 9px 18px; /* Source padding */
+            background-color: #007bff; /* Source background */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Source radius */
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease; /* Source transition */
+            font-size: 0.95em; /* Source size */
+            margin-left: 5px; /* Add margin for buttons in controls */
+        }
+        button:hover { /* Source hover */
+            background-color: #0056b3;
+        }
+        #searchButton { /* Specific button style example */
+           /* Inherits base button style */
+        }
+        #toggleExplanations { /* Specific button style example */
+           /* Inherits base button style */
+           margin-left: 0; /* No left margin needed here */
+        }
+        /* Back to top button (From example) */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+            text-decoration: none; /* Remove underline if it appears */
+            font-size: 1.5rem; /* Make arrow bigger */
+        }
+        .back-to-top:hover {
+            background-color: #2980b9;
+            opacity: 1;
+        }
+        /* Progress bar (From example) */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+        }
+        /* RWD (Combined and adjusted) */
+        @media (max-width: 992px) {
+             .controls {
+                flex-direction: column;
+                align-items: stretch; /* Make items full width */
+            }
+            .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+                width: 100%;
+                justify-content: space-between; /* Better alignment when stacked */
+            }
+             select, input[type="text"] {
+                 width: auto; /* Reset width */
+                 flex-grow: 1; /* Allow growth */
+             }
+             button { /* Ensure buttons don't shrink too much */
+                 flex-shrink: 0;
+             }
+             .search-container button {
+                margin-left: 10px;
+             }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 20px; /* Source padding */
+            }
+            .directions-grid {
+                grid-template-columns: 1fr; /* Example */
+            }
+             h1 {
+                 font-size: 1.5em; /* Source */
+             }
+             .option-item, .explanation-container, button {
+                 font-size: 0.9em; /* Source */
+             }
+             .option-label {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+                font-size: 0.9em;
+             }
+        }
+         @media (max-width: 600px) { /* From source */
+             body {
+                 /* margin: 15px; */ /* Removed for better edge-to-edge */
+             }
+             .container {
+                 padding: 15px; /* Adjust padding */
+                 margin: 10px auto; /* Adjust margin */
+             }
+             h1 {
+                 font-size: 1.4em; /* Adjust size */
+             }
+             .header-container h1 {
+                font-size: 1.6rem; /* Adjust header size */
+             }
+             .header-container div {
+                 font-size: 1rem;
+             }
+             .option-item, button, .explanation-container { /* Source */
+                 font-size: 0.9em;
+             }
+         }
+         /* No results message style */
+         #noResultsMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+         }
+
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 初級</h1>
+            <div>L12201 生成式AI應用領域與常見工具</div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-container">
+                <label for="directionFilter" class="filter-label">篩選出題方向：</label>
+                <select id="directionFilter">
+                    <option value="all">全部方向</option>
+                    <option value="9">方向 9: 生成式 AI 基本概念與技術</option>
+                    <option value="10">方向 10: 生成式 AI 應用領域</option>
+                    <option value="11">方向 11: 生成式 AI 技術發展與趨勢</option>
+                    <option value="12">方向 12: 生成式 AI 風險與倫理</option>
+                    <option value="13">方向 13: No Code/Low Code與生成式 AI</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <!-- <option value="2">★★</option> -->
+                    <!-- <option value="1">★</option> -->
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入題目、選項或解析關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+        </div>
+
+        <div class="directions-container">
+            <div class="directions-title">出題方向</div>
+            <div class="directions-grid" id="directionsGrid">
+                <div class="direction-item" onclick="filterByDirection(9)">
+                    <div class="direction-number">9</div> <div class="direction-text">生成式 AI 基本概念與技術</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(10)">
+                    <div class="direction-number">10</div> <div class="direction-text">生成式 AI 應用領域</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(11)">
+                    <div class="direction-number">11</div> <div class="direction-text">生成式 AI 技術發展與趨勢</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(12)">
+                    <div class="direction-number">12</div> <div class="direction-text">生成式 AI 風險與倫理</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(13)">
+                    <div class="direction-number">13</div> <div class="direction-text">No Code/Low Code與生成式 AI</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <!-- Question 1 (GenAI Basic Concept) -->
+            <div class="question-card" data-direction="9" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">生成式 AI (<span class="english-term">Generative AI, GAI</span>)</b> 的核心特徵是什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">精確分類或預測現有數據。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">透過模型學習能力生成新的、原創的內容。</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">分析數據中的模式並提供見解。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">從未標記數據中找出隱藏結構。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2 節，<b class="chinese-term">生成式 AI (<span class="acronym-term">GAI</span>)</b> 的核心特徵在於<span class="highlight">透過模型的學習能力「生成」新的內容</span>，這與主要用於分析或辨識現有數據的傳統 AI 不同。</div>
+                </div>
+            </div>
+
+            <!-- Question 2 (GenAI vs Discriminative AI) -->
+            <div class="question-card" data-direction="9" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">生成式 AI (<span class="english-term">Generative AI</span>)</b> 與<b class="chinese-term">鑑別式 AI (<span class="english-term">Discriminative AI</span>)</b> 的主要區別在於？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用的訓練數據量大小。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">模型訓練所需的時間長短。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">模型的主要目標是生成新數據還是分類/預測現有數據。</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">模型是否使用深度學習技術。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.4 節，<b class="chinese-term">生成式 AI</b> 的目標是<span class="highlight">模擬數據分佈並生成新數據</span>，而<b class="chinese-term">鑑別式 AI</b> 的目標是<span class="highlight">學習數據點之間的界限，用於分類或預測</span>。這是兩者最根本的區別。兩者都可能使用大量數據和深度學習。</div>
+                </div>
+            </div>
+
+            <!-- Question 3 (Core Technology - GAN) -->
+             <div class="question-card" data-direction="9" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#3</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">哪種<b class="chinese-term">生成式 AI</b> 模型透過「<b class="chinese-term">生成器 (<span class="english-term">Generator</span>)</b>」和「<b class="chinese-term">鑑別器 (<span class="english-term">Discriminator</span>)</b>」之間的對抗過程來學習生成逼真的數據？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">變分自編碼器 (<span class="acronym-term">VAE</span>)</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">生成對抗網路 (<span class="acronym-term">GAN</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">擴散模型 (<span class="english-term">Diffusion Model</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">Transformer</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">生成對抗網路 (<span class="acronym-term">GAN</span>)</b> 由生成器和鑑別器兩個部分組成</span>，透過對抗性訓練，生成器試圖生成逼真數據欺騙鑑別器，鑑別器則試圖區分真實和生成數據，這種競爭過程最終提高了生成數據的品質。</div>
+                 </div>
+             </div>
+
+            <!-- Question 4 (Core Technology - Diffusion Models) -->
+            <div class="question-card" data-direction="9" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">哪種<b class="chinese-term">生成式 AI</b> 模型特別擅長生成高維度數據（如圖像），其原理基於逐步添加和去除雜訊？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">生成對抗網路 (<span class="acronym-term">GAN</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">變分自編碼器 (<span class="acronym-term">VAE</span>)</b></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">擴散模型 (<span class="english-term">Diffusion Model</span>)</b></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">循環神經網路 (<span class="acronym-term">RNN</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">擴散模型 (<span class="english-term">Diffusion Models</span>)</b> 通過模擬數據從雜訊逐漸恢復到真實數據的過程來生成數據</span>，在圖像生成領域取得了非常優異的效果，特別擅長生成高畫質且細膩的圖像。</div>
+                </div>
+            </div>
+
+            <!-- Question 5 (Core Technology - Transformer/LLM) -->
+            <div class="question-card" data-direction="9" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#5</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">以 <span class="acronym-term">GPT</span> 系列為代表、擅長生成連貫且有意義文本的<b class="chinese-term">生成式 AI</b> 模型，其基礎架構主要依賴於？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">卷積神經網路 (<span class="acronym-term">CNN</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">循環神經網路 (<span class="acronym-term">RNN</span>)</b></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">Transformer 架構 (<span class="english-term">Transformer Architecture</span>)</b></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">生成對抗網路 (<span class="acronym-term">GAN</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight">大型語言模型 (<span class="acronym-term">LLM</span>)，包括 <span class="acronym-term">GPT</span> 系列，是基於<b class="chinese-term">Transformer 架構</b>發展而來的</span>。Transformer 架構中的自注意力機制 (<span class="english-term">Self-attention</span>) 對於處理長序列數據（如文本）並捕捉詞語間的長距離依賴關係至關重要。</div>
+                </div>
+            </div>
+
+            <!-- Question 6 (Application Area - Content Creation) -->
+            <div class="question-card" data-direction="10" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">利用<b class="chinese-term">生成式 AI</b> 根據文字描述創作出全新的圖像或藝術作品，主要屬於哪個應用領域？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">藝術與設計/內容創作 (<span class="english-term">Art & Design/Content Creation</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">醫療與生物科技 (<span class="english-term">Healthcare & Biotech</span>)</b></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">教育與培訓 (<span class="english-term">Education & Training</span>)</b></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">金融 (<span class="english-term">Finance</span>)</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.5 節，<span class="highlight">將文字轉化為圖像（<span class="english-term">Text-to-Image</span>）是<b class="chinese-term">生成式 AI</b> 在<b class="chinese-term">藝術與設計/內容創作</b>領域的典型應用</span>，例如 <span class="acronym-term">Midjourney</span> 和 <span class="acronym-term">DALL-E</span> 等工具。</div>
+                </div>
+            </div>
+
+             <!-- Question 7 (Application Area - Healthcare) -->
+            <div class="question-card" data-direction="10" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#7</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">醫療領域</b>，<b class="chinese-term">生成式 AI</b> 可以用於生成合成的醫學影像，這主要解決了哪個問題？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提高醫生的診斷速度。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">補充稀缺的病理影像數據，幫助模型訓練。</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">完全自動化影像分析過程。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">取代人類進行最終的醫療診斷。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.5 節，<span class="highlight">在醫療領域，真實的病理影像數據往往稀缺且難以獲取</span>。利用<b class="chinese-term">生成式 AI</b> 生成高質量合成影像，可以<span class="highlight">擴充訓練數據集，從而提高用於醫學影像分析的鑑別式 AI 模型的性能和泛化能力</span>。</div>
+                </div>
+            </div>
+
+            <!-- Question 8 (Application Area - Education) -->
+             <div class="question-card" data-direction="10" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#8</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">教育領域</b>，<b class="chinese-term">生成式 AI</b> 支援根據學生的需求自動生成教學內容和練習題，這屬於哪種應用？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">自動化批改作業。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">智慧教學助理。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">個人化學習內容生成。</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">虛擬實境互動教材。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.5 節，<span class="highlight">根據學習者的需求自動生成教學內容和練習題</span>，以提供符合個人進度與偏好的學習體驗，是<b class="chinese-term">生成式 AI</b> 在教育領域<span class="highlight">個人化學習內容生成</span>的重要應用。自動批改、智慧助理、虛擬教材是其他相關但不同的應用。</div>
+                 </div>
+             </div>
+
+            <!-- Question 9 (Application Area - Entertainment) -->
+            <div class="question-card" data-direction="10" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#9</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">利用<b class="chinese-term">生成式 AI</b> 自動生成遊戲地圖、角色設定或劇情支線，主要應用於哪個領域？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">金融市場分析。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">娛樂與媒體 (<span class="english-term">Entertainment & Media</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">預測性維護。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">供應鏈優化。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.5 節，<span class="highlight">遊戲內容的自動生成，如地圖、角色、劇情等，是<b class="chinese-term">生成式 AI</b> 在<b class="chinese-term">娛樂與媒體</b>領域提升內容創作效率和創新性的應用</span>。其他選項均不屬於此領域。</div>
+                 </div>
+            </div>
+
+            <!-- Question 10 (Application Area - Manufacturing) -->
+             <div class="question-card" data-direction="10" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#10</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">製造業</b>中，利用<b class="chinese-term">生成式 AI</b> 根據功能需求生成產品設計草圖或優化結構，屬於哪種應用？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">預測性維護。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">創新產品設計 (<span class="english-term">Innovative Product Design</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">供應鏈管理。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">品質檢測。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.5 節，<span class="highlight">利用<b class="chinese-term">生成式 AI</b> 協助生成產品設計的概念、草圖或進行結構優化，是其在製造業領域<b class="chinese-term">創新產品設計</b>的典型應用</span>，旨在加速設計流程和提升產品性能。</div>
+                 </div>
+            </div>
+
+             <!-- Question 11 (GenAI Capability - Multimodality) -->
+            <div class="question-card" data-direction="9" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#11</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">下列何者最能描述現代<b class="chinese-term">生成式 AI</b> 模型（如 <span class="acronym-term">GPT-4</span>）處理不同類型數據的能力？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">高準確性。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">多模態處理 (<span class="english-term">Multimodal Processing</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">低計算成本。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">完全可解釋性。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，現代<b class="chinese-term">生成式 AI</b> 模型，特別是大型語言模型，<span class="highlight">正朝向整合處理多種數據類型（如文本、圖像、語音）的方向發展</span>，這被稱為<b class="chinese-term">多模態處理</b>。雖然準確性很重要，但多模態是描述其處理輸入數據類型的關鍵特徵。低計算成本和完全可解釋性目前仍是挑戰。</div>
+                 </div>
+            </div>
+
+            <!-- Question 12 (Challenge - Hallucination) -->
+            <div class="question-card" data-direction="12" data-stars="5">
+                 <div class="question-header">
+                     <div class="question-id">#12</div>
+                     <div class="question-frequency">★★★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">生成式 AI</b> 產生看似合理但實際上不正確或無意義資訊的現象，被稱為什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">過度擬合 (<span class="english-term">Overfitting</span>)</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">幻覺 (<span class="english-term">Hallucination</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">偏見 (<span class="english-term">Bias</span>)</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">梯度消失 (<span class="english-term">Vanishing Gradient</span>)</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight">生成式 AI 產生看似真實但實際是虛假或捏造資訊的現象稱為<b class="chinese-term">幻覺</b></span>。這是大型語言模型目前面臨的主要挑戰之一，尤其在高風險或需要高準確性的應用中。</div>
+                 </div>
+            </div>
+
+            <!-- Question 13 (Challenge - Bias) -->
+            <div class="question-card" data-direction="12" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#13</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">生成式 AI</b> 模型在訓練過程中可能繼承並放大訓練數據中的某些傾向，導致在生成內容時出現不公平或有差別的對待，這屬於哪種挑戰？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">幻覺 (<span class="english-term">Hallucination</span>)</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">過度擬合 (<span class="english-term">Overfitting</span>)</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">偏見 (<span class="english-term">Bias</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">低計算效率。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.3 節及 3.4.1 節，<span class="highlight"><b class="chinese-term">偏見 (<span class="english-term">Bias</span>)</b> 是指 AI 模型因為訓練數據中存在傾向性，在生成結果時也表現出不公平或有歧視性的模式</span>，這可能影響決策的公正性，是生成式 AI 面臨的重要倫理挑戰。幻覺是生成錯誤信息，過度擬合是泛化能力差，低計算效率是性能挑戰。</div>
+                 </div>
+            </div>
+
+             <!-- Question 14 (Challenge - Data Privacy) -->
+            <div class="question-card" data-direction="12" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#14</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在訓練<b class="chinese-term">生成式 AI</b> 模型時，使用了大量的文本數據，其中可能包含敏感的個人資訊或商業機密。這主要帶來哪種風險？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">模型訓練不穩定。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">模型產生幻覺。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">資料隱私洩漏 (<span class="english-term">Data Privacy Breach</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">難以生成多樣化內容。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.3 節及 3.2.6 節，<span class="highlight">由於<b class="chinese-term">生成式 AI</b> 模型需要大量數據進行訓練，如果數據管理不當，存在敏感資訊洩漏的風險</span>。這包括無意中重複訓練數據中的敏感片段，或通過攻擊手段推斷出訓練數據。因此，資料隱私保護是應用生成式 AI 的重要考量。</div>
+                 </div>
+            </div>
+
+            <!-- Question 15 (Challenge - Controllability) -->
+            <div class="question-card" data-direction="12" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#15</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">有時<b class="chinese-term">生成式 AI</b> 模型產生的內容可能無法精確符合使用者的特定要求或難以預測其輸出，這反映了其在哪個方面的限制？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">可解釋性 (<span class="english-term">Explainability</span>)</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">可控性 (<span class="english-term">Controllability</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">泛化能力 (<span class="english-term">Generalization</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">計算效率 (<span class="english-term">Computational Efficiency</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">生成式 AI</b> 的輸出內容的精確度與可預測性問題屬於<b class="chinese-term">可控性</b>的挑戰</span>。雖然提示詞工程 (<span class="english-term">Prompt Engineering</span>) 有助於提升可控性，但在生成自由度較高的內容時仍可能出現難以精確控制輸出的情況。</div>
+                 </div>
+            </div>
+
+            <!-- Question 16 (Common Tool Type - Text-to-Image) -->
+            <div class="question-card" data-direction="11" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#16</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">下列哪個<b class="chinese-term">生成式 AI</b> 工具主要用於根據文字描述生成圖像？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">ChatGPT</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">AlphaGo</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">DALL-E</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">BERT</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">DALL-E</b> 是 OpenAI 開發的、基於 Transformer 的<b class="chinese-term">文本到圖像 (<span class="english-term">Text-to-Image</span>) 生成式 AI</b> 模型</span>。ChatGPT 是一個大型語言模型（主要文本），AlphaGo 是強化學習模型（下棋），BERT 是預訓練語言表示模型（主要理解）。</div>
+                 </div>
+            </div>
+
+             <!-- Question 17 (Common Tool Type - LLM) -->
+            <div class="question-card" data-direction="11" data-stars="5">
+                 <div class="question-header">
+                     <div class="question-id">#17</div>
+                     <div class="question-frequency">★★★★★</div>
+                 </div>
+                 <div class="question-content">哪個<b class="chinese-term">生成式 AI</b> 工具以其出色的對話能力和文本生成能力聞名，是目前最廣泛使用的大型語言模型 (<span class="acronym-term">LLM</span>) 之一？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">Midjourney</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">ChatGPT</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">Stable Diffusion</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">TensorFlow</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">ChatGPT</b> 是 OpenAI 開發的、基於大型語言模型 (<span class="acronym-term">LLM</span>) 的對話 AI</span>，以其生成連貫、有意義的文本回應能力而廣受關注。Midjourney 和 Stable Diffusion 是圖像生成模型，TensorFlow 是機器學習框架。</div>
+                 </div>
+            </div>
+
+             <!-- Question 18 (GenAI Development Direction - AIaaS) -->
+             <div class="question-card" data-direction="11" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#18</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">使用者無需高階硬體或專業知識，即可透過雲端平台存取高效能<b class="chinese-term">生成式 AI</b> 工具，這反映了哪個發展趨勢？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">模型壓縮 (<span class="english-term">Model Compression</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">多模態整合 (<span class="english-term">Multimodal Integration</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">AI 即服務 (<span class="acronym-term">AI as a Service, AIaaS</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">邊緣計算 (<span class="english-term">Edge Computing</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.4 節，<span class="highlight">透過雲端平台和 API 服務提供 <span class="acronym-term">AI</span> 功能，降低使用者門檻，無需關注底層硬體和部署細節，這正是<b class="chinese-term">AI 即服務 (<span class="acronym-term">AIaaS</span>)</b> 的核心概念</span>。</div>
+                 </div>
+             </div>
+
+             <!-- Question 19 (GenAI Development Direction - Personalization/Controllability) -->
+             <div class="question-card" data-direction="11" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#19</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">模型微調 (<span class="english-term">Fine-tuning</span>) 和提示工程 (<span class="english-term">Prompt Engineering</span>) 在<b class="chinese-term">生成式 AI</b> 發展中的作用主要是為了提升什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">模型訓練速度。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">個人化生成與可控性。</span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">降低資料隱私風險。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">提升模型解釋性。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.4 節，<span class="highlight"><b class="chinese-term">模型微調</b>和<b class="chinese-term">提示工程</b>都是為了讓<b class="chinese-term">生成式 AI</b> 能夠根據<b class="chinese-term">特定需求調整生成結果</b>，使其更符合用戶意圖，從而提升<b class="chinese-term">個人化生成與可控性</b></span>。</div>
+                 </div>
+             </div>
+
+            <!-- Question 20 (Relation to No Code/Low Code) -->
+            <div class="question-card" data-direction="13" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#20</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">生成式 AI</b> 與 <b class="chinese-term">No Code / Low Code 平台</b>結合，對 <span class="acronym-term">AI</span> 民主化有何助益？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加了對專業程式設計師的需求。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">限制了 AI 應用的範圍。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">降低了技術門檻，讓更多非技術背景者也能參與 AI 應用開發。</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">使 AI 應用更集中於大型企業。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.1 節及 3.1.9 節，<span class="highlight">將<b class="chinese-term">生成式 AI</b> 功能整合到<b class="chinese-term">No Code / Low Code 平台</b>中，透過視覺化介面和簡化操作，可以<b class="chinese-term">顯著降低技術門檻</b>，使非技術背景或中小型企業的人員也能夠創建和部署 AI 應用</span>，從而推動 AI 民主化。</div>
+                </div>
+            </div>
+
+            <!-- Question 21 (Risk - Copyright) -->
+            <div class="question-card" data-direction="12" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#21</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">使用<b class="chinese-term">生成式 AI</b> 工具產生的內容，可能存在侵害他人版權的問題，這屬於哪種風險？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">技術風險。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">倫理風險。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">法律合規風險 (<span class="english-term">Legal Compliance Risk</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">數據偏見風險。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.4 節，<span class="highlight"><b class="chinese-term">生成式 AI</b> 產生的內容可能與訓練數據中的內容過於相似，從而引發<b class="chinese-term">版權或智慧財產權的法律糾紛</b></span>。這屬於<b class="chinese-term">法律合規風險</b>的範疇。倫理風險更多關乎公平、歧視等價值判斷。</div>
+                 </div>
+            </div>
+
+            <!-- Question 22 (Key Technology - VAE) -->
+            <div class="question-card" data-direction="9" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#22</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">哪種<b class="chinese-term">生成式 AI</b> 模型基於概率生成模型，透過編碼器 (<span class="english-term">Encoder</span>) 和解碼器 (<span class="english-term">Decoder</span>)，將數據映射到隱變量空間 (<span class="english-term">Latent Space</span>) 再重建？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">生成對抗網路 (<span class="acronym-term">GAN</span>)</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">變分自編碼器 (<span class="acronym-term">VAE</span>, <span class="english-term">Variational Autoencoder</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">擴散模型 (<span class="english-term">Diffusion Model</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">Transformer</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">變分自編碼器 (<span class="acronym-term">VAE</span>)</b> 是一種基於概率的<b class="chinese-term">生成式 AI</b> 模型，其核心結構包括<b class="chinese-term">編碼器</b>和<b class="chinese-term">解碼器</b>，用於學習數據在<b class="chinese-term">隱變量空間</b>的表示並生成新數據</span>，常用於數據生成和異常檢測。</div>
+                 </div>
+            </div>
+
+             <!-- Question 23 (Training Process) -->
+            <div class="question-card" data-direction="9" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#23</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">生成式 AI</b> 模型訓練過程中的<span class="highlight">微調 (<span class="english-term">Fine-tuning</span>)</span> 階段，主要目的是什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">從零開始學習數據的基本模式。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">在預訓練模型基礎上，使用特定領域數據提升模型在該領域的表現。</span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">增加模型的參數數量。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">檢測模型是否產生幻覺。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.7 節，<span class="highlight"><b class="chinese-term">微調</b>是<b class="chinese-term">生成式 AI</b> 訓練的第二階段</span>。它是在<b class="chinese-term">預訓練模型</b>已經學習了廣泛數據模式的基礎上，<span class="highlight">使用較小的、特定領域或任務的數據集進行進一步訓練，以使模型更好地適應特定應用</span>。</div>
+                 </div>
+            </div>
+
+             <!-- Question 24 (Application Area - Customer Service) -->
+            <div class="question-card" data-direction="10" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#24</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在客戶服務領域，利用<b class="chinese-term">生成式 AI</b> 模擬真人對話，以提供全天候的客戶支援服務，屬於哪種應用？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">客戶數據分析。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">虛擬智慧客服 (<span class="english-term">Virtual Smart Customer Service</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">情感分析 (<span class="english-term">Sentiment Analysis</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">預測性維護。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.1.5 節，<span class="highlight">利用<b class="chinese-term">生成式 AI</b> 的文本生成能力，模仿人類對話方式，提供自動化的客戶支援，即為<b class="chinese-term">虛擬智慧客服</b>的典型應用</span>。</div>
+                 </div>
+            </div>
+
+            <!-- Question 25 (GenAI Training Key Factor) -->
+            <div class="question-card" data-direction="9" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#25</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">生成式 AI</b> 模型訓練過程中，哪個因素對模型的生成效果具有決定性影響？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">模型複雜度。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">優化演算法選擇。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">硬體計算能力。</div></div>
+                     <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">訓練數據的數量、品質和多樣性。</span></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.7 節，<span class="highlight">雖然模型複雜度、優化算法和硬體計算能力都很重要，但<b class="chinese-term">訓練數據的數量、品質和多樣性</b>是<b class="chinese-term">生成式 AI</b> 模型學習數據潛在分佈並生成高品質內容的<b class="chinese-term">最基礎且具決定性影響</b>的因素</span>。數據質量直接限制了模型能達到的上限。</div>
+                 </div>
+            </div>
+
+            <!-- Question 26 (No Code/Low Code Challenge) -->
+             <div class="question-card" data-direction="13" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#26</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">對於過度依賴<b class="chinese-term">No Code / Low Code 平台</b>的使用者來說，可能面臨的挑戰是什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">開發成本過高。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">缺乏對 AI 技術的深層理解，可能導致模型偏差或誤用。</span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">難以與現有系統整合。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">生成內容缺乏創造力。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.1.9 節，<span class="highlight">No Code / Low Code 降低了技術門檻，但也可能導致使用者<b class="chinese-term">缺乏對 AI 底層原理的深入理解</b></span>。這使得他們在遇到複雜問題、模型表現異常或需要進行細緻調整時可能無從下手，或因不理解模型限制而<b class="chinese-term">導致模型偏差或誤用</b>。</div>
+                 </div>
+            </div>
+
+             <!-- Question 27 (Benefit of AIaaS) -->
+            <div class="question-card" data-direction="11" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#27</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">AI 即服務 (<span class="acronym-term">AIaaS</span>) 模式對企業導入<b class="chinese-term">生成式 AI</b> 有何主要益處？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">確保生成內容完全沒有偏見。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">降低硬體投資和部署門檻。</span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">提供完全的資料隱私保護。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">保證模型永不產生幻覺。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.4 節，<span class="highlight"><b class="chinese-term">AI 即服務 (<span class="acronym-term">AIaaS</span>)</b> 模式透過雲端平台提供計算資源和預訓練模型，企業<b class="chinese-term">無需大量前期硬體投資和複雜的部署工作</b>，顯著<b class="chinese-term">降低了導入門檻</b></span>。其他選項描述的能力（無偏見、完全隱私、無幻覺）目前仍是 AI 面臨的挑戰，非 AIaaS 本身的直接益處。</div>
+                 </div>
+            </div>
+
+             <!-- Question 28 (AI Democratization concept) -->
+            <div class="question-card" data-direction="13" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#28</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content"><span class="acronym-term">AI</span> 民主化 (<span class="english-term">AI Democratization</span>) 的主要目標是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使 AI 技術僅由大型科技公司掌握。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">完全自動化所有 AI 開發過程。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">將 AI 技術的應用和使用範圍擴展到更廣泛的人群和企業。</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">限制 AI 技術的發展速度。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.1.9 節，<span class="highlight"><b class="chinese-term">AI 民主化</b>旨在<b class="chinese-term">降低 AI 技術的使用門檻</b>，將其應用和使用從少數專家和大型企業<b class="chinese-term">擴展到更廣泛的社會層面</b>，讓更多非技術背景人士和中小型企業也能參與和受益於 AI</span>。</div>
+                 </div>
+            </div>
+
+            <!-- Question 29 (Combine GenAI + DiskAI Benefit) -->
+             <div class="question-card" data-direction="11" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#29</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">將<b class="chinese-term">生成式 AI</b> 與<b class="chinese-term">鑑別式 AI</b> 整合應用，可以帶來哪些益處？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加單一模型的計算效率。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">完全消除數據中的偏見。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">實現數據增強、提升模型泛化能力、處理多模態數據。</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">限制應用範圍以降低風險。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.4.2 節，<span class="highlight">整合<b class="chinese-term">生成式 AI</b> 和<b class="chinese-term">鑑別式 AI</b> 可以利用生成式 AI 的數據生成能力來進行<b class="chinese-term">數據增強</b>（尤其在數據稀缺時），從而提升鑑別式 AI 的<b class="chinese-term">泛化能力</b></span>。同時，兩者結合也能更好地<b class="chinese-term">處理多模態數據</b>，實現更複雜的應用。</div>
+                 </div>
+            </div>
+
+             <!-- Question 30 (Prompt Engineering) -->
+            <div class="question-card" data-direction="9" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#30</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在與大型語言模型 (<span class="acronym-term">LLM</span>) 互動時，精心設計輸入的指令或問題，以引導模型產生更符合預期的高品質輸出，這項技術被稱為？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">模型壓縮 (<span class="english-term">Model Compression</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">遷移學習 (<span class="english-term">Transfer Learning</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">提示工程 (<span class="english-term">Prompt Engineering</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">數據清洗 (<span class="english-term">Data Cleaning</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">提示工程 (<span class="english-term">Prompt Engineering</span>)</b> 是一種與<b class="chinese-term">生成式 AI</b>，特別是大型語言模型互動的技術</span>，透過優化輸入的提示詞，來影響模型的輸出結果，使其更準確、更有用或更具創造力。</div>
+                 </div>
+            </div>
+
+            <!-- Question 31 (Ethical/Legal Issue) -->
+            <div class="question-card" data-direction="12" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#31</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">生成式 AI</b> 的應用中，如果模型被用於製造虛假新聞或深度偽造 (<span class="english-term">deepfake</span>) 影像，這主要關聯到哪方面的風險？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">模型性能不足。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">數據稀缺問題。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">濫用 (<span class="english-term">Misuse</span>)</b> 與<b class="chinese-term">倫理道德 (<span class="english-term">Ethics</span>)</b> 問題。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">硬體計算資源不足。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.9 節，<span class="highlight"><b class="chinese-term">生成式 AI</b> 強大的生成能力帶來了<b class="chinese-term">濫用</b>的風險，例如製造虛假信息、誤導性內容或用於惡意目的</span>。這類問題<b class="chinese-term">涉及倫理道德和社會信任</b>，是 AI 治理的重要課題。</div>
+                 </div>
+            </div>
+
+             <!-- Question 32 (Benefit - Economic) -->
+             <div class="question-card" data-direction="11" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#32</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">生成式 AI</b> 對企業帶來的直接經濟效益通常體現在哪些方面？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加額外的人力需求。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增加硬體投資成本。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">降低營運成本並提高生產效率。</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">限制跨部門合作。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.7 節，<span class="highlight"><b class="chinese-term">生成式 AI</b> 透過自動化內容生成、優化工作流程等，能夠<b class="chinese-term">減少人工重複性工作</b>，從而<b class="chinese-term">降低營運成本並提高生產效率</b></span>，這是其最直接的經濟效益之一。雖然可能需要初期投資，但長期看是節省成本、提升效率的。</div>
+                 </div>
+            </div>
+
+            <!-- Question 33 (Application Area - Text Analytics) -->
+             <div class="question-card" data-direction="10" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#33</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">利用<b class="chinese-term">生成式 AI</b> 總結長篇會議記錄或報告，快速提取關鍵資訊，主要屬於哪種類型的應用？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">程式碼生成。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">圖像生成。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">文本摘要 (<span class="english-term">Text Summarization</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">語音合成。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="highlight">將長篇文本（如會議記錄、報告）自動濃縮成包含關鍵資訊的短篇文本，這正是<b class="chinese-term">文本摘要</b>技術的核心功能</span>。大型語言模型擅長理解和生成文本，因此非常適合用於這種<b class="chinese-term">生成式 AI</b> 應用。</div>
+                 </div>
+            </div>
+
+            <!-- Question 34 (No Code/Low Code User) -->
+            <div class="question-card" data-direction="13" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#34</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">No Code 平台</b>的設計目標是為了使哪一類使用者能夠輕鬆開發應用程式？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資深軟體工程師。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">非技術背景的業務使用者。</span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">數據科學家。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">系統管理員。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.1 節，<span class="highlight"><b class="chinese-term">No Code 平台</b>的設計理念是讓<b class="chinese-term">非程式設計背景</b>的使用者也能透過視覺化介面和拖放操作來創建應用</span>，從而降低開發門檻。</div>
+                 </div>
+            </div>
+
+            <!-- Question 35 (Prompt Engineering Benefit) -->
+             <div class="question-card" data-direction="9" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#35</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">良好的<b class="chinese-term">提示工程 (<span class="english-term">Prompt Engineering</span>)</b> 如何影響<b class="chinese-term">生成式 AI</b> 的輸出結果？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">可以降低模型訓練所需的時間。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">可以完全消除模型產生幻覺的現象。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">使輸出內容更貼近使用者意圖、更準確、更有用。</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">使模型具備自我意識。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">提示工程</b>的核心價值在於引導<b class="chinese-term">生成式 AI</b> 的行為</span>。透過清晰、具體、結構良好的提示詞，可以幫助模型更好地理解使用者的需求，從而生成<span class="highlight">更相關、更精確、更高品質的內容</span>。它無法完全消除幻覺或賦予模型意識，也與訓練時間無關。</div>
+                 </div>
+            </div>
+
+            <!-- Question 36 (GenAI Application - Code Generation) -->
+             <div class="question-card" data-direction="10" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#36</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">利用<b class="chinese-term">生成式 AI</b> 輔助軟體工程師快速生成程式碼片段或測試用例，屬於哪種應用？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">自然語言處理 (<span class="acronym-term">NLP</span>)</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">電腦視覺 (<span class="english-term">Computer Vision</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">程式碼生成 (<span class="english-term">Code Generation</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">數據分析 (<span class="english-term">Data Analytics</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="highlight"><b class="chinese-term">生成式 AI</b>，特別是經過程式碼數據訓練的語言模型，能夠理解程式碼的模式並生成新的程式碼片段或測試用例</span>。這是<b class="chinese-term">程式碼生成</b>的典型應用，旨在提高開發者的效率。</div>
+                 </div>
+            </div>
+
+            <!-- Question 37 (Benefit - Innovation) -->
+            <div class="question-card" data-direction="11" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#37</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">生成式 AI</b> 除了提高效率和降低成本外，對企業而言最重要的潛在價值是什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">確保數據完全安全。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">提供完全無偏見的決策。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">激發創新和開創新的業務模式。</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">完全取代人類所有工作。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.1 節，<span class="highlight"><b class="chinese-term">生成式 AI</b> 最重要的潛在價值在於其<b class="chinese-term">創造新內容和新思路</b>的能力</span>。這不僅能用於效率提升，更能<b class="chinese-term">激發各行各業的創新潛力，開創新的產品、服務和業務模式</b>。完全數據安全、無偏見和完全取代人類工作目前都非生成式 AI 能完全實現的目標。</div>
+                 </div>
+            </div>
+
+            <!-- Question 38 (Key Technology - Transformer Attention) -->
+            <div class="question-card" data-direction="9" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#38</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">Transformer 架構</b>中，哪個機制對於處理長序列數據（如長文本）並捕捉詞語之間的長距離依賴關係至關重要？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">卷積層 (<span class="english-term">Convolutional Layer</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">池化層 (<span class="english-term">Pooling Layer</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">注意力機制 (<span class="english-term">Attention Mechanism</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">全連接層 (<span class="english-term">Fully Connected Layer</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">根據《生成式 AI 應用與規劃》指引 3.2.1 節，<span class="highlight"><b class="chinese-term">Transformer 架構</b>的核心是<b class="chinese-term">注意力機制</b>（特別是自注意力機制）</span>，它允許模型在處理序列中的每個元素時，<span class="highlight">考慮序列中所有其他元素的重要性</span>，這使得它能有效地捕捉長距離依賴關係，這是傳統 <span class="acronym-term">RNN</span>/ <span class="acronym-term">LSTM</span> 的痛點。</div>
+                 </div>
+            </div>
+
+            <!-- Message area for no results -->
+            <div id="noResultsMessage"></div>
+
+        </div> <!-- End questions-container -->
+
+        <a href="#" class="back-to-top" id="backToTop">↑</a> <!-- Changed to anchor -->
+    </div> <!-- End container -->
+
+    <script>
+        let explanationsVisible = false;
+        let answersVisible = true;
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // Smooth scroll for back-to-top
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter by direction (called from direction items)
+        function filterByDirection(directionNumber) {
+            document.getElementById('directionFilter').value = directionNumber === 'all' ? 'all' : String(directionNumber);
+            document.getElementById('searchInput').value = ''; // Clear search when applying direction filter
+             document.getElementById('starFilter').value = 'all'; // Reset star filter
+            filterAndSearchQuestions();
+            // Scroll to the questions container smoothly
+            const questionsContainer = document.getElementById('questionsContainer');
+            if (questionsContainer) {
+                questionsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("directionFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            // Filter as user types
+            filterAndSearchQuestions();
+        });
+
+        // Combined filter and search function
+        function filterAndSearchQuestions() {
+            let direction = document.getElementById("directionFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let questions = document.querySelectorAll(".question-card");
+            let anyVisible = false; // Track if any questions match
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            questions.forEach(function(question) {
+                const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+                const matchesStars = (stars === "all" || question.dataset.stars === stars);
+                // Search in question content, options, and explanation
+                const questionTextElement = question.querySelector('.question-content');
+                const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+                const explanationContainer = question.querySelector('.explanation-container');
+                const explanationText = explanationContainer ? explanationContainer.textContent.toLowerCase() : '';
+
+                let combinedText = '';
+                if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+                combinedText += ' ' + optionsText;
+                combinedText += ' ' + explanationText; // Include explanation in search
+
+                const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+
+                // Question must match all active criteria
+                if (matchesDirection && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+             // Display message if no questions match
+             if (noResultsMessage) {
+                 if (anyVisible) {
+                    noResultsMessage.style.display = 'none';
+                 } else {
+                    noResultsMessage.style.display = 'block';
+                    noResultsMessage.textContent = '沒有找到符合條件的題目。請嘗試調整篩選條件或搜尋關鍵字。';
+                 }
+             }
+        }
+
+        // Toggle ALL explanations visibility
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+            let button = document.getElementById("toggleExplanations");
+            explanations.forEach(function(explanation) {
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+
+         // Toggle INDIVIDUAL explanation visibility on clicking the QUESTION CONTENT
+         let questionContents = document.querySelectorAll(".question-content");
+         questionContents.forEach(function(content) {
+            // content.style.cursor = 'pointer'; // Indicate clickable - Already set in CSS
+            content.addEventListener("click", function() {
+                const questionCard = this.closest('.question-card');
+                if (!questionCard) return;
+                const explanation = questionCard.querySelector('.explanation-container');
+                if (explanation) {
+                    // Toggle individual explanation display
+                    explanation.style.display = (explanation.style.display === 'none' || explanation.style.display === '') ? 'block' : 'none';
+                    // updateGlobalToggleText(); // Optional: Update global button if needed
+                }
+            });
+         });
+
+
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+             toggleBackToTopButton();
+             updateProgressBar();
+             filterAndSearchQuestions(); // Apply initial filter/search state
+             // Set initial state for toggle button text based on the initial value of explanationsVisible
+             document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+             // Ensure explanations start hidden or visible based on initial state
+             let initialExplanations = document.querySelectorAll(".explanation-container");
+             initialExplanations.forEach(function(explanation) {
+                explanation.style.display = explanationsVisible ? "block" : "none";
+             });
+             let allOptions = document.querySelectorAll('.option-item[data-option]');
+             allOptions.forEach(function(opt) {
+                 if (opt.classList.contains('correct')) {
+                     opt.dataset.originalCorrect = 'true';
+                 } else {
+                     opt.dataset.originalCorrect = 'false';
+                 }
+             });
+         });
+
+    </script>
+</body>
+</html>

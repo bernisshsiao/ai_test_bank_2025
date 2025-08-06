@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+   <head>
+      <meta charset="UTF-8">
+      <title>iPAS AI應用規劃師 L11402 鑑別式AI與生成式AI的整合應用</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+         * {
+         box-sizing: border-box;
+         }
+         body {
+         margin: 0;
+         padding: 0;
+         font-family: "Microsoft JhengHei", sans-serif; /* Using example's font stack preference */
+         background: #f5f5f5;
+         color: #333;
+         line-height: 1.7; /* Added from source for potential base style consistency */
+         }
+         .container {
+         max-width: 1200px; /* Using example's width */
+         margin: 25px auto; /* Adjusted margin slightly */
+         padding: 20px 30px; /* Adjusted padding slightly */
+         background: #ffffff;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Using example's shadow */
+         border-radius: 8px; /* Added from source */
+         }
+         h1, h2 { /* Added h2 from example */
+         text-align: center;
+         margin-bottom: 10px;
+         }
+         h1 { /* Modified from source */
+         text-align: center;
+         color: #0056b3; /* Using source color */
+         margin-bottom: 30px;
+         border-bottom: 2px solid #0056b3; /* Using source border */
+         padding-bottom: 10px;
+         font-size: 1.8rem; /* Using example size */
+         }
+         .header-container { /* From example */
+         background: linear-gradient(135deg, #3498db, #2c3e50);
+         color: white;
+         padding: 20px;
+         margin-bottom: 20px;
+         border-radius: 5px;
+         text-align: center;
+         }
+         .header-container h1 { /* Overriding base h1 for header */
+         margin: 0;
+         color: white;
+         font-size: 2rem;
+         border-bottom: none; /* Remove border inside header */
+         padding-bottom: 0;
+         margin-bottom: 5px; /* Adjust spacing */
+         }
+         .header-container div { /* Style for subtitle in header */
+         font-size: 1.1rem;
+         }
+         .responsive-img {
+         width: 100%;
+         max-width: 800px; /* 可自訂最大寬度 */
+         height: auto;
+         display: block; /* Ensure image is block level */
+         margin: 10px auto; /* Center image */
+         }
+         /* 出題方向區塊樣式 (From example) */
+         .directions-container {
+         background-color: #fffbeb;
+         padding: 15px;
+         margin-bottom: 20px;
+         border-left: 5px solid #f1c40f;
+         border-radius: 5px;
+         }
+         .directions-title {
+         font-size: 1.2rem;
+         font-weight: bold;
+         margin-bottom: 10px;
+         color: #2c3e50;
+         }
+         .directions-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+         gap: 10px;
+         }
+         .direction-item {
+         display: flex;
+         align-items: center;
+         padding: 10px;
+         background-color: white;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: background-color 0.3s;
+         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+         }
+         .direction-item:hover {
+         background-color: #f1c40f;
+         color: white;
+         }
+         .direction-number {
+         width: 25px;
+         height: 25px;
+         background-color: #f1c40f;
+         color: white;
+         border-radius: 50%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         margin-right: 10px;
+         font-weight: bold;
+         }
+         .direction-item:hover .direction-number {
+         background-color: white;
+         color: #f1c40f;
+         }
+         /* 問題卡片樣式 (Merging styles from both) */
+         .questions-container {
+         display: grid;
+         grid-template-columns: 1fr;
+         gap: 20px; /* From example */
+         }
+         .question-card { /* Renamed qa-item */
+         background-color: white;
+         border: 1px solid #e0e0e0; /* From source */
+         border-radius: 6px; /* From source */
+         padding: 18px; /* From source */
+         box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* From example */
+         transition: transform 0.3s, box-shadow 0.3s ease; /* Combined transitions */
+         margin-bottom: 20px; /* From source */
+         }
+         .question-card:hover { /* From example */
+         transform: translateY(-5px);
+         box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Example's hover shadow */
+         }
+         .question-header { /* From example */
+         display: flex;
+         justify-content: space-between;
+         align-items: center; /* Added from source */
+         margin-bottom: 15px; /* Example */
+         padding-bottom: 10px; /* Example */
+         border-bottom: 1px solid #eee; /* Example */
+         }
+         .question-id { /* From example (replacing question-number) */
+         font-weight: bold;
+         color: #3498db; /* Example color */
+         font-size: 0.95em; /* Source size */
+         }
+         .question-frequency { /* From example */
+         color: #e74c3c;
+         font-weight: bold;
+         }
+         .question-content { /* Renamed question */
+         font-weight: 600; /* Source weight */
+         margin-bottom: 15px; /* Source margin */
+         color: #2c3e50; /* Source color */
+         font-size: 1.1rem; /* Example size */
+         line-height: 1.5; /* Example line-height */
+         }
+         .options-container { /* Replacing ul.options */
+         display: grid;
+         grid-template-columns: 1fr; /* Example layout */
+         gap: 10px; /* Example gap */
+         margin-bottom: 20px; /* Example margin */
+         list-style: none; /* From source */
+         padding-left: 0; /* From source */
+         }
+         .option-item { /* Replacing li */
+         display: flex; /* From example */
+         padding: 10px 15px; /* Source padding */
+         background-color: #f8f9fa; /* Source background */
+         border: 1px solid #e9ecef; /* Source border */
+         border-radius: 4px; /* Source radius */
+         cursor: pointer; /* Example cursor */
+         transition: background-color 0.2s ease; /* Source transition */
+         font-size: 0.98em; /* Source size */
+         align-items: center; /* Vertically align label and text */
+         }
+         .option-item:hover { /* From source */
+         background-color: #e9ecef;
+         }
+         .option-item.correct { /* From example */
+         background-color: #d4edda;
+         border-left: 5px solid #28a745;
+         font-weight: bold; /* Make correct answer bold */
+         }
+         .option-item.correct:hover { /* From example */
+         background-color: #c3e6cb;
+         }
+         .option-label { /* From example */
+         width: 25px;
+         height: 25px;
+         min-width: 25px; /* Ensure width doesn't shrink */
+         background-color: #3498db;
+         color: white;
+         border-radius: 50%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         margin-right: 10px;
+         font-weight: bold;
+         }
+         .option-item.correct .option-label { /* From example */
+         background-color: #28a745;
+         }
+         .option-text { /* New element for text part */
+         flex-grow: 1; /* Allow text to take remaining space */
+         }
+         .explanation-container { /* Renamed answer-explanation */
+         background-color: #eef7ff; /* Source background */
+         padding: 15px; /* Source padding */
+         border-radius: 5px; /* Source radius */
+         margin-top: 15px; /* Source margin */
+         /* display: block; Initially shown (controlled by JS) */
+         border-top: 1px dashed #ced4da; /* From source */
+         font-size: 0.95em; /* Source font size */
+         }
+         .explanation-header { /* From example */
+         font-weight: bold;
+         margin-bottom: 10px;
+         color: #2c3e50;
+         }
+         .explanation-content { /* From example (holds explanation text) */
+         line-height: 1.6; /* Example */
+         color: #000000; /* Source color */
+         }
+         /* Controls styling (From example) */
+         .controls {
+         display: flex;
+         justify-content: space-between;
+         margin-bottom: 20px;
+         flex-wrap: wrap;
+         gap: 10px; /* Add gap for better spacing */
+         }
+         .filter-container, .search-container, .star-filter-container, .toggle-explanations { /* Grouped controls */
+         margin-bottom: 10px;
+         display: flex;
+         align-items: center;
+         }
+         .filter-label, .search-label, .star-filter-label {
+         font-weight: bold;
+         margin-right: 10px;
+         white-space: nowrap; /* Prevent label wrapping */
+         }
+         select, input[type="text"] {
+         padding: 8px;
+         border: 1px solid #ddd;
+         border-radius: 5px;
+         font-family: inherit;
+         flex-grow: 1; /* Allow input/select to grow */
+         min-width: 150px; /* Ensure minimum width */
+         }
+         input[type="text"] {
+         flex-grow: 2; /* Allow search input to be wider */
+         }
+         button { /* Base button style */
+         padding: 9px 18px; /* Source padding */
+         background-color: #007bff; /* Source background */
+         color: white;
+         border: none;
+         border-radius: 5px; /* Source radius */
+         cursor: pointer;
+         font-family: inherit;
+         transition: background-color 0.3s ease; /* Source transition */
+         font-size: 0.95em; /* Source size */
+         margin-left: 5px; /* Add margin for buttons in controls */
+         }
+         button:hover { /* Source hover */
+         background-color: #0056b3;
+         }
+         #searchButton { /* Specific button style example */
+         /* Inherits base button style */
+         }
+         #toggleExplanations { /* Specific button style example */
+         /* Inherits base button style */
+         margin-left: 0; /* No left margin needed here */
+         }
+         /* Back to top button (From example) */
+         .back-to-top {
+         position: fixed;
+         bottom: 20px;
+         right: 20px;
+         background-color: #3498db;
+         color: white;
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+         display: none; /* Hidden by default */
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+         transition: background-color 0.3s, opacity 0.3s;
+         z-index: 1000;
+         opacity: 0.7;
+         text-decoration: none; /* Remove underline if it appears */
+         font-size: 1.5rem; /* Make arrow bigger */
+         }
+         .back-to-top:hover {
+         background-color: #2980b9;
+         opacity: 1;
+         }
+         /* Progress bar (From example) */
+         .progress-container {
+         width: 100%;
+         height: 5px;
+         background-color: #f1f1f1;
+         position: fixed;
+         top: 0;
+         left: 0;
+         z-index: 1001;
+         }
+         .progress-bar {
+         height: 5px;
+         background-color: #3498db;
+         width: 0%;
+         }
+         /* RWD (Combined and adjusted) */
+         @media (max-width: 992px) {
+         .controls {
+         flex-direction: column;
+         align-items: stretch; /* Make items full width */
+         }
+         .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+         width: 100%;
+         justify-content: space-between; /* Better alignment when stacked */
+         }
+         select, input[type="text"] {
+         width: auto; /* Reset width */
+         flex-grow: 1; /* Allow growth */
+         }
+         button { /* Ensure buttons don't shrink too much */
+         flex-shrink: 0;
+         }
+         .search-container button {
+         margin-left: 10px;
+         }
+         }
+         @media (max-width: 768px) {
+         .container {
+         padding: 15px 20px; /* Source padding */
+         }
+         .directions-grid {
+         grid-template-columns: 1fr; /* Example */
+         }
+         h1 {
+         font-size: 1.5em; /* Source */
+         }
+         .option-item, .explanation-container, button {
+         font-size: 0.9em; /* Source */
+         }
+         .option-label {
+         width: 22px;
+         height: 22px;
+         min-width: 22px;
+         font-size: 0.9em;
+         }
+         }
+         @media (max-width: 600px) { /* From source */
+         body {
+         margin: 15px;
+         }
+         .container {
+         padding: 15px 20px;
+         }
+         h1 {
+         font-size: 1.5em;
+         }
+         .option-item, button, .explanation-container { /* Source */
+         font-size: 0.9em;
+         }
+         }
+         /* No results message style */
+         #noResultsMessage {
+         text-align: center;
+         color: #777;
+         margin-top: 20px;
+         padding: 15px;
+         background-color: #f8f9fa;
+         border-radius: 5px;
+         display: none; /* Hidden by default */
+         }
+         /* Keyword highlighting */
+         .keyword-highlight {
+         background-color: #ffff0030; /* Light yellow background */
+         }
+         /* Term formatting */
+         .term-zh { color: rgb(0, 0, 255); font-weight: bold; }
+         .term-acr { color: purple; font-weight: bold; }
+         .term-en { color: red; font-weight: bold; }
+      </style>
+   </head>
+   <body>
+      <div class="progress-container">
+         <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="container">
+         <div class="header-container">
+            <h1>iPAS AI應用規劃師 初級</h1>
+            <div>L11402 鑑別式AI與生成式AI的整合應用</div>
+         </div>
+         <div class="controls">
+            <div class="filter-container">
+               <label for="directionFilter" class="filter-label">篩選出題方向：</label>
+               <select id="directionFilter">
+                  <option value="all">全部方向</option>
+                  <option value="6">方向 6: AI/ML/DL 核心概念</option>
+                  <option value="8">方向 8: 模型應用 & 歷史</option>
+                  <!-- Add other relevant directions if needed -->
+               </select>
+            </div>
+            <div class="star-filter-container">
+               <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+               <select id="starFilter">
+                  <option value="all">全部重要性</option>
+                  <option value="5">★★★★★</option>
+                  <option value="4">★★★★</option>
+                  <option value="3">★★★</option>
+                  <!-- Add other star levels if used -->
+               </select>
+            </div>
+            <div class="search-container">
+               <label for="searchInput" class="search-label">搜尋：</label>
+               <input type="text" id="searchInput" placeholder="輸入題目、選項或解析關鍵字...">
+               <button id="searchButton">搜尋</button>
+            </div>
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+         </div>
+         <div class="directions-container">
+            <div class="directions-title">出題方向</div>
+            <div class="directions-grid" id="directionsGrid">
+               <!-- Add direction items corresponding to the filter options -->
+               <div class="direction-item" onclick="filterByDirection(6)">
+                  <div class="direction-number">6</div>
+                  <div class="direction-text">AI/ML/DL 核心概念</div>
+               </div>
+               <div class="direction-item" onclick="filterByDirection(8)">
+                  <div class="direction-number">8</div>
+                  <div class="direction-text">模型應用 & 歷史</div>
+               </div>
+               <!-- Add other relevant directions if needed -->
+            </div>
+         </div>
+         <div class="questions-container" id="questionsContainer">
+            <!-- Question 1 (Derived from Example Q14) -->
+            <div class="question-card" data-direction="6" data-stars="5">
+               <div class="question-header">
+                  <div class="question-id">#1</div>
+                  <div class="question-frequency">★★★★★</div>
+               </div>
+               <div class="question-content">在訓練<span class="term-zh">鑑別式 AI</span>模型（例如用於<span class="keyword-highlight">自動駕駛的物體偵測模型</span>）時，使用<span class="term-zh">生成式 AI</span>（如 <span class="term-acr">GAN</span>）<span class="keyword-highlight">生成合成數據</span>（<span class="term-en">Synthetic Data</span>）的主要目的是什麼？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">直接取代<span class="term-zh">鑑別式模型</span>的功能</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">補充真實世界數據的不足或多樣性</span>，提升<span class="term-zh">鑑別式模型</span>的<span class="keyword-highlight">穩健性</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">驗證<span class="term-zh">生成式模型</span>本身生成圖像的真實性</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">降低<span class="term-zh">生成式模型</span>的訓練成本</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">生成式 AI</span>，特別是<span class="term-acr">GAN</span> (<span class="term-en">Generative Adversarial Network</span>)，可以創造出<span class="keyword-highlight">逼真的合成數據</span>。當真實世界的訓練數據難以取得、成本高昂、或缺乏某些<span class="keyword-highlight">罕見但重要的場景</span>（例如惡劣天氣下的駕駛狀況）時，這些<span class="keyword-highlight">合成數據</span>就能派上用場。透過將<span class="keyword-highlight">合成數據</span>加入訓練集（<span class="term-zh">資料增強</span> <span class="term-en">Data Augmentation</span> 的一種形式），可以<span class="keyword-highlight">增加數據的多樣性</span>，讓<span class="term-zh">鑑別式模型</span>學習到更廣泛的模式，從而<span class="keyword-highlight">提高其在真實世界應用中的穩健性</span>（<span class="term-en">Robustness</span>）和<span class="keyword-highlight">泛化能力</span>（<span class="term-en">Generalization</span>）。這是一種典型的<span class="term-zh">鑑別式 AI</span> 與<span class="term-zh">生成式 AI</span> <span class="keyword-highlight">整合應用</span>。選項 A 不正確，<span class="term-zh">生成式 AI</span> 是輔助訓練，而非取代。選項 C 是<span class="term-zh">鑑別器</span>在 <span class="term-acr">GAN</span> 內部的工作，而非生成合成數據的主要目的。選項 D 生成數據本身也需要成本，其主要目的是提升<span class="term-zh">鑑別式模型</span>，而非降低<span class="term-zh">生成式模型</span>成本。</div>
+               </div>
+            </div>
+            <!-- Question 2 (Derived from Example Q11) -->
+            <div class="question-card" data-direction="6" data-stars="5">
+               <div class="question-header">
+                  <div class="question-id">#2</div>
+                  <div class="question-frequency">★★★★★</div>
+               </div>
+               <div class="question-content"><span class="term-zh">生成對抗網路</span>（<span class="term-acr">GAN</span>, <span class="term-en">Generative Adversarial Network</span>）是由哪兩個主要部分組成的？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">編碼器（<span class="term-en">Encoder</span>）和解碼器（<span class="term-en">Decoder</span>）</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">卷積層（<span class="term-en">Convolutional Layer</span>）和池化層（<span class="term-en">Pooling Layer</span>）</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="term-zh">生成器</span>（<span class="term-en">Generator</span>）和<span class="term-zh">判別器</span>（<span class="term-en">Discriminator</span>）</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">循環單元（<span class="term-en">Recurrent Unit</span>）和注意力機制（<span class="term-en">Attention Mechanism</span>）</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">生成對抗網路</span>（<span class="term-acr">GAN</span>）的核心架構包含兩個相互競爭的神經網路：<span class="term-zh">生成器</span>（<span class="term-en">Generator</span>）和<span class="term-zh">判別器</span>（<span class="term-en">Discriminator</span>）。<span class="keyword-highlight"><span class="term-zh">生成器</span>負責學習真實數據的分佈並嘗試生成新的、看起來真實的數據樣本</span>（例如圖像）。<span class="keyword-highlight"><span class="term-zh">判別器</span>則像一個裁判，負責判斷輸入的數據樣本是來自真實數據集還是由<span class="term-zh">生成器</span>生成的假數據</span>。兩者透過<span class="keyword-highlight">對抗式學習</span>（<span class="term-en">Adversarial Learning</span>）過程互相改進，<span class="term-zh">生成器</span>努力欺騙<span class="term-zh">判別器</span>，而<span class="term-zh">判別器</span>努力辨別真偽，最終目標是讓<span class="term-zh">生成器</span>能夠生成非常逼真的數據。編碼器和解碼器是自編碼器（<span class="term-en">Autoencoder</span>）或變分自編碼器（<span class="term-acr">VAE</span>）的組成部分。卷積層和池化層是<span class="term-acr">CNN</span>的核心。循環單元和注意力機制分別是<span class="term-acr">RNN</span>和<span class="term-en">Transformer</span>模型的核心。</div>
+                  <br>
+                  <img src="image/GAN.png" class="responsive-img" alt="GAN基本架構圖">
+               </div>
+            </div>
+            <!-- Question 3 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#3</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">在 <span class="term-acr">GAN</span> 的訓練過程中，<span class="term-zh">生成器</span> (<span class="term-en">Generator</span>) 的目標是什麼？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="keyword-highlight">最大化<span class="term-zh">判別器</span> (<span class="term-en">Discriminator</span>) 判斷其生成數據為真實數據的機率</span></div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">最小化<span class="term-zh">判別器</span> (<span class="term-en">Discriminator</span>) 判斷其生成數據為真實數據的機率</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">準確地區分真實數據和生成數據</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">學習輸入數據的潛在表示 (Latent Representation)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">在<span class="term-acr">GAN</span>的<span class="keyword-highlight">對抗式學習</span>過程中，<span class="term-zh">生成器</span> (<span class="term-en">Generator</span>) 的任務是學習真實數據的分佈，並生成盡可能逼真的假數據，其最終<span class="keyword-highlight">目標是「欺騙」<span class="term-zh">判別器</span></span> (<span class="term-en">Discriminator</span>)，讓<span class="term-zh">判別器</span>無法分辨出哪些數據是由<span class="term-zh">生成器</span>生成的。因此，<span class="term-zh">生成器</span>會努力<span class="keyword-highlight">最大化<span class="term-zh">判別器</span>將其生成的數據誤判為真實數據的機率</span>。相對地，<span class="term-zh">判別器</span>的目標則是盡可能準確地區分真實數據與生成數據（選項 C 是<span class="term-zh">判別器</span>的目標）。學習潛在表示是自編碼器 (<span class="term-en">Autoencoder</span>) 等模型的目標。</div>
+                  <img src="image/GAN.png" class="responsive-img" alt="GAN基本架構圖">
+               </div>
+            </div>
+            <!-- Question 4 (Derived from Example Q13) -->
+            <div class="question-card" data-direction="8" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#4</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">下列哪一項任務最適合使用<span class="term-zh">鑑別式 AI</span> (<span class="term-en">Discriminative AI</span>) 模型來完成？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="keyword-highlight">判斷一封電子郵件是否為垃圾郵件</span></div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">根據文字描述生成一幅圖像</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">創作一段新的音樂</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">為遊戲生成新的關卡地圖</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">鑑別式 AI</span> 模型的核心功能是學習數據點之間的<span class="keyword-highlight">決策邊界</span>（<span class="term-en">Decision Boundary</span>），並根據輸入數據<span class="keyword-highlight">預測其屬於哪個類別</span>。判斷電子郵件是否為垃圾郵件是一個典型的<span class="term-zh">二元分類</span>（<span class="term-en">Binary Classification</span>）問題，目標是將郵件區分為「垃圾」或「非垃圾」兩類，這正是<span class="term-zh">鑑別式 AI</span>（如<span class="term-zh">支持向量機</span> <span class="term-acr">SVM</span>, <span class="term-zh">邏輯回歸</span> <span class="term-en">Logistic Regression</span>, 或用於分類的<span class="term-zh">神經網路</span>）所擅長的。選項 B、C、D 都是<span class="keyword-highlight">生成新內容</span>的任務（圖像、音樂、遊戲地圖），這些更適合使用<span class="term-zh">生成式 AI</span> (<span class="term-en">Generative AI</span>) 模型（如 <span class="term-acr">GAN</span>, <span class="term-acr">VAE</span>, <span class="term-zh">擴散模型</span> <span class="term-en">Diffusion Model</span>）來完成。</div>
+               </div>
+            </div>
+            <!-- Question 5 (Derived from Example Q12) -->
+            <div class="question-card" data-direction="8" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#5</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">在<span class="term-zh">電腦視覺</span> (<span class="term-en">Computer Vision</span>) 領域中，若要根據一張現有照片生成具有不同藝術風格（例如梵谷風格）的版本，較適合使用哪種類型的 AI 技術？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">純粹的<span class="term-zh">物件偵測</span> (<span class="term-en">Object Detection</span>) 模型</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">純粹的<span class="term-zh">影像分類</span> (<span class="term-en">Image Classification</span>) 模型</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">以<span class="term-zh">生成式 AI</span> 為基礎的<span class="term-zh">風格轉換</span> (<span class="term-en">Style Transfer</span>) 技術</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">純粹的<span class="term-zh">影像分割</span> (<span class="term-en">Image Segmentation</span>) 模型</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">風格轉換</span> (<span class="term-en">Style Transfer</span>) 是一種典型的<span class="term-zh">生成式 AI</span> 應用，其目標是將一張內容圖像（<span class="term-en">Content Image</span>）的視覺內容與另一張風格圖像（<span class="term-en">Style Image</span>）的藝術風格<span class="keyword-highlight">結合起來</span>，生成一張新的、具有內容圖像結構和風格圖像紋理/色彩的圖像。這通常利用<span class="keyword-highlight">深度學習</span>，特別是基於<span class="term-acr">CNN</span>特徵提取和<span class="term-acr">GAN</span>等生成技術來實現。物件偵測、影像分類和影像分割都屬於<span class="term-zh">鑑別式 AI</span> 的範疇，它們分別專注於識別圖像中的物體位置、判斷圖像屬於哪個類別、以及將圖像劃分成不同的語義區域，而不是生成具有新風格的圖像。</div>
+                  <br>
+                  <img src="image/style-transfer-example.png" class="responsive-img" alt="風格轉換範例圖">
+               </div>
+            </div>
+            <!-- Question 6 -->
+            <div class="question-card" data-direction="8" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#6</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">在<span class="term-zh">語音辨識</span> (<span class="term-en">Speech Recognition</span>) 領域，區分<span class="term-zh">鑑別式 AI</span> 和<span class="term-zh">生成式 AI</span> 的應用，下列何者敘述最為恰當？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">鑑別式 AI</span> <span class="keyword-highlight">用於將語音轉換為文字</span>（<span class="term-zh">語音轉文字</span>, <span class="term-en">Speech-to-Text</span>），<span class="term-zh">生成式 AI</span> <span class="keyword-highlight">用於生成聽起來自然的語音</span>（<span class="term-zh">文字轉語音</span>, <span class="term-en">Text-to-Speech</span>）</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="term-zh">生成式 AI</span> 用於將語音轉換為文字，<span class="term-zh">鑑別式 AI</span> 用於生成聽起來自然的語音</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">兩者都主要用於將語音轉換為文字</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">兩者都主要用於生成聽起來自然的語音</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">語音轉文字</span> (<span class="term-en">Speech-to-Text, <span class="term-acr">STT</span>) 的核心任務是<span class="keyword-highlight">理解輸入的語音訊號並將其轉換（或分類）為對應的文字序列</span>，這是一個典型的<span class="term-zh">鑑別式</span>任務（或序列預測任務，但本質上是從語音特徵映射到文字類別）。而<span class="term-zh">文字轉語音</span> (<span class="term-en">Text-to-Speech, <span class="term-acr">TTS</span>) 或<span class="term-zh">語音合成</span> (<span class="term-en">Speech Synthesis</span>) 的目標是根據輸入的文字<span class="keyword-highlight">生成聽起來自然流暢的語音波形</span>，這是一個典型的<span class="term-zh">生成式</span>任務。因此，選項 A 最能恰當地描述兩者在語音辨識領域的主要應用區別。</div>
+               </div>
+            </div>
+            <!-- Question 7 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#7</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content"><span class="term-zh">資料增強</span> (<span class="term-en">Data Augmentation</span>) 技術中，除了傳統的旋轉、縮放、裁剪等方法外，利用<span class="term-zh">生成式 AI</span> (例如 <span class="term-acr">GAN</span>) 進行<span class="term-zh">資料增強</span>的主要優勢是什麼？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">生成的數據一定比原始數據更清晰</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">能夠生成更多樣化且更接近真實數據分佈的新樣本</span>，而不僅是現有數據的簡單變換</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">速度一定比傳統方法快非常多</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">完全不需要任何原始數據即可進行</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">傳統的<span class="term-zh">資料增強</span>方法（如旋轉、平移、變色等）是在現有數據基礎上進行<span class="keyword-highlight">幾何或顏色變換</span>，增加的數據多樣性有限。而<span class="term-zh">生成式 AI</span>，特別是 <span class="term-acr">GAN</span>，能夠<span class="keyword-highlight">學習到真實數據的內在分佈</span>，從而生成全新的、但<span class="keyword-highlight">風格與真實數據相似的樣本</span>。這些生成的樣本可以涵蓋更廣泛的變化，甚至是一些真實數據中未出現但可能存在的樣貌，因此能提供<span class="keyword-highlight">更高質量和更多樣性的數據</span>來增強訓練集，有助於提高模型的泛化能力。生成的數據不一定更清晰（選項 A）；生成式方法通常計算成本較高，不一定更快（選項 C）；生成式 AI 仍需要基於原始數據學習其分佈（選項 D）。</div>
+               </div>
+            </div>
+            <!-- Question 8 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#8</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">哪種情境是<span class="term-zh">鑑別式 AI</span> 與<span class="term-zh">生成式 AI</span> <span class="keyword-highlight">整合應用</span>的典型例子，其中一個模型生成內容，另一個模型評估或分類該內容？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">生成對抗網路</span> (<span class="term-acr">GAN</span>) 的內部運作機制</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">使用 <span class="term-acr">RNN</span> 進行時間序列預測</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">使用 <span class="term-acr">CNN</span> 進行圖像分類</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">使用<span class="term-zh">決策樹</span> (<span class="term-en">Decision Tree</span>) 進行客戶流失預測</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">生成對抗網路</span> (<span class="term-acr">GAN</span>) 的核心就是由<span class="term-zh">生成器</span>（<span class="term-zh">生成式 AI</span>）和<span class="term-zh">判別器</span>（<span class="term-zh">鑑別式 AI</span>）組成的。<span class="keyword-highlight"><span class="term-zh">生成器</span>負責生成數據，而<span class="term-zh">判別器</span>負責評估（區分）這些數據是真實的還是生成的</span>。這種<span class="keyword-highlight">生成與鑑別相互對抗、共同進步</span>的機制，正是<span class="term-zh">鑑別式 AI</span> 與<span class="term-zh">生成式 AI</span> <span class="keyword-highlight">整合應用</span>的經典範例。其他選項：<span class="term-acr">RNN</span> 進行時間序列預測主要是序列建模；<span class="term-acr">CNN</span> 進行圖像分類是純粹的<span class="term-zh">鑑別式</span>任務；<span class="term-zh">決策樹</span>進行預測也是<span class="term-zh">鑑別式</span>（或稱為預測性）任務。</div>
+               </div>
+            </div>
+            <!-- Question 9 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#9</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在醫療影像分析中，如果需要<span class="keyword-highlight">自動檢測 X 光片中是否存在腫瘤</span>（分類問題），但同時又希望<span class="keyword-highlight">生成更多樣的正常 X 光片以供醫生參考或訓練模型</span>，這會涉及到哪兩種 AI 技術的結合？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">鑑別式 AI</span>（用於檢測）和<span class="term-zh">生成式 AI</span>（用於生成）</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">兩種不同的<span class="term-zh">鑑別式 AI</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">兩種不同的<span class="term-zh">生成式 AI</span></div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">強化學習（<span class="term-en">Reinforcement Learning</span>）和監督式學習（<span class="term-en">Supervised Learning</span>）</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">這個情境包含兩個不同的任務：1) <span class="keyword-highlight">檢測腫瘤</span>：判斷影像中是否包含特定模式（腫瘤），這是一個<span class="term-zh">分類</span>或<span class="term-zh">偵測</span>問題，屬於<span class="term-zh">鑑別式 AI</span> 的範疇。2) <span class="keyword-highlight">生成正常的 X 光片</span>：創造新的、看起來真實的影像數據，這是一個<span class="term-zh">生成</span>任務，屬於<span class="term-zh">生成式 AI</span> 的範疇。因此，這個應用場景需要結合<span class="term-zh">鑑別式 AI</span> 和<span class="term-zh">生成式 AI</span> 兩種技術來分別完成不同的目標。</div>
+               </div>
+            </div>
+            <!-- Question 10 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#10</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">哪項技術結合了<span class="term-zh">生成式模型</span>來學習數據的正常模式，並利用<span class="term-zh">鑑別式</span>的思路來<span class="keyword-highlight">檢測偏離正常模式的異常數據</span>？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">僅使用 <span class="term-acr">CNN</span> 進行特徵提取</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">僅使用 K-Means 進行聚類</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">使用 <span class="term-acr">GAN</span> 或 <span class="term-acr">VAE</span> 進行<span class="term-zh">異常檢測</span> (<span class="term-en">Anomaly Detection</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">僅使用 <span class="term-acr">RNN</span> 預測下一個事件</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">利用<span class="term-zh">生成式模型</span>進行<span class="term-zh">異常檢測</span>是一種常見的方法。<span class="term-acr">GAN</span> 或 <span class="term-acr">VAE</span> (<span class="term-en">Variational Autoencoder</span>) 等模型可以被訓練來<span class="keyword-highlight">學習正常數據的分佈或重建正常數據</span>。<span class="keyword-highlight">當輸入異常數據時</span>，<span class="term-zh">生成器</span>可能無法生成逼真的假數據，或者<span class="term-zh">判別器</span>/重建誤差會顯著增大。這種<span class="keyword-highlight">偏離正常模式的表現</span>就可以被用來<span class="keyword-highlight">識別異常</span>。這個過程中，<span class="term-zh">生成式模型</span>學習了「正常」是什麼樣子，而判斷是否偏離正常則體現了<span class="term-zh">鑑別式</span>的思路。其他選項中，<span class="term-acr">CNN</span> 主要用於特徵提取或分類；K-Means 是非監督聚類；<span class="term-acr">RNN</span> 主要用於序列數據。</div>
+               </div>
+            </div>
+            <!-- Add 20 more questions -->
+            <!-- Question 11 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#11</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">以下關於<span class="term-zh">鑑別式 AI</span>與<span class="term-zh">生成式 AI</span>的描述，何者<span class="keyword-highlight">錯誤</span>？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">鑑別式 AI</span> 學習 P(y|x)，即給定輸入 x，輸出 y 的條件機率。</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="term-zh">生成式 AI</span> 學習 P(x, y) 或 P(x)，即數據的聯合分佈或邊緣分佈。</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="term-zh">生成式 AI</span> 通常比<span class="term-zh">鑑別式 AI</span> 需要更少的訓練數據。</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text"><span class="term-acr">GAN</span> 中的<span class="term-zh">判別器</span>可以視為一個<span class="term-zh">鑑別式模型</span>。</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">鑑別式模型</span>學習的是輸入與輸出之間的<span class="keyword-highlight">條件機率 P(y|x)</span>，直接對決策邊界建模，常用於分類或回歸。 <span class="term-zh">生成式模型</span>學習的是數據本身的<span class="keyword-highlight">分佈 P(x) 或聯合分佈 P(x,y)</span>，能夠生成新的數據樣本。由於<span class="term-zh">生成式模型</span>需要學習數據的完整分佈，通常<span class="keyword-highlight">需要更多樣且大量的數據</span>才能達到好的效果，尤其是在生成高維度數據（如圖像）時。因此，選項 C 的說法是錯誤的。選項 D 正確，<span class="term-acr">GAN</span> 的<span class="term-zh">判別器</span>就是在做二元分類（判斷真假），是一個<span class="term-zh">鑑別式模型</span>。</div>
+               </div>
+            </div>
+            <!-- Question 12 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#12</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在自然語言處理 (<span class="term-acr">NLP</span>, <span class="term-en">Natural Language Processing</span>) 中，哪項任務更傾向於使用<span class="term-zh">生成式 AI</span>？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">情感分析 (<span class="term-en">Sentiment Analysis</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">命名實體識別 (<span class="term-en">Named Entity Recognition</span>)</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="keyword-highlight">文本摘要生成</span> (<span class="term-en">Text Summarization</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">文本分類 (<span class="term-en">Text Classification</span>)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">情感分析、命名實體識別、文本分類都屬於<span class="keyword-highlight">從現有文本中提取資訊或判斷類別</span>的任務，是典型的<span class="term-zh">鑑別式</span><span class="term-acr">NLP</span>任務。而<span class="term-zh">文本摘要生成</span>需要模型<span class="keyword-highlight">理解原文主旨並生成一段新的、較短的文字來概括原文</span>，這個「生成新文本」的過程屬於<span class="term-zh">生成式 AI</span> 的範疇。其他如機器翻譯、對話系統、故事創作等也常用到<span class="term-zh">生成式</span><span class="term-acr">NLP</span>技術。</div>
+               </div>
+            </div>
+            <!-- Question 13 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#13</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content"><span class="term-zh">變分自編碼器</span> (<span class="term-acr">VAE</span>, <span class="term-en">Variational Autoencoder</span>) 與 <span class="term-acr">GAN</span> 同為常見的<span class="term-zh">生成式模型</span>，<span class="term-acr">VAE</span> 的主要運作原理是基於什麼？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">學習將輸入數據<span class="keyword-highlight">編碼到一個潛在空間分佈</span>，再從該分佈<span class="keyword-highlight">採樣解碼回數據空間</span></div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">透過<span class="term-zh">生成器</span>與<span class="term-zh">判別器</span>的<span class="keyword-highlight">對抗式學習</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">逐步向數據<span class="keyword-highlight">添加噪聲再學習去除噪聲</span></div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">直接最大化生成數據的似然性</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-acr">VAE</span> 是一種基於<span class="term-zh">自編碼器</span> (<span class="term-en">Autoencoder</span>) 架構的<span class="term-zh">生成式模型</span>。它的核心思想是學習一個從輸入數據空間到<span class="keyword-highlight">潛在空間</span> (<span class="term-en">Latent Space</span>) 的<span class="keyword-highlight">概率性編碼</span>（通常假設為高斯分佈），然後從這個學到的潛在分佈中<span class="keyword-highlight">採樣</span>一個點，再透過<span class="keyword-highlight">解碼器</span>將其映射回原始數據空間，從而生成新的數據樣本。它不像 <span class="term-acr">GAN</span> 那樣有明確的對抗過程（選項 B），也不是<span class="term-zh">擴散模型</span> (<span class="term-en">Diffusion Model</span>) 的加噪去噪過程（選項 C）。<span class="term-acr">VAE</span> 優化的是證據下界 (<span class="term-en">Evidence Lower Bound, <span class="term-acr">ELBO</span>)，間接優化似然性，而非直接最大化（選項 D）。</div>
+                  <br>
+                  <img src="image/VAE.png" class="responsive-img" alt="VAE結構圖">
+               </div>
+            </div>
+            <!-- Question 14 -->
+            <div class="question-card" data-direction="8" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#14</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">近年來在圖像生成領域取得極佳效果的<span class="term-zh">擴散模型</span> (<span class="term-en">Diffusion Model</span>)，其基本的生成過程涉及哪兩個主要階段？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">編碼與解碼</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">生成與判別</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="keyword-highlight">前向加噪</span> (<span class="term-en">Forward Diffusion/Noising</span>) 與<span class="keyword-highlight">反向去噪</span> (<span class="term-en">Reverse Diffusion/Denoising</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">特徵提取與分類</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">擴散模型</span>的運作包含兩個核心過程：1) <span class="keyword-highlight">前向過程（加噪）</span>：逐步對真實數據樣本添加高斯噪聲，直到數據變成完全的噪聲。這個過程通常是固定的、不可學習的。2) <span class="keyword-highlight">反向過程（去噪）</span>：模型學習從純噪聲開始，逐步地、迭代地去除噪聲，最終恢復（生成）出一個清晰的數據樣本。這個<span class="keyword-highlight">去噪過程是模型需要學習</span>的關鍵部分。編碼解碼是 <span class="term-acr">VAE</span>/自編碼器的概念，生成判別是 <span class="term-acr">GAN</span> 的概念，特徵提取分類是<span class="term-zh">鑑別式模型</span>的概念。</div>
+                  <br>
+                  <img src="image/Diffusion Model.png" class="responsive-img" alt="擴散模型示意圖">
+               </div>
+            </div>
+            <!-- Question 15 -->
+            <div class="question-card" data-direction="8" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#15</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">在<span class="term-zh">電腦視覺</span>中，利用<span class="term-zh">生成式 AI</span> 將低解析度圖片轉換為高解析度圖片的技術稱為什麼？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">圖像修復 (<span class="term-en">Image Inpainting</span>)</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">超解析度</span> (<span class="term-en">Super-Resolution</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">風格轉換 (<span class="term-en">Style Transfer</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">圖像去噪 (<span class="term-en">Image Denoising</span>)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="keyword-highlight">超解析度</span> (<span class="term-en">Super-Resolution, <span class="term-acr">SR</span>) 技術的目標是從一張或多張<span class="keyword-highlight">低解析度</span> (<span class="term-en">Low-Resolution, <span class="term-acr">LR</span>) 圖像中恢復或生成對應的<span class="keyword-highlight">高解析度</span> (<span class="term-en">High-Resolution, <span class="term-acr">HR</span>) 圖像。<span class="term-zh">生成式 AI</span> 模型（特別是基於 <span class="term-acr">GAN</span> 或<span class="term-zh">擴散模型</span>的 <span class="term-acr">SR</span> 方法）在這方面表現出色，因為它們能夠學習並「幻想」出低解析度圖像中缺失的高頻細節，從而生成更清晰、更細膩的高解析度結果。圖像修復是填補圖像缺失部分；風格轉換是改變圖像風格；圖像去噪是去除圖像噪聲。</div>
+               </div>
+            </div>
+            <!-- Question 16 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#16</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">使用<span class="term-zh">生成式 AI</span> 來自動<span class="keyword-highlight">填補圖像中缺失或損壞的部分</span>（例如移除照片中的某個人物並補全背景），這種技術稱為？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="keyword-highlight">圖像修復</span> (<span class="term-en">Image Inpainting</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">超解析度 (<span class="term-en">Super-Resolution</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">語義分割 (<span class="term-en">Semantic Segmentation</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">物體偵測 (<span class="term-en">Object Detection</span>)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="keyword-highlight">圖像修復</span> (<span class="term-en">Image Inpainting</span>) 或圖像補全 (<span class="term-en">Image Completion</span>) 是指利用圖像中已知區域的資訊，來<span class="keyword-highlight">推斷並填補缺失或損壞區域</span>的內容，使其看起來自然且與周圍環境協調。<span class="term-zh">生成式 AI</span> 模型，特別是<span class="term-acr">深度生成模型</span>，能夠學習圖像的結構和紋理，從而生成逼真的內容來填補缺失部分。超解析度是提高解析度；語義分割和物體偵測是<span class="term-zh">鑑別式</span>任務，分別用於像素級分類和物體定位。</div>
+               </div>
+            </div>
+            <!-- Question 17 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#17</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在訓練<span class="term-acr">GAN</span>時，有時會遇到<span class="term-zh">生成器</span>只產生非常有限種類的樣本，而<span class="term-zh">判別器</span>無法有效引導其改進的情況，這種現象被稱為什麼？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">梯度消失 (<span class="term-en">Vanishing Gradient</span>)</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">模式崩潰</span> (<span class="term-en">Mode Collapse</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">過度擬合 (<span class="term-en">Overfitting</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">欠擬合 (<span class="term-en">Underfitting</span>)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="keyword-highlight">模式崩潰</span> (<span class="term-en">Mode Collapse</span>) 是訓練<span class="term-acr">GAN</span>時常見的問題之一。它指的是<span class="term-zh">生成器</span> (<span class="term-en">Generator</span>) <span class="keyword-highlight">只學會生成數據分佈中的少數幾種模式（或甚至只有一種）的樣本</span>，而忽略了其他模式，導致生成結果缺乏多樣性。即使這些生成的樣本可能很逼真，能夠騙過<span class="term-zh">判別器</span>，但它們無法代表真實數據的完整分佈。梯度消失是深度網路訓練中的普遍問題；過度擬合和欠擬合描述的是模型對訓練數據和新數據的泛化能力。</div>
+               </div>
+            </div>
+            <!-- Question 18 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#18</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">下列哪種應用場景<span class="keyword-highlight">不適合</span>直接使用<span class="term-zh">生成式 AI</span> 作為主要的解決方案？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">為新產品生成廣告文案</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">根據歷史銷售數據預測未來一周的銷售額</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">生成用於遊戲開發的背景音樂</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">將普通照片轉換成動漫風格的圖像</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">根據歷史數據<span class="keyword-highlight">預測未來的數值</span>（如銷售額）是一個典型的<span class="term-zh">回歸</span> (<span class="term-en">Regression</span>) 或<span class="term-zh">時間序列預測</span> (<span class="term-en">Time Series Forecasting</span>) 問題，這通常使用<span class="term-zh">鑑別式模型</span>（或傳統統計模型如 ARIMA）來完成，目標是學習輸入（歷史數據）到輸出（未來數值）的映射關係。而選項 A、C、D 都是關於<span class="keyword-highlight">創造新內容</span>（文案、音樂、風格化圖像）的任務，更適合使用<span class="term-zh">生成式 AI</span>。</div>
+               </div>
+            </div>
+            <!-- Question 19 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#19</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在<span class="term-zh">鑑別式 AI</span>和<span class="term-zh">生成式 AI</span>的<span class="keyword-highlight">整合應用</span>中，有時會先用<span class="term-zh">生成式 AI</span>產生大量候選方案（例如藥物分子結構），再用<span class="term-zh">鑑別式 AI</span>評估這些方案的有效性或特性。這種模式的優點是什麼？</div>
+               <div class="options-container">
+                  <div class="option-item correct" data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="keyword-highlight">可以探索更廣闊的解決方案空間</span>，並<span class="keyword-highlight">快速篩選出有潛力的候選者</span></div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">一定能找到全局最優解</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">完全不需要人類專家介入</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">可以大幅降低<span class="term-zh">鑑別式 AI</span>的訓練難度</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">這種「<span class="keyword-highlight">生成+評估</span>」的模式結合了兩類 AI 的優勢。<span class="term-zh">生成式 AI</span> 能夠<span class="keyword-highlight">基於學習到的模式創造出大量新穎的候選方案</span>，有效<span class="keyword-highlight">擴大了探索範圍</span>。而<span class="term-zh">鑑別式 AI</span>（或物理模擬、專家規則等評估方法）則可以<span class="keyword-highlight">快速地對這些候選方案進行評分或篩選</span>，找出最有潛力、最符合目標的方案進行後續研究或實驗。這種方式比傳統的窮舉搜索或隨機搜索更有效率。但它不保證找到全局最優解（選項 B），通常仍需專家確認（選項 C），且對<span class="term-zh">鑑別式 AI</span> 的要求可能更高（需要準確評估大量可能從未見過的樣本）（選項 D）。</div>
+               </div>
+            </div>
+            <!-- Question 20 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#20</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content"><span class="term-zh">深度偽造</span> (<span class="term-en">Deepfake</span>) 技術主要是利用了哪一類 AI 模型來生成逼真但虛假的影像或語音？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">支持向量機</span> (<span class="term-acr">SVM</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="term-zh">決策樹</span> (<span class="term-en">Decision Tree</span>)</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="term-zh">生成式 AI</span> (如 <span class="term-acr">GAN</span> 或<span class="term-zh">自編碼器</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text"><span class="term-zh">強化學習</span> (<span class="term-en">Reinforcement Learning</span>)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">深度偽造</span> (<span class="term-en">Deepfake</span>) 技術的核心就是<span class="keyword-highlight">生成虛假的、但看起來或聽起來非常真實的媒體內容</span>（如人臉替換視頻、聲音模仿）。這類任務需要模型能夠學習數據的複雜分佈並創造新的、逼真的樣本，正是<span class="term-zh">生成式 AI</span> 模型（特別是<span class="term-acr">GAN</span> 和<span class="term-zh">自編碼器</span>及其變體）所擅長的領域。例如，通過訓練可以將一個人的面部表情遷移到另一個人的臉上。SVM 和決策樹是傳統的<span class="term-zh">鑑別式機器學習</span>方法。強化學習主要用於決策制定。</div>
+               </div>
+            </div>
+            <!-- Question 21 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#21</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在<span class="term-zh">語音辨識</span>應用中，若要將一段特定人士的語音轉換成另一位特定人士的聲音風格（<span class="term-zh">聲音轉換</span> <span class="term-en">Voice Conversion</span>），同時保留原始語音內容，這更偏向於哪種 AI 技術的應用？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">純粹的<span class="term-zh">語音轉文字</span> (<span class="term-en">STT</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">純粹的<span class="term-zh">說話者識別</span> (<span class="term-en">Speaker Recognition</span>)</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="term-zh">生成式 AI</span>（例如基於 <span class="term-acr">GAN</span> 或 <span class="term-acr">VAE</span> 的模型）</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">純粹的<span class="term-zh">語音情感分析</span> (<span class="term-en">Speech Emotion Analysis</span>)</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">聲音轉換</span> (<span class="term-en">Voice Conversion</span>) 的目標是在<span class="keyword-highlight">保留語音內容（說了什麼）不變的情況下，轉換語音的音色、音調、韻律等</span>，使其聽起來像目標說話者的聲音。這個過程涉及到<span class="keyword-highlight">解耦語音內容和說話者風格</span>，並<span class="keyword-highlight">重新生成具有目標風格的語音波形</span>，是<span class="term-zh">生成式 AI</span> 的一個重要應用方向。其他選項中，STT 是轉錄內容；說話者識別是判斷是誰在說話；語音情感分析是判斷語音中的情感，這些都不是生成新語音風格。</div>
+               </div>
+            </div>
+            <!-- Question 22 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#22</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">相較於 <span class="term-acr">GAN</span>，<span class="term-acr">VAE</span> 在生成數據時通常具有什麼特點？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">生成的圖像通常更清晰銳利</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">訓練過程相對更穩定，不易出現模式崩潰</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">不需要進行數據的編碼過程</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">一定比 <span class="term-acr">GAN</span> 需要更多的訓練數據</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-acr">GAN</span> 由於其對抗式訓練機制，容易出現訓練不穩定、模式崩潰等問題，但生成的樣本（尤其是圖像）通常比較清晰銳利。<span class="term-acr">VAE</span> 的訓練過程是基於優化 <span class="term-acr">ELBO</span>，相對來說<span class="keyword-highlight">更加穩定</span>，<span class="keyword-highlight">不容易發生模式崩潰</span>，並且能提供一個結構化的潛在空間。然而，由於其損失函數中包含重建誤差項（通常是像素級的 L1 或 L2 損失），生成的圖像可能相對模糊一些（選項 A 錯誤）。<span class="term-acr">VAE</span> 包含編碼器（選項 C 錯誤）。兩者對數據量的需求取決於具體任務和數據複雜度，沒有絕對的比較（選項 D 錯誤）。</div>
+               </div>
+            </div>
+            <!-- Question 23 -->
+            <div class="question-card" data-direction="8" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#23</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">當我們需要 AI <span class="keyword-highlight">根據不完整的句子預測或生成最可能的下一個詞</span>時，主要應用了哪種 AI 技術的原理？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">電腦視覺</span>中的<span class="term-zh">物件偵測</span></div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">序列生成</span>（常基於 <span class="term-acr">RNN</span>, <span class="term-acr">LSTM</span> 或 <span class="term-en">Transformer</span>）</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="term-zh">非監督學習</span>中的<span class="term-zh">聚類分析</span></div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text"><span class="term-zh">強化學習</span>中的<span class="term-zh">策略優化</span></div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">預測或生成序列中的下一個元素（例如文本中的下一個詞、時間序列中的下一個值）是<span class="keyword-highlight">序列生成</span> (<span class="term-en">Sequence Generation</span>) 或<span class="keyword-highlight">序列預測</span> (<span class="term-en">Sequence Prediction</span>) 的核心任務。這類任務通常利用能夠處理序列數據的模型，如<span class="term-zh">遞迴神經網路</span> (<span class="term-acr">RNN</span>)、<span class="term-zh">長短期記憶網路</span> (<span class="term-acr">LSTM</span>)、<span class="term-zh">閘控循環單元</span> (<span class="term-acr">GRU</span>) 或現代的 <span class="term-en">Transformer</span> 模型。這些模型可以捕捉序列中的時間依賴性或上下文關係，並預測接下來最可能出現的元素。雖然這本質上是預測下一個詞的概率分佈（<span class="term-zh">鑑別式</span>），但連續生成多個詞就構成了文本生成（<span class="term-zh">生成式</span>）。</div>
+               </div>
+            </div>
+            <!-- Question 24 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#24</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">與<span class="term-zh">鑑別式 AI</span> 相比，<span class="term-zh">生成式 AI</span> 模型通常更關注數據的哪個方面？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">如何區分不同類別的數據</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">數據的潛在分佈和結構</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">如何從數據中提取最有用的特徵</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">如何對新的數據點進行最準確的預測</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">鑑別式 AI</span> 的主要目標是學習如何<span class="keyword-highlight">區分</span>不同的數據類別或預測一個數值，它專注於學習<span class="keyword-highlight">決策邊界</span>。而<span class="term-zh">生成式 AI</span> 的目標是<span class="keyword-highlight">理解數據是如何生成的</span>，即學習數據的<span class="keyword-highlight">底層概率分佈或數據的內在結構</span>。通過學習這個分佈，<span class="term-zh">生成式模型</span>才能夠創造出與原始數據相似的新樣本。因此，<span class="term-zh">生成式 AI</span> 更關注數據的潛在分佈和結構。</div>
+               </div>
+            </div>
+            <!-- Question 25 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#25</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在工業應用中，利用<span class="term-zh">鑑別式 AI</span> 進行<span class="keyword-highlight">產品瑕疵檢測</span>後，若希望能<span class="keyword-highlight">生成「理想」無瑕疵產品的圖像</span>作為品質參考標準，此整合應用是利用了生成式 AI 的何種能力？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">分類能力</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">異常檢測能力</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="keyword-highlight">數據生成與合成能力</span></div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">序列預測能力</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">瑕疵檢測本身是<span class="term-zh">鑑別式 AI</span> 的任務（分類或異常檢測）。而生成理想無瑕疵產品的圖像，則是<span class="keyword-highlight">創造新的、符合特定標準（無瑕疵）的數據樣本</span>，這正是<span class="term-zh">生成式 AI</span> 的核心能力——<span class="keyword-highlight">數據生成與合成</span>。透過學習大量正常產品的圖像特徵，<span class="term-zh">生成式模型</span>可以合成出代表「理想狀態」的圖像。</div>
+               </div>
+            </div>
+            <!-- Question 26 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+               <div class="question-header">
+                  <div class="question-id">#26</div>
+                  <div class="question-frequency">★★★★</div>
+               </div>
+               <div class="question-content">為何<span class="term-zh">生成式 AI</span> (如大型語言模型 <span class="term-acr">LLM</span>) 在處理需要<span class="keyword-highlight">精確事實或避免幻覺</span> (<span class="term-en">Hallucination</span>) 的任務時，常需要與<span class="term-zh">檢索系統</span> (<span class="term-en">Retrieval System</span>) 整合 (如 <span class="term-acr">RAG</span>, <span class="term-en">Retrieval-Augmented Generation</span>)？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">為了加快生成速度</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">為了<span class="keyword-highlight">提供模型外部的、可靠的知識來源</span>，<span class="keyword-highlight">以提高回應的準確性和真實性</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">為了讓模型可以處理圖像輸入</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">為了降低模型的訓練成本</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">生成式 AI</span>（特別是 <span class="term-acr">LLM</span>）雖然能生成流暢的文本，但其知識主要來自於訓練數據，可能<span class="keyword-highlight">過時或不準確</span>，且有時會<span class="keyword-highlight">產生幻覺（捏造事實）</span>。<span class="term-acr">RAG</span> 技術通過結合一個<span class="term-zh">檢索器</span>（<span class="term-zh">Retriever</span>）和一個<span class="term-zh">生成器</span>（<span class="term-en">Generator</span>），先從外部知識庫（如文檔、數據庫）<span class="keyword-highlight">檢索與問題相關的最新、最可靠的信息</span>，然後將這些信息<span class="keyword-highlight">提供給<span class="term-zh">生成器</span>作為上下文</span>，讓<span class="term-zh">生成器</span>在此基礎上生成回答。這樣可以有效<span class="keyword-highlight">減少幻覺</span>，提高回應的<span class="keyword-highlight">事實準確性</span>和<span class="keyword-highlight">時效性</span>。這也是一種<span class="term-zh">鑑別式</span>（檢索相關性）與<span class="term-zh">生成式</span>整合的應用。</div>
+               </div>
+            </div>
+            <!-- Question 27 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#27</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在推薦系統中，如果使用<span class="term-zh">生成式模型</span>來<span class="keyword-highlight">生成用戶可能感興趣的新物品描述或推薦理由</span>，再由<span class="term-zh">鑑別式模型</span>（或用戶反饋）來<span class="keyword-highlight">評估這些生成的內容是否吸引人</span>，這種做法的主要目的是什麼？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">完全取代傳統的協同過濾算法</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text"><span class="keyword-highlight">提供更具個性化和解釋性的推薦</span>，<span class="keyword-highlight">可能發現用戶潛在的新興趣</span></div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">降低推薦系統的計算複雜度</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">確保推薦結果絕對準確</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">傳統推薦系統（如協同過濾）主要基於歷史行為預測評分或排序，可能難以解釋推薦理由或發現用戶的新興趣。<span class="term-zh">生成式 AI</span> 可以<span class="keyword-highlight">基於用戶畫像和物品信息生成個性化的描述或理由</span>，讓推薦更具說服力和吸引力，例如生成「因為你喜歡科幻電影 A，所以你可能會喜歡這部設定相似的電影 B」。這種方式<span class="keyword-highlight">增強了推薦的可解釋性</span>，並且透過生成可能略微超出用戶歷史範圍的內容，有機會<span class="keyword-highlight">探索和引導用戶發現新的興趣點</span>（Serendipity）。雖然計算複雜度可能增加，且不保證絕對準確，但能提升用戶體驗。</div>
+               </div>
+            </div>
+            <!-- Question 28 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#28</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content"><span class="term-zh">自監督學習</span> (<span class="term-en">Self-supervised Learning</span>) 有時被視為<span class="term-zh">監督學習</span>和<span class="term-zh">非監督學習</span>之間的一種形式，它與<span class="term-zh">生成式模型</span>的關係是？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text"><span class="term-zh">自監督學習</span>完全等同於<span class="term-zh">生成式模型</span>。</div>
+                  </div>
+                  <div class="option-item correct" data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">許多<span class="term-zh">生成式模型</span>的訓練過程利用了<span class="term-zh">自監督學習</span>的<span class="keyword-highlight">代理任務</span> (<span class="term-en">Pretext Task</span>) 來學習數據表示。</div>
+                  </div>
+                  <div class="option-item " data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="term-zh">自監督學習</span>主要用於訓練<span class="term-zh">鑑別式模型</span>，與<span class="term-zh">生成式模型</span>無關。</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text"><span class="term-zh">生成式模型</span>無法從<span class="term-zh">自監督學習</span>中受益。</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content"><span class="term-zh">自監督學習</span>的核心思想是<span class="keyword-highlight">從無標籤數據中自動生成標籤或監督信號</span>，並以此來訓練模型學習數據的表示。許多<span class="term-zh">生成式模型</span>，特別是像 <span class="term-acr">BERT</span>, <span class="term-acr">GPT</span> 這類基於 <span class="term-en">Transformer</span> 的大型語言模型，其<span class="keyword-highlight">預訓練</span> (<span class="term-en">Pre-training</span>) 過程就是典型的<span class="term-zh">自監督學習</span>。例如，<span class="keyword-highlight">遮罩語言模型</span> (<span class="term-en">Masked Language Model, <span class="term-acr">MLM</span>) 任務（預測被遮罩的詞）或<span class="keyword-highlight">下一個句子預測</span> (<span class="term-en">Next Sentence Prediction, <span class="term-acr">NSP</span>) 任務，都是從數據本身構造的<span class="keyword-highlight">代理任務</span> (<span class="term-en">Pretext Task</span>)。透過這些任務，模型學會了豐富的語言知識和數據表示，這些表示隨後可以用於各種下游任務，包括文本生成。因此，<span class="term-zh">自監督學習</span>是訓練強大<span class="term-zh">生成式模型</span>的重要技術之一。</div>
+               </div>
+            </div>
+            <!-- Question 29 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#29</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">將<span class="term-zh">生成式 AI</span> 應用於<span class="keyword-highlight">藥物發現</span> (<span class="term-en">Drug Discovery</span>) 時，常見的整合方式是？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">僅使用<span class="term-zh">生成式 AI</span> 生成所有可能的分子結構。</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">僅使用<span class="term-zh">鑑別式 AI</span> 預測已知分子的活性。</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text">使用<span class="term-zh">生成式 AI</span> <span class="keyword-highlight">提出新的分子結構候選</span>，再用<span class="term-zh">鑑別式 AI</span> 或其他方法<span class="keyword-highlight">預測其活性與安全性</span>。</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">使用<span class="term-zh">鑑別式 AI</span> 生成分子結構，再用<span class="term-zh">生成式 AI</span> 預測活性。</div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">藥物發現的目標是找到具有特定生物活性且安全的新分子。由於可能的化學空間極其巨大，傳統方法效率有限。<span class="term-zh">生成式 AI</span>（如 <span class="term-acr">VAE</span>, <span class="term-acr">GAN</span>, Flow-based models）可以學習已知分子的結構規則，並<span class="keyword-highlight">生成大量新穎的、可能具有所需特性的分子結構候選</span>。然後，可以使用<span class="term-zh">鑑別式 AI</span> 模型（或其他計算方法，如分子對接、QSAR）來<span class="keyword-highlight">預測這些候選分子的生物活性、毒性、藥代動力學性質</span>等，從而<span class="keyword-highlight">篩選出最有希望的候選者</span>進行後續的實驗驗證。這種「生成-預測/篩選」的整合模式是 AI 在藥物發現中的常見應用。</div>
+               </div>
+            </div>
+            <!-- Question 30 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+               <div class="question-header">
+                  <div class="question-id">#30</div>
+                  <div class="question-frequency">★★★</div>
+               </div>
+               <div class="question-content">在評估<span class="term-zh">生成式模型</span>（尤其是圖像生成）的性能時，除了人眼主觀判斷外，常用的客觀量化指標有哪些？</div>
+               <div class="options-container">
+                  <div class="option-item " data-option="A">
+                     <div class="option-label">A</div>
+                     <div class="option-text">準確率 (<span class="term-en">Accuracy</span>) 和 精確率 (<span class="term-en">Precision</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="B">
+                     <div class="option-label">B</div>
+                     <div class="option-text">均方誤差 (<span class="term-en">MSE</span>) 和 R 平方 (<span class="term-en">R-squared</span>)</div>
+                  </div>
+                  <div class="option-item correct" data-option="C">
+                     <div class="option-label">C</div>
+                     <div class="option-text"><span class="keyword-highlight">初始分數</span> (<span class="term-en">Inception Score, <span class="term-acr">IS</span>) 和 <span class="keyword-highlight">弗雷歇初始距離</span> (<span class="term-en">Fréchet Inception Distance, <span class="term-acr">FID</span>)</div>
+                  </div>
+                  <div class="option-item " data-option="D">
+                     <div class="option-label">D</div>
+                     <div class="option-text">交叉熵 (<span class="term-en">Cross-Entropy</span>) 和 <span class="term-acr">AUC</span></div>
+                  </div>
+               </div>
+               <div class="explanation-container" style="display: none;">
+                  <div class="explanation-header">答案解析</div>
+                  <div class="explanation-content">評估<span class="term-zh">生成式模型</span>的質量比<span class="term-zh">鑑別式模型</span>更具挑戰性，因為「好」的生成結果往往涉及主觀判斷。然而，研究者們提出了一些客觀指標。<span class="term-acr">IS</span> 主要評估生成圖像的<span class="keyword-highlight">清晰度</span>（單個圖像的可識別性）和<span class="keyword-highlight">多樣性</span>（不同圖像之間的差異）。<span class="term-acr">FID</span> 則通過比較<span class="keyword-highlight">生成圖像和真實圖像在 Inception 網路某個深層特徵空間中的分佈距離</span>（通常用弗雷歇距離計算）來評估生成圖像的<span class="keyword-highlight">真實性</span>和<span class="keyword-highlight">多樣性</span>，<span class="term-acr">FID</span> 分數越低通常表示生成質量越好，與人類主觀評價的相關性較高。選項 A 和 D 是分類模型的指標；選項 B 是回歸模型的指標。</div>
+               </div>
+            </div>
+            <!-- Message area for no results -->
+            <div id="noResultsMessage"></div>
+         </div>
+         <!-- End questions-container -->
+         <a href="#" class="back-to-top" id="backToTop">↑</a> <!-- Changed to anchor -->
+      </div>
+      <!-- End container -->
+      <script>
+         let explanationsVisible = false; // Start with explanations hidden
+         let answersVisible = true;
+         
+         // Progress bar
+         const progressBar = document.getElementById("progressBar");
+         window.onscroll = function() {
+         updateProgressBar();
+         toggleBackToTopButton();
+         };
+         
+         function updateProgressBar() {
+         let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+         if (height > 0) {
+              let scrolled = (winScroll / height) * 100;
+              progressBar.style.width = scrolled + "%";
+         } else {
+              progressBar.style.width = "0%";
+         }
+         }
+         
+         // Back to top button
+         const backToTopButton = document.getElementById("backToTop");
+         
+         function toggleBackToTopButton() {
+          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+             backToTopButton.style.display = "flex";
+         } else {
+             backToTopButton.style.display = "none";
+         }
+         }
+         
+         // Smooth scroll for back-to-top
+         backToTopButton.addEventListener("click", function(e) {
+         e.preventDefault(); // Prevent default anchor behavior
+         window.scrollTo({top: 0, behavior: 'smooth'});
+         });
+         
+         // Filter by direction (called from direction items)
+         function filterByDirection(directionNumber) {
+         document.getElementById('directionFilter').value = directionNumber === 'all' ? 'all' : String(directionNumber);
+         document.getElementById('searchInput').value = ''; // Clear search when applying direction filter
+          document.getElementById('starFilter').value = 'all'; // Reset star filter
+         filterAndSearchQuestions();
+         }
+         
+         // Event listeners for filters and search
+         document.getElementById("directionFilter").addEventListener("change", () => {
+         document.getElementById('searchInput').value = ''; // Clear search on filter change
+         filterAndSearchQuestions();
+         });
+         document.getElementById("starFilter").addEventListener("change", () => {
+         document.getElementById('searchInput').value = ''; // Clear search on filter change
+         filterAndSearchQuestions();
+         });
+         document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+         document.getElementById("searchInput").addEventListener("keyup", function(event) {
+         // Filter as user types or on Enter key
+         // if (event.key === "Enter" || document.getElementById("searchInput").value.length > 2 || document.getElementById("searchInput").value.length === 0) {
+              filterAndSearchQuestions();
+         // }
+          // Add instant search as user types (optional)
+          // filterAndSearchQuestions();
+         });
+         
+         // Combined filter and search function
+         function filterAndSearchQuestions() {
+         let direction = document.getElementById("directionFilter").value;
+         let stars = document.getElementById("starFilter").value;
+         let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+         let questions = document.querySelectorAll(".question-card");
+         let anyVisible = false; // Track if any questions match
+         const noResultsMessage = document.getElementById('noResultsMessage');
+         
+         questions.forEach(function(question) {
+             const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+             const matchesStars = (stars === "all" || question.dataset.stars === stars);
+             // Search in question content, options, and explanation
+             const questionTextElement = question.querySelector('.question-content');
+             const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+             const explanationTextElement = question.querySelector('.explanation-content');
+         
+             let combinedText = '';
+             if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+             combinedText += ' ' + optionsText;
+             // Only search explanation if it's currently visible or globally visible
+             if (explanationTextElement && (explanationTextElement.style.display !== 'none' || explanationsVisible)) {
+                 combinedText += ' ' + explanationTextElement.textContent.toLowerCase();
+             }
+         
+             const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+         
+             // Question must match all active criteria
+             if (matchesDirection && matchesStars && matchesSearch) {
+                 question.style.display = "block";
+                 anyVisible = true;
+             } else {
+                 question.style.display = "none";
+             }
+         });
+         
+          // Display message if no questions match
+          if (noResultsMessage) {
+              if (anyVisible) {
+                 noResultsMessage.style.display = 'none';
+              } else {
+                 noResultsMessage.style.display = 'block';
+                 noResultsMessage.textContent = '沒有找到符合條件的題目。';
+              }
+          }
+         }
+         
+         // Toggle ALL explanations visibility
+         document.getElementById("toggleExplanations").addEventListener("click", function() {
+         let explanations = document.querySelectorAll(".explanation-container");
+         explanationsVisible = !explanationsVisible;
+         let button = document.getElementById("toggleExplanations");
+         
+         explanations.forEach(function(explanation) {
+             // Only toggle if the question card itself is visible
+              const questionCard = explanation.closest('.question-card');
+              if (questionCard && questionCard.style.display !== 'none') {
+                  explanation.style.display = explanationsVisible ? "block" : "none";
+              } else if (!questionCard) {
+                   // Should not happen, but safety check
+                  explanation.style.display = explanationsVisible ? "block" : "none";
+              }
+              // If hiding all, ensure even those in hidden cards are hidden
+              if (!explanationsVisible) {
+                 explanation.style.display = "none";
+              }
+         });
+         
+         button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+          // Re-run search after toggling explanations if search text exists
+          // This allows searching within explanations when they become visible
+          if (document.getElementById("searchInput").value.trim() !== "") {
+             filterAndSearchQuestions();
+          }
+         });
+         
+         document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+         
+         // Toggle INDIVIDUAL explanation visibility on clicking option
+         let options = document.querySelectorAll(".option-item");
+         options.forEach(function(option) {
+         option.addEventListener("click", function() {
+             const questionCard = this.closest('.question-card');
+             if (!questionCard) return;
+             const explanation = questionCard.querySelector('.explanation-container');
+             if (explanation) {
+                 // Toggle individual explanation display
+                 explanation.style.display = (explanation.style.display === 'none' || explanation.style.display === '') ? 'block' : 'none';
+                 // Update the global button text if necessary (optional, might be confusing)
+                 updateGlobalToggleTextState();
+             }
+         });
+         });
+         
+         // Helper function to update the global toggle button text state
+         // based on the visibility of *all* visible explanations.
+         function updateGlobalToggleTextState() {
+         const visibleExplanations = document.querySelectorAll(".question-card:not([style*='display: none']) .explanation-container");
+          if (visibleExplanations.length === 0) return; // No visible questions, do nothing
+         
+         let allCurrentlyVisible = true;
+         visibleExplanations.forEach(exp => {
+             if (exp.style.display === 'none' || exp.style.display === '') {
+                 allCurrentlyVisible = false;
+             }
+         });
+         explanationsVisible = allCurrentlyVisible; // Update global state based on VISIBLE cards
+         document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+         }
+         
+         
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+          toggleBackToTopButton();
+          updateProgressBar();
+          // Set initial state for toggle button text
+          document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+          // Ensure explanations start hidden or visible based on initial state
+          let initialExplanations = document.querySelectorAll(".explanation-container");
+          initialExplanations.forEach(function(explanation) {
+             explanation.style.display = explanationsVisible ? "block" : "none";
+          });
+          filterAndSearchQuestions(); // Apply initial filter/search state
+          let allOptions = document.querySelectorAll('.option-item[data-option]');
+          allOptions.forEach(function(opt) {
+              if (opt.classList.contains('correct')) {
+                  opt.dataset.originalCorrect = 'true';
+              } else {
+                  opt.dataset.originalCorrect = 'false';
+              }
+          });
+         });
+         
+      </script>
+   </body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歐盟人工智慧法案</title> <!-- Changed Title -->
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f5ff;
+            color: #333;
+        }
+        .container {
+            
+            margin: 20px auto; /* Added top/bottom margin */
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4a148c;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7b1fa2;
+        }
+         h2 { /* Style for the table title */
+            color: #6a1b9a;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ce93d8;
+        }
+        .point {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f3e5f5;
+            border-left: 5px solid #7b1fa2;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .point-title {
+            color: #6a1b9a;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .highlight {
+            background-color: #e1bee7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .important {
+            color: #d50000;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        /* Table Styles */
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .risk-table th, .risk-table td {
+            border: 1px solid #e1bee7;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .risk-table th {
+            background-color: #ab47bc; /* Purple header */
+            color: #fff;
+            font-weight: bold;
+        }
+        .risk-table tr:nth-child(even) {
+            background-color: #f3e5f5; /* Light purple for even rows */
+        }
+         .risk-table tr:hover {
+            background-color: #e1bee7; /* Slightly darker purple on hover */
+        }
+        .risk-table td ul { /* Style for lists within table cells */
+            padding-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .point {
+                padding: 10px;
+            }
+            .risk-table th, .risk-table td {
+                 padding: 8px 10px;
+                 font-size: 0.9em; /* Smaller font on mobile */
+            }
+             /* Responsive table handling if needed */
+            .risk-table {
+                display: block;
+                overflow-x: auto; /* Allow horizontal scrolling */
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>歐盟人工智慧法案簡介重點</h1> <!-- Changed Title -->
+
+        <div class="point">
+            <div class="point-title">1. 法案目標與定位：</div>
+            歐盟AI法案是<span class="highlight">全球首部針對AI的全面性法規</span>，旨在確保在歐盟開發及使用的AI值得信賴、保護基本權利、建立統一AI市場，並為技術投資與創新創造支持性環境。法案已於<span class="important">2024年8月1日生效</span>。
+        </div>
+
+        <div class="point">
+            <div class="point-title">2. 風險基礎方法：</div>
+            法案採用<span class="highlight">基於風險的方法</span>來監管AI系統，將AI引發的潛在風險劃分為四個主要級別：不可接受風險、高風險、有限風險和最小風險。不同風險級別對應不同的法律義務。
+        </div>
+
+         <div class="point">
+            <div class="point-title">3. 適用對象廣泛：</div>
+            法案適用於AI供應鏈的各個環節，包括<span class="highlight">提供者（開發者）、部署者（使用者）、進口商、經銷商</span>等，以及在歐盟境內受AI系統影響的自然人。無論這些參與者位於歐盟境內或第三國，只要其AI系統或輸出結果應用於歐盟市場，即可能受到規範。
+        </div>
+
+        <div class="point">
+            <div class="point-title">4. 高風險AI系統的嚴格要求：</div>
+            被歸類為高風險的AI系統（如用於關鍵基礎設施、教育、招聘、執法、醫療器材安全組件等）必須遵守嚴格要求，包括：<span class="highlight">建立風險管理系統、使用高品質資料集、保留活動記錄、提供清晰使用者資訊、確保人工監督、達到高水準的準確性與網路安全</span>等（法案第8-15條）。
+        </div>
+
+        <div class="point">
+            <div class="point-title">5. 主要參與者的義務：</div>
+            提供者需確保系統合規、進行符合性評鑑、備妥技術文件；<span class="highlight">歐盟境外的提供者需指定授權代表</span>。進口商和經銷商需驗證提供者已履行義務（如CE標誌、文件）。部署者需依說明使用、監控運作，特定情況下需進行基本權利影響評估。
+        </div>
+
+        <div class="point">
+            <div class="point-title">6. 通用AI（GPAI）模型規範：</div>
+            法案對<span class="highlight">通用AI模型（GPAI）</span>及其提供者設有專門規定，特別是具有<span class="highlight">「系統性風險」</span>的GPAI模型（如基於累計運算量超過10^25 FLOPs等標準認定），需履行額外義務，例如模型評估、風險緩解、網路安全防護及事件報告等。
+        </div>
+
+        <div class="point">
+            <div class="point-title">7. 治理架構：</div>
+            設立了多個機構以確保法案實施：<span class="highlight">歐盟AI辦公室</span>（隸屬執委會，負責推動標準、監督GPAI等）、<span class="highlight">歐洲人工智慧委員會</span>（由會員國代表組成，協調執行）、<span class="highlight">諮詢論壇</span>（提供利害關係人建言）、<span class="highlight">獨立專家科學小組</span>（提供科學建議）以及各會員國的<span class="highlight">國家主管機關</span>。
+        </div>
+
+        <div class="point">
+            <div class="point-title">8. AI監管沙盒：</div>
+            鼓勵會員國建立<span class="highlight">AI監管沙盒（Sandbox）</span>，提供一個受控環境，讓開發者（特別是中小企業和新創）在將AI系統投入市場前，能夠進行測試、驗證和訓練，促進創新同時確保合規。預計於<span class="important">2026年8月2日前</span>投入運作。
+        </div>
+
+        <div class="point">
+            <div class="point-title">9. 嚴厲的罰款機制：</div>
+            違反法案規定將面臨高額罰款：違反禁用規定（第5條）最高可處<span class="important">全球年營業額7%或3500萬歐元</span>；違反高風險AI義務（如第16條等）最高可處<span class="important">全球年營業額3%或1500萬歐元</span>；提供不正確資訊最高可處<span class="important">全球年營業額1%或750萬歐元</span>（均取較高者）。
+        </div>
+
+        <div class="point">
+            <div class="point-title">10. 分階段實施時間表：</div>
+            法案於2024年8月1日生效後，各項規定將分階段適用：
+            <ul>
+                <li>禁止的AI行為（第5條）：<span class="important">2025年2月2日</span>適用。</li>
+                <li>GPAI模型、治理機構、罰款等：<span class="important">2025年8月2日</span>適用。</li>
+                <li>高風險AI系統相關義務：<span class="important">2027年8月2日</span>適用。</li>
+                <li>法案普遍適用於所有受規範對象：<span class="important">2026年8月2日</span>。</li>
+            </ul>
+        </div>
+
+        <!-- Risk Levels Table -->
+        <h2>歐盟AI法案風險分級詳細說明</h2>
+        <div style="overflow-x: auto;"> <!-- Wrapper for horizontal scroll on small screens -->
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>風險級別</th>
+                        <th>定義與描述</th>
+                        <th>範例</th>
+                        <th>主要義務/要求</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="important">不可接受風險 (Unacceptable)</span></td>
+                        <td>對人們的安全、生計和權利構成明顯威脅，違反歐盟價值觀和基本權利。</td>
+                        <td>
+                            <ul>
+                                <li>操縱人類行為以規避自由意志（如利用語音助理鼓勵未成年人進行危險行為的玩具）。</li>
+                                <li>政府或企業進行的「社會評分」系統。</li>
+                                <li>利用弱勢群體特徵進行剝削性操縱。</li>
+                                <li>執法用途的即時遠端生物識別系統（有嚴格例外）。</li>
+                                <li>非即時遠端生物識別（需司法授權）。</li>
+                                <li>情緒識別（工作/教育場所禁用）。</li>
+                                <li>基於生物特徵進行敏感推論（如種族、政治觀點）。</li>
+                                <li>無目標地從網路或監視影像中抓取臉部圖像建立資料庫。</li>
+                            </ul>
+                        </td>
+                        <td><span class="important">原則上禁止 (Banned)</span>（法案第5條）。僅有極少數嚴格界定和規範的例外情況（主要在執法領域且需授權）。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">高風險 (High-Risk)</span></td>
+                        <td>可能對健康、安全或基本權利產生不利影響的AI系統。分為兩類：(1) 作為受特定法規（如醫療器材、機械）規範產品的安全組件；(2) 屬於法案附錄三列出的特定領域應用。</td>
+                        <td>
+                            <ul>
+                                <li>關鍵基礎設施管理（如交通、能源）。</li>
+                                <li>教育或職業培訓（如考試評分、錄取評估）。</li>
+                                <li>就業與人力資源管理（如招聘篩選、績效評估）。</li>
+                                <li>必要公共/私人服務的取用評估（如信用評分、社會福利資格）。</li>
+                                <li>執法（如證據評估、犯罪預測）。</li>
+                                <li>移民、庇護與邊境管理。</li>
+                                <li>司法與民主程序。</li>
+                                <li>生物識別（除禁止的應用外）。</li>
+                             </ul>
+                        </td>
+                        <td><span class="highlight">需遵守嚴格義務</span>（法案第8-15條及其他相關條款），包括：
+                            <ul>
+                                <li>風險管理系統。</li>
+                                <li>資料治理與品質。</li>
+                                <li>技術文件與紀錄保存。</li>
+                                <li>透明度與使用者資訊。</li>
+                                <li>人工監督設計。</li>
+                                <li>準確性、穩健性與網路安全。</li>
+                                <li>上市前符合性評鑑（部分需第三方機構）。</li>
+                                <li>上市後監控。</li>
+                                <li>向主管機關註冊（部分系統）。</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>有限風險 (Limited Risk)</td>
+                        <td>主要風險來自於缺乏透明度，使用者可能未意識到正在與AI互動或其內容為AI生成。</td>
+                        <td>
+                            <ul>
+                                <li>聊天機器人 (Chatbots)。</li>
+                                <li>深度偽造 (Deepfakes)。</li>
+                                <li>AI生成內容（文字、圖像、音訊、視訊）。</li>
+                                <li>情緒辨識系統（如未被禁止）。</li>
+                                <li>生物識別分類系統（如未被禁止）。</li>
+                             </ul>
+                        </td>
+                        <td><span class="highlight">需履行透明度義務</span>（法案第50條）：
+                            <ul>
+                                <li>告知使用者正在與AI系統互動。</li>
+                                <li>AI生成的內容需標記為人工生成。</li>
+                                <li>使用生物識別分類或情緒辨識系統時需告知使用者。</li>
+                                <li>深度偽造內容需揭露其為人工生成（有例外）。</li>
+                            </ul>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>最小風險 (Minimal Risk)</td>
+                        <td>對權利或安全構成極小或無風險的AI系統。這是絕大多數AI應用的情況。</td>
+                        <td>
+                            <ul>
+                                <li>支援AI的推薦系統（如電商、影音平台）。</li>
+                                <li>垃圾郵件過濾器。</li>
+                                <li>AI輔助的庫存管理系統。</li>
+                                <li>多數的AI電玩。</li>
+                            </ul>
+                        </td>
+                        <td><span class="highlight">無強制性法律義務</span>。鼓勵自願遵守行為準則（Code of Conduct），以建立信任。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Optional: Add simple hover effect for table rows if not covered by CSS :hover
+        document.querySelectorAll('.risk-table tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                 // You can add JS-driven effects here if needed,
+                 // but CSS :hover is generally sufficient and preferred.
+            });
+            row.addEventListener('mouseleave', () => {
+                 // Revert hover effect if using JS
+            });
+        });
+
+        // Simple fade-in effect for points (optional)
+        window.addEventListener('DOMContentLoaded', () => {
+            const points = document.querySelectorAll('.point, h2, .risk-table');
+            let delay = 0;
+            points.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transition = 'opacity 0.5s ease-in-out';
+                el.style.transitionDelay = `${delay}s`;
+                setTimeout(() => {
+                     el.style.opacity = '1';
+                }, 100); // Small delay before starting animation
+                delay += 0.1; // Stagger the animation
+            });
+        });
+    </script>
+</body>
+</html>
+

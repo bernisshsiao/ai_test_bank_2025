@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 經典回顧卷003</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", sans-serif; /* Using example's font stack preference */
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7; /* Added from source for potential base style consistency */
+        }
+        .container {
+            max-width: 1200px; /* Using example's width */
+            margin: 25px auto; /* Adjusted margin slightly */
+            padding: 20px 30px; /* Adjusted padding slightly */
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Using example's shadow */
+            border-radius: 8px; /* Added from source */
+        }
+        h1, h2 { /* Added h2 from example */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 { /* Modified from source */
+            text-align: center;
+            color: #0056b3; /* Using source color */
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0056b3; /* Using source border */
+            padding-bottom: 10px;
+            font-size: 1.8rem; /* Using example size */
+        }
+        .header-container { /* From example */
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 { /* Overriding base h1 for header */
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+            border-bottom: none; /* Remove border inside header */
+            padding-bottom: 0;
+            margin-bottom: 5px; /* Adjust spacing */
+        }
+        .header-container div { /* Style for subtitle in header */
+             font-size: 1.1rem;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+            display: block; /* Center image */
+            margin: 15px auto; /* Add some margin */
+        }
+        /* 出題方向區塊樣式 (From example) */
+        .directions-container {
+            background-color: #fffbeb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f1c40f;
+            border-radius: 5px;
+        }
+        .directions-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .direction-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .direction-item:hover {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .direction-number {
+            width: 25px;
+            height: 25px;
+            background-color: #f1c40f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .direction-item:hover .direction-number {
+            background-color: white;
+            color: #f1c40f;
+        }
+         .direction-text { /* Added to allow text wrapping */
+            flex-grow: 1;
+         }
+        /* 問題卡片樣式 (Merging styles from both) */
+        .questions-container {
+            /* display: grid; */ /* Removed grid to allow natural flow */
+            /* grid-template-columns: 1fr; */
+            /* gap: 20px; */ /* From example */
+        }
+        .question-card { /* Renamed qa-item */
+            background-color: white;
+            border: 1px solid #e0e0e0; /* From source */
+            border-radius: 6px; /* From source */
+            padding: 18px; /* From source */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* From example */
+            transition: transform 0.3s, box-shadow 0.3s ease; /* Combined transitions */
+            margin-bottom: 20px; /* From source */
+        }
+        .question-card:hover { /* From example */
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Example's hover shadow */
+        }
+        .question-header { /* From example */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Added from source */
+            margin-bottom: 15px; /* Example */
+            padding-bottom: 10px; /* Example */
+            border-bottom: 1px solid #eee; /* Example */
+        }
+        .question-id { /* From example (replacing question-number) */
+            font-weight: bold;
+            color: #3498db; /* Example color */
+            font-size: 0.95em; /* Source size */
+        }
+        .question-frequency { /* From example */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9em; /* Adjust size if needed */
+        }
+        .question-content { /* Renamed question */
+            font-weight: 600; /* Source weight */
+            margin-bottom: 15px; /* Source margin */
+            color: #2c3e50; /* Source color */
+            font-size: 1.1rem; /* Example size */
+            line-height: 1.6; /* Example line-height */
+            cursor: pointer; /* Make question clickable to toggle explanation */
+        }
+        .options-container { /* Replacing ul.options */
+            display: grid;
+            grid-template-columns: 1fr; /* Example layout */
+            gap: 10px; /* Example gap */
+            margin-bottom: 20px; /* Example margin */
+            list-style: none; /* From source */
+            padding-left: 0; /* From source */
+        }
+        .option-item { /* Replacing li */
+            display: flex; /* From example */
+            padding: 10px 15px; /* Source padding */
+            background-color: #f8f9fa; /* Source background */
+            border: 1px solid #e9ecef; /* Source border */
+            border-radius: 4px; /* Source radius */
+            cursor: default; /* Change cursor for options - click question instead */
+            transition: background-color 0.2s ease; /* Source transition */
+            font-size: 0.98em; /* Source size */
+            align-items: center; /* Vertically align label and text */
+        }
+        .option-item:hover { /* From source */
+            background-color: #e9ecef;
+        }
+        .option-item.correct { /* From example */
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            font-weight: bold; /* Make correct answer bold */
+        }
+        .option-item.correct:hover { /* From example */
+            background-color: #c3e6cb;
+        }
+        .option-label { /* From example */
+            width: 25px;
+            height: 25px;
+            min-width: 25px; /* Ensure width doesn't shrink */
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent label from shrinking */
+        }
+        .option-item.correct .option-label { /* From example */
+            background-color: #28a745;
+        }
+        .option-text { /* New element for text part */
+             flex-grow: 1; /* Allow text to take remaining space */
+             word-break: break-word; /* Prevent long words from overflowing */
+        }
+        .explanation-container { /* Renamed answer-explanation */
+            background-color: #eef7ff; /* Source background */
+            padding: 15px; /* Source padding */
+            border-radius: 5px; /* Source radius */
+            margin-top: 15px; /* Source margin */
+            /* display: block; */ /* Initially shown (controlled by JS) */
+            display: none; /* Start hidden */
+            border-top: 1px dashed #ced4da; /* From source */
+            font-size: 0.95em; /* Source font size */
+        }
+        .explanation-header { /* From example */
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .explanation-content { /* From example (holds explanation text) */
+            line-height: 1.6; /* Example */
+            color: #000000; /* Source color */
+        }
+        /* Formatting Styles */
+        .highlight {
+            background-color: #ffff0030; /* Light yellow background */
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+        .chinese-term {
+             color: rgb(0, 0, 255);
+             font-weight: bold;
+        }
+         .acronym-term {
+             color: rgb(128, 0, 128); /* Purple */
+             font-weight: bold;
+        }
+         .english-term {
+             color: rgb(255, 0, 0); /* Red */
+             font-weight: bold;
+        }
+
+        /* Controls styling (From example) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Add gap for better spacing */
+        }
+        .filter-container, .search-container, .star-filter-container, .toggle-explanations { /* Grouped controls */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap; /* Prevent label wrapping */
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1; /* Allow input/select to grow */
+            min-width: 150px; /* Ensure minimum width */
+        }
+         input[type="text"] {
+            flex-grow: 2; /* Allow search input to be wider */
+         }
+        button { /* Base button style */
+            padding: 9px 18px; /* Source padding */
+            background-color: #007bff; /* Source background */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Source radius */
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease; /* Source transition */
+            font-size: 0.95em; /* Source size */
+            margin-left: 5px; /* Add margin for buttons in controls */
+        }
+        button:hover { /* Source hover */
+            background-color: #0056b3;
+        }
+        #searchButton { /* Specific button style example */
+           /* Inherits base button style */
+        }
+        #toggleExplanations { /* Specific button style example */
+           /* Inherits base button style */
+           margin-left: 0; /* No left margin needed here */
+        }
+        /* Back to top button (From example) */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+            text-decoration: none; /* Remove underline if it appears */
+            font-size: 1.5rem; /* Make arrow bigger */
+        }
+        .back-to-top:hover {
+            background-color: #2980b9;
+            opacity: 1;
+        }
+        /* Progress bar (From example) */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+        }
+        /* RWD (Combined and adjusted) */
+        @media (max-width: 992px) {
+             .controls {
+                flex-direction: column;
+                align-items: stretch; /* Make items full width */
+            }
+            .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+                width: 100%;
+                justify-content: space-between; /* Better alignment when stacked */
+            }
+             select, input[type="text"] {
+                 width: auto; /* Reset width */
+                 flex-grow: 1; /* Allow growth */
+             }
+             button { /* Ensure buttons don't shrink too much */
+                 flex-shrink: 0;
+             }
+             .search-container button {
+                margin-left: 10px;
+             }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 20px; /* Source padding */
+            }
+            .directions-grid {
+                grid-template-columns: 1fr; /* Example */
+            }
+             h1 {
+                 font-size: 1.5em; /* Source */
+             }
+             .option-item, .explanation-container, button {
+                 font-size: 0.9em; /* Source */
+             }
+             .option-label {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+                font-size: 0.9em;
+             }
+        }
+         @media (max-width: 600px) { /* From source */
+             body {
+                 /* margin: 15px; */ /* Removed for better edge-to-edge */
+             }
+             .container {
+                 padding: 15px; /* Adjust padding */
+                 margin: 10px auto; /* Adjust margin */
+             }
+             h1 {
+                 font-size: 1.4em; /* Adjust size */
+             }
+             .header-container h1 {
+                font-size: 1.6rem; /* Adjust header size */
+             }
+             .header-container div {
+                 font-size: 1rem;
+             }
+             .option-item, button, .explanation-container { /* Source */
+                 font-size: 0.9em;
+             }
+         }
+         /* No results message style */
+         #noResultsMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+         }
+
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 初級</h1>
+            <div>L11202 資料整理與分析流程</div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-container">
+                <label for="directionFilter" class="filter-label">篩選出題方向：</label>
+                <select id="directionFilter">
+                    <option value="all">全部方向</option>
+                    <option value="1">方向 1: 資料收集與整合</option>
+                    <option value="2">方向 2: 資料清理</option>
+                    <option value="3">方向 3: 資料轉換</option>
+                    <option value="4">方向 4: 資料探索分析 (EDA)</option>
+                    <option value="5">方向 5: 特徵工程基礎</option>
+                    <option value="6">方向 6: 資料視覺化</option>
+                    <option value="7">方向 7: 分析流程與工具</option>
+                    <option value="8">方向 8: 結果解釋與報告</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <!-- <option value="2">★★</option> -->
+                    <!-- <option value="1">★</option> -->
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入題目、選項或解析關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+        </div>
+
+        <div class="directions-container">
+            <div class="directions-title">出題方向 (L11202 資料整理與分析流程)</div>
+            <div class="directions-grid" id="directionsGrid">
+                <div class="direction-item" onclick="filterByDirection(1)">
+                    <div class="direction-number">1</div> <div class="direction-text">資料收集與整合</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(2)">
+                    <div class="direction-number">2</div> <div class="direction-text">資料清理</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(3)">
+                    <div class="direction-number">3</div> <div class="direction-text">資料轉換</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(4)">
+                    <div class="direction-number">4</div> <div class="direction-text">資料探索分析 (EDA)</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(5)">
+                    <div class="direction-number">5</div> <div class="direction-text">特徵工程基礎</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(6)">
+                    <div class="direction-number">6</div> <div class="direction-text">資料視覺化</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(7)">
+                    <div class="direction-number">7</div> <div class="direction-text">分析流程與工具</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(8)">
+                    <div class="direction-number">8</div> <div class="direction-text">結果解釋與報告</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <!-- Question 1 -->
+            <div class="question-card" data-direction="7" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">典型的<b class="chinese-term">資料分析流程 (<span class="english-term">Data Analysis Workflow</span>)</b> 通常包含哪些主要步驟？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">定義問題 -> 模型訓練 -> 報告撰寫</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">定義問題 -> 資料收集 -> 資料清理 -> 資料探索與分析 -> 模型建立 (若需要) -> 結果呈現與解釋</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料收集 -> 資料視覺化 -> 模型部署</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料清理 -> 報告撰寫 -> 定義問題</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">一個<span class="highlight">完整的資料分析流程</span>通常始於<span class="highlight">明確定義要解決的問題或目標</span>，接著進行<span class="highlight">資料收集</span>、<span class="highlight">資料清理</span>（處理缺失值、錯誤值、異常值等）、<span class="highlight">資料探索分析</span>（了解資料特性、發現模式）、可能需要建立<span class="highlight">預測或分類模型</span>，最後將<span class="highlight">分析結果以視覺化或報告形式呈現並加以解釋</span>。這個流程是迭代的，可能需要反覆進行某些步驟。</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" data-direction="2" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning / Data Cleansing</span>)</b> 階段，處理<b class="chinese-term">缺失值 (<span class="english-term">Missing Values</span>)</b> 的常見方法<span class="highlight">不包括</span>下列何者？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">刪除 (<span class="english-term">Deletion</span>)</b> 包含缺失值的記錄或欄位。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">插補 (<span class="english-term">Imputation</span>)</b>，例如使用平均數、中位數或眾數填補。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">使用<b class="chinese-term">機器學習 (<span class="acronym-term">ML</span>)</b> 模型預測缺失值。</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">直接將缺失值視為一個新的類別</span>，而不做任何處理。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">處理<b class="chinese-term">缺失值 (<span class="english-term">Missing Values</span>)</b> 的常用策略包括<span class="highlight">刪除含有缺失值的數據</span>（行或列，但可能損失資訊）、<span class="highlight">數值插補</span>（用平均值、中位數等替代）、<span class="highlight">類別插補</span>（用眾數替代）、或<span class="highlight">更複雜的模型預測插補</span>。將缺失值直接當作新類別通常不適用於數值型數據，且可能扭曲分析結果，除非有特殊理由（例如缺失本身代表某種意義），一般<span class="highlight">不建議直接忽略</span>。</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在資料集中發現一個客戶年齡為 200 歲，這很可能是一個什麼問題？應如何處理？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">缺失值 (<span class="english-term">Missing Value</span>)；應使用平均年齡填補。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">異常值 (<span class="english-term">Outlier</span>)</b> 或<b class="chinese-term">錯誤值 (<span class="english-term">Erroneous Value</span>)</b></span>；應調查原因，並考慮修正或刪除。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料不一致 (<span class="english-term">Inconsistency</span>)；應與其他資料來源比對。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料格式錯誤 (<span class="english-term">Incorrect Format</span>)；應轉換為標準年齡格式。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">200 歲顯然超出了人類正常的年齡範圍，極可能是<span class="highlight">數據輸入錯誤或其他原因造成的<b class="chinese-term">異常值 (<span class="english-term">Outlier</span>)</b> 或<b class="chinese-term">錯誤值 (<span class="english-term">Erroneous Value</span>)</b></span>。<b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b> 的步驟應包含識別這類值，<span class="highlight">調查其產生原因（是輸入錯誤還是特殊標記？）</span>，然後根據情況決定是<span class="highlight">修正</span>（如果能找到正確值）、<span class="highlight">刪除</span>該筆記錄，或是用<span class="highlight">插補 (<span class="english-term">Imputation</span>)</span> 方法處理。</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">將數值型特徵（如收入）的範圍縮放到 [0, 1] 或 [-1, 1] 之間的過程，稱為什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">特徵選擇 (<span class="english-term">Feature Selection</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">特徵提取 (<span class="english-term">Feature Extraction</span>)</b></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b> 或<b class="chinese-term">正規化 (<span class="english-term">Normalization</span>)</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">特徵編碼 (<span class="english-term">Feature Encoding</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b> 是<b class="chinese-term">資料轉換 (<span class="english-term">Data Transformation</span>)</b> 的一種常見技術，目的是<span class="highlight">將不同範圍的數值特徵調整到相似的尺度</span>，以避免某些特徵因數值範圍過大而主導了機器學習模型的訓練過程。常見的方法包括<b class="chinese-term">最小-最大縮放 (<span class="english-term">Min-Max Scaling</span>)</b>（將數據縮放到 [0, 1] 或指定範圍）和<b class="chinese-term">標準化 (<span class="english-term">Standardization</span>)</b>（將數據轉換為平均值為 0，標準差為 1）。<b class="chinese-term">正規化 (<span class="english-term">Normalization</span>)</b> 有時特指最小-最大縮放。</div>
+                </div>
+            </div>
+
+             <!-- Question 5 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#5</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">將類別型特徵（如「顏色」：紅、綠、藍）轉換為機器學習模型可以處理的數值表示（如 [1,0,0], [0,1,0], [0,0,1]），這個過程稱為？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">特徵選擇 (<span class="english-term">Feature Selection</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">特徵編碼 (<span class="english-term">Feature Encoding</span>)</b></span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">特徵離散化 (<span class="english-term">Feature Discretization</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">特徵編碼 (<span class="english-term">Feature Encoding</span>)</b> 是<span class="highlight">將類別型數據轉換為數值型數據</span>的過程，因為大多數機器學習演算法無法直接處理文字類別。常見的編碼方法包括<b class="chinese-term">獨熱編碼 (<span class="english-term">One-Hot Encoding</span>)</b>（如題目範例所示，為每個類別創建一個新的二元特徵）和<b class="chinese-term">標籤編碼 (<span class="english-term">Label Encoding</span>)</b>（為每個類別分配一個唯一的整數）。特徵離散化是將連續數值轉換為類別區間。</div>
+                 </div>
+             </div>
+
+             <!-- Question 6 -->
+            <div class="question-card" data-direction="4" data-stars="5">
+                 <div class="question-header">
+                     <div class="question-id">#6</div>
+                     <div class="question-frequency">★★★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">探索性資料分析 (<span class="acronym-term">EDA</span>, <span class="english-term">Exploratory Data Analysis</span>)</b> 的主要目的是什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">直接建立最終的預測模型。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">初步了解數據的特性、分佈、關係和潛在模式</span>。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">僅僅是為了清理數據中的錯誤。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">產生最終的分析報告給高層主管。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">探索性資料分析 (<span class="acronym-term">EDA</span>)</b> 是在進行正式建模或假設檢定之前，<span class="highlight">對數據進行初步調查的過程</span>。其目的包括：<span class="highlight">熟悉數據集、發現數據中的異常或錯誤、了解變數的分佈情況、探索變數之間的關係、識別潛在的模式或趨勢</span>、以及為後續的<b class="chinese-term">特徵工程 (<span class="english-term">Feature Engineering</span>)</b> 和模型選擇提供依據。常用的方法包括計算<b class="chinese-term">描述性統計 (<span class="english-term">Descriptive Statistics</span>)</b> 和繪製<b class="chinese-term">資料視覺化 (<span class="english-term">Data Visualization</span>)</b> 圖表。</div>
+                 </div>
+             </div>
+
+             <!-- Question 7 -->
+            <div class="question-card" data-direction="4" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#7</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在 <span class="acronym-term">EDA</span> 中，計算一組數據的<b class="chinese-term">平均值 (<span class="english-term">Mean</span>)</b>、<b class="chinese-term">中位數 (<span class="english-term">Median</span>)</b> 和<b class="chinese-term">標準差 (<span class="english-term">Standard Deviation</span>)</b>，屬於哪種分析方法？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">描述性統計分析 (<span class="english-term">Descriptive Statistical Analysis</span>)</b></span></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">推論性統計分析 (<span class="english-term">Inferential Statistical Analysis</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">預測性建模 (<span class="english-term">Predictive Modeling</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">假設檢定 (<span class="english-term">Hypothesis Testing</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">描述性統計 (<span class="english-term">Descriptive Statistics</span>)</b> 是用來<span class="highlight">總結和描述數據集基本特徵</span>的方法。它包括計算<b class="chinese-term">集中趨勢 (<span class="english-term">Central Tendency</span>)</b> 的量度（如平均值、中位數、眾數）和<b class="chinese-term">離散程度 (<span class="english-term">Dispersion</span>)</b> 的量度（如範圍、變異數、標準差）。這是 <span class="acronym-term">EDA</span> 中常用的初步分析手段。推論性統計則是用樣本推論母體，預測性建模是建立模型預測未來，假設檢定是驗證關於母體的假設。</div>
+                 </div>
+             </div>
+
+             <!-- Question 8 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#8</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">哪種類型的圖表最適合用來呈現單一<b class="chinese-term">類別變數 (<span class="english-term">Categorical Variable</span>)</b> 中各個類別的<b class="chinese-term">頻率分佈 (<span class="english-term">Frequency Distribution</span>)</b>？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">散佈圖 (<span class="english-term">Scatter Plot</span>)</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">長條圖 (<span class="english-term">Bar Chart</span>)</b> 或 <b class="chinese-term">圓餅圖 (<span class="english-term">Pie Chart</span>)</b></span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">折線圖 (<span class="english-term">Line Chart</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">盒鬚圖 (<span class="english-term">Box Plot</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">長條圖 (<span class="english-term">Bar Chart</span>)</b> 使用長條的高度或長度來表示不同類別的數值（通常是頻率或計數），非常適合比較各類別的數量。<b class="chinese-term">圓餅圖 (<span class="english-term">Pie Chart</span>)</b> 則是用扇形面積表示各類別佔整體的比例。散佈圖用於觀察兩個數值變數的關係，折線圖常用於顯示時間趨勢，盒鬚圖用於呈現數值變數的分佈和異常值。</div>
+                     <br>
+                     <img src="image/Bar-chart-versus-histogram-chart.png" class="responsive-img">
+                 </div>
+             </div>
+
+            <!-- Question 9 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">想要觀察兩個<b class="chinese-term">數值變數 (<span class="english-term">Numerical Variables</span>)</b> 之間是否存在<b class="chinese-term">相關性 (<span class="english-term">Correlation</span>)</b>，應該優先選擇哪種圖表？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">散佈圖 (<span class="english-term">Scatter Plot</span>)</b></span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">長條圖 (<span class="english-term">Bar Chart</span>)</b></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">直方圖 (<span class="english-term">Histogram</span>)</b></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">圓餅圖 (<span class="english-term">Pie Chart</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">散佈圖 (<span class="english-term">Scatter Plot</span>)</b> 是<span class="highlight">將兩個數值變數的值分別對應到 X 軸和 Y 軸，以點的形式繪製出來</span>。透過觀察點的分佈模式（例如是否呈現線性、曲線或聚集），可以<span class="highlight">直觀地判斷兩個變數之間是否存在關係以及關係的強度和方向</span>。直方圖用於顯示單一數值變數的分佈。</div>
+                    <br>
+                    <img src="image/Scatter Plot.png" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#10</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪項是<b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b> 的主要目標？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加數據量。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">改變數據的原始分佈。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">提高數據的品質、準確性和一致性</span>。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">將所有數據轉換為文字格式。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b>，又稱<b class="chinese-term">數據清洗 (<span class="english-term">Data Scrubbing</span>)</b>，是<span class="highlight">識別和修正（或移除）數據集中不準確、不完整、不相關、重複或格式錯誤的數據</span>的過程。其最終目標是<span class="highlight">確保數據的品質，使其適用於後續的分析或建模</span>，從而得到更可靠的結果。</div>
+                </div>
+            </div>
+
+             <!-- Question 11 -->
+             <div class="question-card" data-direction="1" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#11</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">將來自多個不同來源（例如不同部門的資料庫、外部<span class="acronym-term">API</span>）的數據合併在一起進行分析，這個過程稱為？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">資料整合 (<span class="english-term">Data Integration</span>)</b></span></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">資料清理 (<span class="english-term">Data Cleaning</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料抽樣 (<span class="english-term">Data Sampling</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料歸檔 (<span class="english-term">Data Archiving</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">資料整合 (<span class="english-term">Data Integration</span>)</b> 是<span class="highlight">將來自不同來源、不同格式的數據合併、轉換並呈現為統一視圖</span>的過程。這是資料分析流程中的重要步驟，尤其是在處理來自多個系統的數據時，目的是為了能夠進行更全面、更深入的分析。</div>
+                 </div>
+             </div>
+
+             <!-- Question 12 -->
+             <div class="question-card" data-direction="5" data-stars="4">
+                  <div class="question-header">
+                      <div class="question-id">#12</div>
+                      <div class="question-frequency">★★★★</div>
+                  </div>
+                  <div class="question-content">從原始數據中<span class="highlight">創建新的、更能有效代表潛在模式</span>的輸入變數（特徵）以供機器學習模型使用的過程，稱為？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料清理 (<span class="english-term">Data Cleaning</span>)</b></div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">模型評估 (<span class="english-term">Model Evaluation</span>)</b></div></div>
+                      <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">特徵工程 (<span class="english-term">Feature Engineering</span>)</b></span></div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料視覺化 (<span class="english-term">Data Visualization</span>)</b></div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">特徵工程 (<span class="english-term">Feature Engineering</span>)</b> 是利用領域知識和數據分析技術，<span class="highlight">從原始數據中提取或組合出對模型預測更有幫助的特徵</span>的過程。好的特徵工程可以顯著提升模型的性能。它可能包括創建交互項、多項式特徵、基於時間的特徵等。</div>
+                  </div>
+             </div>
+
+            <!-- Question 13 -->
+            <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#13</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">將客戶的「購買日期」和「出生日期」兩個欄位，計算出客戶購買時的「年齡」，這屬於<b class="chinese-term">特徵工程 (<span class="english-term">Feature Engineering</span>)</b> 中的哪種操作？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight">特徵創建 (<span class="english-term">Feature Creation / Construction</span>)</span></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">特徵選擇 (<span class="english-term">Feature Selection</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">特徵提取 (<span class="english-term">Feature Extraction</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">特徵創建 (<span class="english-term">Feature Creation</span>)</b> 是<span class="highlight">從現有特徵中組合或計算出新的特徵</span>。在這個例子中，「購買時年齡」是透過「購買日期」和「出生日期」計算得出的新特徵，目的是為了讓模型能更好地利用年齡資訊。特徵選擇是從現有特徵中挑選子集，特徵提取是將高維數據轉換為低維表示（如<span class="acronym-term">PCA</span>），特徵縮放是調整數值範圍。</div>
+                 </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card" data-direction="7" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#14</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">資料分析 (<span class="english-term">Data Analysis</span>)</b> 中，常用來編寫程式碼進行資料處理、分析和視覺化的<b class="chinese-term">程式語言 (<span class="english-term">Programming Language</span>)</b> 主要有哪些？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="acronym-term">HTML</span> 和 <span class="acronym-term">CSS</span></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><span class="acronym-term">Python</span> 和 <span class="acronym-term">R</span></span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">Java</span> 和 <span class="acronym-term">C++</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="acronym-term">SQL</span> 和 <span class="acronym-term">PHP</span></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="acronym-term">Python</span> 和 <span class="acronym-term">R</span> 是目前<span class="highlight">數據科學和資料分析領域最主流的兩大程式語言</span>。它們都擁有<span class="highlight">豐富的函式庫（Libraries/Packages）</span>，可以方便地進行數據操作、統計分析、機器學習建模和資料視覺化。<span class="acronym-term">SQL</span> 主要用於資料庫查詢，<span class="acronym-term">HTML</span>/<span class="acronym-term">CSS</span>/<span class="acronym-term">PHP</span> 主要用於網頁開發，<span class="acronym-term">Java</span>/<span class="acronym-term">C++</span> 雖也可用於數據處理，但不如 <span class="acronym-term">Python</span>/R 方便。</div>
+                 </div>
+            </div>
+
+             <!-- Question 15 -->
+             <div class="question-card" data-direction="6" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#15</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">使用<b class="chinese-term">視覺化圖表 (<span class="english-term">Visualization Charts</span>)</b> 來呈現資料分析結果的主要目的是什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">取代所有文字說明。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">更直觀、更容易地理解數據中的模式、趨勢和關聯</span>。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">證明分析過程絕對沒有錯誤。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">讓報告看起來更美觀，內容不重要。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">資料視覺化 (<span class="english-term">Data Visualization</span>)</b> 的主要價值在於將<span class="highlight">複雜的數據轉換成易於理解的圖形格式</span>。人類大腦更擅長處理視覺信息，透過圖表可以<span class="highlight">快速發現隱藏在數字中的模式、趨勢、異常值和變數間的關係</span>，從而更有效地溝通分析結果和洞察。</div>
+                 </div>
+             </div>
+
+            <!-- Question 16 -->
+            <div class="question-card" data-direction="8" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#16</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在呈現資料分析結果時，除了圖表外，還需要包含什麼來幫助他人理解？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">所有原始數據。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">模型訓練的詳細程式碼。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">清晰的標題、註解、對結果的解釋以及可能的限制說明</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">分析師的個人履歷。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">有效的<b class="chinese-term">結果呈現 (<span class="english-term">Result Presentation</span>)</b> 不僅僅是展示圖表。<span class="highlight">清晰的標題和軸標籤</span>是基礎，必要的<span class="highlight">註解</span>可以解釋圖表中的特定點或趨勢。最重要的是，需要提供<span class="highlight">對分析結果的文字解釋</span>，說明這些結果意味著什麼，以及它們是如何回答最初定義的問題的。同時，提及分析的<span class="highlight">限制或潛在偏差</span>也是負責任的做法。</div>
+                 </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#17</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">處理數據中存在的<b class="chinese-term">重複記錄 (<span class="english-term">Duplicate Records</span>)</b> 是屬於資料分析流程中的哪個階段？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料收集 (<span class="english-term">Data Collection</span>)</b></div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b></span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料探索分析 (<span class="acronym-term">EDA</span>)</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">模型建立 (<span class="english-term">Model Building</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="highlight">識別並處理重複的數據記錄</span>是<b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b> 的一項重要任務。重複記錄會導致統計分析結果失真（例如計數偏高）並影響模型訓練的效果。清理過程中需要定義如何識別重複項（基於哪些欄位判斷）以及如何處理（例如只保留一筆或合併資訊）。</div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#18</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">將連續的年齡數據轉換為「青年」、「中年」、「老年」等類別區間，這個過程稱為？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">特徵編碼 (<span class="english-term">Feature Encoding</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">特徵離散化 (<span class="english-term">Feature Discretization</span>)</b> 或 <b class="chinese-term">分箱 (<span class="english-term">Binning</span>)</b></span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">特徵選擇 (<span class="english-term">Feature Selection</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">特徵離散化 (<span class="english-term">Feature Discretization</span>)</b>，也常稱為<b class="chinese-term">分箱 (<span class="english-term">Binning</span>)</b>，是<span class="highlight">將連續的數值型特徵轉換為離散的類別型特徵</span>的過程。透過定義一系列的<b class="chinese-term">切點 (<span class="english-term">Cut-off Points</span>)</b>，將連續值劃分到不同的區間（箱子）中。這樣做有時可以簡化模型，處理非線性關係，或滿足某些演算法對輸入數據類型的要求。</div>
+                     <br>
+                     <img src="image/Feature Discretization.png" class="responsive-img">
+                 </div>
+             </div>
+
+             <!-- Question 19 -->
+             <div class="question-card" data-direction="4" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#19</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在 <span class="acronym-term">EDA</span> 中，觀察單一<b class="chinese-term">數值變數 (<span class="english-term">Numerical Variable</span>)</b> 的<b class="chinese-term">分佈形狀 (<span class="english-term">Distribution Shape</span>)</b>（例如是否為常態分佈），通常使用哪種圖表？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">散佈圖 (<span class="english-term">Scatter Plot</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">長條圖 (<span class="english-term">Bar Chart</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">直方圖 (<span class="english-term">Histogram</span>)</b></span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">折線圖 (<span class="english-term">Line Chart</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">直方圖 (<span class="english-term">Histogram</span>)</b> 是一種<span class="highlight">視覺化數值數據分佈</span>的常用圖表。它將數據範圍劃分成一系列連續的區間（<b class="chinese-term">箱 (<span class="english-term">Bins</span>)</b>），然後統計落入每個區間的數據點數量，並以長條的高度表示該數量。透過觀察直方圖的形狀，可以了解數據的集中趨勢、離散程度、是否存在偏態或多峰等特徵。</div>
+                     <br>
+                     <img src="image/Bar-chart-versus-histogram-chart.png" class="responsive-img">
+                 </div>
+             </div>
+
+            <!-- Question 20 -->
+             <div class="question-card" data-direction="1" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#20</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">從多個資料來源收集數據後，通常需要進行什麼步驟來確保數據格式一致且可供合併？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">資料轉換 (<span class="english-term">Data Transformation</span>)</b></span></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">資料抽樣 (<span class="english-term">Data Sampling</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">模型訓練 (<span class="english-term">Model Training</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">結果報告 (<span class="english-term">Result Reporting</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">在<b class="chinese-term">資料整合 (<span class="english-term">Data Integration</span>)</b> 的過程中，由於不同來源的數據可能具有不同的格式、單位、命名慣例等，因此需要進行<b class="chinese-term">資料轉換 (<span class="english-term">Data Transformation</span>)</b>。<span class="highlight">轉換的目的是將數據標準化，使其具有一致的格式和結構</span>，以便能夠順利地合併和進行後續分析。這可能包括單位換算、日期格式統一、欄位重命名、數據類型轉換等。</div>
+                 </div>
+             </div>
+
+             <!-- Remaining questions (21-30+) will cover other directions and reinforce concepts -->
+
+             <!-- Question 21 -->
+             <div class="question-card" data-direction="2" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#21</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在資料清理中，如果發現數據輸入錯誤（例如，將"台北市"誤打為"台比市"），最適合的處理方式通常是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">刪除該筆記錄。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">根據上下文或外部知識<b class="chinese-term">修正 (<span class="english-term">Correction</span>)</b>錯誤</span>。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">將"台比市"視為一個新的有效類別。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">用出現次數最多的城市名稱（眾數）取代。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">對於明顯的<span class="highlight">輸入錯誤或拼寫錯誤</span>，最理想的處理方式是進行<b class="chinese-term">修正 (<span class="english-term">Correction</span>)</b>，將其更正為正確的值。這可以利用字典、規則或上下文資訊來完成。刪除記錄會損失資訊，視為新類別或用眾數取代會引入錯誤或偏差。</div>
+                 </div>
+             </div>
+
+            <!-- Question 22 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#22</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">將原始數據（如文字）轉換成數值向量表示，以便機器學習模型處理，這屬於<b class="chinese-term">資料轉換 (<span class="english-term">Data Transformation</span>)</b> 中的哪個環節？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料清理 (<span class="english-term">Data Cleaning</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">特徵提取 (<span class="english-term">Feature Extraction</span>)</b> 或 <b class="chinese-term">向量化 (<span class="english-term">Vectorization</span>)</b></span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料抽樣 (<span class="english-term">Data Sampling</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">特徵提取 (<span class="english-term">Feature Extraction</span>)</b> 是從原始數據中自動或手動地派生出數值特徵的過程。對於文字、圖像等非數值數據，需要將其<span class="highlight">轉換（向量化, <span class="english-term">Vectorization</span>）成機器可以理解的數值形式</span>，例如使用<b class="chinese-term">詞袋模型 (<span class="english-term">Bag-of-Words</span>)</b>、<span class="acronym-term">TF-IDF (<span class="english-term">Term Frequency-Inverse Document Frequency</span>)</span> 或<b class="chinese-term">詞嵌入 (<span class="english-term">Word Embeddings</span>)</b> 將文字轉換成向量。</div>
+                     <br>
+                     <div style="font-family: Arial, sans-serif; line-height: 1.8; font-size: 16px;">
+                        
+                        <p>
+                          在數學上，<span style="color: red;">向量</span>是一組有序的數值，例如：
+                          <code>[3.5, -1.2, 0.0, 4.8]</code>。
+                        </p>
+                        <p>
+                          在<span style="color: red;">機器學習</span>中，<span style="color: red;">向量</span>常用來表示資料的
+                          <span style="color: red;">特徵</span>（<span style="color: blue;">Features</span>）。每一筆資料（例如一篇文章、一張圖片、一個用戶）
+                          都可以被轉換成一個<span style="color: red;">向量</span>，讓電腦可以「理解」並進行訓練或預測。
+                        </p>                                              
+                        <p>假設有一段文字：</p>
+                        <blockquote>AI is powerful</blockquote>
+                        <p>可以透過不同技術將文字轉成<span style="color: red;">向量</span>：</p>
+                        <ul>
+                          <li>
+                            <strong><span style="color: red;">詞袋模型</span>（<span style="color: blue;">Bag of Words, BoW</span>）</strong>：<br>
+                            建立詞彙表並計算每個詞出現的次數。<br>
+                            例如：「AI」出現 1 次、「is」1 次、「powerful」1 次 → 向量可能為 <code>[1, 1, 1]</code>。
+                          </li>
+                          <li>
+                            <strong><span style="color: red;">詞頻-逆文檔頻率</span>（<span style="color: blue;">TF-IDF</span>）</strong>：<br>
+                            根據詞語在整體語料中的重要性給予權重，減少常見詞的影響。
+                          </li>
+                          <li>
+                            <strong><span style="color: red;">詞向量模型</span>（例如 <span style="color: blue;">Word2Vec</span>, <span style="color: blue;">BERT</span>）</strong>：<br>
+                            使用語意模型將每個詞轉換為多維空間中的<span style="color: red;">向量</span>（例如 300 維），再進行整合。
+                          </li>
+                        </ul>
+                      
+                      </div>
+                      
+                 </div>
+             </div>
+
+             <!-- Question 23 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#23</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">哪種視覺化圖表適合用來顯示數據隨<b class="chinese-term">時間變化的趨勢 (<span class="english-term">Time Series Trend</span>)</b>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">盒鬚圖 (<span class="english-term">Box Plot</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">散佈圖 (<span class="english-term">Scatter Plot</span>)</b></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">折線圖 (<span class="english-term">Line Chart</span>)</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">長條圖 (<span class="english-term">Bar Chart</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">折線圖 (<span class="english-term">Line Chart</span>)</b> 通過<span class="highlight">連接一系列按時間順序排列的數據點來顯示趨勢</span>。X 軸通常表示時間，Y 軸表示要觀察的數值。它非常適合用於<span class="highlight">視覺化數據隨時間的變化模式</span>，例如股票價格、月銷售額、氣溫變化等。</div>
+                    <br>
+                    <img src="image/Line Chart.png" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+             <div class="question-card" data-direction="4" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#24</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在進行 <span class="acronym-term">EDA</span> 時，發現某個數值特徵的分佈呈現<b class="chinese-term">右偏態 (<span class="english-term">Right-skewed</span>)</b>，這通常意味著什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">大部分數值集中在較高值。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">大部分數值集中在較低值，但有少數極高的數值（長尾在右）</span>。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">數值分佈完全對稱。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">平均值小於中位數。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">右偏態 (<span class="english-term">Right-skewed</span>)</b>，也稱為<b class="chinese-term">正偏態 (<span class="english-term">Positive Skew</span>)</b>，表示<span class="highlight">數據分佈的尾部向右側（較大值方向）延伸</span>。這意味著<span class="highlight">大多數數據點集中在分佈的左側（較低值）</span>，而有少數異常高的值將平均數拉高。在右偏態分佈中，通常<b class="chinese-term">平均值 (<span class="english-term">Mean</span>)</b> 會大於<b class="chinese-term">中位數 (<span class="english-term">Median</span>)</b>，中位數又會大於<b class="chinese-term">眾數 (<span class="english-term">Mode</span>)</b>。</div>
+                     <br>
+                     <img src="image/skewness-left-right-positive-negative.png" class="responsive-img">
+                 </div>
+             </div>
+
+             <!-- Question 25 -->
+             <div class="question-card" data-direction="7" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#25</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content">在資料分析流程中，"定義問題"階段的關鍵產出通常是什麼？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">最終的預測模型。</div></div>
+                      <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">明確的分析目標和需要回答的具體問題</span>。</div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">完整的資料集。</div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">詳細的資料視覺化報告。</div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content">在開始任何數據分析之前，<span class="highlight">最重要的一步是清楚地定義要解決的業務問題或研究問題</span>。這個階段的目標是<span class="highlight">將模糊的需求轉化為具體的、可衡量的分析目標和問題</span>，這將指導後續所有資料收集、處理和分析工作。沒有明確的問題定義，分析很容易失去方向。</div>
+                  </div>
+             </div>
+
+            <!-- Question 26 -->
+            <div class="question-card" data-direction="1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#26</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">從一個非常大的資料集中選取一部分代表性樣本進行初步分析，這種方法稱為？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料整合 (<span class="english-term">Data Integration</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">資料清理 (<span class="english-term">Data Cleaning</span>)</b></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">資料抽樣 (<span class="english-term">Data Sampling</span>)</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料轉換 (<span class="english-term">Data Transformation</span>)</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">資料抽樣 (<span class="english-term">Data Sampling</span>)</b> 是<span class="highlight">從母體數據中選取一個子集（樣本）的過程</span>。在處理<b class="chinese-term">大數據 (<span class="english-term">Big Data</span>)</b> 時，由於計算資源或時間限制，可能無法對全部數據進行分析，抽樣可以讓我們用較小的成本快速獲得對數據的初步了解或進行模型測試。關鍵是要確保樣本具有代表性。</div>
+                </div>
+            </div>
+
+             <!-- Question 27 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#27</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">下列哪種情況最需要進行<b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b>？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料量過大，無法載入記憶體。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">數據變數之間的相關性過高。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">數據中包含拼寫錯誤、不一致的格式和缺失值</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">需要將類別變數轉換為數值變數。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">資料清理 (<span class="english-term">Data Cleaning</span>)</b> 的核心目的就是<span class="highlight">處理數據中的「髒」數據</span>，包括<span class="highlight">錯誤（拼寫錯誤、異常值）、格式不一致、重複記錄以及缺失值</span>等問題。選項 C 描述的情況正是典型的需要進行資料清理的場景。資料量過大可能需要抽樣或使用分佈式計算，高相關性可能需要特徵選擇，類別轉換屬於特徵編碼。</div>
+                 </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card" data-direction="7" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#28</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">一個迭代式的、強調快速交付和應對變化的<b class="chinese-term">資料分析專案管理方法 (<span class="english-term">Data Analysis Project Management Methodology</span>)</b> 是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">瀑布模型 (<span class="english-term">Waterfall Model</span>)</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">敏捷方法 (<span class="english-term">Agile Methodology</span>)</b> (例如 <span class="acronym-term">CRISP-DM</span>, <span class="acronym-term">Scrum</span>)</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">線性流程 (<span class="english-term">Linear Process</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">六標準差 (<span class="english-term">Six Sigma</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">敏捷方法 (<span class="english-term">Agile Methodology</span>)</b> 強調<span class="highlight">迭代開發、增量交付、快速回應變化以及團隊協作</span>。在資料分析和數據科學專案中，由於探索性強、需求可能不明確或易變，敏捷方法（如 <span class="acronym-term">CRISP-DM</span> - 跨行業數據挖掘標準流程，或適用於軟體開發的 <span class="acronym-term">Scrum</span>）通常比傳統的線性瀑布模型更適用。</div>
+                     <br>
+                     <img src="image/CRISP-DM.png" class="responsive-img">
+                 </div>
+             </div>
+
+             <!-- Question 29 -->
+             <div class="question-card" data-direction="8" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#29</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">將資料分析的發現與洞察，有效地傳達給非技術背景的決策者，最重要的是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">展示所有複雜的數學公式和模型參數。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">使用盡可能多的專業術語。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">使用清晰的語言和直觀的視覺化，聚焦於關鍵結論和業務影響</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅提供最終的預測數字，不加解釋。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">有效的<b class="chinese-term">溝通 (<span class="english-term">Communication</span>)</b> 是資料分析的最後一哩路。面對非技術背景的受眾，<span class="highlight">關鍵在於將複雜的分析結果轉化為易於理解的語言和視覺呈現</span>。應避免過多的技術細節和術語，<span class="highlight">重點強調分析的主要發現、這些發現對業務意味著什麼，以及基於這些發現的建議行動</span>。</div>
+                 </div>
+            </div>
+
+             <!-- Question 30 -->
+            <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#30</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在建立預測模型前，從大量潛在特徵中<span class="highlight">挑選出最相關、最有預測力</span>的特徵子集，這個過程屬於？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">特徵創建 (<span class="english-term">Feature Creation</span>)</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">特徵選擇 (<span class="english-term">Feature Selection</span>)</b></span></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">特徵縮放 (<span class="english-term">Feature Scaling</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">特徵編碼 (<span class="english-term">Feature Encoding</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">特徵選擇 (<span class="english-term">Feature Selection</span>)</b> 的目的是<span class="highlight">從原始特徵集合中選出一個最佳的子集</span>，以用於模型訓練。這樣做可以<span class="highlight">降低模型的複雜度、減少過度擬合的風險、縮短訓練時間，並可能提高模型的解釋性</span>。常用的方法包括過濾法 (<span class="english-term">Filter Methods</span>)、包裹法 (<span class="english-term">Wrapper Methods</span>) 和嵌入法 (<span class="english-term">Embedded Methods</span>)。</div>
+                     <br>
+                     <img src="image/Feature Selection.png" class="responsive-img">
+                 </div>
+            </div>
+
+
+             <!-- Message area for no results -->
+             <div id="noResultsMessage"></div>
+
+        </div> <!-- End questions-container -->
+
+        <a href="#" class="back-to-top" id="backToTop">↑</a> <!-- Changed to anchor -->
+    </div> <!-- End container -->
+
+    <script>
+        let explanationsVisible = false; // Start with explanations hidden
+        let answersVisible = true;
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // Smooth scroll for back-to-top
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter by direction (called from direction items)
+        function filterByDirection(directionNumber) {
+            document.getElementById('directionFilter').value = directionNumber === 'all' ? 'all' : String(directionNumber);
+            document.getElementById('searchInput').value = ''; // Clear search when applying direction filter
+             document.getElementById('starFilter').value = 'all'; // Reset star filter
+            filterAndSearchQuestions();
+            // Scroll to the questions container smoothly
+            const questionsContainer = document.getElementById('questionsContainer');
+            if (questionsContainer) {
+                questionsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("directionFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            // Filter as user types (removed Enter key specific check for simplicity)
+            filterAndSearchQuestions();
+        });
+
+        // Combined filter and search function
+        function filterAndSearchQuestions() {
+            let direction = document.getElementById("directionFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let questions = document.querySelectorAll(".question-card");
+            let anyVisible = false; // Track if any questions match
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            questions.forEach(function(question) {
+                const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+                const matchesStars = (stars === "all" || question.dataset.stars === stars);
+                // Search in question content, options, and explanation
+                const questionTextElement = question.querySelector('.question-content');
+                const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+                const explanationContainer = question.querySelector('.explanation-container');
+                const explanationText = explanationContainer ? explanationContainer.textContent.toLowerCase() : '';
+
+                let combinedText = '';
+                if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+                combinedText += ' ' + optionsText;
+                combinedText += ' ' + explanationText; // Include explanation in search
+
+                const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+
+                // Question must match all active criteria
+                if (matchesDirection && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+             // Display message if no questions match
+             if (noResultsMessage) {
+                 if (anyVisible) {
+                    noResultsMessage.style.display = 'none';
+                 } else {
+                    noResultsMessage.style.display = 'block';
+                    noResultsMessage.textContent = '沒有找到符合條件的題目。請嘗試調整篩選條件或搜尋關鍵字。';
+                 }
+             }
+        }
+
+        // Toggle ALL explanations visibility
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible; // Toggle the state
+            let button = document.getElementById("toggleExplanations");
+
+            explanations.forEach(function(explanation) {
+                // Only toggle explanations for currently visible questions
+                 const questionCard = explanation.closest('.question-card');
+                 if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                 }
+            });
+
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+
+         // Toggle INDIVIDUAL explanation visibility on clicking the QUESTION CONTENT
+         let questionContents = document.querySelectorAll(".question-content");
+         questionContents.forEach(function(content) {
+            // content.style.cursor = 'pointer'; // Indicate clickable - Already set in CSS
+            content.addEventListener("click", function() {
+                const questionCard = this.closest('.question-card');
+                if (!questionCard) return;
+                const explanation = questionCard.querySelector('.explanation-container');
+                if (explanation) {
+                    // Toggle individual explanation display
+                    explanation.style.display = (explanation.style.display === 'none' || explanation.style.display === '') ? 'block' : 'none';
+                    // updateGlobalToggleText(); // Optional: Update global button if needed
+                }
+            });
+         });
+
+
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+             toggleBackToTopButton();
+             updateProgressBar();
+             filterAndSearchQuestions(); // Apply initial filter/search state
+             // Set initial state for toggle button text based on the initial value of explanationsVisible
+             document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+             // Ensure explanations start hidden or visible based on initial state
+             let initialExplanations = document.querySelectorAll(".explanation-container");
+             initialExplanations.forEach(function(explanation) {
+                explanation.style.display = explanationsVisible ? "block" : "none";
+             });
+             let allOptions = document.querySelectorAll('.option-item[data-option]');
+             allOptions.forEach(function(opt) {
+                 if (opt.classList.contains('correct')) {
+                     opt.dataset.originalCorrect = 'true';
+                 } else {
+                     opt.dataset.originalCorrect = 'false';
+                 }
+             });
+         });
+
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+
+    </script>
+</body>
+</html>
