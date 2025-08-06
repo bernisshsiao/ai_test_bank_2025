@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <!-- ✔️ 新增：先隐藏 body 內容 -->
+    <style>
+        body {
+            display: none;
+        }
+    </style>
+
+    <!-- ✔️ 更新：加入安全性更高的密碼驗證 -->
     <script>
-    const correctPassword = "55556366";
+        const correctPassword = "55556366";
+        const input = prompt("請輸入密碼才能瀏覽內容");
 
-    const input = prompt("請輸入密碼才能瀏覽內容");
+        if (input === null || input !== correctPassword) {
+            document.write("<h1 style='color:red; text-align:center; margin-top:20%;'>密碼錯誤，無法瀏覽</h1>");
+            throw new Error("Wrong password or cancelled");
+        }
 
-    if (input !== correctPassword) {
-      document.body.innerHTML = "<h1 style='color:red; text-align:center;'>密碼錯誤，無法瀏覽</h1>";
-      throw new Error("Wrong password");
-    }
+        window.onload = () => {
+            document.body.style.display = "block";
+        };
     </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>AI Test Bank </title>
+
+    <!-- 你原本的 CSS 全部保留在這下 -->
     <style>
         * {
             margin: 0;
@@ -22,7 +36,7 @@
         }
         body, html {
             height: 100%;
-            overflow: hidden; /* 防止雙重滾動條 */
+            overflow: hidden;
             font-family: Arial, sans-serif;
         }
         body {
@@ -38,7 +52,7 @@
             position: fixed;
             height: 100vh;
             transition: transform 0.3s ease;
-            overflow-y: auto; /* 可滾動 */
+            overflow-y: auto;
         }
         .menu-toggle {
             display: none;
@@ -68,7 +82,6 @@
             height: 100%;
             border: none;
         }
-        /* 手機/平板時的隱藏與按鈕切換 */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -81,7 +94,6 @@
                 width: 100%;
             }
         }
-        /* 樣式修飾：標題、子標題、連結等 */
         .section-title {
             font-weight: bold;
             font-size: 1.1rem;
@@ -94,7 +106,7 @@
             font-size: 1rem;
             margin-top: 10px;
             margin-bottom: 5px;
-            padding-left: 10px; /* 適度縮排表層級 */
+            padding-left: 10px;
             color: cyan;
         }
         .sidebar a {
@@ -102,17 +114,16 @@
             color: white;
             text-decoration: none;
             padding: 8px 10px;
-            margin-left: 20px; /* 更明顯的階層縮排 */
+            margin-left: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            font-size: 0.8rem; /* 修改字體大小 */
+            font-size: 0.8rem;
         }
         .sidebar a:hover {
             background: #936915;
         }
-        /* 作用中第3層連結 (active-link) 設定為萊姆綠背景、黑色文字 */
         .sidebar a.active-link {
-            background-color: #e3b14e; /* Lime */
-            color: #000; /* 黑色文字 */
+            background-color: #e3b14e;
+            color: #000;
         }
     </style>
 </head>
@@ -426,4 +437,5 @@
 </script>
 </body>
 </html>
+
 
