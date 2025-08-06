@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <!-- ✔️ 新增：先隐藏 body 內容 -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Test Bank </title>
+
+    <!-- ✅ 先隐藏內容，防止未驗證先顯示 -->
     <style>
         body {
             display: none;
         }
     </style>
 
-    <!-- ✔️ 更新：加入安全性更高的密碼驗證 -->
+    <!-- ✅ 安全性措施：控制顯示與錯誤處理 -->
     <script>
         const correctPassword = "55556366";
         const input = prompt("請輸入密碼才能瀏覽內容");
 
-        if (input === null || input !== correctPassword) {
+        if (!input || input !== correctPassword) {
             document.write("<h1 style='color:red; text-align:center; margin-top:20%;'>密碼錯誤，無法瀏覽</h1>");
-            throw new Error("Wrong password or cancelled");
+            throw new Error("Access denied");
         }
 
-        window.onload = () => {
-            document.body.style.display = "block";
-        };
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.style.display = "flex";
+        });
     </script>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>AI Test Bank </title>
-
-    <!-- 你原本的 CSS 全部保留在這下 -->
     <style>
         * {
             margin: 0;
@@ -437,5 +436,6 @@
 </script>
 </body>
 </html>
+
 
 
