@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>iPAS+AI應用規劃師_初級_模擬試題</title>
-    <style>
+    <script>
+  const correctPassword = "55556366";
+  const input = prompt("請輸入密碼才能瀏覽內容");
+  if (input === null || input !== correctPassword) {
+    document.write("<h1 style='color:red; text-align:center; margin-top:20%;'>密碼錯誤或已取消，無法瀏覽</h1>");
+    throw new Error("Access denied");
+  }
+</script>
+<style>
         * {
             margin: 0;
             padding: 0;
