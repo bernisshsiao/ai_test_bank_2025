@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <script>
+    const correctPassword = "55556366";
+
+    const input = prompt("請輸入密碼才能瀏覽內容");
+
+    if (input !== correctPassword) {
+      document.body.innerHTML = "<h1 style='color:red; text-align:center;'>密碼錯誤，無法瀏覽</h1>";
+      throw new Error("Wrong password");
+    }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>iPAS+AI應用規劃師_初級_模擬試題</title>
+    <title>AI Test Bank </title>
     <style>
         * {
             margin: 0;
@@ -416,3 +426,4 @@
 </script>
 </body>
 </html>
+
