@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>iPAS+AI應用規劃師_初級_模擬試題</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            overflow: hidden; /* 防止雙重滾動條 */
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+        }
+        .sidebar {
+            width: 300px;
+            background: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            transition: transform 0.3s ease;
+            overflow-y: auto; /* 可滾動 */
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .content {
+            margin-left: 300px;
+            width: calc(100% - 300px);
+            height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* 手機/平板時的隱藏與按鈕切換 */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+        /* 樣式修飾：標題、子標題、連結等 */
+        .section-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: yellow;
+        }
+        .section-subtitle {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding-left: 10px; /* 適度縮排表層級 */
+            color: cyan;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 8px 10px;
+            margin-left: 20px; /* 更明顯的階層縮排 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem; /* 修改字體大小 */
+        }
+        .sidebar a:hover {
+            background: #936915;
+        }
+        /* 作用中第3層連結 (active-link) 設定為萊姆綠背景、黑色文字 */
+        .sidebar a.active-link {
+            background-color: #e3b14e; /* Lime */
+            color: #000; /* 黑色文字 */
+        }
+    </style>
+</head>
+<body>
+
+<!-- 手機或窄螢幕時可點的按鈕 -->
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<div class="sidebar" id="sidebar">
+    <!-- 首頁連結 -->    
+    <a href="topic/home.html" target="content-frame">
+        回到首頁
+    </a>
+    <a href="topic/preface_001_hero.html" target="content-frame">
+        英雄榜
+    </a>
+    <a href="topic/preface_002_exam_guide_備考指南.html" target="content-frame">
+        學習與備考指南
+    </a>
+    <a href="topic/preface_003_20250610_iPAS AI應用規劃師能力鑑定歷次考試成果分析.html" target="content-frame">
+        歷次考試成果分析
+    </a>
+    <a href="topic/preface_004_20250615_2025年流行AI工具彙總表_Sunny.html" target="content-frame">
+        2025年流行AI工具彙總表
+    </a>
+
+    <a href="topic/preface_005_trend.html" target="content-frame">
+        最新熱門應用全解析
+    </a>
+
+    <a href="topic/preface_006_AI 核心術語 50 選.html" target="content-frame">
+       AI 核心術語 50 選
+    </a>
+    
+
+    <a href="https://www.youtube.com/@YibiMS" target="_blank">
+        Youtube 憶筆 / M.S. (用聽的學AI)
+    </a>
+
+    <a href="topic/online_exam_request.html" target="content-frame">
+        線上模擬測驗說明 (帳號申請)
+    </a>
+
+    <a href="https://exam.kt.idv.tw/" target="_blank">
+        線上模擬測驗
+    </a>
+
+    
+
+    
+    <!-- L11 人工智慧基礎概論 -->
+    <div class="section-title">L11 人工智慧基礎概論：</div>
+
+    <!-- L111 人工智慧概念 -->
+    <div class="section-subtitle">L111 人工智慧概念</div>
+    <a href="topic/L11101_AI的定義與分類_KP.html" target="content-frame">
+        L11101 AI的定義與分類(重點)
+    </a>
+    <a href="topic/L11101 AI的定義與分類_exam.html" target="content-frame">
+        L11101 AI的定義與分類 (題庫)
+    </a>
+    <a href="topic/L11102_AI治理概念_KP.html" target="content-frame">
+        L11102 AI治理概念(重點)
+    </a>
+    <a href="topic/L11102 AI治理概念_exam.html" target="content-frame">
+        L11102 AI治理概念 (題庫)
+    </a>
+
+    <!-- L112 資料處理與分析概念 -->
+    <div class="section-subtitle">L112 資料處理與分析概念</div>
+    <a href="topic/L11201_資料基本概念與來源_KP.html" target="content-frame">
+        L11201 資料基本概念與來源(重點)
+    </a>
+    <a href="topic/L11201 資料基本概念與來源_exam.html" target="content-frame">
+        L11201 資料基本概念與來源 (題庫)
+    </a>
+    <a href="topic/L11202_資料整理與分析流程_KP.html" target="content-frame">
+        L11202 資料整理與分析流程(重點)
+    </a>
+    <a href="topic/L11202 資料整理與分析流程_exam.html" target="content-frame">
+        L11202 資料整理與分析流程 (題庫)
+    </a>
+    <a href="topic/L11203_資料隱私與安全_KP.html" target="content-frame">
+        L11203 資料隱私與安全(重點)
+    </a>
+    <a href="topic/L11203 資料隱私與安全_exam.html" target="content-frame">
+        L11203 資料隱私與安全 (題庫)
+    </a>
+
+    <!-- L113 機器學習概念 -->
+    <div class="section-subtitle">L113 機器學習概念</div>
+    <a href="topic/L11301_機器學習基本原理-1_KP.html" target="content-frame">
+        L11301 機器學習基本原理-1(重點)
+    </a>
+    <a href="topic/L11301 機器學習基本原理-1_exam.html" target="content-frame">
+        L11301 機器學習基本原理-1 (題庫)
+    </a>
+    <a href="topic/L11301_機器學習基本原理-2_KP.html" target="content-frame">
+        L11301 機器學習基本原理-2(重點)
+    </a>
+    <a href="topic/L11301 機器學習基本原理-2_exam.html" target="content-frame">
+        L11301 機器學習基本原理-2 (題庫)
+    </a>
+    <a href="topic/L11302_常見的機器學習模型-1_KP.html" target="content-frame">
+        L11302 常見的機器學習模型-1(重點)
+    </a>
+    <a href="topic/L11302 常見的機器學習模型-1_exam.html" target="content-frame">
+        L11302 常見的機器學習模型-1 (題庫)
+    </a>
+    <a href="topic/L11302_常見的機器學習模型-2_KP.html" target="content-frame">
+        L11302 常見的機器學習模型-2(重點)
+    </a>
+    <a href="topic/L11302 常見的機器學習模型-2_exam.html" target="content-frame">
+        L11302 常見的機器學習模型-2 (題庫)
+    </a>
+
+    <!-- L114 鑑別式AI與生成式AI概念 -->
+    <div class="section-subtitle">L114 鑑別式AI與生成式AI概念</div>
+    <a href="topic/L11401_鑑別式AI與生成式AI的基本原理_KP.html" target="content-frame">
+        L11401 鑑別式AI與生成式AI的基本原理(重點)
+    </a>
+    <a href="topic/L11401 鑑別式AI與生成式AI的基本原理_exam.html" target="content-frame">
+        L11401 鑑別式AI與生成式AI的基本原理 (題庫)
+    </a>
+    <a href="topic/L11402_鑑別式AI與生成式AI的整合應用_KP.html" target="content-frame">
+        L11402 鑑別式AI與生成式AI的整合應用(重點)
+    </a>
+    <a href="topic/L11402 鑑別式AI與生成式AI的整合應用_exam.html" target="content-frame">
+        L11402 鑑別式AI與生成式AI的整合應用 (題庫)
+    </a>
+    <!-- L115 小道消息 (第二層) -->
+    <div class="section-subtitle">L115 (學習指引/考前指引)</div>
+    <a href="topic/guide1_001_exam.html" target="content-frame">
+        考前指引(題庫)
+    </a>
+    <a href="topic/guide1_001_KP.html" target="content-frame">
+        考前指引(重點)
+    </a>
+
+    <!-- L12 生成式AI應用與規劃 -->
+    <div class="section-title">L12 生成式AI應用與規劃：</div>
+
+    <!-- L121 No Code / Low Code概念 -->
+    <div class="section-subtitle">L121 No Code / Low Code概念</div>
+    <a href="topic/L12101_No_Code_Low_Code的基本概念_KP.html" target="content-frame">
+        L12101 No Code / Low Code的基本概念(重點)
+    </a>
+    <a href="topic/L12101 No Code  Low Code的基本概念_exam.html" target="content-frame">
+        L12101 No Code / Low Code的基本概念 (題庫)
+    </a>
+    <a href="topic/L12102_No_Code_Low_Code的優勢與限制_KP.html" target="content-frame">
+        L12102 No Code / Low Code的優勢與限制(重點)
+    </a>
+    <a href="topic/L12102 No Code  Low Code的優勢與限制_exam.html" target="content-frame">
+        L12102 No Code / Low Code的優勢與限制 (題庫)
+    </a>
+
+    <!-- L122 生成式AI應用領域與工具使用 -->
+    <div class="section-subtitle">L122 生成式AI應用領域與工具使用</div>
+    <a href="topic/L12201_生成式AI應用領域與常見工具_KP.html" target="content-frame">
+        L12201 生成式AI應用領域與常見工具(重點)
+    </a>
+    <a href="topic/L12201 生成式AI應用領域與常見工具_exam.html" target="content-frame">
+        L12201 生成式AI應用領域與常見工具 (題庫)
+    </a>
+    <a href="topic/L12202_如何善用生成式AI工具_KP.html" target="content-frame">
+        L12202 如何善用生成式AI工具(重點)
+    </a>
+    <a href="topic/L12202 如何善用生成式AI工具_exam.html" target="content-frame">
+        L12202 如何善用生成式AI工具 (題庫)
+    </a>
+
+    <!-- L123 生成式AI導入評估規劃 -->
+    <div class="section-subtitle">L123 生成式AI導入評估規劃</div>
+    <a href="topic/L12301_生成式AI導入評估_KP.html" target="content-frame">
+        L12301 生成式AI導入評估(重點)
+    </a>
+    <a href="topic/L12301 生成式AI導入評估_exam.html" target="content-frame">
+        L12301 生成式AI導入評估 (題庫)
+    </a>
+    <a href="topic/L12302_生成式AI導入規劃_KP.html" target="content-frame">
+        L12302 生成式AI導入規劃(重點)
+    </a>
+    <a href="topic/L12302 生成式AI導入規劃_exam.html" target="content-frame">
+        L12302 生成式AI導入規劃 (題庫)
+    </a>
+    <a href="topic/L12303_生成式AI風險管理_KP.html" target="content-frame">
+        L12303 生成式AI風險管理(重點)
+    </a>
+    <a href="topic/L12303 生成式AI風險管理_exam.html" target="content-frame">
+        L12303 生成式AI風險管理 (題庫)
+    </a>
+    <!-- L124 小道消息 (第二層) -->
+    <div class="section-subtitle">L124 (學習指引/考前指引)</div>
+    <a href="topic/guide2_001_exam.html" target="content-frame">
+        小道消息001(題庫)
+    </a>
+    <a href="topic/guide2_001_KP.html" target="content-frame">
+        小道消息001(重點)
+    </a>
+    <!-- L124 官方樣題 (第二層) -->
+    <div class="section-subtitle">L125 官方樣題</div>
+    <a href="topic/202504_樣題_exam.html" target="content-frame">
+        官方 202504 樣題
+    </a>
+    
+    <!-- L12 生成式AI應用與規劃 -->
+    <div class="section-title">經典回顧 ( 考古題 )：</div>    
+    <a href="topic/past_exam_001.html" target="content-frame">
+        經典回顧卷001
+    </a>
+    <a href="topic/past_exam_002.html" target="content-frame">
+        經典回顧卷002
+    </a>    
+    <a href="topic/製造產業AI應用三日班 學員課後評量.html" target="content-frame">
+        20250426_製造產業AI應用三日班 學員課後評量
+    </a>
+    <a href="topic/產發署50題.html" target="content-frame">
+        20250427_產發署50題
+    </a>
+    <div class="section-title">模擬考：</div>    
+    <a href="topic/模擬考_001.html" target="content-frame">
+        模擬考_001.html
+    </a>
+    <div class="section-title">參考</div>
+    <a href="topic/金融業運用人工智慧指引_KP.html" target="content-frame">
+        金融業運用人工智慧指引 (重點)
+    </a>
+    <a href="topic/經濟部產業發展署_AI 導入指引_KP.html" target="content-frame">
+        經濟部產業發展署_AI 導入指引 (重點)
+    </a>
+    <a href="topic/數位發展部公部門人工智慧應用參考手冊_KP.html" target="content-frame">
+        數位發展部公部門人工智慧應用參考手冊 (重點)
+    </a>
+    <a href="topic/EU AI Act_KP.html" target="content-frame">
+        歐盟人工智慧法案 (重點)
+    </a>
+    <a href="topic/謝邦彥、蘇志雄上課講義之重點整理.html" target="content-frame">
+        iPAS AI應用規劃師 謝邦彥、蘇志雄上課講義之重點整理
+    </a>
+    <div class="section-subtitle">經典回顧(考古題)</div>
+    <a href="topic/past_exam_001_KP.html" target="content-frame">
+        經典回顧卷001 (114/03/22) (重點)
+    </a>
+    <a href="topic/past_exam_002_KP.html" target="content-frame">
+        經典回顧卷002 (114/05/03) (重點)
+    </a>
+    <div class="section-title">展望未來 ( 中級內容 )：</div> 
+    <a href="topic/L21101_自然語言處理技術與應用_KP.html" target="content-frame">
+        L21101_自然語言處理技術與應用 (重點)
+    </a>   
+    <a href="topic/L21101_自然語言處理技術與應用_exam.html" target="content-frame">
+        L21101_自然語言處理技術與應用 (題庫)
+    </a>
+    <a href="topic/L21201_AI導入評估_KP.html" target="content-frame">
+        L21201_AI導入評估 (重點)
+    </a>
+    <a href="topic/L21201_AI導入評估_exam.html" target="content-frame">
+        L21201_AI導入評估 (題庫)
+    </a>
+    <a href="topic/L22101_敘述性統計與資料摘要技術_exam.html" target="content-frame">
+        L22101_敘述性統計與資料摘要技術 (題庫)
+    </a>
+    <a href="topic/L22201_數據收集與清理_exam.html" target="content-frame">
+        L22201_數據收集與清理 (題庫)
+    </a>
+    <a href="topic/L22401_大數據與機器學習_exam.html" target="content-frame">
+        L22401_大數據與機器學習 (題庫)
+    </a>
+    <a href="topic/L23201_機器學習原理與技術_exam.html" target="content-frame">
+        L23201_機器學習原理與技術 (題庫)
+    </a>
+    <a href="topic/L23301_數據準備與特徵工程_exam.html" target="content-frame">
+        L23301_數據準備與特徵工程 (題庫)
+    </a>
+    <a href="topic/L23401_數據隱私、安全與合規_exam.html" target="content-frame">
+        L23401_數據隱私、安全與合規 (題庫)
+    </a>
+</div>
+
+<div class="content">
+    <!-- 預設載入 L11101 AI的定義與分類.html -->
+    <iframe name="content-frame" src="topic/home.html"></iframe>
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    // 等網頁載完後，替所有 target="content-frame" 的連結新增「點擊後高亮」功能
+    document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('.sidebar a[target="content-frame"]');
+        
+        // 1. 預設把「L11101 AI的定義與分類.html」連結標記為作用中
+        const defaultLink = document.querySelector('.sidebar a[href="topic/home.html"]');
+        if (defaultLink) {
+            defaultLink.classList.add('active-link');
+        }
+
+        // 2. 當使用者點擊任何第3層連結 (即含 target="content-frame") 時，高亮當前連結
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                // 移除所有連結的 active-link
+                links.forEach(l => l.classList.remove('active-link'));
+                // 只為被點擊的連結新增 active-link
+                this.classList.add('active-link');
+            });
+        });
+    });
+</script>
+</body>
+</html>
