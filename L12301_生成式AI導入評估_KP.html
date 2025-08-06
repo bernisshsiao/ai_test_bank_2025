@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 考試重點整理 - L12301 生成式AI導入評估</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+         /* Chinese Terminology: Blue bold */
+        .chinese-term { color: #0000FF; font-weight: bold; }
+        /* English Abbreviation: Purple bold */
+        .english-abbr { color: #800080; font-weight: bold; }
+        /* English Full Name: Red bold */
+        .english-fullname { color: #FF0000; font-weight: bold; }
+        /* Keyword Highlighting: Light yellow background */
+        .highlight { background-color: #ffff0030; }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 考試重點</h1>
+            <div>L12301 生成式AI導入評估</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">評估導入的必要性與目的</option>
+                    <option value="2">場景與問題評估</option>
+                    <option value="3">資料狀態評估</option>
+                    <option value="4">資源與能力評估</option>
+                    <option value="5">技術與工具評估</option>
+                    <option value="6">風險與效益評估</option>
+                    <option value="7">導入模式與可行性評估</option>
+                    <option value="8">衡量指標與驗收標準評估</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">評估導入的必要性與目的</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">場景與問題評估</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">資料狀態評估</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">資源與能力評估</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">技術與工具評估</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">風險與效益評估</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">導入模式與可行性評估</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">衡量指標與驗收標準評估</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">導入生成式AI</span>的<span class="chinese-term">必要性</span>：為何需要<span class="english-abbr">GenAI</span>？
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        導入<span class="english-abbr">GenAI</span> (<span class="english-fullname">Generative Artificial Intelligence</span>) 前，<span class="highlight">首要評估是否真的需要這項技術</span>。應從<span class="highlight">組織的業務目標、策略方向出發</span>，思考<span class="english-abbr">GenAI</span>能帶來哪些<span class="highlight">獨特價值</span>（例如：自動生成內容、提升創意、改善人機互動），以及<span class="highlight">現有工具或流程是否無法滿足需求</span>。避免<span class="highlight">為導入而導入</span>，確保技術應用能解決實際問題或創造機會。(<span class="highlight">公部門手冊P18-19; 製造業指引P21</span>)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        定義清晰的<span class="chinese-term">導入目標</span>與<span class="chinese-term">預期成果</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        在評估階段，必須<span class="highlight">明確定義導入<span class="english-abbr">GenAI</span>想要達成的具體目標</span>。目標應該是<span class="highlight">可衡量的</span>（例如：減少客服回覆時間20%、每月自動生成新聞稿5篇、提升設計提案多樣性30%）。清晰的目標有助於<span class="highlight">聚焦資源、評估效益，並作為後續衡量專案成功的依據</span>。(<span class="highlight">公部門手冊P24; 製造業指引P20, P22; 金融業指引P4</span>)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">應用場景</span>的<span class="chinese-term">適合性</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        並非所有問題都適合用<span class="english-abbr">GenAI</span>解決。需<span class="highlight">評估目標應用場景的特性</span>，例如：是否涉及<span class="highlight">創意生成、自然語言處理、內容摘要、程式碼輔助</span>等<span class="english-abbr">GenAI</span>擅長的任務？<span class="highlight">場景的複雜度、對精確度的要求、容錯率</span>等都是評估重點。應選擇<span class="highlight">能發揮<span class="english-abbr">GenAI</span>優勢且風險可控</span>的場景。(<span class="highlight">公部門手冊P22-23; 製造業指引P22</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        分析<span class="chinese-term">現有流程</span>與<span class="chinese-term">痛點</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        深入了解<span class="highlight">當前與目標場景相關的工作流程</span>，識別其中的<span class="highlight">瓶頸、效率低落、人力密集或易出錯的環節</span>（即<span class="chinese-term">痛點</span>）。評估<span class="english-abbr">GenAI</span>技術能在哪些環節<span class="highlight">帶來改進或自動化</span>，以<span class="highlight">量化潛在的效益</span>。(<span class="highlight">公部門手冊P22; 製造業指引P23</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">資料</span>的<span class="chinese-term">可用性</span>與<span class="chinese-term">品質</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="english-abbr">GenAI</span>的表現<span class="highlight">高度依賴訓練資料</span>（對於需要微調或從頭訓練的模型）或<span class="highlight">用於提供上下文的資料</span>（例如 <span class="english-abbr">RAG</span> - <span class="english-fullname">Retrieval-Augmented Generation</span>）。評估階段需確認：1) <span class="highlight">是否有足夠數量、與任務相關的資料</span>？ 2) <span class="highlight">資料是否準確、完整、無偏見</span>？ 3) <span class="highlight">資料的格式是否適合模型使用</span>？<span class="highlight">資料的缺乏或品質不佳是導入失敗的常見原因</span>。(<span class="highlight">公部門手冊P27-28; 製造業指引P25, P44; 金融業指引P17</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 6 -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">資料隱私</span>與<span class="chinese-term">合規性</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        評估所需資料<span class="highlight">是否涉及<span class="chinese-term">個人可識別資訊</span> (<span class="english-abbr">PII</span>) 或其他敏感資訊</span>？資料的<span class="highlight">收集、儲存、處理和使用是否符合<span class="chinese-term">個資法</span>、<span class="chinese-term">資安法</span>及相關行業規範</span>？若使用<span class="highlight">第三方模型或平台，需評估其資料處理政策</span>。(<span class="highlight">公部門手冊P27, P76; 金融業指引P13; 製造業指引P44</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 7 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">組織內部能力</span>：<span class="chinese-term">技術</span>與<span class="chinese-term">人才</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        檢視組織<span class="highlight">是否具備導入與運營<span class="english-abbr">GenAI</span>所需的技術基礎設施</span>（如運算資源、儲存空間、網路環境）與<span class="highlight">專業人才</span>（如<span class="chinese-term">資料科學家</span>、<span class="chinese-term">AI工程師</span>、<span class="chinese-term">領域專家</span>）。若能力不足，需評估<span class="highlight">是否需要外部支援、人才招募或內部培訓</span>。(<span class="highlight">公部門手冊P50-51; 製造業指引P25</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 8 -->
+            <div class="focus-card" data-category="4" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">預算</span>與<span class="chinese-term">資源投入</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        初步估算導入<span class="english-abbr">GenAI</span>所需的<span class="highlight">總體成本</span>，包括<span class="highlight">技術採購/開發、資料準備、基礎設施建置/租用、人才成本、維運成本</span>等。<span class="highlight">評估組織是否有足夠的預算支持</span>，並將其納入整體資源規劃。(<span class="highlight">公部門手冊P34; 製造業指引P25, P47-48</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 9 -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#9</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">技術方案</span>：<span class="chinese-term">模型選擇</span>、<span class="chinese-term">平台</span>與<span class="chinese-term">工具</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        根據應用場景和目標，<span class="highlight">初步評估可能採用的<span class="english-abbr">GenAI</span>模型類型</span>（如<span class="english-abbr">LLM</span>、擴散模型等）、<span class="highlight">技術平台</span>（雲端 vs. 地端）、以及<span class="highlight">開發與部署工具</span>。<span class="highlight">需考量技術的成熟度、效能、成本、可擴展性及與現有系統的整合性</span>。(<span class="highlight">公部門手冊P44-47; 製造業指引P25-26</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 10 -->
+            <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#10</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">No Code/Low Code</span>方案的可行性
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        對於<span class="highlight">技術資源有限或希望快速驗證概念</span>的組織，可評估使用<span class="chinese-term">無程式碼</span> (<span class="english-fullname">No Code</span>) 或<span class="chinese-term">低程式碼</span> (<span class="english-fullname">Low Code</span>) 的<span class="english-abbr">GenAI</span>平台。<評估重點在於<span class="highlight">這些平台的功能是否滿足需求、客製化彈性、成本以及供應商的可靠性</span>。(<span class="highlight">課程規劃書L121</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 11 -->
+            <div class="focus-card" data-category="6" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#11</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">風險評估</span>：識別潛在<span class="chinese-term">技術</span>、<span class="chinese-term">倫理</span>、<span class="chinese-term">安全</span>風險
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        系統性地<span class="highlight">識別導入<span class="english-abbr">GenAI</span>可能伴隨的各種風險</span>，包括：
+                        <ul>
+                            <li><span class="chinese-term">技術風險</span>：模型效能不佳、<span class="chinese-term">幻覺</span>、整合困難。</li>
+                            <li><span class="chinese-term">倫理風險</span>：<span class="chinese-term">偏見</span>與<span class="chinese-term">歧視</span>、缺乏透明度、影響就業。</li>
+                            <li><span class="chinese-term">安全風險</span>：<span class="chinese-term">資料外洩</span>、<span class="chinese-term">提示注入</span>、惡意使用、<span class="chinese-term">智財權</span>侵犯。</li>
+                            <li><span class="chinese-term">營運風險</span>：成本超支、專案延遲、使用者接受度低。</li>
+                        </ul>
+                        (<span class="highlight">課程規劃書L123; 公部門手冊P69; 金融業指引P4</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 12 -->
+            <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#12</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">潛在效益</span>與<span class="chinese-term">投資回報</span> (<span class="english-abbr">ROI</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        除了風險，也要<span class="highlight">評估導入<span class="english-abbr">GenAI</span>可能帶來的正面效益</span>，如<span class="highlight">提升生產力、降低營運成本、改善決策品質、增強創新能力</span>等。嘗試<span class="highlight">量化這些效益</span>，並與預估成本進行比較，進行初步的<span class="chinese-term">投資回報率</span> (<span class="english-abbr">ROI</span> - <span class="english-fullname">Return on Investment</span>) 評估，判斷專案的經濟價值。(<span class="highlight">製造業指引P29, P47, P51-52</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 13 -->
+            <div class="focus-card" data-category="7" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#13</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估不同的<span class="chinese-term">導入模式</span>與<span class="chinese-term">可行性</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        綜合考量目標、資源、風險、技術等因素，<span class="highlight">評估不同導入模式</span>（自建、採購、合作、使用現有服務等）的<span class="highlight">優劣與可行性</span>。<span class="highlight">選擇最適合組織現況與專案需求的導入路徑</span>。例如，對於核心業務或涉及敏感資料的應用，可能傾向自建或嚴格控管的合作模式。(<span class="highlight">公部門手冊P33-36; 製造業指引P26</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 14 -->
+            <div class="focus-card" data-category="7" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#14</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">概念性驗證</span> (<span class="english-abbr">PoC</span>) / <span class="chinese-term">試點計畫</span>的評估
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        如果決定進行<span class="chinese-term">PoC</span>或<span class="chinese-term">試點計畫</span>，需要<span class="highlight">明確定義其評估標準和成功條件</span>。<span class="highlight">評估重點應放在驗證核心技術的可行性、初步效益的展現，以及找出放大導入時可能遇到的挑戰</span>，而非追求完美的系統。(<span class="highlight">製造業指引P49</span>)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 15 -->
+            <div class="focus-card" data-category="8" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#15</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        建立<span class="chinese-term">衡量指標</span> (<span class="english-abbr">Metrics</span>) 與<span class="chinese-term">驗收標準</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        基於導入目標與預期效益，<span class="highlight">設定具體的、可量化的衡量指標</span>，用於追蹤專案進度與評估最終成效。同時，<span class="highlight">明確定義專案的驗收標準</span>，讓所有利害關係人對於「成功」有共同的理解。這些指標與標準應在評估階段就開始構思。(<span class="highlight">公部門手冊P59-61; 製造業指引P40, P43, P54, P56</span>)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 16 -->
+            <div class="focus-card" data-category="8" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#16</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        評估<span class="chinese-term">溝通計畫</span>與<span class="chinese-term">變革管理</span>需求
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        評估導入<span class="english-abbr">GenAI</span><span class="highlight">對組織內部流程和人員可能帶來的改變</span>。初步<span class="highlight">規劃溝通策略</span>，讓相關人員了解導入的目的、效益與影響。<span class="highlight">評估是否需要相應的變革管理措施</span>（如：教育訓練、流程調整），以提高使用者接受度並確保順利過渡。(<span class="highlight">公部門手冊P50, P55; 製造業指引P41</span>)
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

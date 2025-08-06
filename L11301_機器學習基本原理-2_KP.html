@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>L11301 機器學習基本原理</title>
+<style>
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #5e35b1;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7c4dff;
+        }
+        .point {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f5f0ff;
+            border-left: 5px solid #7c4dff;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .point-title {
+            color: #4527a0;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .highlight {
+            background-color: #d1c4e9;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .important {
+            color: #d50000;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2em;
+            font-size: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background-color: #3f51b5;
+            color: #fff;
+            text-align: left;
+            padding: 14px;
+            font-weight: 600;
+        }
+
+        td {
+            background-color: #fafafa;
+            padding: 14px;
+            vertical-align: top;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover td {
+            background-color: #f0f4ff;
+        }
+
+        .red {
+            color: #d32f2f; /* 深紅色 */
+            font-weight: bold;
+        }
+
+        .blue {
+            color: #1976d2; /* 深藍色 */
+            font-weight: bold;
+        }
+
+        body {
+            font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+            line-height: 1.8;
+            background-color: #fff;
+            color: #333;
+            padding: 2em;
+        }
+
+        .red { color: red; font-weight: bold; }
+        .blue { color: blue; font-weight: bold; }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .point {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<h1>L11301 機器學習基本原理</h1>
+<div class="point">
+<div class="point-title">1. 機器學習的定義：</div>
+            機器學習是人工智慧的一個分支，研究如何使用算法和統計模型，使計算機系統能夠從資料中學習模式和規則，並在沒有明確編程的情況下執行特定任務。
+            
+
+            
+        </div>
+<div class="point">
+<div class="point-title">2. 機器學習與傳統編程的區別：</div>
+            傳統編程是由人類編寫明確的規則和指令，計算機按照這些規則執行；而機器學習是計算機從資料中自動學習規則和模式，然後應用這些學到的規則來解決問題。
+        </div>
+<div class="point">
+<div class="point-title">3. 機器學習的目標：</div>
+            機器學習的主要目標是開發能夠從經驗（資料）中學習的算法，使系統能夠自動改進性能，並在新的、未見過的資料上做出準確的預測或決策。
+        </div>
+<div class="point">
+<div class="point-title">4. 機器學習的基本流程：</div>
+            機器學習的基本流程包括資料收集、資料預處理、特徵工程、模型選擇、模型訓練、模型評估和模型部署，是一個迭代優化的過程。
+        </div>
+<div class="point">
+<div class="point-title">5. 機器學習的三大類型：</div>
+            機器學習主要分為三大類型：監督式學習（有標籤資料）、非監督式學習（無標籤資料）和強化學習（通過獎懲機制學習），每種類型適用於不同的問題和場景。
+            <img alt="Categories of Machine Learning" class="responsive-img" src="image/categories of ML.jpg"/>
+</div>
+<div class="point">
+<div class="point-title">6. 監督式學習（Supervised Learning）：</div>
+            監督式學習是使用帶有標籤（正確答案）的訓練資料來訓練模型，使模型能夠學習輸入和輸出之間的映射關係，常用於分類和回歸問題。
+            <img alt="Supervised and Unsupervised Learning" class="responsive-img" src="image/Supervised_and_unsupervised_learning.png"/>
+            <table>
+                <tr>
+                    <th>資料有無標註</th>
+                    <th>類型</th>
+                    <th>常用演算法</th>
+                </tr>
+                <tr>
+                    <td>有</td>
+                    <td>
+                        🔹回歸（Regression）<br>
+                        🔹分類（Classification）
+                    </td>
+                    <td>
+                        <strong>回歸：</strong><br>
+                        • 線性回歸（<span class="red">Linear Regression</span>）<br>
+                        • 邏輯回歸（<span class="red">Logistic Regression</span>）<br>
+                        • 支援向量回歸（<span class="red">Support Vector Regression</span>，<span class="blue">SVR</span>)<br><br>
+                        <strong>分類：</strong><br>
+                        • 決策樹（<span class="red">Decision Tree</span>）<br>
+                        • 隨機森林（<span class="red">Random Forest</span>）<br>
+                        • 梯度提升機（<span class="red">Gradient Boosting Machine</span>，<span class="blue">GBM</span>）<br>
+                        • 極限梯度提升（<span class="red">Extreme Gradient Boosting</span>，<span class="blue">XGBoost</span>）<br>
+                        • 神經網路（<span class="red">Neural Network</span>）<br>
+                        • K 最近鄰（<span class="red">K-Nearest Neighbors</span>，<span class="blue">KNN</span>）<br>
+                        • 支援向量機（<span class="red">Support Vector Machine</span>，<span class="blue">SVM</span>）<br>
+                        • 貝氏分類器（<span class="red">Naive Bayes Classifier</span>）
+                    </td>
+                </tr>
+            </table>
+</div>
+<div class="point">
+<div class="point-title">7. 非監督式學習（Unsupervised Learning）：</div>
+            非監督式學習是使用沒有標籤的資料來訓練模型，目的是發現資料中的隱藏結構、模式或關係，常用於聚類、降維和異常檢測。            
+            <table>
+                <tr>
+                    <th>資料有無標註</th>
+                    <th>類型</th>
+                    <th>常用演算法</th>
+                </tr>
+                <tr>
+                    <td>無</td>
+                    <td>
+                        🔹聚類（Clustering）<br>
+                        🔹關聯（Association）<br>
+                        🔹降維（Dimensionality Reduction）
+                    </td>
+                    <td>
+                        <strong>聚類：</strong><br>
+                        • K 平均（<span class="red">K-Means Clustering</span>）<br>
+                        • 層次式聚類（<span class="red">Hierarchical Clustering</span>）<br>
+                        • DBSCAN（<span class="red">Density-Based Spatial Clustering of Applications with Noise</span>）<br><br>
+                        <strong>關聯：</strong><br>
+                        • 關聯規則學習（<span class="red">Association Rule Learning</span>）<br>
+                        • Apriori 演算法（<span class="red">Apriori Algorithm</span>）<br>
+                        • Eclat 演算法（<span class="red">Eclat Algorithm</span>）<br><br>
+                        <strong>降維：</strong><br>
+                        • 主成分分析（<span class="red">Principal Component Analysis</span>，<span class="blue">PCA</span>）<br>
+                        • 線性判別分析（<span class="red">Linear Discriminant Analysis</span>，<span class="blue">LDA</span>）<br>
+                        • t-SNE（<span class="red">t-distributed Stochastic Neighbor Embedding</span>）<br>
+                        • 自編碼器（<span class="red">Autoencoder</span>）
+                    </td>
+                </tr>
+            </table>
+        </div>
+<div class="point">
+<div class="point-title">8. 半監督式學習（Semi-supervised Learning）：</div>
+            半監督式學習結合了監督式和非監督式學習的特點，使用少量標籤資料和大量無標籤資料進行訓練，適用於標籤資料獲取成本高的情況。
+        </div>
+<div class="point">
+<div class="point-title">9. 強化學習（Reinforcement Learning）：</div>
+            強化學習是通過與環境互動，根據獎勵或懲罰信號來學習最優策略的方法，適用於序列決策問題，如遊戲、機器人控制和自動駕駛。
+            <img alt="Reinforcement Learning" class="responsive-img" src="image/Reinforcement Learning.jpg"/>
+</div>
+<div class="point">
+<div class="point-title">10. 機器學習的應用領域：</div>
+            機器學習廣泛應用於圖像識別、語音識別、自然語言處理、推薦系統、金融風控、醫療診斷、自動駕駛等領域，解決各種複雜問題。
+        </div>
+<div class="point">
+<div class="point-title">11. 特徵（Feature）的概念：</div>
+            特徵是描述資料樣本的屬性或特性，是機器學習模型的輸入變量，好的特徵對模型性能至關重要，特徵選擇和工程是機器學習的關鍵步驟。
+        </div>
+<div class="point">
+<div class="point-title">12. 特徵工程（Feature Engineering）：</div>
+            特徵工程是從原始資料中提取、選擇和轉換特徵的過程，目的是創建能夠提高模型性能的特徵集，包括特徵創建、特徵選擇和特徵縮放等步驟。
+        </div>
+<div class="point">
+<div class="point-title">13. 特徵選擇（Feature Selection）：</div>
+            特徵選擇是從眾多特徵中選擇最相關和最有用的特徵子集的過程，可以減少維度、提高模型性能、減少過擬合和縮短訓練時間。
+            <img alt="Feature Selection" class="responsive-img" src="image/feature selection.png"/>
+</div>
+<div class="point">
+<div class="point-title">14. 特徵縮放（Feature Scaling）：</div>
+            特徵縮放是將不同尺度的特徵調整到相似範圍的過程，常用方法包括標準化（Z-score標準化）和歸一化（Min-Max縮放），對於許多機器學習算法（如梯度下降）至關重要。
+            <img class="responsive-img" src="image/Standardization and Normalization for feature scaling.webp"/>
+</div>
+<div class="point">
+<div class="point-title">15. 資料預處理（Data Preprocessing）：</div>
+            資料預處理是將原始資料轉換為適合機器學習算法的形式的過程，包括資料清洗、缺失值處理、異常值處理、編碼、特徵縮放等步驟，是機器學習流程的重要環節。
+        </div>
+<div class="point">
+<div class="point-title">16. 訓練集、驗證集和測試集：</div>
+            機器學習中通常將資料分為訓練集（用於模型訓練）、驗證集（用於調整超參數）和測試集（用於評估最終模型性能），確保模型的泛化能力。
+        </div>
+<div class="point">
+<div class="point-title">17. 交叉驗證（Cross-validation）：</div>
+            交叉驗證是評估模型性能的方法，通過將資料多次分割為訓練集和驗證集，並在不同分割上訓練和評估模型，得到更可靠的性能估計，常用的有k折交叉驗證。
+            <br/>
+<img class="responsive-img" src="image/Cross-validation.webp"/>
+</div>
+<div class="point">
+<div class="point-title">18. 過擬合（Overfitting）：</div>
+            過擬合是指模型在訓練資料上表現很好，但在新資料上表現不佳的現象，模型過度學習了訓練資料的噪聲和細節，失去了泛化能力，是機器學習中常見的問題。
+            <img alt="Overfitting and Underfitting" class="responsive-img" src="image/overfitting underfitting.png"/>
+</div>
+<div class="point">
+<div class="point-title">19. 欠擬合（Underfitting）：</div>
+            欠擬合是指模型無法捕捉資料中的模式和關係，在訓練資料和新資料上都表現不佳的現象，通常是因為模型過於簡單或訓練不足導致的。
+        </div>
+<div class="point">
+<div class="point-title">20. 偏差-方差權衡（Bias-Variance Tradeoff）：</div>
+            偏差-方差權衡是機器學習中的核心概念，高偏差導致欠擬合，高方差導致過擬合，好的模型需要在兩者之間取得平衡，以最小化總體誤差。
+            <br/>
+<img alt="Bias and Variance" class="responsive-img" src="image/Bias-Variance Trade Off.png"/>
+</div>
+<div class="point">
+<div class="point-title">21. 正則化（Regularization）：</div>
+            正則化是防止過擬合的技術，通過在損失函數中添加懲罰項來限制模型複雜度，常見的有L1正則化（Lasso）和L2正則化（Ridge），鼓勵模型更簡單。
+        </div>
+<div class="point">
+<div class="point-title">22. 損失函數（Loss Function）：</div>
+            損失函數是衡量模型預測值與真實值之間差距的函數，用於指導模型訓練，不同任務有不同的損失函數，如均方誤差（回歸）和交叉熵（分類）。
+            <br/>
+<img alt="Loss Function" class="responsive-img" src="image/loss function.png"/>
+</div>
+<div class="point">
+<div class="point-title">23. 梯度下降（Gradient Descent）：</div>
+            梯度下降是一種優化算法，通過計算損失函數對參數的梯度，沿著梯度的反方向更新參數，以最小化損失函數，是訓練機器學習模型的基本方法。
+            <br/>
+<img alt="Gradient Descent" class="responsive-img" src="image/gradient descent.png"/>
+</div>
+<div class="point">
+<div class="point-title">24. 學習率（Learning Rate）：</div>
+            學習率是梯度下降中的超參數，控制每次參數更新的步長，太大可能導致震盪或發散，太小可能導致收斂緩慢，需要適當調整。
+            <br/>
+<img alt="Learning Rate" class="responsive-img" src="image/learning rate.png"/>
+</div>
+<div class="point">
+<div class="point-title">25. 批量梯度下降（Batch Gradient Descent）：</div>
+            批量梯度下降是使用所有訓練資料計算梯度的方法，每次更新參數前計算整個資料集的梯度，計算精確但計算成本高，適用於小型資料集。
+            <br/>
+<img alt="Batch Gradient Descent" class="responsive-img" src="image/Mini-Batch Gradient Descent.webp"/>
+</div>
+<div class="point">
+<div class="point-title">26. 隨機梯度下降（Stochastic Gradient Descent, SGD）：</div>
+            隨機梯度下降是每次只使用一個隨機樣本計算梯度的方法，更新頻繁但梯度估計有噪聲，可能導致參數震盪，但能夠跳出局部最小值，適用於大型資料集。
+        </div>
+<div class="point">
+<div class="point-title">27. 小批量梯度下降（Mini-batch Gradient Descent）：</div>
+            小批量梯度下降是批量和隨機梯度下降的折中，每次使用一小批樣本計算梯度，平衡了計算效率和梯度估計的準確性，是實踐中最常用的方法。
+        </div>
+<div class="point">
+<div class="point-title">28. 超參數（Hyperparameter）：</div>
+            超參數是在模型訓練前設置的參數，不是通過訓練學習的，如學習率、正則化係數、隱藏層數量等，需要通過驗證集或交叉驗證來調整。
+            <img alt="Hyperparameter" class="responsive-img" src="image/Hyperparameters.png"/>
+</div>
+<div class="point">
+<div class="point-title">29. 超參數調優（Hyperparameter Tuning）：</div>
+            超參數調優是尋找最佳超參數組合的過程，常用方法包括網格搜尋、隨機搜尋和貝葉斯優化，目的是提高模型性能。
+        </div>
+<div class="point">
+<div class="point-title">30. 模型評估指標：</div>
+            模型評估指標是衡量模型性能的標準，不同任務有不同的指標，如分類任務的準確率、精確率、召回率、F1分數，回歸任務的均方誤差、平均絕對誤差、R平方等。
+        </div>
+<div class="point">
+<div class="point-title">31. 混淆矩陣（Confusion Matrix）：</div>
+            混淆矩陣是評估分類模型性能的工具，顯示了預測類別與實際類別的對應關係，包括真正例、假正例、真負例和假負例，是計算精確率、召回率等指標的基礎。
+            <br/>
+<img alt="Confusion Matrix" class="responsive-img" src="image/confusion-matrix.png"/>
+</div>
+<div class="point">
+<div class="point-title">32. ROC曲線和AUC：</div>
+            ROC曲線是真正例率與假正例率的關係曲線，AUC是ROC曲線下的面積，是評估二分類模型性能的重要指標，AUC越大表示模型性能越好。
+            <br/>
+<img alt="ROC Curve" class="responsive-img" src="image/ROC.webp"/>
+<img alt="AUC" class="responsive-img" src="image/AUC.png"/>
+</div>
+<div class="point">
+<div class="point-title">33. 決策樹（Decision Tree）：</div>
+            決策樹是一種基本的監督式學習算法，通過一系列問題將資料分割成不同的子集，形成樹狀結構，每個葉節點對應一個預測結果，適用於分類和回歸問題。
+            <br/>
+<img alt="Decision Tree" class="responsive-img" src="image/Decision-Tree.webp"/>
+</div>
+<div class="point">
+<div class="point-title">34. 隨機森林（Random Forest）：</div>
+            隨機森林是一種集成學習方法，由多個決策樹組成，每棵樹使用隨機選擇的特徵和樣本訓練，最終結果由所有樹的預測結果投票或平均得出，具有較好的泛化能力。
+            <img alt="Random Forest" class="responsive-img" src="image/Random Forest.webp"/>
+</div>
+<div class="point">
+<div class="point-title">35. 支持向量機（Support Vector Machine, SVM）：</div>
+            支持向量機是一種強大的監督式學習算法，通過尋找最大間隔超平面來分離不同類別的資料，使用核技巧可以處理非線性問題，適用於分類和回歸任務。
+            <br/>
+<img alt="Support Vector Machine" class="responsive-img" src="image/SVM.png"/>
+</div>
+<div class="point">
+<div class="point-title">36. K最近鄰（K-Nearest Neighbors, KNN）：</div>
+            K最近鄰是一種簡單的監督式學習算法，根據最接近的K個訓練樣本的類別或值來預測新樣本，是一種基於實例的學習方法，不需要顯式訓練過程。
+            <br/>
+<img alt="K-Nearest Neighbors" class="responsive-img" src="image/KNN.webp"/>"
+        </div>
+<div class="point">
+<div class="point-title">37. 線性回歸（Linear Regression）：</div>
+            線性回歸是一種基本的監督式學習算法，通過擬合一條直線（或超平面）來預測連續值，假設特徵和目標變量之間存在線性關係，是回歸分析的基礎。
+            <br/>
+<img alt="Linear Regression" class="responsive-img" src="image/Linear Regression.jpg"/>
+</div>
+<div class="point">
+<div class="point-title">38. 邏輯回歸（Logistic Regression）：</div>
+            邏輯回歸是一種用於二分類問題的監督式學習算法，通過邏輯函數（sigmoid函數）將線性模型的輸出轉換為0到1之間的概率，是分類問題的基本方法。
+            <br/>
+<img class="responsive-img" src="image/Logistic Regression.png"/>
+</div>
+<div class="point">
+<div class="point-title">39. 朴素貝葉斯（Naive Bayes）：</div>
+            朴素貝葉斯是一種基於貝葉斯定理的監督式學習算法，假設特徵之間相互獨立，雖然這個假設在實際中很少成立，但算法在文本分類等任務中表現良好。
+            <br/>
+<img alt="Naive Bayes" class="responsive-img" src="image/Naive Bayes.webp"/>
+</div>
+<div class="point">
+<div class="point-title">40. K均值聚類（K-means Clustering）：</div>
+            K均值聚類是一種基本的非監督式學習算法，將資料分為K個簇，每個資料點屬於與其最近的簇中心對應的簇，通過迭代優化簇中心位置，是聚類分析的常用方法。
+            <br/>
+<img alt="K-means Clustering" class="responsive-img" src="image/K-Means.avif"/>
+</div>
+<div class="point">
+<div class="point-title">41. 主成分分析（Principal Component Analysis, PCA）：</div>
+            主成分分析是一種非監督式學習算法，通過線性變換將高維資料投影到低維空間，保留最大方差的方向，用於降維、資料可視化和特徵提取。
+            <br/>
+<img alt="Principal Component Analysis" class="responsive-img" src="image/PCA.jpg"/>
+</div>
+<div class="point">
+<div class="point-title">42. 神經網路（Neural Network）：</div>
+            神經網路是一種受人腦結構啟發的機器學習模型，由多層神經元組成，通過反向傳播算法學習複雜的非線性關係，是深度學習的基礎，適用於各種複雜任務。
+            <br/>
+<img alt="Neural Network" class="responsive-img" src="image/Neural Network.jpg"/>
+</div>
+<div class="point">
+<div class="point-title">43. 深度學習（Deep Learning）：</div>
+            深度學習是機器學習的一個分支，使用多層神經網路（深度神經網路）從資料中學習表示，能夠自動提取特徵，在圖像識別、語音識別和自然語言處理等領域取得了突破性進展。
+            <br/>
+<img alt="Deep Learning" class="responsive-img" src="image/Deep_Learning_vs_Machine_Learning.jpeg"/>
+</div>
+<div class="point">
+<div class="point-title">44. 卷積神經網路（Convolutional Neural Network, CNN）：</div>
+            卷積神經網路是一種專門用於處理網格結構資料（如圖像）的深度神經網路，使用卷積層捕捉局部特徵和空間關係，在計算機視覺任務中表現優異。<br>
+            卷積層 (Convolutional Layer)：負責提取特徵，透過卷積運算 (Convolution) 擷取空間與局部特徵<br>
+            池化層 (Pooling Layer) ：負責降低特徵圖的維度            
+            <br/>
+<img alt="Convolutional Neural Network" class="responsive-img" src="image/CNN.webp"/>
+</div>
+<div class="point">
+<div class="point-title">45. 循環神經網路（Recurrent Neural Network, RNN）：</div>
+            循環神經網路是一種專門處理序列資料的神經網路，具有記憶能力，能夠捕捉序列中的時間依賴關係，適用於自然語言處理、時間序列分析等任務。
+            <br/>
+<img alt="Recurrent Neural Network" class="responsive-img" src="image/RNN.webp"/>
+</div>
+<div class="point">
+<div class="point-title">46. 長短期記憶網路（Long Short-Term Memory, LSTM）：</div>
+            長短期記憶網路是一種特殊的循環神經網路，設計用來解決傳統RNN的梯度消失問題，能夠學習長期依賴關係，在序列建模任務中表現優異。
+            <br/>
+<img alt="Long Short-Term Memory" class="responsive-img" src="image/LSTM_gate.png"/>
+</div>
+<div class="point">
+<div class="point-title">47. 生成對抗網路（Generative Adversarial Network, GAN）：</div>
+            生成對抗網路是一種生成模型，由生成器和判別器兩個網路組成，通過對抗訓練學習生成逼真的資料，在圖像生成、風格轉換等領域有廣泛應用。
+            <br/>
+<img alt="Generative Adversarial Network" class="responsive-img" src="image/GAN.png"/>
+</div>
+<div class="point">
+<div class="point-title">48. 遷移學習（Transfer Learning）：</div>
+            遷移學習是一種機器學習方法，利用在一個任務上訓練的模型知識來幫助另一個相關任務的學習，特別是在目標任務資料有限的情況下，可以顯著提高學習效率和性能。
+            <br/>
+<img alt="Transfer Learning" class="responsive-img" src="image/Transfer Learning.webp"/>
+</div>
+<div class="point">
+<div class="point-title">49. 強化學習的基本元素：</div>
+            強化學習的基本元素包括智能體（Agent）、環境（Environment）、狀態（State）、動作（Action）、獎勵（Reward）和策略（Policy），智能體通過與環境互動學習最優策略。
+            <br/>
+<img alt="Reinforcement Learning" class="responsive-img" src="image/Reinforcement Learning.jpg"/>
+</div>
+<div class="point">
+<div class="point-title">50. 機器學習的局限性：</div>
+            機器學習的局限性包括對高質量資料的依賴、對計算資源的需求、解釋性差、對分佈變化敏感、難以處理因果關係等，在應用中需要考慮這些限制。
+        </div>
+<div class="point">
+<div class="point-title">51. 機器學習的倫理考量：</div>
+            機器學習的倫理考量包括資料隱私、算法偏見、透明度和可解釋性、安全性和責任歸屬等問題，需要在開發和部署機器學習系統時充分考慮。
+        </div>
+<div class="point">
+<div class="point-title">52. 機器學習的未來發展趨勢：</div>
+            機器學習的未來發展趨勢包括自監督學習、小樣本學習、聯邦學習、神經架構搜尋、可解釋AI、多模態學習和AI與其他學科的融合等，將進一步擴展機器學習的能力和應用範圍。
+        </div>
+<div class="point">
+<div class="point-title">53. TensorFlow 介紹：</div>
+    TensorFlow 是由 Google Brain 團隊開發的開源機器學習框架，支援深度學習 (Deep Learning) 演算法，具備靈活性、可擴展性與分佈式運算能力，成為研究人員與開發者的首選工具。
+</div>
+<div class="point">
+<div class="point-title">54. TensorFlow 的核心概念：</div>
+    TensorFlow 使用「資料流圖」來表示計算任務，節點表示操作，邊表示資料流。使用者可透過 Python 撰寫程式碼來構建與訓練模型，並利用 GPU 或 TPU 進行加速。
+</div>
+<div class="point">
+<div class="point-title">55. TensorFlow 的發展歷程：</div>
+    TensorFlow 最初於 2015 年開源，2016 發布 1.0 穩定版，2019 推出 2.0 版本，導入 Keras 為高階 API，支援即時執行 (Eager Execution)，改善用戶體驗並簡化模型訓練流程。
+</div>
+<div class="point">
+<div class="point-title">56. TensorFlow 2.0 的改進：</div>
+    包含整合 Keras 作為主 API、支援動態圖、強化 GPU/TPU 加速、自動圖優化、分佈式訓練等功能，並加強與 Python 生態系統整合，提升開發效率。
+</div>
+<div class="point">
+<div class="point-title">57. TensorFlow 的應用範圍：</div>
+    可用於圖像分類、語音辨識、文字生成、推薦系統、時間序列預測等應用，涵蓋產業應用與研究領域。
+</div>
+<div class="point">
+<div class="point-title">58. Keras 介紹：</div>
+    Keras 是基於 Python 的高階神經網路 API，已整合至 TensorFlow，可簡易構建、訓練與部署深度學習模型，支援序貫模型與函數式 API。
+</div>
+<div class="point">
+<div class="point-title">59. TensorFlow 模型部署工具：</div>
+    TensorFlow 提供 TensorFlow Serving（伺服器部署）與 TensorFlow Lite（行動裝置部署），協助開發者將模型快速應用於不同平台。
+</div>
+<div class="point">
+<div class="point-title">60. TensorFlow Extended (TFX)：</div>
+    TFX 是 TensorFlow 生態系中的一部分，用來建構端到端的機器學習管線，支援資料預處理、模型訓練、模型驗證與部署。
+</div>
+</div>
+<script>
+        // 添加滑鼠懸停效果
+        document.querySelectorAll('.point').forEach(point => {
+            point.addEventListener('mouseenter', () => {
+                point.style.backgroundColor = '#ede7f6';
+            });
+            point.addEventListener('mouseleave', () => {
+                point.style.backgroundColor = '#f5f0ff';
+            });
+        });
+
+        // 添加滾動動畫
+        window.addEventListener('scroll', () => {
+            const points = document.querySelectorAll('.point');
+            points.forEach(point => {
+                const pointPosition = point.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                if (pointPosition < screenPosition) {
+                    point.style.opacity = '1';
+                    point.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 考試重點整理 - L11201 資料基本概念與來源</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #117864, #16a085 ); /* Data-themed gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section */
+        .categories-container {
+            background-color: #e8f8f5; /* Lighter green for data */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #48c9b0; /* Data green border */
+            border-radius: 5px;
+        }
+        .categories-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #117864; /* Darker data green */
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d1f2eb;
+        }
+        .category-item:hover {
+            background-color: #48c9b0;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #48c9b0;
+        }
+        .category-number {
+            width: 30px;
+            height: 30px;
+            background-color: #48c9b0;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #48c9b0;
+        }
+        .category-text {
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling */
+        .focus-points-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .focus-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(17, 120, 100, 0.1); /* Data shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(17, 120, 100, 0.15);
+        }
+        .focus-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id {
+            font-weight: bold;
+            color: #48c9b0; /* Data green ID */
+            font-size: 1rem;
+            background-color: #e8f8f5;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container {
+             padding: 25px 25px 20px 25px;
+             border-bottom: 1px dashed #eee;
+        }
+
+        .focus-topic {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 1.4;
+            color: #117864; /* Darker data green */
+        }
+
+        /* Terminology Styling */
+        .chinese-proper-noun { color: #0000FF; font-weight: bold; display: inline; }
+        .english-abbr { color: purple; font-weight: bold; display: inline; }
+        .english-fullname { color: red; font-weight: bold; display: inline; }
+        .highlight { background-color: #ffff0030; padding: 0.1em 0.2em; border-radius: 3px; display: inline; }
+
+
+        /* Details Section Styling */
+        .focus-details-container {
+            padding: 20px 25px 25px 25px;
+        }
+        .details-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #16a085; /* Data mid green */
+            font-size: 1.2rem;
+        }
+        .details-content {
+            line-height: 1.75;
+            color: #444;
+            font-size: 1.05rem;
+        }
+        .details-content ul {
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px;
+         }
+
+        /* Controls Styling */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #48c9b0; /* Data green buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #1abc9c; /* Darker green hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; }
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #48c9b0; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #1abc9c; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f8f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #48c9b0, #a3e4d7); /* Data gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+         /* Ensure span formatting doesn't add extra lines */
+         .chinese-proper-noun, .english-abbr, .english-fullname, .highlight {
+             display: inline; /* Prevent block behavior */
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 考試重點</h1>
+            <div>L11201 資料基本概念與來源 (Data Fundamentals and Sources)</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">資料類型與結構</option>
+                    <option value="2">資料來源</option>
+                    <option value="3">大數據特性</option>
+                    <option value="4">資料庫基礎</option>
+                    <option value="5">資料品質概念</option>
+                    <!-- Max 8 -->
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">資料類型與結構</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">資料來源</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">大數據特性</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">資料庫基礎</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">資料品質概念</div>
+                </div>
+                 <!-- Max 8 -->
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Category 1: 資料類型與結構 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">結構化資料</span> (<span class="english-fullname">Structured Data</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">指具有<span class="highlight">固定格式或欄位</span>的資料，通常儲存在<span class="highlight">關聯式資料庫</span>中，易於<span class="highlight">查詢和分析</span>。例如：<span class="highlight">試算表</span> (<span class="english-fullname">Spreadsheet</span>) 中的表格、<span class="chinese-proper-noun">資料庫</span>中的客戶資料。 (對應能力 K04, K11)</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">非結構化資料</span> (<span class="english-fullname">Unstructured Data</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">指<span class="highlight">沒有預定格式或組織結構</span>的資料，佔數據總量的大部分。分析較為複雜。例如：<span class="highlight">電子郵件、社交媒體貼文、影片、音訊檔案、圖片</span>。 (對應能力 K04, K11)</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">半結構化資料</span> (<span class="english-fullname">Semi-structured Data</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">介於結構化與非結構化之間，<span class="highlight">不符合傳統資料庫的格式，但包含標籤或標記</span>來分隔語義元素和強制記錄與欄位的層次結構。例如：<span class="english-abbr">JSON</span> (<span class="english-fullname">JavaScript Object Notation</span>)、<span class="english-abbr">XML</span> (<span class="english-fullname">Extensible Markup Language</span>) 文件。 (對應能力 K04, K11)</div>
+                 </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic">資料類型 (數值、類別、文字、時間序列等)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">區分不同的資料類型對於<span class="highlight">選擇合適的分析方法和 AI 模型</span>至關重要。
+                     <ul>
+                        <li><span class="chinese-proper-noun">數值資料</span> (<span class="english-fullname">Numerical Data</span>)：可測量的量（連續或離散）。</li>
+                        <li><span class="chinese-proper-noun">類別資料</span> (<span class="english-fullname">Categorical Data</span>)：表示分組或類別（名目或序數）。</li>
+                        <li><span class="chinese-proper-noun">文字資料</span> (<span class="english-fullname">Text Data</span>)：非結構化的書面語言。</li>
+                        <li><span class="chinese-proper-noun">時間序列資料</span> (<span class="english-fullname">Time Series Data</span>)：按時間順序記錄的數據點。</li>
+                     </ul> (對應能力 K11)</div>
+                 </div>
+            </div>
+
+            <!-- Category 2: 資料來源 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">內部資料來源 (<span class="english-fullname">Internal Data Sources</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">指<span class="highlight">組織內部</span>產生和收集的資料。通常是<span class="highlight">結構化</span>的，且<span class="highlight">品質相對可控</span>。例如：<span class="highlight">銷售記錄、客戶資料庫 (<span class="english-abbr">CRM</span>)、庫存系統、生產數據</span>。 (對應能力 K04)</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic">外部資料來源 (<span class="english-fullname">External Data Sources</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">指來自<span class="highlight">組織外部</span>的資料。來源多樣，結構和品質不一。例如：<span class="highlight">市場研究報告、政府統計數據、社群媒體資料、合作夥伴資料、第三方數據供應商</span>。 (對應能力 K04)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">開放資料</span> (<span class="english-fullname">Open Data</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">指由<span class="highlight">政府機構或特定組織</span>發布，可供<span class="highlight">任何人自由使用、重複使用和重新分發</span>的資料。通常有<span class="highlight">特定格式和授權條款</span>。例如：<span class="highlight">政府開放資料平台上的天氣、交通、人口統計資料</span>。 (對應能力 K04, S01)</div>
+                 </div>
+             </div>
+             <div class="focus-card" data-category="2" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">物聯網</span> (<span class="english-abbr">IoT</span>) 資料</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">由<span class="highlight">連接網路的感測器和設備</span>產生的資料流。通常是<span class="highlight">大量、即時</span>的資料。例如：<span class="highlight">智慧手環的健康數據、工廠機器的運作狀態、智慧家庭設備的感測資料</span>。 (對應能力 K04)</div>
+                  </div>
+              </div>
+
+            <!-- Category 3: 大數據特性 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#9</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">大數據</span> (<span class="english-fullname">Big Data</span>) 的 3Vs (或 5Vs)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">理解<span class="chinese-proper-noun">大數據</span>的主要特徵，通常以 "Vs" 描述：
+                    <ul>
+                        <li><span class="highlight"><span class="english-fullname">Volume</span> (大量性)</span>：數據量極大。</li>
+                        <li><span class="highlight"><span class="english-fullname">Velocity</span> (高速性)</span>：數據生成和處理速度快。</li>
+                        <li><span class="highlight"><span class="english-fullname">Variety</span> (多樣性)</span>：數據類型和結構多樣（結構化、非結構化、半結構化）。</li>
+                        <li>(常補充) <span class="highlight"><span class="english-fullname">Veracity</span> (真實性)</span>：數據的準確性和可信度。</li>
+                        <li>(常補充) <span class="highlight"><span class="english-fullname">Value</span> (價值性)</span>：從數據中提取價值的能力（密度低）。</li>
+                    </ul> (樣題 #4) (對應能力 K04, K11)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="3" data-stars="2">
+                 <div class="focus-header"><div class="focus-id">#10</div><div class="focus-importance">★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">大數據</span>與<span class="english-abbr">AI</span>的關係</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content"><span class="chinese-proper-noun">大數據</span>是<span class="english-abbr">AI</span>發展的<span class="highlight">重要燃料</span>，提供了<span class="highlight">訓練複雜模型所需的豐富資訊</span>。<span class="english-abbr">AI</span>技術則提供了<span class="highlight">處理和分析大數據的有效工具</span>，從中<span class="highlight">挖掘洞見與價值</span>。 (對應能力 K04, K05)</div>
+                 </div>
+            </div>
+
+            <!-- Category 4: 資料庫基礎 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#11</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料庫</span> (<span class="english-fullname">Database</span>) 的基本概念</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">理解<span class="chinese-proper-noun">資料庫</span>是<span class="highlight">有組織地儲存和管理資料</span>的系統。認識<span class="highlight">資料表</span> (<span class="english-fullname">Table</span>)、<span class="highlight">欄位</span> (<span class="english-fullname">Column/Field</span>)、<span class="highlight">記錄</span> (<span class="english-fullname">Row/Record</span>) 等基本元素。 (對應能力 K04)</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="4" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#12</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">關聯式資料庫</span> (<span class="english-fullname">Relational Database</span>) 概念</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">了解<span class="chinese-proper-noun">關聯式資料庫</span>以<span class="highlight">表格</span>形式儲存資料，並透過<span class="highlight">鍵值</span> (<span class="english-fullname">Key</span>) 建立<span class="highlight">表格間的關聯</span>。常用 <span class="english-abbr">SQL</span> (<span class="english-fullname">Structured Query Language</span>) 進行操作。 (對應能力 K04)</div>
+                 </div>
+            </div>
+            <div class="focus-card" data-category="4" data-stars="2">
+                 <div class="focus-header"><div class="focus-id">#13</div><div class="focus-importance">★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="english-fullname">NoSQL</span> 資料庫概念</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">理解 <span class="english-fullname">NoSQL</span> ( "<span class="english-fullname">Not Only SQL</span>" ) 資料庫是<span class="highlight">非關聯式</span>的，提供<span class="highlight">更靈活的資料模型</span>（如<span class="highlight">文件型、鍵值型、圖形</span>），常用於處理<span class="highlight">大數據和非結構化數據</span>。 (對應能力 K04)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="4" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#14</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料倉儲</span> (<span class="english-fullname">Data Warehouse</span>) 與<span class="chinese-proper-noun">資料超市</span> (<span class="english-fullname">Data Mart</span>)</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">理解<span class="chinese-proper-noun">資料倉儲</span>是<span class="highlight">整合來自多個來源</span>的資料，用於<span class="highlight">報告和分析</span>的中央儲存庫。<span class="chinese-proper-noun">資料超市</span>則是<span class="highlight">資料倉儲的子集</span>，專注於<span class="highlight">特定業務部門或主題</span>。 (對應能力 K04, K06)</div>
+                  </div>
+             </div>
+
+            <!-- Category 5: 資料品質概念 -->
+            <div class="focus-card" data-category="5" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#15</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料品質</span> (<span class="english-fullname">Data Quality</span>) 的重要性</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content"><span class="highlight">資料品質直接影響 AI 模型的準確性和可靠性</span>。"垃圾進，垃圾出" (<span class="english-fullname">Garbage In, Garbage Out</span>) 強調了<span class="highlight">輸入資料品質</span>的重要性。低品質資料可能導致<span class="highlight">錯誤決策和資源浪費</span>。 (對應能力 K11, S08)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="5" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#16</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料品質</span>的關鍵維度</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">理解衡量<span class="chinese-proper-noun">資料品質</span>的常見維度：
+                     <ul>
+                         <li><span class="highlight"><span class="chinese-proper-noun">完整性</span> (<span class="english-fullname">Completeness</span>)</span>：是否存在缺失值。</li>
+                         <li><span class="highlight"><span class="chinese-proper-noun">準確性</span> (<span class="english-fullname">Accuracy</span>)</span>：資料是否真實反映現實。</li>
+                         <li><span class="highlight"><span class="chinese-proper-noun">一致性</span> (<span class="english-fullname">Consistency</span>)</span>：資料在不同系統或時間點是否一致。</li>
+                         <li><span class="highlight"><span class="chinese-proper-noun">及時性</span> (<span class="english-fullname">Timeliness</span>)</span>：資料是否足夠新以供使用。</li>
+                         <li><span class="highlight"><span class="chinese-proper-noun">有效性/合規性</span> (<span class="english-fullname">Validity / Conformity</span>)</span>：資料是否符合定義的格式或規則。</li>
+                         <li><span class="highlight"><span class="chinese-proper-noun">唯一性</span> (<span class="english-fullname">Uniqueness</span>)</span>：是否存在重複記錄。</li>
+                     </ul> (對應能力 K11, S08)</div>
+                 </div>
+             </div>
+              <div class="focus-card" data-category="5" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#17</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">中繼資料/元數據</span> (<span class="english-fullname">Metadata</span>)</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">理解<span class="chinese-proper-noun">元數據</span>是「<span class="highlight">關於資料的資料</span> (<span class="english-fullname">Data about data</span>)」。它描述了資料的<span class="highlight">內容、結構、來源、品質</span>等信息，對於<span class="highlight">理解和管理資料</span>非常重要。 (對應能力 K04, K11)</div>
+                  </div>
+              </div>
+
+
+             <!-- Add more focus-card elements here for other key concepts -->
+             <!-- ... up to 60 points total for this file -->
+
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints();
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value; // Keep current category filter
+            let stars = document.getElementById("starFilter").value; // Keep current star filter
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints(); // Re-apply filters only
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

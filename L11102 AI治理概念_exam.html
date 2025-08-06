@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 經典回顧卷003</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", sans-serif; /* Using example's font stack preference */
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7; /* Added from source for potential base style consistency */
+        }
+        .container {
+            max-width: 1200px; /* Using example's width */
+            margin: 25px auto; /* Adjusted margin slightly */
+            padding: 20px 30px; /* Adjusted padding slightly */
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Using example's shadow */
+            border-radius: 8px; /* Added from source */
+        }
+        h1, h2 { /* Added h2 from example */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 { /* Modified from source */
+            text-align: center;
+            color: #0056b3; /* Using source color */
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0056b3; /* Using source border */
+            padding-bottom: 10px;
+            font-size: 1.8rem; /* Using example size */
+        }
+        .header-container { /* From example */
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 { /* Overriding base h1 for header */
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+            border-bottom: none; /* Remove border inside header */
+            padding-bottom: 0;
+            margin-bottom: 5px; /* Adjust spacing */
+        }
+        .header-container div { /* Style for subtitle in header */
+             font-size: 1.1rem;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+            display: block; /* Center image */
+            margin: 15px auto; /* Add some margin */
+        }
+        /* 出題方向區塊樣式 (From example) */
+        .directions-container {
+            background-color: #fffbeb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f1c40f;
+            border-radius: 5px;
+        }
+        .directions-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .direction-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .direction-item:hover {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .direction-number {
+            width: 25px;
+            height: 25px;
+            background-color: #f1c40f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .direction-item:hover .direction-number {
+            background-color: white;
+            color: #f1c40f;
+        }
+         .direction-text { /* Added to allow text wrapping */
+            flex-grow: 1;
+         }
+        /* 問題卡片樣式 (Merging styles from both) */
+        .questions-container {
+            /* display: grid; */ /* Removed grid to allow natural flow */
+            /* grid-template-columns: 1fr; */
+            /* gap: 20px; */ /* From example */
+        }
+        .question-card { /* Renamed qa-item */
+            background-color: white;
+            border: 1px solid #e0e0e0; /* From source */
+            border-radius: 6px; /* From source */
+            padding: 18px; /* From source */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* From example */
+            transition: transform 0.3s, box-shadow 0.3s ease; /* Combined transitions */
+            margin-bottom: 20px; /* From source */
+        }
+        .question-card:hover { /* From example */
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Example's hover shadow */
+        }
+        .question-header { /* From example */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Added from source */
+            margin-bottom: 15px; /* Example */
+            padding-bottom: 10px; /* Example */
+            border-bottom: 1px solid #eee; /* Example */
+        }
+        .question-id { /* From example (replacing question-number) */
+            font-weight: bold;
+            color: #3498db; /* Example color */
+            font-size: 0.95em; /* Source size */
+        }
+        .question-frequency { /* From example */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9em; /* Adjust size if needed */
+        }
+        .question-content { /* Renamed question */
+            font-weight: 600; /* Source weight */
+            margin-bottom: 15px; /* Source margin */
+            color: #2c3e50; /* Source color */
+            font-size: 1.1rem; /* Example size */
+            line-height: 1.6; /* Example line-height */
+            cursor: pointer; /* Make question clickable to toggle explanation */
+        }
+        .options-container { /* Replacing ul.options */
+            display: grid;
+            grid-template-columns: 1fr; /* Example layout */
+            gap: 10px; /* Example gap */
+            margin-bottom: 20px; /* Example margin */
+            list-style: none; /* From source */
+            padding-left: 0; /* From source */
+        }
+        .option-item { /* Replacing li */
+            display: flex; /* From example */
+            padding: 10px 15px; /* Source padding */
+            background-color: #f8f9fa; /* Source background */
+            border: 1px solid #e9ecef; /* Source border */
+            border-radius: 4px; /* Source radius */
+            cursor: default; /* Change cursor for options - click question instead */
+            transition: background-color 0.2s ease; /* Source transition */
+            font-size: 0.98em; /* Source size */
+            align-items: center; /* Vertically align label and text */
+        }
+        .option-item:hover { /* From source */
+            background-color: #e9ecef;
+        }
+        .option-item.correct { /* From example */
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            font-weight: bold; /* Make correct answer bold */
+        }
+        .option-item.correct:hover { /* From example */
+            background-color: #c3e6cb;
+        }
+        .option-label { /* From example */
+            width: 25px;
+            height: 25px;
+            min-width: 25px; /* Ensure width doesn't shrink */
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent label from shrinking */
+        }
+        .option-item.correct .option-label { /* From example */
+            background-color: #28a745;
+        }
+        .option-text { /* New element for text part */
+             flex-grow: 1; /* Allow text to take remaining space */
+             word-break: break-word; /* Prevent long words from overflowing */
+        }
+        .explanation-container { /* Renamed answer-explanation */
+            background-color: #eef7ff; /* Source background */
+            padding: 15px; /* Source padding */
+            border-radius: 5px; /* Source radius */
+            margin-top: 15px; /* Source margin */
+            /* display: block; */ /* Initially shown (controlled by JS) */
+            display: none; /* Start hidden */
+            border-top: 1px dashed #ced4da; /* From source */
+            font-size: 0.95em; /* Source font size */
+        }
+        .explanation-header { /* From example */
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .explanation-content { /* From example (holds explanation text) */
+            line-height: 1.6; /* Example */
+            color: #000000; /* Source color */
+        }
+        /* Formatting Styles */
+        .highlight {
+            background-color: #ffff0030; /* Light yellow background */
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+        .chinese-term {
+             color: rgb(0, 0, 255);
+             font-weight: bold;
+        }
+         .acronym-term {
+             color: rgb(128, 0, 128); /* Purple */
+             font-weight: bold;
+        }
+         .english-term {
+             color: rgb(255, 0, 0); /* Red */
+             font-weight: bold;
+        }
+
+        /* Controls styling (From example) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Add gap for better spacing */
+        }
+        .filter-container, .search-container, .star-filter-container, .toggle-explanations { /* Grouped controls */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap; /* Prevent label wrapping */
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1; /* Allow input/select to grow */
+            min-width: 150px; /* Ensure minimum width */
+        }
+         input[type="text"] {
+            flex-grow: 2; /* Allow search input to be wider */
+         }
+        button { /* Base button style */
+            padding: 9px 18px; /* Source padding */
+            background-color: #007bff; /* Source background */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Source radius */
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease; /* Source transition */
+            font-size: 0.95em; /* Source size */
+            margin-left: 5px; /* Add margin for buttons in controls */
+        }
+        button:hover { /* Source hover */
+            background-color: #0056b3;
+        }
+        #searchButton { /* Specific button style example */
+           /* Inherits base button style */
+        }
+        #toggleExplanations { /* Specific button style example */
+           /* Inherits base button style */
+           margin-left: 0; /* No left margin needed here */
+        }
+        /* Back to top button (From example) */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+            text-decoration: none; /* Remove underline if it appears */
+            font-size: 1.5rem; /* Make arrow bigger */
+        }
+        .back-to-top:hover {
+            background-color: #2980b9;
+            opacity: 1;
+        }
+        /* Progress bar (From example) */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+        }
+        /* RWD (Combined and adjusted) */
+        @media (max-width: 992px) {
+             .controls {
+                flex-direction: column;
+                align-items: stretch; /* Make items full width */
+            }
+            .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+                width: 100%;
+                justify-content: space-between; /* Better alignment when stacked */
+            }
+             select, input[type="text"] {
+                 width: auto; /* Reset width */
+                 flex-grow: 1; /* Allow growth */
+             }
+             button { /* Ensure buttons don't shrink too much */
+                 flex-shrink: 0;
+             }
+             .search-container button {
+                margin-left: 10px;
+             }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 20px; /* Source padding */
+            }
+            .directions-grid {
+                grid-template-columns: 1fr; /* Example */
+            }
+             h1 {
+                 font-size: 1.5em; /* Source */
+             }
+             .option-item, .explanation-container, button {
+                 font-size: 0.9em; /* Source */
+             }
+             .option-label {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+                font-size: 0.9em;
+             }
+        }
+         @media (max-width: 600px) { /* From source */
+             body {
+                 /* margin: 15px; */ /* Removed for better edge-to-edge */
+             }
+             .container {
+                 padding: 15px; /* Adjust padding */
+                 margin: 10px auto; /* Adjust margin */
+             }
+             h1 {
+                 font-size: 1.4em; /* Adjust size */
+             }
+             .header-container h1 {
+                font-size: 1.6rem; /* Adjust header size */
+             }
+             .header-container div {
+                 font-size: 1rem;
+             }
+             .option-item, button, .explanation-container { /* Source */
+                 font-size: 0.9em;
+             }
+         }
+         /* No results message style */
+         #noResultsMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+         }
+
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 初級</h1>
+            <div>L11102 AI治理概念</div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-container">
+                <label for="directionFilter" class="filter-label">篩選出題方向：</label>
+                <select id="directionFilter">
+                    <option value="all">全部方向</option>
+                    <option value="1">方向 1: AI 治理定義與範疇</option>
+                    <option value="2">方向 2: AI 倫理原則 (公平、負責、透明)</option>
+                    <option value="3">方向 3: 風險管理與問責機制</option>
+                    <option value="4">方向 4: 資料治理與隱私</option>
+                    <option value="5">方向 5: 法規遵循與標準</option>
+                    <option value="6">方向 6: 治理框架與組織角色</option>
+                    <option value="7">方向 7: 負責任 AI (Responsible AI)</option>
+                    <option value="8">方向 8: AI 治理的挑戰與未來</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <!-- <option value="2">★★</option> -->
+                    <!-- <option value="1">★</option> -->
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入題目、選項或解析關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+        </div>
+
+        <div class="directions-container">
+            <div class="directions-title">出題方向 (L11102 AI治理概念)</div>
+            <div class="directions-grid" id="directionsGrid">
+                <div class="direction-item" onclick="filterByDirection(1)">
+                    <div class="direction-number">1</div> <div class="direction-text">AI 治理定義與範疇</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(2)">
+                    <div class="direction-number">2</div> <div class="direction-text">AI 倫理原則 (公平、負責、透明)</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(3)">
+                    <div class="direction-number">3</div> <div class="direction-text">風險管理與問責機制</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(4)">
+                    <div class="direction-number">4</div> <div class="direction-text">資料治理與隱私</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(5)">
+                    <div class="direction-number">5</div> <div class="direction-text">法規遵循與標準</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(6)">
+                    <div class="direction-number">6</div> <div class="direction-text">治理框架與組織角色</div>
+                </div>
+                 <div class="direction-item" onclick="filterByDirection(7)">
+                    <div class="direction-number">7</div> <div class="direction-text">負責任 AI (Responsible AI)</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(8)">
+                    <div class="direction-number">8</div> <div class="direction-text">AI 治理的挑戰與未來</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <!-- Question 1 -->
+            <div class="question-card" data-direction="1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">什麼是 <b class="chinese-term">AI 治理 (<span class="english-term">AI Governance</span>)</b>？其主要目的是什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">專注於開發更快速 <span class="acronym-term">AI</span> 演算法的技術框架。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">建立一套原則、政策、流程和機制</span>，以確保 <span class="acronym-term">AI</span> 的開發和應用符合<b class="chinese-term">倫理 (<span class="english-term">Ethics</span>)</b>、<b class="chinese-term">法律 (<span class="english-term">Law</span>)</b> 和<b class="chinese-term">社會價值 (<span class="english-term">Societal Values</span>)</b>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">僅指對 <span class="acronym-term">AI</span> 系統進行技術性測試和驗證的過程。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">由政府單獨制定，用以限制 <span class="acronym-term">AI</span> 技術商業應用的法規。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《公部門人工智慧應用參考手冊》4.5 節與《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第一章內容，<b class="chinese-term">AI 治理 (<span class="english-term">AI Governance</span>)</b> 是一個<span class="highlight">涵蓋 <span class="acronym-term">AI</span> 生命週期的綜合性框架</span>，涉及<b class="chinese-term">風險管理 (<span class="english-term">Risk Management</span>)</b>、<b class="chinese-term">權益保障 (<span class="english-term">Rights Protection</span>)</b>、<b class="chinese-term">倫理考量 (<span class="english-term">Ethical Considerations</span>)</b>、<b class="chinese-term">法規遵循 (<span class="english-term">Compliance</span>)</b> 等多個面向。其主要目的是<span class="highlight">確保 <span class="acronym-term">AI</span> 技術以負責任、安全、公平和透明的方式被開發和使用</span>，從而最大化其益處並最小化潛在風險。</div>
+                </div>
+            </div>
+
+             <!-- Question 2 -->
+            <div class="question-card" data-direction="2" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》中提到的六大核心原則，哪一項強調應避免演算法的<b class="chinese-term">偏見 (<span class="english-term">Bias</span>)</b> 所造成的不公平？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">建立治理及問責機制</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">重視<b class="chinese-term">公平性 (<span class="english-term">Fairness</span>)</b> 及<b class="chinese-term">以人為本 (<span class="english-term">Human-centricity</span>)</b> 的價值觀</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">保護隱私及客戶權益</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">確保系統穩健性與安全性</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第二章「重視<b class="chinese-term">公平性 (<span class="english-term">Fairness</span>)</b> 及<b class="chinese-term">以人為本 (<span class="english-term">Human-centricity</span>)</b> 的價值觀」，該原則明確指出金融機構在使用 <span class="acronym-term">AI</span> 系統過程中，<span class="highlight">應儘可能避免演算法之偏見所造成的不公平</span>，並應符合以人為本及人類可控之原則。</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" data-direction="2" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">在 <span class="acronym-term">AI</span> 治理中，<b class="chinese-term">問責性 (<span class="english-term">Accountability</span>)</b> 的概念是指？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="acronym-term">AI</span> 系統必須能夠解釋其所有決策過程。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">對於 <span class="acronym-term">AI</span> 系統的行為及其產生的後果，應有明確的責任歸屬</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">AI</span> 開發者必須公開所有演算法的原始碼。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">使用者必須對 <span class="acronym-term">AI</span> 系統的所有輸出結果負責。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">問責性 (<span class="english-term">Accountability</span>)</b> 是 <span class="acronym-term">AI</span> 治理的核心原則之一。它強調<span class="highlight">需要能夠確定誰（或哪個組織）對 <span class="acronym-term">AI</span> 系統的設計、開發、部署和運營及其結果負責</span>。這涉及到建立清晰的治理架構、角色和責任、以及在出現問題或損害時的補救機制。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第一章。</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" data-direction="2" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">在 <span class="acronym-term">AI</span> 應用中，確保利害關係人能夠理解 <span class="acronym-term">AI</span> 系統如何做出決策或預測，這體現了哪個治理原則？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">公平性 (<span class="english-term">Fairness</span>)</b></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">穩健性 (<span class="english-term">Robustness</span>)</b></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">問責性 (<span class="english-term">Accountability</span>)</b></div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight"><b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b> 與<b class="chinese-term">可解釋性 (<span class="english-term">Explainability</span>)</b></span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b> 指的是 <span class="acronym-term">AI</span> 系統的運作和決策過程應該是可被理解和檢視的。<b class="chinese-term">可解釋性 (<span class="english-term">Explainability</span>)</b> 則更進一步，要求能夠<span class="highlight">以人類可理解的方式說明 <span class="acronym-term">AI</span> 做出特定決策的原因</span>。這兩者對於建立信任、偵錯、確保公平性和落實問責至關重要。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第五章。</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card" data-direction="3" data-stars="5">
+                 <div class="question-header">
+                     <div class="question-id">#5</div>
+                     <div class="question-frequency">★★★★★</div>
+                 </div>
+                 <div class="question-content">根據《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》，金融機構應建立全面且有效的 <span class="acronym-term">AI</span> 相關<b class="chinese-term">風險管理機制 (<span class="english-term">Risk Management Mechanism</span>)</b>，並將其整合至何處？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">僅限於資訊技術部門的作業流程。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">獨立於現有流程之外的新管理系統。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">現行風險管理及內部控制作業或流程中</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">主要由外部顧問公司負責管理。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第一章核心原則(二)明確指出，金融機構應建立全面且有效的 <span class="acronym-term">AI</span> 相關風險管理機制，並<span class="highlight">整合至現行風險管理及內部控制作業或流程中</span>，且應進行定期的評估及測試。這表示 <span class="acronym-term">AI</span> 風險管理不應是孤立的，而應融入整體的風險控管體系。</div>
+                 </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card" data-direction="4" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">資料治理 (<span class="english-term">Data Governance</span>)</b> 在 <span class="acronym-term">AI</span> 應用中的重要性體現在哪方面？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">僅確保資料儲存的效率。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">只管理資料的視覺化呈現。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">確保資料的<b class="chinese-term">品質 (<span class="english-term">Quality</span>)</b>、<b class="chinese-term">安全 (<span class="english-term">Security</span>)</b>、<b class="chinese-term">隱私 (<span class="english-term">Privacy</span>)</b> 及<b class="chinese-term">合規性 (<span class="english-term">Compliance</span>)</b></span>，為 <span class="acronym-term">AI</span> 模型提供可靠的基礎。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">主要目的是降低資料庫的成本。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><span class="acronym-term">AI</span> 系統高度依賴資料，因此<b class="chinese-term">資料治理 (<span class="english-term">Data Governance</span>)</b> 至關重要。它<span class="highlight">涵蓋了資料生命週期的管理</span>，包括資料品質維護、資料安全防護、個人隱私保護、法規遵循（如<b class="chinese-term">個資法 (<span class="english-term">Personal Data Protection Act</span>)</b>）等。良好的資料治理能確保用於訓練 <span class="acronym-term">AI</span> 的數據是準確、可靠、安全且合法的，從而提升 <span class="acronym-term">AI</span> 應用的有效性和可信度。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第三章。</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#7</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">根據《公部門人工智慧應用參考手冊》4.5節，建立<b class="chinese-term">AI 治理委員會 (<span class="english-term">AI Governance Committee</span>)</b> 的主要目的是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">直接負責撰寫 <span class="acronym-term">AI</span> 模型的程式碼。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">專門處理 <span class="acronym-term">AI</span> 相關的技術支援問題。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">負責 <span class="acronym-term">AI</span> 發展的監督、管理和策略制定</span>，確保符合倫理和法規。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">主要任務是採購 <span class="acronym-term">AI</span> 所需的硬體設備。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">建立<b class="chinese-term">治理委員會 (<span class="english-term">Governance Committee</span>)</b> 是落實 <span class="acronym-term">AI</span> 治理的重要組織措施。其<span class="highlight">主要職責是從宏觀層面指導和監督組織的 <span class="acronym-term">AI</span> 發展</span>，包括制定 <span class="acronym-term">AI</span> 策略、建立倫理準則、審核高風險應用、確保法規遵循、協調跨部門合作等，以確保 <span class="acronym-term">AI</span> 的應用與組織的價值觀和目標一致。</div>
+                 </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#8</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》建議金融機構應確保其人員對 <span class="acronym-term">AI</span> 有足夠的知識及能力，並應<span class="highlight">以何種基礎</span>做出適當之決策及監督？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">以成本效益為基礎。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">以技術先進性為基礎。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">以<b class="chinese-term">風險 (<span class="english-term">Risk</span>)</b> 為基礎</span>。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">以市場佔有率為基礎。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第一章核心原則(三)，金融機構應確保其人員對 <span class="acronym-term">AI</span> 有足夠之知識及能力，並應<span class="highlight">以風險為基礎 (<span class="english-term">Risk-based Approach</span>) 做出適當之決策及監督</span>。這意味著對於風險較高的 <span class="acronym-term">AI</span> 應用，需要投入更多資源進行審查、監控，並要求相關人員具備更高水平的專業知識。</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card" data-direction="4" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在處理<b class="chinese-term">個人資料 (<span class="english-term">Personal Data</span>)</b> 時，<span class="acronym-term">AI</span> 治理應遵循的首要原則之一是？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料最大化使用原則。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">資料最小化 (<span class="english-term">Data Minimization</span>)</b> 原則與<b class="chinese-term">目的限制 (<span class="english-term">Purpose Limitation</span>)</b> 原則</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料永久保存原則。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">資料完全公開原則。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">資料最小化 (<span class="english-term">Data Minimization</span>)</b> 指的是<span class="highlight">僅收集和處理與特定目的直接相關且必要的個人資料</span>。<b class="chinese-term">目的限制 (<span class="english-term">Purpose Limitation</span>)</b> 指的是<span class="highlight">收集資料時應有明確、合法目的，且後續處理不得超出該目的範圍</span>。這兩項是國際上普遍認可的個人資料保護重要原則，也是 <span class="acronym-term">AI</span> 治理中處理個資時需嚴格遵守的要求，旨在最大限度地減少對個人隱私的侵害。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第三章。</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+             <div class="question-card" data-direction="5" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#10</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">歐盟制定的《<b class="chinese-term">人工智慧法案 (<span class="acronym-term">AI Act</span>)</b>》草案，其主要的<b class="chinese-term">治理方法 (<span class="english-term">Governance Approach</span>)</b> 是基於什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">技術中立原則，不對特定技術進行規範。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">完全禁止所有高風險 <span class="acronym-term">AI</span> 應用。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">基於<b class="chinese-term">風險 (<span class="english-term">Risk</span>)</b> 的分級管理方法</span>，對不同風險級別的 <span class="acronym-term">AI</span> 系統施加不同的義務。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅依賴行業自律，政府不介入。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">歐盟《<b class="chinese-term">人工智慧法案 (<span class="acronym-term">AI Act</span>)</b>》的核心是<span class="highlight">採用基於風險的分級方法</span>。它將 <span class="acronym-term">AI</span> 系統根據其可能帶來的風險程度分為不可接受風險（禁止）、高風險、有限風險和低風險/極小風險四個等級，並<span class="highlight">對不同等級的系統施加不同程度的法律要求和監管義務</span>。風險越高的系統，需要滿足的合規要求越嚴格。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)之核心原則與相關推動政策》附錄介紹。</div>
+                 </div>
+             </div>
+
+             <!-- Question 11 -->
+            <div class="question-card" data-direction="7" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#11</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">"<b class="chinese-term">負責任 AI (<span class="english-term">Responsible AI</span>)</b>" 的核心理念是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">追求最快、最強大的 <span class="acronym-term">AI</span> 模型。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">將 <span class="acronym-term">AI</span> 的所有決策權完全交給機器。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">在設計、開發和部署 <span class="acronym-term">AI</span> 時，積極考慮並納入倫理、公平、透明、問責等原則</span>，以確保其對社會產生正面影響。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅關注 <span class="acronym-term">AI</span> 系統的技術性能和準確率。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">負責任 AI (<span class="english-term">Responsible AI</span>)</b> 強調<span class="highlight">在 <span class="acronym-term">AI</span> 的整個生命週期中融入道德和社會考量</span>。它不僅關注技術的實現，更關注技術的影響，旨在開發出<span class="highlight">值得信賴、符合人類價值觀並能帶來益處的 <span class="acronym-term">AI</span> 系統</span>。這需要跨領域的合作，將倫理原則轉化為具體的實踐。</div>
+                 </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#12</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在 <span class="acronym-term">AI</span> 治理中，進行<b class="chinese-term">風險評估 (<span class="english-term">Risk Assessment</span>)</b> 的主要目的是什麼？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">評估 <span class="acronym-term">AI</span> 專案的預算是否充足。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">識別、分析和評估 <span class="acronym-term">AI</span> 系統可能帶來的潛在危害或負面影響</span>。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">決定 <span class="acronym-term">AI</span> 模型的最終準確率指標。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">選擇最適合 <span class="acronym-term">AI</span> 專案的程式語言。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">風險評估 (<span class="english-term">Risk Assessment</span>)</b> 是 <span class="acronym-term">AI</span> 治理和開發過程中的關鍵步驟。其目的在於<span class="highlight">系統性地找出 <span class="acronym-term">AI</span> 系統在其生命週期中可能引發的各種風險</span>，例如技術風險（模型失效）、倫理風險（偏見、歧視）、安全風險（數據洩露）、社會風險（失業）等，並評估這些風險的可能性和影響程度，以便採取相應的<b class="chinese-term">緩解措施 (<span class="english-term">Mitigation Measures</span>)</b>。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》總則。</div>
+                 </div>
+             </div>
+
+             <!-- Question 13 -->
+             <div class="question-card" data-direction="4" data-stars="4">
+                  <div class="question-header">
+                      <div class="question-id">#13</div>
+                      <div class="question-frequency">★★★★</div>
+                  </div>
+                  <div class="question-content">為確保 <span class="acronym-term">AI</span> 系統符合<b class="chinese-term">個人資料保護法 (<span class="english-term">Personal Data Protection Act</span>)</b> 的要求，下列哪項措施<span class="highlight">不是</span>必要的？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">告知當事人資料收集的目的與範圍。</div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">取得當事人的同意（除非有法律豁免）。</div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">採取適當的安全措施保護資料。</div></div>
+                      <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">將所有收集到的個人資料進行公開發布</span>。</div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">個人資料保護法 (<span class="english-term">Personal Data Protection Act</span>)</b> 的核心在於<span class="highlight">保護個人隱私權</span>。其基本原則包括<b class="chinese-term">告知同意 (<span class="english-term">Informed Consent</span>)</b>、<b class="chinese-term">目的限制 (<span class="english-term">Purpose Limitation</span>)</b>、<b class="chinese-term">資料最小化 (<span class="english-term">Data Minimization</span>)</b>、<b class="chinese-term">安全維護 (<span class="english-term">Security Safeguards</span>)</b>、當事人權利（查詢、更正、刪除等）。公開發布個人資料顯然違反了隱私保護的原則，除非有特定的法律依據或取得當事人明確同意。</div>
+                  </div>
+             </div>
+
+             <!-- Question 14 -->
+             <div class="question-card" data-direction="2" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#14</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">如果一個 <span class="acronym-term">AI</span> 演算法在預測男性貸款申請者的通過率顯著高於女性，即使其他條件相似，這可能涉及哪種倫理問題？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">演算法偏見 (<span class="english-term">Algorithmic Bias</span>)</b> 與<b class="chinese-term">不公平 (<span class="english-term">Unfairness</span>)</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">缺乏透明度 (<span class="english-term">Lack of Transparency</span>)</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">系統不穩健 (<span class="english-term">Lack of Robustness</span>)</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">侵犯隱私 (<span class="english-term">Privacy Violation</span>)</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">演算法偏見 (<span class="english-term">Algorithmic Bias</span>)</b> 指的是 <span class="acronym-term">AI</span> 系統因為訓練數據、演算法設計或應用方式等原因，<span class="highlight">對特定群體產生系統性的、不公平的差別待遇</span>。在此案例中，基於性別產生不同的預測結果，可能源於訓練資料中存在的歷史偏見，或演算法未能適當處理性別變數，導致了不公平的結果。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第二章。</div>
+                 </div>
+             </div>
+
+            <!-- Question 15 -->
+            <div class="question-card" data-direction="5" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#15</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">台灣的《人工智慧科研發展指引》強調的核心價值<span class="highlight">不包含</span>下列何者？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">以人為本</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">永續發展</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">多元包容</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">利潤最大化</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">根據《金融業運用人工智慧(<span class="acronym-term">AI</span>)之核心原則與相關推動政策》附錄介紹，我國科技部（現國科會）於 2019 年訂定的《人工智慧科研發展指引》，揭示的<span class="highlight">三大核心價值是「以人為本」、「永續發展」及「多元包容」</span>，並基於此提出八項指導原則。利潤最大化並非該指引強調的核心倫理或社會價值。</div>
+                </div>
+            </div>
+
+             <!-- Question 16 -->
+             <div class="question-card" data-direction="6" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#16</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">根據《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》，指定高階主管或委員會負責 <span class="acronym-term">AI</span> 相關監督管理，屬於哪個治理層面的實踐？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">建立治理及問責機制</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">重視公平性</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">保護隱私權益</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">落實透明性</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第一章核心原則(一)與第三節「組織架構及問責機制」中明確提到，<span class="highlight">應指定高階主管負責 <span class="acronym-term">AI</span> 相關監督管理並建立內部治理架構</span>，例如指定足以督導跨部門業務之高階主管或委員會負責整體監督管理。這是建立清晰治理結構和落實問責的具體措施。</div>
+                 </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#17</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">《公部門人工智慧應用參考手冊》4.1節中提到，<span class="highlight">AI 風險管理</span>應涵蓋 <span class="acronym-term">AI</span> 生命週期的哪些階段？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">僅限於模型開發階段。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">僅限於模型部署後的監控階段。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">從專案規劃、開發、部署到維運的整個生命週期</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">主要關注資料收集階段。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="acronym-term">AI</span> 治理與風險管理應<span class="highlight">貫穿 <span class="acronym-term">AI</span> 系統的整個生命週期</span>，從最初的概念發想、資料準備、模型開發、測試驗證、部署應用，到後續的監控、維護和退役。在每個階段都可能出現不同的風險，需要採取相應的管理措施。手冊中提到建置前、建置中、建置後皆有對應風險議題。</div>
+                 </div>
+            </div>
+
+             <!-- Question 18 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#18</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">為何<b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b> 在 <span class="acronym-term">AI</span> 治理中如此重要？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">可以讓 <span class="acronym-term">AI</span> 模型運行得更快。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">能自動消除所有的演算法偏見。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">有助於建立使用者信任、促進問責和發現潛在問題</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">可以降低開發 <span class="acronym-term">AI</span> 系統的成本。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b>，包括系統如何運作、使用了哪些數據、決策的邏輯等資訊的可取得性，是<span class="highlight">建立使用者和社會對 <span class="acronym-term">AI</span> 系統信任的基礎</span>。它使得<b class="chinese-term">監督 (<span class="english-term">Oversight</span>)</b> 和<b class="chinese-term">問責 (<span class="english-term">Accountability</span>)</b> 成為可能，也有助於開發者和使用者<span class="highlight">識別和修正潛在的錯誤、偏見或安全漏洞</span>。缺乏透明度（所謂的<b class="chinese-term">黑箱 (<span class="english-term">Black Box</span>)</b> 問題）是 <span class="acronym-term">AI</span> 治理的一大挑戰。</div>
+                 </div>
+            </div>
+
+            <!-- Question 19 -->
+             <div class="question-card" data-direction="7" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#19</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">下列何者最能體現「<b class="chinese-term">以人為本 (<span class="english-term">Human-centric</span>)</b>」的 <span class="acronym-term">AI</span> 設計原則？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">追求最高的演算法效率。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">使用最複雜的 <span class="acronym-term">AI</span> 模型。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">將人類的福祉、權利和價值觀置於 <span class="acronym-term">AI</span> 系統設計和應用的核心</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">最小化開發過程中的人力投入。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">「<b class="chinese-term">以人為本 (<span class="english-term">Human-centric</span>)</b>」是<b class="chinese-term">負責任 AI (<span class="english-term">Responsible AI</span>)</b> 和許多 <span class="acronym-term">AI</span> 倫理指南的核心原則。它強調 <span class="acronym-term">AI</span> 技術的發展和應用應<span class="highlight">以服務人類、增進人類福祉、尊重人權和基本自由為最終目的</span>，而不是技術本身或單純的效率。這意味著在 <span class="acronym-term">AI</span> 設計中需要考慮人的需求、感受、價值觀和潛在影響。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第二章。</div>
+                 </div>
+            </div>
+
+            <!-- Question 20 -->
+             <div class="question-card" data-direction="8" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#20</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content"><span class="acronym-term">AI</span> 治理面臨的主要挑戰<span class="highlight">不包括</span>下列哪個？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">如何界定和落實<b class="chinese-term">問責性 (<span class="english-term">Accountability</span>)</b>。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">如何解決<b class="chinese-term">演算法偏見 (<span class="english-term">Algorithmic Bias</span>)</b> 問題。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">如何平衡<b class="chinese-term">創新 (<span class="english-term">Innovation</span>)</b> 與<b class="chinese-term">監管 (<span class="english-term">Regulation</span>)</b>。</div></div>
+                     <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">如何降低電腦硬體的價格</span>。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="acronym-term">AI</span> 治理涉及複雜的倫理、法律、社會和技術問題。挑戰包括如何確保<b class="chinese-term">公平性 (<span class="english-term">Fairness</span>)</b>、<b class="chinese-term">問責性 (<span class="english-term">Accountability</span>)</b> 和<b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b>，如何管理<b class="chinese-term">風險 (<span class="english-term">Risk</span>)</b>，如何處理<b class="chinese-term">數據隱私 (<span class="english-term">Data Privacy</span>)</b>，以及如何制定既能促進創新又能有效監管的<b class="chinese-term">法規 (<span class="english-term">Regulations</span>)</b>。硬體價格雖然影響 <span class="acronym-term">AI</span> 的普及，但<span class="highlight">不屬於 <span class="acronym-term">AI</span> 治理本身的核心挑戰</span>。</div>
+                 </div>
+             </div>
+
+            <!-- Question 21 -->
+            <div class="question-card" data-direction="6" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#21</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">根據《公部門人工智慧應用參考手冊》4.5節，建立<b class="chinese-term">AI 應用清單 (<span class="english-term">AI Application Inventory</span>)</b> 的主要目的是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">計算開發 <span class="acronym-term">AI</span> 的總成本。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">評估 <span class="acronym-term">AI</span> 模型的技術複雜度。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">提供管理單位一個全面視角，了解組織內已部署的 <span class="acronym-term">AI</span> 系統</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">決定是否需要採購新的 <span class="acronym-term">AI</span> 軟體。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">建立<b class="chinese-term">AI 應用清單 (<span class="english-term">AI Application Inventory</span>)</b> 是 <span class="acronym-term">AI</span> 治理的基礎工作之一。它有助於組織<span class="highlight">全面掌握內部正在使用或開發的 <span class="acronym-term">AI</span> 系統</span>，了解它們的用途、範圍、所用數據、風險級別等信息，<span class="highlight">為後續的監控、風險管理和合規審查提供依據</span>。</div>
+                 </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card" data-direction="4" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#22</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">"<b class="chinese-term">去識別化 (<span class="english-term">De-identification</span>)</b>" 技術在 <span class="acronym-term">AI</span> 應用中的主要目的是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提高 <span class="acronym-term">AI</span> 模型的預測準確率。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增加訓練數據的多樣性。</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">移除或遮蔽個人可識別資訊，以保護個人隱私</span>。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">簡化資料庫的結構。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">去識別化 (<span class="english-term">De-identification</span>)</b> 是一種<b class="chinese-term">隱私保護技術 (<span class="english-term">Privacy-Enhancing Technology</span>, <span class="acronym-term">PET</span>)</b>，其目的是<span class="highlight">處理個人資料，使其無法直接或間接識別到特定個人</span>。在 <span class="acronym-term">AI</span> 應用中，對訓練或分析數據進行去識別化，可以在利用數據價值的同時，降低侵犯個人隱私的風險，並有助於符合個資保護法規的要求。</div>
+                 </div>
+             </div>
+
+             <!-- Question 23 -->
+             <div class="question-card" data-direction="2" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#23</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content">確保 <span class="acronym-term">AI</span> 系統的決策過程可以被追溯和審計，這與哪個治理原則最相關？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">公平性 (<span class="english-term">Fairness</span>)</b></div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">隱私保護 (<span class="english-term">Privacy Protection</span>)</b></div></div>
+                      <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">問責性 (<span class="english-term">Accountability</span>)</b> 與<b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b></div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">穩健性 (<span class="english-term">Robustness</span>)</b></div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><span class="highlight">決策過程的可追溯 (<span class="english-term">Traceability</span>) 和可審計性 (<span class="english-term">Auditability</span>)</span> 是實現<b class="chinese-term">問責性 (<span class="english-term">Accountability</span>)</b> 的重要基礎，因為它使得在發生問題時能夠釐清原因和責任。同時，這也與<b class="chinese-term">透明度 (<span class="english-term">Transparency</span>)</b> 密切相關，因為可追溯和可審計意味著系統的內部運作在一定程度上是可見和可檢查的。</div>
+                  </div>
+             </div>
+
+            <!-- Question 24 -->
+            <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#24</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">金融機構在使用第三方提供的 <span class="acronym-term">AI</span> 服務時，根據《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》，應進行哪項<span class="highlight">治理</span>活動？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">無需進行任何審查，完全信任第三方。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">進行適當的<b class="chinese-term">盡職調查 (<span class="english-term">Due Diligence</span>)</b> 和<b class="chinese-term">風險評估 (<span class="english-term">Risk Assessment</span>)</b></span>，並建立監督管理機制。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">要求第三方公開所有客戶的資料。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅需確認第三方服務的價格最低。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》總則第五點「第三方業者之監督管理」及第四章原則四(二) 強調，若金融機構<span class="highlight">使用第三方開發或營運的 <span class="acronym-term">AI</span> 系統</span>，應對第三方業者進行<span class="highlight">適當的風險管理及監督</span>。這包括事前評估第三方的專業能力、經驗、風險（如集中度風險），簽訂明確契約，並在合作過程中持續監督其是否符合相關規範（如資料保護、安全標準）。</div>
+                 </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#25</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">在 <span class="acronym-term">AI</span> 治理中，處理<b class="chinese-term">演算法偏見 (<span class="english-term">Algorithmic Bias</span>)</b> 的方法<span class="highlight">不包括</span>？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用更多元、更具代表性的訓練數據。</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">調整演算法或模型參數以提高公平性指標。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">在模型輸出後進行人工審核和修正。</div></div>
+                     <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">完全忽略數據中的敏感屬性（如性別、種族）</span>。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">處理演算法偏見需要多方面的方法，包括<span class="highlight">改善數據品質、調整演算法、以及增加人工監督</span>。僅僅忽略敏感屬性<span class="highlight">可能無法解決問題</span>，因為其他看似中性的特徵可能與敏感屬性高度相關（代理變數），導致偏見仍然存在。有時甚至需要「注意」這些敏感屬性，才能評估和校正模型對不同群體的公平性（公平性感知學習, <span class="english-term">Fairness-aware ML</span>）。</div>
+                 </div>
+            </div>
+
+            <!-- Question 26 -->
+             <div class="question-card" data-direction="1" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#26</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content"><span class="acronym-term">AI</span> 治理涉及 <span class="acronym-term">AI</span> 生命週期的哪個階段？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">僅設計與開發階段</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">僅部署與監控階段</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">僅資料收集與準備階段</div></div>
+                     <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">從規劃、設計、開發、部署到維運、退役的整個生命週期</span></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="acronym-term">AI</span> 治理是一個<span class="highlight">貫穿始終</span>的概念，需要在 <span class="acronym-term">AI</span> 系統的<span class="highlight">每一個階段</span>都納入考量。從最初的需求定義、風險評估，到資料處理、模型訓練、部署應用，再到後續的性能監控、更新維護，甚至最終的系統退役，都需要有相應的治理措施來確保其負責任地運作。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》及《公部門人工智慧應用參考手冊》的流程觀。</div>
+                 </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                 <div class="question-header">
+                     <div class="question-id">#27</div>
+                     <div class="question-frequency">★★★★</div>
+                 </div>
+                 <div class="question-content">"人類可控原則"(<span class="english-term">Human Controllability Principle</span>) 在 <span class="acronym-term">AI</span> 治理中的意涵是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="acronym-term">AI</span> 必須能夠控制人類的行為。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">人類應始終能夠理解、監督並在必要時干預或關閉 <span class="acronym-term">AI</span> 系統</span>。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">只有人類才能開發 <span class="acronym-term">AI</span> 系統。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="acronym-term">AI</span> 系統應被設計成完全自主，無需人類干預。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">「人類可控原則」強調<span class="highlight">人類對於 <span class="acronym-term">AI</span> 系統應保有最終的控制權</span>。這意味著 <span class="acronym-term">AI</span> 系統的設計應確保人類能夠<span class="highlight">理解其運作方式（透明度）、監控其行為，並在需要時能夠介入、修正甚至停止其運行</span>，以防止不可預期或有害的後果。這是確保 <span class="acronym-term">AI</span> 安全和問責的重要保障。參考《金融業運用人工智慧(<span class="acronym-term">AI</span>)指引》第二章。</div>
+                 </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card" data-direction="4" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#28</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">下列何者是<b class="chinese-term">資料治理 (<span class="english-term">Data Governance</span>)</b> 的常見框架或標準？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="acronym-term">Agile</span> 開發方法</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="acronym-term">ISO 9001</span> 品質管理系統</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><span class="acronym-term">DAMA-DMBOK</span> (<span class="english-term">Data Management Body of Knowledge</span>)</span></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="acronym-term">TCP/IP</span> 網路協定</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="acronym-term">DAMA-DMBOK</span> 是由國際數據管理協會 (<span class="acronym-term">DAMA International</span>) 發布的<span class="highlight">數據管理知識體系指南</span>，被廣泛認為是<b class="chinese-term">資料治理 (<span class="english-term">Data Governance</span>)</b> 和<b class="chinese-term">數據管理 (<span class="english-term">Data Management</span>)</b> 領域的權威參考框架。它定義了數據管理的知識領域、流程、角色和最佳實踐。</div>
+                 </div>
+            </div>
+
+            <!-- Question 29 -->
+             <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#29</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">《公部門人工智慧應用參考手冊》中提到的《行政院及所屬機關（構）使用生成式 <span class="acronym-term">AI</span> 參考指引》主要目的是？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">強制所有公務員必須使用生成式 <span class="acronym-term">AI</span>。</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">提供公務員在使用生成式 <span class="acronym-term">AI</span> 時的原則與注意事項</span>，以確保安全與合規。</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">評比不同生成式 <span class="acronym-term">AI</span> 工具的優劣。</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">限制生成式 <span class="acronym-term">AI</span> 在學術研究上的應用。</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content">該指引旨在<span class="highlight">引導公務員在執行業務時，如何負責任地使用生成式 <span class="acronym-term">AI</span></span>。它並非強制使用，而是<span class="highlight">提醒相關風險（如機密外洩、資訊偏誤）</span>，並提供使用上的基本原則、注意事項及應負責任，例如不得完全取代人工判斷、需註明內容由 <span class="acronym-term">AI</span> 生成、禁止用於製作機密文件等。參考《公部門人工智慧應用參考手冊》1.6 節及相關檢核表。</div>
+                 </div>
+             </div>
+
+            <!-- Question 30 -->
+            <div class="question-card" data-direction="6" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#30</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在 <span class="acronym-term">AI</span> 治理框架中，通常會包含哪些主要組成部分？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">僅有技術標準和演算法規範。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">僅有法律法規和合規要求。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">原則與價值觀、政策與流程、組織結構與角色、工具與技術</span>等多個層面。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅有對 <span class="acronym-term">AI</span> 開發人員的培訓計畫。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">一個有效的 <span class="acronym-term">AI</span> 治理框架通常是多面向的，它需要<span class="highlight">定義指導性的原則和價值觀</span>（如公平、透明），<span class="highlight">制定具體的政策和標準作業流程</span>（如風險評估流程、數據使用政策），<span class="highlight">明確組織內的權責分工</span>（如設立治理委員會、指定負責人），並<span class="highlight">可能藉助特定的工具和技術</span>來輔助治理的實施（如模型監控工具、偏見檢測工具）。</div>
+                </div>
+            </div>
+
+
+             <!-- Message area for no results -->
+             <div id="noResultsMessage"></div>
+
+        </div> <!-- End questions-container -->
+
+        <a href="#" class="back-to-top" id="backToTop">↑</a> <!-- Changed to anchor -->
+    </div> <!-- End container -->
+
+    <script>
+        let explanationsVisible = false;
+        let answersVisible = true;
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // Smooth scroll for back-to-top
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter by direction (called from direction items)
+        function filterByDirection(directionNumber) {
+            document.getElementById('directionFilter').value = directionNumber === 'all' ? 'all' : String(directionNumber);
+            document.getElementById('searchInput').value = ''; // Clear search when applying direction filter
+             document.getElementById('starFilter').value = 'all'; // Reset star filter
+            filterAndSearchQuestions();
+            // Scroll to the questions container smoothly
+            const questionsContainer = document.getElementById('questionsContainer');
+            if (questionsContainer) {
+                questionsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("directionFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            // Filter as user types (removed Enter key specific check for simplicity)
+            filterAndSearchQuestions();
+        });
+
+        // Combined filter and search function
+        function filterAndSearchQuestions() {
+            let direction = document.getElementById("directionFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let questions = document.querySelectorAll(".question-card");
+            let anyVisible = false; // Track if any questions match
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            questions.forEach(function(question) {
+                const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+                const matchesStars = (stars === "all" || question.dataset.stars === stars);
+                // Search in question content, options, and explanation
+                const questionTextElement = question.querySelector('.question-content');
+                const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+                const explanationContainer = question.querySelector('.explanation-container');
+                const explanationText = explanationContainer ? explanationContainer.textContent.toLowerCase() : '';
+
+                let combinedText = '';
+                if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+                combinedText += ' ' + optionsText;
+                combinedText += ' ' + explanationText; // Include explanation in search
+
+                const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+
+                // Question must match all active criteria
+                if (matchesDirection && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+             // Display message if no questions match
+             if (noResultsMessage) {
+                 if (anyVisible) {
+                    noResultsMessage.style.display = 'none';
+                 } else {
+                    noResultsMessage.style.display = 'block';
+                    noResultsMessage.textContent = '沒有找到符合條件的題目。請嘗試調整篩選條件或搜尋關鍵字。';
+                 }
+             }
+        }
+
+        // Toggle ALL explanations visibility
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+            let button = document.getElementById("toggleExplanations");
+            explanations.forEach(function(explanation) {
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+
+         // Toggle INDIVIDUAL explanation visibility on clicking the QUESTION CONTENT
+         let questionContents = document.querySelectorAll(".question-content");
+         questionContents.forEach(function(content) {
+            // content.style.cursor = 'pointer'; // Indicate clickable - Already set in CSS
+            content.addEventListener("click", function() {
+                const questionCard = this.closest('.question-card');
+                if (!questionCard) return;
+                const explanation = questionCard.querySelector('.explanation-container');
+                if (explanation) {
+                    // Toggle individual explanation display
+                    explanation.style.display = (explanation.style.display === 'none' || explanation.style.display === '') ? 'block' : 'none';
+                    // updateGlobalToggleText(); // Optional: Update global button if needed
+                }
+            });
+         });
+
+
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+             toggleBackToTopButton();
+             updateProgressBar();
+             filterAndSearchQuestions(); // Apply initial filter/search state
+             // Set initial state for toggle button text based on the initial value of explanationsVisible
+             document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+             // Ensure explanations start hidden or visible based on initial state
+             let initialExplanations = document.querySelectorAll(".explanation-container");
+             initialExplanations.forEach(function(explanation) {
+                explanation.style.display = explanationsVisible ? "block" : "none";
+             });
+             let allOptions = document.querySelectorAll('.option-item[data-option]');
+             allOptions.forEach(function(opt) {
+                if (opt.classList.contains('correct')) {
+                    opt.dataset.originalCorrect = 'true';
+                } else {
+                    opt.dataset.originalCorrect = 'false';
+                }
+             });
+         });
+
+    </script>
+</body>
+</html>

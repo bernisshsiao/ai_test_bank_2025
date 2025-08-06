@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師初級能力鑑定-考試樣題</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 20px 30px;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #0056b3;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+         h2 {
+             color: #2c3e50;
+             margin-top: 20px;
+             margin-bottom: 20px;
+             padding-bottom: 8px;
+             border-bottom: 1px solid #eee;
+             font-size: 1.5rem;
+         }
+        .header-container {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 5px;
+        }
+        .header-container div {
+             font-size: 1.1rem;
+        }
+
+        /* 出題方向/科目區塊樣式 */
+        .sections-container {
+            background-color: #fffbeb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f1c40f;
+            border-radius: 5px;
+        }
+        .sections-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+        }
+        .section-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .section-item:hover {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .section-number {
+            width: 25px;
+            height: 25px;
+            background-color: #f1c40f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .section-item:hover .section-number {
+            background-color: white;
+            color: #f1c40f;
+        }
+         .section-text {
+            flex-grow: 1;
+         }
+        /* 問題卡片樣式 */
+        .questions-container {
+            /* gap: 20px; */ /* Spacing is handled by margin-bottom */
+        }
+        .question-card {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-id {
+            font-weight: bold;
+            color: #3498db;
+            font-size: 0.95em;
+        }
+        .question-frequency {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .question-content {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            list-style: none;
+            padding-left: 0;
+        }
+        .option-item {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            cursor: default;
+            transition: background-color 0.2s ease;
+            font-size: 0.98em;
+            align-items: center;
+        }
+        .option-item:hover {
+            background-color: #e9ecef;
+        }
+        .option-item.correct {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            font-weight: bold;
+        }
+        .option-item.correct:hover {
+            background-color: #c3e6cb;
+        }
+        .option-label {
+            width: 25px;
+            height: 25px;
+            min-width: 25px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .option-item.correct .option-label {
+            background-color: #28a745;
+        }
+        .option-text {
+             flex-grow: 1;
+             word-break: break-word;
+        }
+        .explanation-container {
+            background-color: #eef7ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none; /* Start hidden */
+            border-top: 1px dashed #ced4da;
+            font-size: 0.95em;
+        }
+        .explanation-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .explanation-content {
+            line-height: 1.6;
+            color: #000000;
+        }
+        /* Formatting Styles */
+        .highlight {
+            background-color: #ffff0030;
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+        .chinese-term {
+             color: rgb(0, 0, 255); /* Blue */
+             font-weight: bold;
+        }
+         .acronym-term {
+             color: rgb(128, 0, 128); /* Purple */
+             font-weight: bold;
+        }
+         .english-term {
+             color: rgb(255, 0, 0); /* Red */
+             font-weight: bold;
+        }
+
+        /* Controls styling */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            min-width: 150px;
+        }
+         input[type="text"] {
+            flex-grow: 2;
+         }
+        button {
+            padding: 9px 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease;
+            font-size: 0.95em;
+            margin-left: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+         #toggleExplanations {
+           margin-left: 0;
+        }
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        .back-to-top:hover {
+            background-color: #2980b9;
+            opacity: 1;
+        }
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+        }
+        /* RWD */
+        @media (max-width: 992px) {
+             .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+                width: 100%;
+                justify-content: space-between;
+            }
+             select, input[type="text"] {
+                 width: auto;
+                 flex-grow: 1;
+             }
+             button {
+                 flex-shrink: 0;
+             }
+             .search-container button {
+                margin-left: 10px;
+             }
+             .sections-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 20px;
+            }
+             h1 {
+                 font-size: 1.5em;
+             }
+             h2 {
+                 font-size: 1.3em;
+             }
+             .option-item, .explanation-container, button {
+                 font-size: 0.9em;
+             }
+             .option-label {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+                font-size: 0.9em;
+             }
+        }
+         @media (max-width: 600px) {
+             .container {
+                 padding: 15px;
+                 margin: 10px auto;
+             }
+             h1 {
+                 font-size: 1.4em;
+             }
+             .header-container h1 {
+                font-size: 1.6rem;
+             }
+             .header-container div {
+                 font-size: 1rem;
+             }
+             .option-item, button, .explanation-container {
+                 font-size: 0.9em;
+             }
+         }
+         /* No results message style */
+         #noResultsMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+         }
+
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 初級能力鑑定</h1>
+            <div>考試樣題 (114年4月版)</div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-container">
+                <label for="subjectFilter" class="filter-label">篩選科目：</label>
+                <select id="subjectFilter">
+                    <option value="all">全科目</option>
+                    <option value="subject1">科目一: 人工智慧基礎概論</option>
+                    <option value="subject2">科目二: 生成式 AI 應用與規劃</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <!-- 可以根據題目實際重要性添加 1-2 星 -->
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入題目、選項或解析關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+        </div>
+
+        <div class="sections-container">
+            <div class="sections-title">樣題科目</div>
+            <div class="sections-grid" id="sectionsGrid">
+                <div class="section-item" onclick="filterBySubject('subject1')">
+                    <div class="section-number">一</div> <div class="section-text">人工智慧基礎概論</div>
+                </div>
+                <div class="section-item" onclick="filterBySubject('subject2')">
+                    <div class="section-number">二</div> <div class="section-text">生成式 AI 應用與規劃</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <h2>科目一: 人工智慧基礎概論</h2>
+
+            <!-- Subject 1, Question 1 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於<span class="acronym-term">AI</span>,下列敘述何者正確?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="acronym-term">AI</span> 僅能處理結構化數據的分析</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><span class="acronym-term">AI</span> 涵蓋多種專業領域與技術</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">AI</span> 系統只能在學術研究中應用</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="acronym-term">AI</span> 無法應用於金融領域</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        選項 (A) 不正確，<span class="acronym-term">AI</span> 不僅能處理結構化數據（如資料庫中的表格），也<span class="highlight">擅長處理非結構化數據</span>，如圖像、語音、文字等。<br>
+                        選項 (B) 正確，<span class="acronym-term">AI</span> 是一個廣泛的領域，<span class="highlight">涵蓋機器學習、深度學習、自然語言處理、電腦視覺等多種技術</span>，並<span class="highlight">被應用於醫療、金融、製造、交通等多種專業領域</span>。<br>
+                        選項 (C) 不正確，<span class="acronym-term">AI</span> 系統已<span class="highlight">廣泛應用於商業、政府部門和日常生活中</span>，遠不止學術研究。<br>
+                        選項 (D) 不正確，<span class="acronym-term">AI</span> 在金融領域有諸多應用，例如<span class="highlight">信用評估、詐欺偵測、高頻交易、智能客服</span>等。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 2 -->
+            <div class="question-card" data-subject="subject1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">下列何者最適合訓練電腦下圍棋、自動駕駛等動態重複地互動的問題?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">監督式學習</b> (<span class="english-term">Supervised Learning</span>)</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">非監督式學習</b> (<span class="english-term">Unsupervised Learning</span>)</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">半監督式學習</b> (<span class="english-term">Semi-supervised Learning</span> )</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight"><b class="chinese-term">強化學習</b> (<span class="english-term">Reinforcement Learning</span>)</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">強化學習</b> (<span class="english-term">Reinforcement Learning</span>)</span> 是一種讓<b class="chinese-term">代理人</b> (<span class="english-term">Agent</span>) 在特定<b class="chinese-term">環境</b> (<span class="english-term">Environment</span>) 中<span class="highlight">透過試錯學習最佳行為策略</span>的方法。代理人執行<b class="chinese-term">動作</b> (<span class="english-term">Action</span>) 後，環境會根據動作結果給予<b class="chinese-term">獎勵</b> (<span class="english-term">Reward</span>) 或<b class="chinese-term">懲罰</b> (<span class="english-term">Penalty</span>)。下圍棋和自動駕駛都是典型的強化學習應用場景，系統（代理人）在遊戲或交通環境中執行一系列動作，並根據結果（贏棋/輸棋、安全行駛/發生事故）獲得獎勵或懲罰，從而學習如何在未來做出更好的決策。
+                    </div>
+                    <br>
+                    <img src="image/Reinforcement Learning.jpg" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 3 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">深度學習模型中,下列哪一項通常用來降低<b class="chinese-term">過擬合</b>(<span class="english-term">Overfitting</span> )問題?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加訓練數據量</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增加模型的複雜度</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">增加學習率</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">增加<b class="chinese-term">正則化項</b> (<span class="english-term">Regularization</span>)</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">過擬合</b> (<span class="english-term">Overfitting</span>) 是指模型在訓練數據上表現很好，但在未見過的測試數據上表現差。
+                        選項 (A) 增加訓練數據量確實有助於緩解過擬合，但題目問的是「通常用來降低」的方法，而<b class="chinese-term">正則化</b>是一個更直接的模型層面的控制手段。
+                        選項 (B) 增加模型的複雜度（例如增加層數或神經元）<span class="highlight">反而會增加過擬合的風險</span>。
+                        選項 (C) 增加學習率主要影響模型的訓練速度和收斂性，<span class="highlight">與過擬合的直接關聯較小</span>，有時過高的學習率甚至可能導致訓練不穩定。
+                        選項 (D) <span class="highlight"><b class="chinese-term">正則化</b> (<span class="english-term">Regularization</span>)</span> 是一種<span class="highlight">常用的防止過擬合技術</span>，例如 L1/L2 正則化、Dropout 等，它們通過限制模型的複雜度或權重的大小來提高模型的泛化能力。
+                    </div>
+                    <br>
+                    <img src="image/L1-and-L2-Regularization-Penalty.png" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 4 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在<span class="acronym-term">AI</span> 治理中,下列何者是國際合作的重要性?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">統一 <span class="acronym-term">AI</span> 發展標準</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">避免 <span class="acronym-term">AI</span> 技術的濫用</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">促進 <span class="acronym-term">AI</span> 技術的轉移</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">以上皆是</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="acronym-term">AI</span> 治理涉及跨國界、跨文化的議題，<span class="highlight">國際合作對於應對 <span class="acronym-term">AI</span> 帶來的全球性挑戰至關重要</span>。
+                        選項 (A) 國際合作有助於<span class="highlight">建立共通的 <span class="acronym-term">AI</span> 技術標準、安全標準、倫理準則</span>等。
+                        選項 (B) 國際合作是<span class="highlight">應對 <span class="acronym-term">AI</span> 技術濫用（如用於監控、武器、假訊息等）的關鍵</span>，需要各國協調一致的政策和法規。
+                        選項 (C) 國際合作可以<span class="highlight">促進 <span class="acronym-term">AI</span> 技術、知識和最佳實踐的交流與轉移</span>，幫助全球共同發展和應用 <span class="acronym-term">AI</span>。
+                        因此，以上所有方面都是 <span class="acronym-term">AI</span> 治理中國際合作的重要目標。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 5 -->
+            <div class="question-card" data-subject="subject1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#5</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">若要設計一個能夠辨識並過濾垃圾郵件的系統,應該選擇下列哪一種機器學習演算法以實現最佳效果?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">監督式學習</b> (<span class="english-term">Supervised Learning</span>)</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">非監督式學習</b> (<span class="english-term">Unsupervised Learning</span>)</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">半監督式學習</b> (<span class="english-term">Semi-supervised Learning</span>)</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">強化學習</b> (<span class="english-term">Reinforcement Learning</span> )</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        辨識垃圾郵件是一個典型的<b class="chinese-term">分類</b> (<span class="english-term">Classification</span>) 問題。在訓練過程中，我們可以輕易獲得大量已標記的郵件數據，即知道哪些是「垃圾郵件」(Spam)，哪些是「非垃圾郵件」(Ham)。這種<span class="highlight">使用帶有正確標籤（垃圾/非垃圾）的數據來訓練模型，讓模型學會區分不同類別的方法</span>，正符合<b class="chinese-term">監督式學習</b> (<span class="english-term">Supervised Learning</span>) 的定義。非監督式學習用於尋找數據內在結構（如分群），強化學習用於透過試錯學習策略，半監督學習用於標籤數據不足的情況，這些都不如監督式學習直接適用於這個明確的分類任務。
+                    </div>
+                    <br>
+                    <img src="image/Supervised_and_unsupervised_learning.png" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 6 -->
+            <div class="question-card" data-subject="subject1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">假設某國正在考慮使用 <span class="acronym-term">AI</span> 技術來進行社會信用評分,並根據年齡、缺陷、種族等特徵來評定個人的信用;同時,該國計劃在公眾場所使用遠程生物辨識系統進行執法,目的在於提高社會秩序和安全。上述 <span class="acronym-term">AI</span> 應用可能會引發對隱私和個人權利的重大關注,根據歐盟《<b class="chinese-term">人工智慧法</b>》(<span class="english-term">Artificial Intelligence Act</span>, <span class="acronym-term">AIA</span>) 的風險分級,這類應用屬於哪一風險等級?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">不可接受風險</b> (<span class="english-term">Unacceptable Risk</span>)</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">高風險</b> (<span class="english-term">High Risk</span>)</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">有限風險</b> (<span class="english-term">Limited Risk</span>)</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">小或低風險</b> (<span class="english-term">Minimal or Low Risk</span>)</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        歐盟《<b class="chinese-term">人工智慧法</b>》(<span class="acronym-term">AIA</span>) 將 <span class="acronym-term">AI</span> 系統分為四個風險等級：不可接受風險、高風險、有限風險和小/低風險。
+                        其中，<span class="highlight"><b class="chinese-term">不可接受風險</b> (<span class="english-term">Unacceptable Risk</span>)</span> 的系統被視為對人類安全、生計和權利構成明顯威脅，因此<span class="highlight">應予禁止</span>。這包括用於<span class="highlight">社會信用評分</span>、利用個人弱勢（如年齡、身體或心理缺陷）進行行為操縱、或在公共場所進行<span class="highlight">實時遠程生物辨識</span>（執法目的下的特定情況除外，但題目描述的廣泛用途聽起來風險極高）。根據題目描述，基於種族、缺陷等特徵的社會信用評分屬於<b class="chinese-term">歧視性</b>且<b class="chinese-term">侵犯基本權利</b>的行為，而廣泛的遠程生物辨識也極具爭議，這些都高度符合<b class="chinese-term">不可接受風險</b>的特徵。雖然有些生物辨識系統被歸為高風險，但題目中結合社會信用評分及公眾場所遠程辨識的描述，指向了最嚴格的風險等級。
+                    </div>
+                    <br>
+                    <img src="image/AI ACT.webp" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 7 -->
+            <div class="question-card" data-subject="subject1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#7</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列何者非大數據時代資料的特性?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料量大</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">資料變動速度快</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料多樣性</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">資料存儲位置固定</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        大數據通常具有 3V 或更多 V 的特性：
+                        <span class="highlight">資料量大 (<span class="english-term">Volume</span>)</span>：數據體積龐大。
+                        <span class="highlight">資料變動速度快 (<span class="english-term">Velocity</span>)</span>：數據產生和流動的速度很快。
+                        <span class="highlight">資料多樣性 (<span class="english-term">Variety</span>)</span>：數據類型多樣，包括結構化、半結構化和非結構化數據。
+                        <b class="chinese-term">資料真實性</b> (<span class="english-term">Veracity</span>) 也是常見的第四個 V，指數據的準確性和可信度。
+                        然而，<span class="highlight">「資料存儲位置固定」並非大數據的特性</span>。大數據的存儲常常是<span class="highlight">分散式</span>的，分佈在多個伺服器或雲端，以應對其龐大的體積和高吞取速度要求。
+                    </div>
+                    <br>
+                    <img src="image/big_data.png" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 8 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#8</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於<b class="chinese-term">K平均法</b>(<span class="english-term"> K-means</span> ),下列敘述何者「不」正確?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">希望找出 k個互不交集的群集</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">不同的起始群集中心,可能會造成不同的分群結果</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">容易受雜訊與<b class="chinese-term">離群值</b>(<span class="english-term">Outlier</span>)影響其群集中心</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">可以處理類別型資料</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">K平均法</b> (<span class="english-term">K-means</span>) 是一種<b class="chinese-term">非監督式學習</b>的<b class="chinese-term">分群</b> (<span class="english-term">Clustering</span>) 演算法。
+                        選項 (A) 正確，K-means 的目標是將數據點劃分為 k 個<span class="highlight">不重疊</span>的群集，每個數據點屬於離它最近的群集中心。
+                        選項 (B) 正確，K-means 演算法對<span class="highlight">初始選擇的群集中心敏感</span>，不同的初始中心可能導致不同的最終分群結果。
+                        選項 (C) 正確，K-means 計算群集中心是透過計算群集內數據點的<b class="chinese-term">平均值</b>，因此<span class="highlight">容易受到異常值 (<span class="english-term">Outlier</span>) 的顯著影響</span>，使得群集中心偏移。
+                        選項 (D) <span class="highlight">不正確</span>，K-means 的核心是計算數據點與群集中心之間的<b class="chinese-term">距離</b>（通常是歐式距離），並計算群集內數據點的<b class="chinese-term">平均值</b>作為新的群集中心。這些操作都基於<span class="highlight">數值型資料</span>。雖然可以透過一些編碼方法（如獨熱編碼）處理<b class="chinese-term">類別型資料</b>，但 K-means 本身<span class="highlight">並不直接適合處理純類別型資料</span>，效果通常不佳，需要搭配其他技術或選擇更適合的演算法（如 K-modes）。
+                    </div>
+                    <br>
+                    <img src="image/K-Means.avif" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 9 -->
+            <div class="question-card" data-subject="subject1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪一種資料類型不屬於非結構化資料?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">X 光醫學影像</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">監控錄影畫面</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">客服電話錄音</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">組織內部的<b class="chinese-term">關係型資料庫記錄</b></span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">非結構化資料</b> (<span class="english-term">Unstructured Data</span>) 是指<span class="highlight">沒有預定義的結構或模型</span>的資料，例如文字文件、圖像、音訊、視訊等。
+                        選項 (A) X 光醫學影像屬於圖像，是<span class="highlight">非結構化資料</span>。
+                        選項 (B) 監控錄影畫面屬於視訊，是<span class="highlight">非結構化資料</span>。
+                        選項 (C) 客服電話錄音屬於音訊，是<span class="highlight">非結構化資料</span>。
+                        選項 (D) <span class="highlight"><b class="chinese-term">關係型資料庫記錄</b> (<span class="english-term">Relational Database Records</span>)</span> 通常以表格形式存儲，具有明確定義的行和列，遵循固定的<b class="chinese-term">結構</b> (<span class="english-term">Schema</span>)，因此屬於<span class="highlight">結構化資料</span> (<span class="english-term">Structured Data</span>)。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 10 -->
+            <div class="question-card" data-subject="subject1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#10</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列資料型態,何者最常用來儲存員工年齡、員工年資、貨品銷售量等資料?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">文字型(<span class="english-term">Text</span> )</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">數值型</b>(<span class="english-term">Numeric</span>)</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">日期型(<span class="english-term">Date</span>)</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">布林型(<span class="english-term">Boolean</span>)</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        員工年齡、員工年資和貨品銷售量都是表示<span class="highlight">數量或數值大小</span>的資料。
+                        選項 (A) 文字型用於儲存文本字符串。
+                        選項 (B) <span class="highlight">數值型</span>用於儲存整數或小數等數值。這是最適合表示數量、測量值或計算結果的資料類型。
+                        選項 (C) 日期型用於儲存特定的日期或時間點。
+                        選項 (D) 布林型用於儲存只有兩個可能值（真/假、是/否）的資料。
+                        因此，表示年齡、年資和銷售量應選擇<b class="chinese-term">數值型</b>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 11 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#11</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在品質管理中,若一產品的生產過程中<b class="chinese-term">標準差</b>顯著偏大,通常意味著什麼?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料點高度集中,產品質量穩定</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">生產過程波動大,產品品質不穩定</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料無法反映產品實際狀況</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">中位數數值高,品質良率較高</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">標準差</b> (<span class="english-term">Standard Deviation</span>) 是衡量數據<span class="highlight">離散程度</span>或<span class="highlight">波動性</span>的統計量。
+                        <span class="highlight">標準差越大</span>，表示數據點（例如產品的某項測量值）<span class="highlight">越分散，離其平均值越遠</span>。在品質管理中，這通常意味著<span class="highlight">生產過程不穩定</span>，產品在同一規格上的差異較大，導致產品品質的<span class="highlight">一致性或穩定性較差</span>。
+                        選項 (A) 標準差小才表示資料點集中，品質穩定。
+                        選項 (B) 正確，標準差大表示生產過程波動大，產品品質不穩定。
+                        選項 (C) 標準差是反映資料波動性的重要指標。
+                        選項 (D) 中位數高與標準差無直接關係，且標準差大通常與品質不穩定相關，不一定代表品質良率高。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 12 -->
+            <div class="question-card" data-subject="subject1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#12</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在檢視資料品質時,可參考資料的變異程度及資料的集中趨勢。下列何者不屬於資料集中趨勢衡量的方法?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">平均數(<span class="english-term">Mean</span>)</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">中位數(<span class="english-term">Median</span>)</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">眾數(<span class="english-term">Mode</span>)</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight"><b class="chinese-term">標準差</b>(<span class="english-term">Standard Deviation</span>)</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight">資料的<b class="chinese-term">集中趨勢</b> (<span class="english-term">Measures of Central Tendency</span>)</span> 用於描述數據集的中心位置，常見的包括：
+                        <span class="highlight">平均數 (<span class="english-term">Mean</span>)</span>：所有數據點加總後除以數據點的數量。
+                        <span class="highlight">中位數 (<span class="english-term">Median</span>)</span>：將數據排序後位於最中間位置的數值。
+                        <span class="highlight">眾數 (<span class="english-term">Mode</span>)</span>：數據集中出現頻率最高的數值。
+                        <b class="chinese-term">標準差</b> (<span class="english-term">Standard Deviation</span>) 則是衡量<span class="highlight">資料<b class="chinese-term">變異程度</b> (<span class="english-term">Measures of Dispersion/Variability</span>)</span> 的統計量，表示數據點相對於平均值的散佈情況，而不是集中趨勢。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 13 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#13</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">某醫院研究特定心血管疾病的成因,收集了 50 名病患與 150 名正常人的年齡、血壓、血型等三項屬性變數。此研究適合使用下列哪一種機器學習模型來建立?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><b class="chinese-term">決策樹</b>(<span class="english-term">Decision Tree</span> )</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">線性迴歸</b>(<span class="english-term"> Linear Regression</span> )</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">基於密度之含噪空間聚類法</b>(<span class="english-term">Density-Based Spatial Clustering of Application with Noise</span>, <span class="acronym-term">DBSCAN</span> )</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">K-means 聚類</b> (<span class="english-term"> K-means Clustering</span> )</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        這個研究的目標是根據一些屬性（年齡、血壓、血型）來區分「病患」和「正常人」。這是一個典型的<b class="chinese-term">二元分類</b> (<span class="english-term">Binary Classification</span>) 問題，且資料已經有明確的標籤（病患/正常人），因此最適合使用<span class="highlight">監督式學習</span>演算法。
+                        選項 (A) <span class="highlight"><b class="chinese-term">決策樹</b> (<span class="english-term">Decision Tree</span>)</span> 是一種常用的<span class="highlight">監督式學習分類演算法</span>。
+                        選項 (B) <b class="chinese-term">線性迴歸</b>用於<span class="highlight">預測連續數值</span>，不適用於分類。
+                        選項 (C) <span class="acronym-term">DBSCAN</span> 和 (D) <span class="english-term">K-means</span> 都是<b class="chinese-term">非監督式學習</b>的<b class="chinese-term">分群</b>演算法，用於在未標記資料中尋找分組，不適用於已經有類別標籤的預測任務。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 14 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#14</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">銀行想建立聊天機器人,可透過下列哪一種領域技術來達成?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">資料庫管理技術</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">機器學習</b>與<b class="chinese-term">自然語言處理</b></span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">網頁開發技術</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">網路安全技術</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        聊天機器人需要能夠理解使用者的文字或語音輸入（<b class="chinese-term">自然語言理解</b>, <span class="english-term">Natural Language Understanding</span>）並生成恰當的回應（<b class="chinese-term">自然語言生成</b>, <span class="acronym-term">NLG</span>）。這些能力是<span class="highlight"><b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>)</span> 領域的核心。同時，聊天機器人通常需要<b class="chinese-term">機器學習</b>模型來學習對話模式、意圖識別、情緒分析等。雖然資料庫、網頁開發、網路安全都是建設聊天機器人系統可能需要的其他技術，但<span class="highlight"><b class="chinese-term">機器學習</b>與<b class="chinese-term">自然語言處理</b></span> 是實現聊天機器人核心智能功能的關鍵技術。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 15 -->
+            <div class="question-card" data-subject="subject1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#15</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">線性迴歸模型</b>最適合解決哪種類型的問題?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">圖像分類</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">銷售額預測</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">聚類分析</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">遊戲策略學習</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">線性迴歸</b> (<span class="english-term">Linear Regression</span>) 是一種<span class="highlight">監督式學習</span>方法，用於建立一個輸入變數（或多個）與<span class="highlight">連續的目標變數</span>之間的線性關係模型。它的主要應用是<b class="chinese-term">迴歸</b> (<span class="english-term">Regression</span>) 分析，即<span class="highlight">預測一個數值型的輸出</span>。
+                        選項 (A) 圖像分類是<b class="chinese-term">分類</b>問題，通常用分類模型解決。
+                        選項 (B) <span class="highlight">銷售額預測</span>是預測一個<span class="highlight">連續數值</span>（銷售金額），是典型的<b class="chinese-term">迴歸</b>問題，適合使用線性迴歸等迴歸模型。
+                        選項 (C) 聚類分析是<b class="chinese-term">非監督式學習</b>的分群問題。
+                        選項 (D) 遊戲策略學習是典型的<b class="chinese-term">強化學習</b>問題。
+                    </div>
+                    <br>
+                    <img src="image/Linear Regression.jpg" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 16 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#16</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">請問下列何者不是常見的<b class="chinese-term">特徵選取</b>技術或方法?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">皮爾森積差相關分析</b>(<span class="english-term">Pearson Correlation</span> )</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">主成分分析</b>(<span class="english-term">Principal Components Analysis</span>, <span class="acronym-term">PCA</span>)</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">迴歸分析</b>(<span class="english-term">Regression Analysis</span>)</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">隨機森林</b>(<span class="english-term">Random Forest</span> )</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">特徵選取</b> (<span class="english-term">Feature Selection</span>)</span> 是指從原始特徵集合中選擇一個<span class="highlight">最有代表性或最相關的子集</span>，以提高模型性能、減少過擬合、降低計算成本等。常見的特徵選取方法包括過濾法 (Filter Methods)、包裝法 (Wrapper Methods) 和嵌入法 (Embedded Methods)。
+                        選項 (A) <b class="chinese-term">皮爾森積差相關分析</b>可以衡量特徵與目標變數之間的線性相關性，<span class="highlight">常用作過濾法特徵選取的一部分</span>。
+                        選項 (B) <b class="chinese-term">主成分分析</b> (<span class="acronym-term">PCA</span>) 是一種<span class="highlight">降維技術</span>，它將原始特徵轉換為一組新的、不相關的主成分，雖然不是嚴格意義上的「選取」原始特徵，但常用於減少特徵數量。
+                        選項 (D) <b class="chinese-term">隨機森林</b>是一種集成學習模型，可以<span class="highlight">計算每個特徵對模型預測的貢獻度（特徵重要性）</span>，這是一種<span class="highlight">嵌入法特徵選取</span>方法。
+                        選項 (C) <span class="highlight"><b class="chinese-term">迴歸分析</b> (<span class="english-term">Regression Analysis</span>)</span> 是一種用於<span class="highlight">建立模型並預測連續值</span>的統計方法，<span class="highlight">它本身是模型本身，而不是用於選擇特徵的方法</span>，儘管在進行迴歸分析時可能會應用特徵選取技術。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 17 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#17</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">交叉驗證</b>的主要目的是什麼?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提高模型的訓練速度</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">驗證數據是否線性可分</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">減少模型的<b class="chinese-term">過擬合風險</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">測試模型的容錯能力</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">交叉驗證</b> (<span class="english-term">Cross-Validation</span>)</span> 是一種用於<span class="highlight">評估機器學習模型性能</span>的技術，特別是在<span class="highlight">數據量有限</span>的情況下。它將數據集分割成多個子集，輪流使用不同的子集作為訓練集和驗證集，從而更穩健地評估模型的<b class="chinese-term">泛化能力</b> (<span class="english-term">Generalization Ability</span>)。
+                        選項 (A) 交叉驗證會重複訓練多次，通常會<span class="highlight">增加總訓練時間</span>，而不是提高訓練速度。
+                        選項 (B) 驗證數據是否線性可分通常是針對特定模型（如 SVM）的考量，<span class="highlight">不是交叉驗證的主要目的</span>。
+                        選項 (C) 透過在多個不同的數據子集上評估模型性能，交叉驗證可以<span class="highlight">更準確地估計模型在未見數據上的表現</span>，從而幫助檢測和<span class="highlight">減少過擬合的風險</span>。
+                        選項 (D) 交叉驗證可以評估模型在不同數據分割上的性能，這有助於了解其穩健性，但「容錯能力」通常指模型對錯誤輸入的處理能力，與交叉驗證的側重點不同。
+                    </div>
+                    <br>
+                    <img src="image/Cross-validation.webp" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 18 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#18</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">神經網路</b>與傳統機器學習模型的主要區別是什麼?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">神經網路無法處理非線性數據</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">神經網路透過多層結構學習複雜特徵</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">神經網路只適用於迴歸問題</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">神經網路不需要大量數據支持</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        選項 (A) 不正確，<span class="highlight"><b class="chinese-term">神經網路</b> (<span class="english-term">Neural Network</span>)</span>，特別是具有隱藏層的多層感知器，<span class="highlight">非常擅長處理非線性關係</span>。
+                        選項 (B) 正確，神經網路，尤其是<b class="chinese-term">深度學習</b> (<span class="acronym-term">DL</span>) 模型，具有多個隱藏層（<span class="highlight">多層結構</span>），能夠自動從原始數據中<span class="highlight">學習層層抽象的複雜特徵表示</span>（Feature Representation），這與許多需要手動進行特徵工程的傳統機器學習模型不同。
+                        選項 (C) 不正確，神經網路既可以解決<b class="chinese-term">迴歸</b>問題（預測連續值），也可以解決<b class="chinese-term">分類</b>問題（預測類別）。
+                        選項 (D) 不正確，<span class="highlight">神經網路，特別是深度學習模型，通常需要<b class="chinese-term">大量數據</b>來訓練</span>，才能發揮其潛力並避免過擬合。
+                    </div>
+                    <br>
+                    <img src="image/Neural Network.jpg" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 19 -->
+            <div class="question-card" data-subject="subject1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#19</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">下列關於<b class="chinese-term">生成對抗網路</b>(<span class="acronym-term"> GAN</span> )的描述正確的是哪一項?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><span class="acronym-term">GAN</span> 由<b class="chinese-term">生成器</b>和<b class="chinese-term">鑑別器</b>組成</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="acronym-term">GAN</span> 僅用於分類問題</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">GAN</span> 的結果始終高度可解釋</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="acronym-term">GAN</span> 不能生成高品質的數據</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>, <span class="english-term">Generative Adversarial Network</span>)</span> 是一種用於生成新數據的深度學習模型。它的核心架構包含兩個相互對抗的神經網路：<span class="highlight">一個<b class="chinese-term">生成器</b> (<span class="english-term">Generator</span>) 和一個<b class="chinese-term">鑑別器</b> (<span class="english-term">Discriminator</span>)</span>。生成器試圖創建逼真的數據（如圖像），而鑑別器則試圖區分真實數據和生成器創建的假數據。兩個網路通過競爭不斷進步。
+                        選項 (B) <span class="acronym-term">GAN</span> 主要用於<span class="highlight">生成數據</span>，而不是分類。
+                        選項 (C) 深度學習模型的<span class="highlight">可解釋性通常較低</span>，<span class="acronym-term">GAN</span> 也不例外。
+                        選項 (D) <span class="acronym-term">GAN</span> 的目標就是生成與真實數據<span class="highlight"> indistinguishable 的高品質數據</span>。
+                        因此，選項 (A) 正確描述了 <span class="acronym-term">GAN</span> 的基本組成。
+                    </div>
+                    <br>
+                    <img src="image/GAN.png" class="responsive-img">
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 20 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#20</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在下列哪一種應用領域中,<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 最有可能被使用來創建新的圖像或影片內容?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">產品品質檢測</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">醫學影像分析</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">監控系統</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight"><b class="chinese-term">虛擬現實圖像</b></span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> (<span class="english-term">Generative AI</span>) 的核心能力是<span class="highlight">創造新的、原創的內容</span></span>。
+                        選項 (A) 產品品質檢測、(B) 醫學影像分析、(C) 監控系統通常屬於<b class="chinese-term">鑑別式 <span class="acronym-term">AI</span></b> 的應用，主要用於<span class="highlight">分類、檢測、識別</span>現有數據。
+                        選項 (D) <span class="highlight"><b class="chinese-term">虛擬現實圖像</b> (<span class="english-term">Virtual Reality Images</span>)</span> 的創建，例如根據描述生成場景、人物或物體，是<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> (如 <span class="acronym-term">DALL-E</span>, <span class="acronym-term">Midjourney</span> 等) 非常活躍的應用領域，它可以<span class="highlight">生成全新的視覺內容</span>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 21 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#21</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於目前<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的主要應用,不包括下列哪一項?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">創建合成數據樣本</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">模擬數據分佈</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">分類醫學影像</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">生成文本</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> (<span class="english-term">Generative AI</span>)</span> 的主要應用是<span class="highlight">生成新的數據或內容</span>。
+                        選項 (A) <span class="highlight">創建合成數據樣本</span> (<span class="english-term">Synthetic Data Generation</span>) 是生成式 <span class="acronym-term">AI</span> 的重要應用，用於擴充訓練數據集，解決數據隱私問題或數據稀缺問題。
+                        選項 (B) <span class="highlight">模擬數據分佈</span>是生成式模型訓練的目標之一，以便能從中採樣生成新數據。
+                        選項 (D) <span class="highlight">生成文本</span>（如文章、詩歌、程式碼等）是<b class="chinese-term">大型語言模型</b> (<span class="acronym-term">LLM</span>) 的核心功能，而 <span class="acronym-term">LLM</span> 是生成式 <span class="acronym-term">AI</span> 的一個重要分支。
+                        選項 (C) <span class="highlight">分類醫學影像</span>（例如判斷是否有腫瘤）是一個典型的<span class="highlight"><b class="chinese-term">鑑別式 <span class="acronym-term">AI</span></b> (<span class="english-term">Discriminative AI</span>)</span> 任務，屬於<b class="chinese-term">分類</b>問題，不屬於生成式 <span class="acronym-term">AI</span> 的主要應用範疇。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 22 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#22</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪項是<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 支援<b class="chinese-term">鑑別式 <span class="acronym-term">AI</span></b> 的典型案例?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight">模擬交通場景以訓練自動駕駛模型</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">使用 <span class="acronym-term">CNN</span> 對腫瘤分類</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">使用 <span class="acronym-term">SVM</span> 分析風險</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">創建更好的分類演算法</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        此題考查<span class="highlight">生成式 <span class="acronym-term">AI</span> 如何輔助或服務於鑑別式 <span class="acronym-term">AI</span></span> 的應用情境。
+                        選項 (B) 使用 <span class="acronym-term">CNN</span> 進行腫瘤分類、選項 (C) 使用 <span class="acronym-term">SVM</span> 分析風險都是典型的<span class="highlight">鑑別式 <span class="acronym-term">AI</span></span> 應用本身，沒有生成式 <span class="acronym-term">AI</span> 的參與。
+                        選項 (D) 創建更好的分類演算法屬於演算法研究，與生成式 <span class="acronym-term">AI</span> 支援鑑別式 <span class="acronym-term">AI</span> 的應用模式不同。
+                        選項 (A) <span class="highlight">自動駕駛模型</span>通常是<span class="highlight">鑑別式模型</span>（例如識別物體、預測行為），而<span class="highlight">模擬交通場景</span>（生成逼真的虛擬環境和數據）是<span class="highlight">生成式 <span class="acronym-term">AI</span></span> 的應用。通過<span class="highlight">生成大量的模擬數據</span>，可以有效地<span class="highlight">訓練自動駕駛所需的鑑別式模型</span>，尤其是在真實數據難以獲取或存在安全風險的場景下。這是一個典型的生成式 <span class="acronym-term">AI</span> <span class="highlight">作為數據增強或模擬環境工具</span>來支援鑑別式 <span class="acronym-term">AI</span> 訓練的案例。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 23 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#23</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於<b class="chinese-term">自然語言處理</b>(<span class="acronym-term">NLP</span>)核心技術,下列敘述何者不正確?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">語音識別技術將語音轉換為文本,並用於語音助理和語音輸入</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">自然語言生成技術可以生成自然流暢的文本,用於聊天機器人和自動文案生成</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">語意分析技術理解文本的語意,並主要用於語音識別和機器翻譯</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">機器翻譯技術自動翻譯文本,促進多語言支援和全球溝通</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        選項 (A) 正確，<span class="highlight"><b class="chinese-term">語音識別</b> (<span class="english-term">Speech Recognition</span>)</span> 是 <span class="acronym-term">NLP</span> 的重要組成部分，負責將人類語音轉換為文字，廣泛應用於語音助手 (<span class="english-term">Voice Assistant</span>) 和語音輸入。
+                        選項 (B) 正確，<span class="highlight"><b class="chinese-term">自然語言生成</b> (<span class="acronym-term">NLG</span>, <span class="english-term">Natural Language Generation</span>)</span> 是 <span class="acronym-term">NLP</span> 的另一個重要組成部分，負責根據數據或內部表示<span class="highlight">生成人類可讀的自然語言文本</span>，用於聊天機器人回復、自動報告生成等。
+                        選項 (D) 正確，<span class="highlight"><b class="chinese-term">機器翻譯</b> (<span class="english-term">Machine Translation</span>)</span> 是一個將一種語言的文本自動翻譯成另一種語言的 <span class="acronym-term">NLP</span> 應用，極大地促進了跨語言溝通。
+                        選項 (C) <span class="highlight">不正確</span>，<span class="highlight"><b class="chinese-term">語意分析</b> (<span class="english-term">Semantic Analysis</span>) 的確是理解文本語意的重要技術</span>，但<span class="highlight">其主要用途並非「用於語音識別和機器翻譯」</span>。語意分析在<span class="highlight">自然語言理解 (<span class="acronym-term">NLU</span>)</span> 中扮演核心角色，應用於<span class="highlight">文本分類、情感分析、信息提取、問答系統、聊天機器人對話理解</span>等。雖然語意理解對於提高機器翻譯質量很重要，但說它是語音識別的「主要」用途是不準確的；語音識別主要關注聲學和語言模型將聲音轉換為文字。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 24 -->
+            <div class="question-card" data-subject="subject1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#24</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於「<b class="chinese-term">負責任的 <span class="acronym-term">AI</span></b>」,下列敘述何者較為正確?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><span class="acronym-term">AI</span> 系統的開發者對 <span class="acronym-term">AI</span> 系統的行為負責</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="acronym-term">AI</span> 系統的使用者對 <span class="acronym-term">AI</span> 系統的結果負責</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">AI</span> 系統本身對其行為負責</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">政府對 <span class="acronym-term">AI</span> 系統的發展負責</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight">「<b class="chinese-term">負責任的 <span class="acronym-term">AI</span></b> (<span class="english-term">Responsible AI</span>)」</span> 強調在設計、開發、部署和使用 <span class="acronym-term">AI</span> 的全生命週期中，<span class="highlight">確保其安全、公平、透明、可解釋，並符合道德和法律規範</span>。責任歸屬是一個複雜的問題，通常涉及多個利害關係人。
+                        選項 (C) 不正確，目前的 <span class="acronym-term">AI</span> 系統不具有法律或道德主體性，<span class="highlight">無法自行對其行為負責</span>。
+                        選項 (B) 使用者對其如何<span class="highlight">使用</span> <span class="acronym-term">AI</span> 系統的結果負有部分責任，但<span class="highlight">不是對系統本身的行為負責</span>。
+                        選項 (D) 政府負責建立<span class="highlight">監管框架和推動政策</span>，對整個 <span class="acronym-term">AI</span> 的發展環境負責，但不是直接對特定 <span class="acronym-term">AI</span> 系統的行為負責。
+                        選項 (A) 相較之下，<span class="highlight"><span class="acronym-term">AI</span> 系統的<b class="chinese-term">開發者</b> (<span class="english-term">Developer</span>)</span> 對其<span class="highlight">設計、訓練數據、演算法選擇、潛在偏見以及安全措施</span>等負有直接且重大的責任，他們的決策直接影響 <span class="acronym-term">AI</span> 系統的行為和潛在後果。因此，開發者是負責任 <span class="acronym-term">AI</span> 最核心的責任主體之一。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject 1, Question 25 -->
+            <div class="question-card" data-subject="subject1" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#25</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">關於<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的基本原理,下列敘述何者較正確?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight">生成式 <span class="acronym-term">AI</span> 通過分析大量數據來生成新數據,模擬數據分佈以創造與訓練數據相似的結果</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">生成式 <span class="acronym-term">AI</span> 主要通過預定義的規則來進行數據處理和分類</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">生成式 <span class="acronym-term">AI</span> 專注於數據分類和迴歸預測,幫助識別已知數據中的模式</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">生成式 <span class="acronym-term">AI</span> 通過自動化的方式清洗數據,提升數據分析的準確性</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> (<span class="english-term">Generative AI</span>) 的核心原理在於學習<span class="highlight">訓練數據的潛在分佈</span> (<span class="english-term">Data Distribution</span>)</span>，然後<span class="highlight">從這個學習到的分佈中採樣 (<span class="english-term">Sampling</span>) 或創造出新的、與訓練數據具有相似特徵的數據點或內容</span>。
+                        選項 (A) 正確地描述了這一過程：分析大量數據（學習分佈）-> 生成新數據 -> 模擬訓練數據的特徵。
+                        選項 (B) 描述了傳統的<b class="chinese-term">規則式系統</b>或部分早期的 <span class="acronym-term">AI</span> 方法，<span class="highlight">不是生成式 <span class="acronym-term">AI</span> 的基本原理</span>。
+                        選項 (C) 描述的是<b class="chinese-term">鑑別式 <span class="acronym-term">AI</span></b> 的主要功能（分類和迴歸）。
+                        選項 (D) 描述了<b class="chinese-term">數據清洗</b>，這是數據預處理的步驟，<span class="highlight">不是生成式 <span class="acronym-term">AI</span> 的核心原理</span>。
+                    </div>
+                </div>
+            </div>
+
+            <h2>科目二: 生成式 AI 應用與規劃</h2>
+
+            <!-- Subject 2, Question 1 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者最能表達 <b class="chinese-term">No Code / Low Code</b> 平台的主要特色?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">需要撰寫大量程式碼</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">運用模板快速建立應用程式</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">僅供專業開發人員使用</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">只能製作靜態網站</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">No Code</b> 和 <b class="chinese-term">Low Code</b> 平台</span> 的核心價值在於<span class="highlight">降低應用程式開發的門檻和速度</span>。
+                        選項 (A) 不正確，<span class="highlight">No Code 完全不需要撰寫程式碼</span>，<span class="highlight">Low Code 只需要少量程式碼或腳本</span>，與「大量程式碼」相反。
+                        選項 (B) 正確，這些平台通常提供<span class="highlight">預設模板、可視化界面和拖放式工具</span>，使得使用者（包括非技術人員或<b class="chinese-term">公民開發者</b>）能夠<span class="highlight">快速組裝和建立應用程式</span>。
+                        選項 (C) 不正確，這些平台的重要目標之一是<span class="highlight">賦能非專業開發人員</span>（公民開發者），同時也可以<span class="highlight">提高專業開發人員的效率</span>。
+                        選項 (D) 不正確，NC/LC 平台可以<span class="highlight">建立各種應用程式</span>，包括數據管理系統、工作流程自動化、行動應用等，不僅限於靜態網站。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 2 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於 <b class="chinese-term">No Code <span class="acronym-term">AI</span></b> 工具,下列敘述何者最為準確?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">已經完全取代傳統的 <span class="acronym-term">AI</span> 開發模式</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">只適用於大型企業</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">是一種降低 <span class="acronym-term">AI</span> 技術複雜性和開發成本的新興方法</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">工具都具有完全相同的功能和性能</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">No Code <span class="acronym-term">AI</span></b> 工具</span> 是指提供<span class="highlight">無程式碼界面</span>，讓使用者可以<span class="highlight">透過可視化操作來建構和部署 <span class="acronym-term">AI</span> 模型或應用</span>的平台。
+                        選項 (A) 不正確，No Code <span class="acronym-term">AI</span> 工具<span class="highlight">尚未完全取代傳統 <span class="acronym-term">AI</span> 開發</span>，特別是對於高度客製化、研究性質或性能極致優化的場景。
+                        選項 (B) 不正確，No Code <span class="acronym-term">AI</span> 工具<span class="highlight">適用於各種規模的企業和個人</span>，特別是資源有限或缺乏專業 <span class="acronym-term">AI</span> 人才的組織。
+                        選項 (C) 正確，No Code <span class="acronym-term">AI</span> 的核心價值在於<span class="highlight">將複雜的 <span class="acronym-term">AI</span> 開發流程封裝在易於使用的界面下</span>，從而<span class="highlight">降低技術門檻和開發成本</span>，加速 <span class="acronym-term">AI</span> 的普及和應用。
+                        選項 (D) 不正確，市場上有許多不同的 No Code <span class="acronym-term">AI</span> 工具，它們針對不同的 <span class="acronym-term">AI</span> 任務（如視覺、<span class="acronym-term">NLP</span>、預測）和使用者提供不同的功能和性能。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 3 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪種情況,選擇 <b class="chinese-term">Low Code</b> 平台可能比 <b class="chinese-term">No Code</b> 平台更為適合?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">需要非技術人員快速進行開發與應用</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">應用需求簡單,無需自訂功能</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">需要較複雜的業務邏輯並使用自訂整合功能</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">預算和時間極度有限</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">No Code</b> 平台</span> 主要針對<span class="highlight">完全不寫程式碼的公民開發者</span>，適合<span class="highlight">簡單、標準化</span>的應用需求，追求<span class="highlight">極致的開發速度和易用性</span>。
+                        <span class="highlight"><b class="chinese-term">Low Code</b> 平台</span> 允許使用者在可視化界面的基礎上<span class="highlight">加入少量程式碼片段或腳本</span>，以及<span class="highlight">更靈活的自訂功能和系統整合</span>。
+                        選項 (A) 雖然 Low Code 也能加速開發，但在<span class="highlight">完全由非技術人員主導</span>且<span class="highlight">追求極快速開發</span>的情況下，No Code 通常更直接。
+                        選項 (B) 應用需求簡單且無需自訂功能時，No Code 通常是首選，因为它更簡單。
+                        選項 (C) 正確，當應用程式需要處理<span class="highlight">複雜的業務邏輯</span>、與現有系統進行<span class="highlight">深度整合</span>，或需要<span class="highlight">高度客製化</span>的功能時，Low Code 提供的靈活性和擴展性使其比 No Code 更為適合，因為它可以彌補 No Code 在處理複雜性方面的不足。
+                        選項 (D) 雖然 NC/LC 都旨在節省成本和時間，但在<span class="highlight">預算和時間極度有限</span>且需求非常簡單時，可能連 Low Code 的學習曲線都顯得過高，或者某些現成的 SaaS 服務更適合。總體而言，Low Code 更適合平衡開發速度、成本與一定程度的複雜性需求。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 4 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 與 <b class="chinese-term">No Code / Low Code</b> 平台的應用,下列何者最不適合?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">自動生成程式碼</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">自動化生成行銷文案</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">快速開發個人化 App</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">自動化生成法律判決</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        將<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的能力與 <b class="chinese-term">No Code / Low Code</b> 平台結合，可以<span class="highlight">快速開發包含生成式功能</span>的應用。
+                        選項 (A) 生成程式碼片段是生成式 <span class="acronym-term">AI</span> 的常見應用，可以整合到 Low Code 平台輔助開發。
+                        選項 (B) 生成行銷文案是生成式 <span class="acronym-term">AI</span> 在<b class="chinese-term">自然語言生成</b>方面的典型應用，可透過 NC/LC 平台快速搭建自動化文案生成工具。
+                        選項 (C) NC/LC 平台本身就適合快速開發個人化或小型 App，結合生成式 <span class="acronym-term">AI</span> 可以增加更多功能（如聊天、圖像生成）。
+                        選項 (D) <span class="highlight"><b class="chinese-term">自動化生成法律判決</b> (<span class="english-term">Automated Legal Judgment Generation</span>)</span> 是一個<span class="highlight">極高風險</span>的應用場景，需要高度的準確性、公平性、可解釋性以及對法律條文和複雜案件細節的深入理解和推理能力。目前的生成式 <span class="acronym-term">AI</span> 雖然可以在法律領域提供輔助，但<span class="highlight">完全自動化生成最終判決存在嚴重風險，且倫理和法律上難以接受</span>。這遠遠超出了現階段 <b class="chinese-term">No Code / Low Code</b> 平台應用的安全和能力範圍。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 5 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#5</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於 <b class="chinese-term">No Code / Low Code</b> 平台,下列敘述何者較正確?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">兩者完全相同</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">Low Code</b> 平台不需要任何程式設計知識</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">Low Code</b> 平台更適合開發靈活且可擴展的解決方案</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">No Code</b> 平台可以無限客製化</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        選項 (A) 不正確，<span class="highlight"><b class="chinese-term">No Code</b></span> 和 <span class="highlight"><b class="chinese-term">Low Code</b></span> 是<span class="highlight">相關但不完全相同</span>的概念，Low Code 提供了比 No Code 更高的靈活性和擴展性。
+                        選項 (B) 不正確，<span class="highlight"><b class="chinese-term">Low Code</b> 平台<span class="highlight">通常需要使用者具備基礎的程式設計知識</span>，以便能夠編寫少量的程式碼或腳本來實現更複雜的功能或整合</span>。
+                        選項 (C) 正確，由於允許嵌入自訂程式碼和提供更豐富的整合選項，<span class="highlight"><b class="chinese-term">Low Code</b> 平台比 No Code 平台更適合開發需要<b class="chinese-term">更強靈活性、更高客製化程度或更好擴展性</b>的應用程式</span>。
+                        選項 (D) 不正確，<span class="highlight"><b class="chinese-term">No Code</b> 平台</span> 雖然易用，但其<span class="highlight">客製化能力最為有限</span>，主要依賴平台提供的預設組件和邏輯。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 6 -->
+            <div class="question-card" data-subject="subject2" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">使用 <b class="chinese-term">Low-Code</b> 平台進行開發時,企業應特別留意下列哪一項潛在風險?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">可能造成企業內部敏感資料的洩露</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">難以進行大規模的應用擴展和維護</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">開發成本將大幅增加</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">可能有未經 <span class="acronym-term">IT</span> 部門管理的應用程式擴散</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">Low-Code</b> (<span class="english-term">和 No-Code</span>) 平台賦予了業務部門或非專業開發人員快速建立應用程式的能力</span>，這帶來效率提升的同時，也產生了<span class="highlight">「影子 IT」</span> (<span class="english-term">Shadow IT</span>) 的風險。
+                        選項 (D) 正確，由於應用程式可以繞過傳統 <span class="acronym-term">IT</span> 部門的審批和管理流程被建立和部署，企業內部可能會出現大量<span class="highlight">缺乏統一管理、安全審核和維護規劃的應用程式</span>。這會增加<span class="highlight">安全漏洞、數據孤島、合規性問題以及長期維護困難</span>的風險。
+                        選項 (A) 數據洩露是所有應用開發都面臨的風險，不限於 Low-Code，但影子 IT 的存在會加劇這一風險。
+                        選項 (B) 大規模應用擴展和維護可能是一個挑戰，但 Low-Code 平台本身通常提供一定的擴展能力，這更多是設計和管理問題，而不是 Low-Code 的核心潛在風險。
+                        選項 (C) Low-Code 的主要目標是<span class="highlight">降低開發成本和時間</span>，因此開發成本大幅增加通常不是 Low-Code 本身帶來的風險。
+                        因此，<span class="highlight">應用程式的未經管理擴散是 Low-Code / No-Code 平台帶來的最獨特和重要的潛在風險之一</span>。
+                    </div>
+                    <br>
+                    <img src="image/shadow_it.png" class="responsive-img">
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 7 -->
+            <div class="question-card" data-subject="subject2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#7</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪一種技術方案適用於改善客戶體驗?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">智慧排程系統</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">消費行為洞察模型</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">預測性維護工具</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight"><b class="chinese-term">自然語言處理</b>(<span class="acronym-term">NLP</span>)和<b class="chinese-term">生成式回應模組</b></span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        選項 (A) 智慧排程可能優化內部流程，間接影響客戶。
+                        選項 (B) 消費行為洞察模型用於理解客戶，以便更精準地提供產品或服務。
+                        選項 (C) 預測性維護是針對設備的，與客戶體驗無直接關係。
+                        選項 (D) 正確，結合<span class="highlight"><b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>)</span> 用於理解客戶的文字或語音，以及<span class="highlight"><b class="chinese-term">生成式回應模組</b> (<span class="english-term">Generative Response Module</span>)</span> 用於生成自然流暢的回應（如聊天機器人），是<span class="highlight">直接改善客戶互動體驗</span>的技術方案。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 8 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#8</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一項技術是<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的基礎?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">決策樹模型</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">聚類演算法</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">生成對抗網路</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">隨機森林技術</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        選項 (A), (B), (D) 都是<b class="chinese-term">鑑別式</b>或<b class="chinese-term">聚類</b>等傳統機器學習或<b class="chinese-term">鑑別式 <span class="acronym-term">AI</span></b> 的基礎技術。
+                        選項 (C) <span class="highlight"><b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>)</span> 是由 Ian Goodfellow 等人在 2014 年提出的，是<span class="highlight">早期且影響深遠的<b class="chinese-term">生成式模型</b>架構</span>，開啟了<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 發展的新篇章，可以說是許多後續生成模型研究的基礎之一。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 9 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">能使用 <b class="chinese-term">DALL·E-2</b> 生成各式逼真的圖片,最關鍵的應用技術為何?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>(<span class="acronym-term">CNN</span>)</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">生成對抗網路</b>(<span class="acronym-term">GAN</span>)</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">擴散模型</b>(<span class="english-term">Diffusion Model</span> )</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">自然語言處理</b>(<span class="acronym-term">NLP</span>)</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">DALL-E 2</b> 是 OpenAI 開發的一個著名的<b class="chinese-term">文生圖</b> (<span class="english-term">Text-to-Image</span>) 模型。雖然它整合了多種技術（包括<b class="chinese-term">自然語言處理</b>來理解文本提示），但其<span class="highlight">核心的圖像生成部分</span>，實現從噪聲生成逼真圖像的關鍵技術是<span class="highlight"><b class="chinese-term">擴散模型</b> (<span class="english-term">Diffusion Model</span>)</span>。擴散模型在近年來在圖像生成品質上取得了顯著超越 <span class="acronym-term">GAN</span> 的成就，成為主流。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 10 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#10</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者<b class="chinese-term">不</b>是<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 核心技術?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">變分自動編碼器</b> (<span class="acronym-term">VAE</span> )</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span> )</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">視覺幾何組</b> (<span class="english-term">Visual Geometry Group</span>, <span class="acronym-term">VGG</span> )</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">自回歸模型</b> (<span class="english-term">Autoregressive Models</span>, <span class="acronym-term">AR Model</span>)</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的核心技術包括各種能夠學習數據分佈並生成新數據的模型。
+                        選項 (A) <span class="acronym-term">VAE</span> 和 (B) <span class="acronym-term">GAN</span> 都是著名的<span class="highlight"><b class="chinese-term">生成式模型</b>架構</span>。
+                        選項 (D) <span class="highlight"><b class="chinese-term">自回歸模型</b></span> 也是一種生成模型，特別適用於<span class="highlight">序列數據的生成</span>（如文本或時間序列）。
+                        選項 (C) <span class="highlight"><b class="chinese-term">視覺幾何組</b> (<span class="acronym-term">VGG</span>)</span> 是一種著名的<span class="highlight"><b class="chinese-term">卷積神經網路</b> (<span class="acronym-term">CNN</span>) 架構</span>，主要用於<span class="highlight">圖像分類</span>等<span class="highlight"><b class="chinese-term">鑑別式</b></span>任務，<span class="highlight">不屬於生成式 <span class="acronym-term">AI</span> 的核心技術</span>。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 11 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#11</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">使用<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 技術或工具生成內容時,應採取下列哪一項措施以確保內容品質?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用內容直接進行學術報告</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">適當<b class="chinese-term">標注引用來源</b></span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">減少人工參與的審查過程</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">排除所有生成的資料</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        確保<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 生成內容的品質不僅指其流暢度和逼真度，也包括其<span class="highlight">準確性、原創性和可信度</span>。
+                        選項 (A) 直接用於學術報告存在抄襲、不準確或<b class="chinese-term">幻覺</b>風險。
+                        選項 (C) <span class="highlight">減少人工審查會增加錯誤和不當內容發布的風險</span>。
+                        選項 (D) 生成數據的意義在於使用，排除所有生成資料沒有意義。
+                        選項 (B) 正確，對於引用了特定資訊或作為創作靈感的<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 輸出，<span class="highlight">適當<b class="chinese-term">標注其來源</b></span>（例如「由 <span class="acronym-term">AI</span> 工具生成，基於 [來源] 的提示」）<span class="highlight">有助於增加<b class="chinese-term">透明度</b>、提示使用者內容可能需要進一步驗證，並在某些情況下遵守<b class="chinese-term">版權</b>或<b class="chinese-term">使用政策</b></span>，這是確保內容負責任和可信使用的重要步驟。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 12 -->
+            <div class="question-card" data-subject="subject2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#12</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">下列哪一項<b class="chinese-term">不</b>是<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 工具在使用體驗方面的優化方向?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提供更直觀的操作設計</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">支援自然語言指令</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">提供智慧化的參數調整建議</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">限制使用者自訂生成內容</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 工具的使用體驗優化旨在讓使用者更容易、更有效地使用這些工具來生成內容。
+                        選項 (A) <span class="highlight">提供更<b class="chinese-term">直觀的操作設計</b></span>，讓用戶能輕鬆理解和操作。
+                        選項 (B) <span class="highlight">支援<b class="chinese-term">自然語言指令</b> (<b class="chinese-term">提示</b>)</span> 是許多生成式工具的核心功能，讓使用者用簡單的語言表達需求。
+                        選項 (C) 提供<span class="highlight">智慧化的參數調整建議</span>，幫助用戶優化生成結果，例如推薦不同的風格、設定或參數。
+                        選項 (D) <span class="highlight">限制使用者<b class="chinese-term">自訂生成內容</b></span>與優化使用體驗的目標<span class="highlight">背道而馳</span>，良好的工具應當提供足夠的靈活性和控制權，讓使用者能夠按照自己的意願引導內容生成。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 13 -->
+            <div class="question-card" data-subject="subject2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#13</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">學校教師如何引導學生正確使用<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 工具?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">不應使用 <span class="acronym-term">AI</span> 工具於教學場域</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">無限制地使用 <span class="acronym-term">AI</span> 工具</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">訂立<b class="chinese-term">清晰的使用規範</b>並進行<b class="chinese-term">說明</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅鼓勵學生利用 <span class="acronym-term">AI</span> 完成課堂作業</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight">在教育環境中引導學生使用<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b>，應採取<b class="chinese-term">負責和建設性</b>的態度</span>。
+                        選項 (A) 完全禁止可能剝奪學生學習和使用新工具的機會。
+                        選項 (B) 無限制使用可能導致學生過度依賴或濫用（如抄襲）。
+                        選項 (D) 僅鼓勵完成作業可能忽略對工具原理、倫理和限制的理解。
+                        選項 (C) 正確，教師應<span class="highlight">制定<b class="chinese-term">明確的使用規範</b></span>，<span class="highlight">解釋 <span class="acronym-term">AI</span> 工具的用途、限制、潛在風險（如<b class="chinese-term">幻覺</b>、<b class="chinese-term">偏見</b>）、以及如何<b class="chinese-term">誠實地使用</b>和<b class="chinese-term">標注</b> <span class="acronym-term">AI</span> 生成的內容</span>。通過教育，引導學生將 <span class="acronym-term">AI</span> 作為學習和創造的<b class="chinese-term">輔助工具</b>。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 14 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#14</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">企業若要有效支援<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的運行,內部 <span class="acronym-term">IT</span> 環境最需要具備下列何種條件?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提供更多的辦公設備,以提升員工生產力</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">精簡企業內部流程,以加速決策效率</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">擁有<b class="chinese-term">高效能運算資源</b>與<b class="chinese-term">彈性儲存空間</b>,以支援 <span class="acronym-term">AI</span> 模型訓練與<b class="chinese-term">推理</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">增加部門之間的交流機會,以促進跨部門合作</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 模型，特別是大型模型，在<span class="highlight">訓練</span>和<span class="highlight"><b class="chinese-term">推理</b> (<span class="english-term">Inference</span>)</span> 時需要龐大的計算能力（通常是 <span class="acronym-term">GPU</span> 或 <span class="acronym-term">TPU</span>）和大量的數據存儲。因此，<span class="highlight">具備<b class="chinese-term">高效能運算資源</b>和<b class="chinese-term">彈性儲存空間</b>的 <span class="acronym-term">IT</span> 基礎設施</span>是支援其有效運行的最核心技術條件。其他選項雖然對企業運營重要，但不是直接支援 <span class="acronym-term">AI</span> 模型運行的最關鍵 <span class="acronym-term">IT</span> 條件。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 15 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#15</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">A企業想要實現客服自動化,希望透過 <span class="acronym-term">AI</span> 理解客戶發送的文本訊息,並根據文本內容調用相對應的圖片和影片進行回覆,A 企業應該選擇哪一種模型?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">強化學習模型</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight"><b class="chinese-term">多模態模型</b></span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">圖像分類模型</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">單模態大語言模型</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        這個場景需要 <span class="acronym-term">AI</span> 同時處理<span class="highlight"><b class="chinese-term">文本</b>輸入</span>和<span class="highlight"><b class="chinese-term">圖片/影片</b>輸出</span>。
+                        選項 (A) 強化學習主要用於決策策略學習。
+                        選項 (C) 圖像分類模型用於識別圖像內容。
+                        選項 (D) 單模態大語言模型主要處理和生成文本。
+                        選項 (B) 正確，<span class="highlight"><b class="chinese-term">多模態模型</b> (<span class="english-term">Multimodal Model</span>)</span> 能夠<span class="highlight">理解和處理來自不同模態（如文本、圖像、語音、影片）的資訊，並在這些模態之間進行轉換或生成</span>。例如，根據文本描述生成圖片（文生圖），或理解文本並生成相關的多媒體內容。這個客服需求涉及文本理解和多媒體內容生成，正符合<b class="chinese-term">多模態模型</b>的能力。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 16 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#16</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一種情境最能展現<b class="chinese-term">提示工程</b>(<span class="english-term">Prompt Engineering</span>)的價值?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用者輸入一個模糊的問題,AI 給出一個非常確定的答案</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">使用者輸入一個非常具體的問題,AI 給出一個相關但不完全符合的答案</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight">使用者輸入一個<b class="chinese-term">精準有架構的問題</b>,AI 生成<b class="chinese-term">符合架構的答案</b></span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">使用者輸入一個簡單的問題,AI 給出一個非常複雜的答案</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">提示工程</b> (<span class="english-term">Prompt Engineering</span>) 的目標就是<span class="highlight">通過精心設計輸入<b class="chinese-term">提示</b>，來<b class="chinese-term">引導生成式 <span class="acronym-term">AI</span> 模型</b>產生更準確、更相關、<span class="highlight">更符合預期格式或風格</span>的輸出</span>。
+                        選項 (A), (B), (D) 都描述了模型可能無法準確或符合預期地回應輸入，這恰恰是需要優化提示工程的情況。
+                        選項 (C) 正確，<span class="highlight">當使用者能夠提供一個<b class="chinese-term">清晰、具體、有結構</b>的<b class="chinese-term">提示</b>時，模型更有可能生成<b class="chinese-term">符合這種結構和要求的精確輸出</b></span>。這種能力正是提示工程熟練度的體現和其價值的所在。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 17 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#17</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列敘述何者最能反映<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 在<b class="chinese-term">圖像生成領域</b>的發展趨勢?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">生成式 <span class="acronym-term">AI</span> 目前僅能生成基於簡單演算法的低解析度圖像,且無法應用於高解析度或細節豐富的圖像創建</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">隨著<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 技術的進步,圖像不僅風格多樣,且<b class="chinese-term">逼真度顯著提升</b>,並可處理<b class="chinese-term">更複雜的圖像生成任務</b></span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">生成式 <span class="acronym-term">AI</span> 技術目的為加快生成速度,可生成靜態圖像,無法生成動態圖像</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">生成式 <span class="acronym-term">AI</span> 在圖像生成方面的發展主要集中於圖像風格轉換,無涉及其他類型的視覺內容生成</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">生成式 <span class="acronym-term">AI</span></b>，特別是<b class="chinese-term">擴散模型</b> (<span class="english-term">Diffusion Model</span>)</span>，在近年的<b class="chinese-term">圖像生成領域</b>取得了驚人的進展。
+                        選項 (A) 不正確，現代<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 已經能夠生成<span class="highlight">高解析度、細節豐富且逼真</span>的圖像。
+                        選項 (C) 不正確，雖然速度是優化目標之一，但<span class="highlight">生成式 <span class="acronym-term">AI</span> 也能生成<b class="chinese-term">動態圖像</b>（影片）</span>，儘管仍具挑戰。
+                        選項 (D) 不正確，<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的應用非常廣泛，包括<span class="highlight">從文本生成圖像、圖像編輯、超解析度 (<span class="english-term">Super-resolution</span>)、甚至<b class="chinese-term">生成三維模型</b></span>等。
+                        選項 (B) 正確，<span class="highlight">圖像生成技術的發展確實呈現出<span class="highlight">生成內容<b class="chinese-term">風格更加多樣</b>、<b class="chinese-term">逼真度不斷提升</b></span>，以及能夠處理<span class="highlight"><b class="chinese-term">更複雜的生成任務</b></span>（例如文生圖、圖生圖、多模態輸入生成）的趨勢</span>。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 18 -->
+            <div class="question-card" data-subject="subject2" data-stars="5">
+                <div class="question-header">
+                    <div class="question-id">#18</div>
+                    <div class="question-frequency">★★★★★</div>
+                </div>
+                <div class="question-content">關於<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b>,下列 A~E敘述哪些正確?
+                    <br>A. 生成的內容不會帶有偏見
+                    <br>B. 具有高度準確性,不會有虛假信息
+                    <br>C. 生成內容的準確性,建議需要經過人類審核
+                    <br>D. 每次生成的內容都可能不同
+                    <br>E. 生成式 <span class="acronym-term">AI</span> 具有高度安全性,不會導致數據外流
+                </div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight">C、D</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">A、C、D</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">A、B、D、E</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">A、C、D、E</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight">關於<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的現狀和特性</span>：
+                        A. <span class="highlight">錯誤</span>。生成式 <span class="acronym-term">AI</span> 會從訓練數據中學習，如果數據帶有<b class="chinese-term">偏見</b> (<span class="english-term">Bias</span>)，生成的內容<span class="highlight">很可能也會帶有偏見</span>。
+                        B. <span class="highlight">錯誤</span>。<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 可能會產生<span class="highlight"><b class="chinese-term">幻覺</b> (<span class="english-term">Hallucination</span>)</span>，即生成看似合理但實際上是<span class="highlight">虛假或不準確</span>的資訊。不能保證高度準確性或沒有虛假信息。
+                        C. <span class="highlight">正確</span>。由於存在<b class="chinese-term">幻覺</b>和<b class="chinese-term">偏見</b>風險，對於重要的或對外發布的生成內容，<span class="highlight">強烈建議經過<b class="chinese-term">人類的審核和驗證</b></span>。
+                        D. <span class="highlight">正確</span>。即使是相同的<b class="chinese-term">提示</b>和模型，由於模型內部的隨機性（如<b class="chinese-term">溫度</b> (<span class="english-term">Temperature</span>) 參數設置），<span class="highlight">每次生成的內容<span class="highlight">可能</span>會有所不同</span>。
+                        E. <span class="highlight">錯誤</span>。<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的安全性<span class="highlight">並非絕對高度</span>，存在<span class="highlight">安全漏洞</span>（如<b class="chinese-term">提示注入</b>, <span class="english-term">Prompt Injection</span>）、<span class="highlight">數據洩露</span>風險（特別是使用第三方服務或處理敏感輸入時）。
+    
+                        因此，正確的敘述是 C 和 D。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 19 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#19</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">一家跨國企業計劃在財務部門導入<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b>,並結合自動化系統進行報告產出。導入此系統後,最有可能實現的效益為何?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加財務收益</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">顯著提升報告<b class="chinese-term">準確性</b>並減少人工錯誤</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">加速市場推廣活動並提高銷售業績</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">提高品牌曝光度並增強客戶關係管理</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        在財務部門結合<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 和自動化系統進行<span class="highlight">報告產出</span>，其核心應用是<span class="highlight">自動化生成財務報告、分析摘要或解釋性文本</span>。
+                        選項 (A) 增加財務收益通常是整體業務策略的結果，<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 直接影響的是<span class="highlight">工作效率和報告品質</span>，對收益是間接影響。
+                        選項 (C) 和 (D) 屬於市場營銷和客戶關係範疇，與財務報告產出無直接關聯。
+                        選項 (B) 正確，通過自動化報告生成，<span class="highlight"><b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 可以從數據中<b class="chinese-term">提取關鍵信息</b>並<b class="chinese-term">生成標準化或客製化</b>的報告內容</span>，這有助於確保報告的<span class="highlight"><b class="chinese-term">準確性</b>和<b class="chinese-term">一致性</b></span>，同時<span class="highlight">減少人工編寫報告時可能出現的<b class="chinese-term">錯誤</b></span>，顯著提升效率和報告品質。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 20 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#20</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 導入過程中,資料安全與隱私保護的哪一方面是最重要的考量?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">設定目標優先級</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增強客服回饋(反饋)能力</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料視覺化能力</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight"><b class="chinese-term">權限控管</b>與<b class="chinese-term">合規要求</b></span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 需要處理大量數據（包括訓練數據和用戶輸入數據），其中可能涉及敏感或機密資訊。在導入過程中，確保<span class="highlight">數據不會被未經授權的人員或系統訪問、使用或洩露</span>至關重要。這依賴於<span class="highlight"><b class="chinese-term">嚴格的<b class="chinese-term">權限控管</b> (<span class="english-term">Access Control</span>) 機制</b></span>，只允許必要的人員和系統訪問數據。同時，<span class="highlight">遵守相關的<b class="chinese-term">數據保護法律法規</b> (<b class="chinese-term">合規要求</b>, <span class="english-term">Compliance</span>)</span> 也是必須的，例如 GDPR, HIPAA 等。其他選項與數據安全和隱私沒有直接關係。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 21 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#21</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">若企業將資料安全管理外包給第三方服務供應商,屬於哪種風險應對策略?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">風險緩解</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="highlight">風險轉移</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">風險接受</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">風險規避</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        風險管理有幾種策略：
+                        <span class="highlight"><b class="chinese-term">風險緩解</b> (<span class="english-term">Risk Mitigation</span>)</span>：採取措施降低風險發生的可能性或影響。
+                        <span class="highlight"><b class="chinese-term">風險轉移</b> (<span class="english-term">Risk Transfer</span>)</span>：將風險的責任轉移給第三方，例如購買保險或將服務外包給專業供應商。
+                        <span class="highlight"><b class="chinese-term">風險接受</b> (<span class="english-term">Risk Acceptance</span>)</span>：意識到風險的存在，但決定不採取任何措施。
+                        <span class="highlight"><b class="chinese-term">風險規避</b> (<span class="english-term">Risk Avoidance</span>)</span>：採取行動完全避免導致風險的活動。
+                        將資料安全管理<span class="highlight">外包給第三方供應商</span>，意味著企業將部分或全部的<span class="highlight">管理責任和相應的風險轉移</span>給了該供應商，這符合<span class="highlight"><b class="chinese-term">風險轉移</b></span>的定義。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 22 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#22</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的風險管理中,下列哪一項屬於<b class="chinese-term">倫理風險</b>?</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="highlight"><span class="acronym-term">AI</span> 生成的內容可能帶有<b class="chinese-term">偏見</b>或<b class="chinese-term">歧視</b></span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">系統運行中斷可能導致企業業務受到影響</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">因資料需求增加而引起的存儲成本上升</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">員工培訓成本增加</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        <span class="highlight"><b class="chinese-term">倫理風險</b> (<span class="english-term">Ethical Risk</span>)</span> 涉及 <span class="acronym-term">AI</span> 系統的使用是否符合<span class="highlight">道德原則和社會價值觀</span>，以及是否對個人或群體造成不公平或傷害。
+                        選項 (A) <span class="highlight"><b class="chinese-term">偏見</b> (<span class="english-term">Bias</span>)</span> 和<span class="highlight"><b class="chinese-term">歧視</b> (<span class="english-term">Discrimination</span>)</span> 是 <span class="acronym-term">AI</span> 最突出的<span class="highlight">倫理問題之一</span>，尤其是在<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 中可能通過生成的內容體現出來。
+                        選項 (B) 系統運行中斷屬於<b class="chinese-term">營運風險</b> (<span class="english-term">Operational Risk</span>)。
+                        選項 (C) 存儲成本屬於<b class="chinese-term">財務風險</b> (<span class="english-term">Financial Risk</span>) 或營運成本。
+                        選項 (D) 員工培訓成本屬於<b class="chinese-term">財務風險</b>或<b class="chinese-term">人力資源</b>相關風險。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 23 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#23</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在企業導入 <span class="acronym-term">AI</span> 的實施/營運階段,為持續發揮導入 <span class="acronym-term">AI</span> 的價值,下列步驟的正確排序應為何?
+                    <br>A. <span class="acronym-term">AI</span> 價值擴散
+                    <br>B. 上線部署
+                    <br>C. 模型監控與優化
+                </div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">ACB</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">ABC</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">BAC</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="highlight">BCA</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        在 <span class="acronym-term">AI</span> 專案進入實施和營運階段後，典型的流程順序是：
+                        <span class="highlight">B. <b class="chinese-term">上線部署</b> (<span class="english-term">Deployment</span>)</span>：將開發完成的 <span class="acronym-term">AI</span> 模型或應用程式發布到生產環境供實際使用。
+                        <span class="highlight">C. <b class="chinese-term">模型監控與優化</b> (<span class="english-term">Monitoring & Optimization</span>)</span>：在模型運行過程中持續<span class="highlight">監控</span>其性能、穩定性、數據漂移等，並根據反饋或數據變化進行<span class="highlight">迭代和優化</span>，確保其長期有效。
+                        <span class="highlight">A. <span class="acronym-term">AI</span> <b class="chinese-term">價值擴散</b> (<span class="english-term">Value Diffusion</span>)</span>：在應用穩定運行並產生價值後，將成功的經驗和模式<span class="highlight">推廣到企業內部的其他部門或業務場景</span>，擴大 <span class="acronym-term">AI</span> 應用的範圍和影響力，實現更大規模的價值。
+    
+                        因此，正確的順序是 B -> C -> A。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 24 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#24</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在管理<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 系統的隱私風險時,下列哪一種技術最能確保數據使用的安全性?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">強化學習 (<span class="english-term">Reinforcement Learning</span> )</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">深度學習 (<span class="english-term">Deep Learning</span>)</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">零信任架構</b>(<span class="english-term">Zero Trust Architecture</span> )</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">注意力機制 (<span class="english-term">Attention Mechanism</span> )</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        管理<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的隱私風險，需要<span class="highlight">數據安全和訪問控制層面</span>的技術和策略。
+                        選項 (A) 和 (B) 是<b class="chinese-term">機器學習模型訓練</b>的技術，與數據安全架構無直接關係。
+                        選項 (D) 注意力機制是<b class="chinese-term">深度學習</b>模型（特別是<b class="chinese-term">變換器</b>）中的一種技術，與數據安全架構無關。
+                        選項 (C) 正確，<span class="highlight"><b class="chinese-term">零信任架構</b> (<span class="english-term">Zero Trust Architecture</span>)</span> 是一種<span class="highlight">安全模型</span>，其核心原則是「<span class="highlight">永不信任，始終驗證</span>」。它要求在授予任何用戶或設備訪問權限之前，都必須進行嚴格的身份驗證和授權，並且訪問權限是最小化的。這種架構對於管理複雜的 <span class="acronym-term">AI</span> 系統（包括數據管道、模型訪問、應用接口等）的隱私風險，<span class="highlight">確保只有經過授權的主體才能安全地使用數據</span>，是非常有效的方法。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Subject 2, Question 25 -->
+            <div class="question-card" data-subject="subject2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#25</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在驗證<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 應用的<b class="chinese-term">概念驗證</b>(<span class="english-term">Proof of Concept</span>, <span class="acronym-term">POC</span> ) 時,若企業希望確保模型生成的<b class="chinese-term">公平性</b>,最適合採用哪種評估策略?</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">壓力測試 (<span class="english-term">Stress Testing</span> )</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">對抗性測試 (<span class="english-term">Adversarial Testing</span> )</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="highlight"><b class="chinese-term">偏差檢測</b>(<span class="english-term">Bias Detection</span> )</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">延遲測試 (<span class="english-term">Latency Testing</span>)</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">
+                        在驗證<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> 的<b class="chinese-term">公平性</b> (<span class="english-term">Fairness</span>) 時，需要專門的方法來識別和量化模型輸出中存在的<b class="chinese-term">偏見</b> (<span class="english-term">Bias</span>)。
+                        選項 (A) 壓力測試用於評估系統在極高負載下的性能。
+                        選項 (B) 對抗性測試用於評估模型對惡意輸入的<b class="chinese-term">穩健性</b> (<span class="english-term">Robustness</span>)。
+                        選項 (D) 延遲測試用於評估模型生成回應所需的時間。
+                        選項 (C) 正確，<span class="highlight"><b class="chinese-term">偏差檢測</b> (<span class="english-term">Bias Detection</span>)</span> 方法，例如通過分析模型在不同敏感屬性群體（如性別、種族）上的生成內容是否存在差異或刻板印象，是<span class="highlight">評估<b class="chinese-term">生成式 <span class="acronym-term">AI</span></b> <b class="chinese-term">公平性</b>的最直接和適合的策略</span>。在 POC 階段進行<b class="chinese-term">偏差檢測</b>有助於早期發現潛在的倫理風險。
+                    </div>
+                </div>
+            </div>
+    
+            <!-- End of Subject 2 Questions -->
+
+
+            <!-- Message area for no results -->
+            <div id="noResultsMessage"></div>
+
+        </div> <!-- End questions-container -->
+
+        <a href="#" class="back-to-top" id="backToTop">↑</a>
+    </div> <!-- End container -->
+
+    <script>
+        let explanationsVisible = false; // Start with explanations hidden
+        let answersVisible = true; // Track if answers are currently shown
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // Smooth scroll for back-to-top
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter by subject (called from section items)
+        function filterBySubject(subjectValue) {
+            document.getElementById('subjectFilter').value = subjectValue;
+            document.getElementById('searchInput').value = ''; // Clear search when applying subject filter
+            // Keep star filter as is, allow combining subject and star filter
+            filterAndSearchQuestions();
+            // Scroll to the questions container smoothly
+            const questionsContainer = document.getElementById('questionsContainer');
+            if (questionsContainer) {
+                questionsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("subjectFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            // Filter as user types
+            filterAndSearchQuestions();
+        });
+
+        // Combined filter and search function
+        function filterAndSearchQuestions() {
+            let selectedSubject = document.getElementById("subjectFilter").value;
+            let selectedStars = document.getElementById("starFilter").value;
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let questions = document.querySelectorAll(".question-card");
+            let anyVisible = false;
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const subjectTitles = document.querySelectorAll('h2');
+
+            // Show/hide subject titles based on filter
+            subjectTitles.forEach(title => {
+                 const titleSubject = title.textContent.includes('基礎概論') ? 'subject1' : 'subject2';
+                 if (selectedSubject === 'all' || selectedSubject === titleSubject) {
+                     title.style.display = 'block';
+                 } else {
+                     title.style.display = 'none';
+                 }
+            });
+
+
+            questions.forEach(function(question) {
+                const questionSubject = question.dataset.subject;
+                const questionStars = question.dataset.stars;
+
+                const matchesSubject = (selectedSubject === "all" || questionSubject === selectedSubject);
+                const matchesStars = (selectedStars === "all" || questionStars === selectedStars);
+
+                // Search in question content, options, and explanation
+                const questionTextElement = question.querySelector('.question-content');
+                const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+                const explanationContainer = question.querySelector('.explanation-container');
+                const explanationText = explanationContainer ? explanationContainer.textContent.toLowerCase() : '';
+
+                let combinedText = '';
+                if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+                combinedText += ' ' + optionsText;
+                combinedText += ' ' + explanationText;
+
+                const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+
+                // Question must match all active criteria
+                if (matchesSubject && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+             // Display message if no questions match for the *visible* subject titles
+             let visibleQuestionsCount = 0;
+             questions.forEach(question => {
+                 if (question.style.display !== 'none') {
+                     visibleQuestionsCount++;
+                 }
+             });
+
+             if (noResultsMessage) {
+                 if (visibleQuestionsCount > 0) {
+                    noResultsMessage.style.display = 'none';
+                 } else {
+                    // Check if any subject title is visible. If not, show message. If yes, maybe refine message?
+                    // For simplicity, if zero questions are visible, show message.
+                    noResultsMessage.style.display = 'block';
+                    noResultsMessage.textContent = '沒有找到符合條件的題目。請嘗試調整篩選條件或搜尋關鍵字。';
+                 }
+             }
+
+             // Re-apply explanation visibility state after filtering
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanations.forEach(function(explanation) {
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') { // Only show/hide for visible cards
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+
+        }
+
+        // Toggle ALL explanations visibility
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+            let button = document.getElementById("toggleExplanations");
+
+            explanations.forEach(function(explanation) {
+                // Only toggle explanations for questions that are currently visible
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+
+        // Toggle ALL answers visibility
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+
+        // On page load, mark which options are originally correct
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // ... existing code ...
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            allOptions.forEach(function(opt) {
+                if (opt.classList.contains('correct')) {
+                    opt.dataset.originalCorrect = 'true';
+                } else {
+                    opt.dataset.originalCorrect = 'false';
+                }
+            });
+        });
+
+         // Toggle INDIVIDUAL explanation visibility on clicking the QUESTION CONTENT
+         let questionContents = document.querySelectorAll(".question-content");
+         questionContents.forEach(function(content) {
+            content.addEventListener("click", function() {
+                const questionCard = this.closest('.question-card');
+                if (!questionCard) return;
+                const explanation = questionCard.querySelector('.explanation-container');
+                if (explanation) {
+                    // Toggle individual explanation display
+                    explanation.style.display = (explanation.style.display === 'none' || explanation.style.display === '') ? 'block' : 'none';
+                }
+            });
+         });
+
+
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+             toggleBackToTopButton();
+             updateProgressBar();
+             filterAndSearchQuestions(); // Apply initial filter/search state
+             // Set initial state for toggle button text based on the initial value of explanationsVisible
+             document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+             // Ensure explanations start hidden or visible based on initial state
+             // This is handled by filterAndSearchQuestions on DOMContentLoaded
+         });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 初級 - 生成式AI應用與規劃-題庫 小道消息001</title> <!-- Changed Title -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", sans-serif; /* Using example's font stack preference */
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7; /* Added from source for potential base style consistency */
+        }
+        .container {
+            max-width: 1200px; /* Using example's width */
+            margin: 25px auto; /* Adjusted margin slightly */
+            padding: 20px 30px; /* Adjusted padding slightly */
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Using example's shadow */
+            border-radius: 8px; /* Added from source */
+        }
+        h1, h2 { /* Added h2 from example */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 { /* Modified from source */
+            text-align: center;
+            color: #0056b3; /* Using source color */
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0056b3; /* Using source border */
+            padding-bottom: 10px;
+            font-size: 1.8rem; /* Using example size */
+        }
+        .header-container { /* From example */
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 { /* Overriding base h1 for header */
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+            border-bottom: none; /* Remove border inside header */
+            padding-bottom: 0;
+            margin-bottom: 5px; /* Adjust spacing */
+        }
+        .header-container div { /* Style for subtitle in header */
+             font-size: 1.1rem;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px; /* 可自訂最大寬度 */
+            height: auto;
+            display: block; /* Ensure image is block level for centering/margin */
+            margin: 10px auto; /* Center image if needed */
+        }
+        /* 出題方向區塊樣式 (From example) */
+        .directions-container {
+            background-color: #fffbeb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f1c40f;
+            border-radius: 5px;
+        }
+        .directions-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .direction-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .direction-item:hover {
+            background-color: #f1c40f;
+            color: white;
+        }
+        .direction-number {
+            width: 25px;
+            height: 25px;
+            background-color: #f1c40f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .direction-item:hover .direction-number {
+            background-color: white;
+            color: #f1c40f;
+        }
+        .direction-text {
+            font-size: 0.95rem; /* Adjust if needed */
+        }
+
+        /* 問題卡片樣式 (Merging styles from both) */
+        .questions-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px; /* From example */
+        }
+        .question-card { /* Renamed qa-item */
+            background-color: white;
+            border: 1px solid #e0e0e0; /* From source */
+            border-radius: 6px; /* From source */
+            padding: 18px; /* From source */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* From example */
+            transition: transform 0.3s, box-shadow 0.3s ease; /* Combined transitions */
+            margin-bottom: 20px; /* From source */
+        }
+        .question-card:hover { /* From example */
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Example's hover shadow */
+        }
+        .question-header { /* From example */
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Added from source */
+            margin-bottom: 15px; /* Example */
+            padding-bottom: 10px; /* Example */
+            border-bottom: 1px solid #eee; /* Example */
+        }
+        .question-id { /* From example (replacing question-number) */
+            font-weight: bold;
+            color: #3498db; /* Example color */
+            font-size: 0.95em; /* Source size */
+        }
+        .question-frequency { /* From example */
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .question-content { /* Renamed question */
+            font-weight: 600; /* Source weight */
+            margin-bottom: 15px; /* Source margin */
+            color: #2c3e50; /* Source color */
+            font-size: 1.1rem; /* Example size */
+            line-height: 1.5; /* Example line-height */
+        }
+        .options-container { /* Replacing ul.options */
+            display: grid;
+            grid-template-columns: 1fr; /* Example layout */
+            gap: 10px; /* Example gap */
+            margin-bottom: 20px; /* Example margin */
+            list-style: none; /* From source */
+            padding-left: 0; /* From source */
+        }
+        .option-item { /* Replacing li */
+            display: flex; /* From example */
+            padding: 10px 15px; /* Source padding */
+            background-color: #f8f9fa; /* Source background */
+            border: 1px solid #e9ecef; /* Source border */
+            border-radius: 4px; /* Source radius */
+            cursor: pointer; /* Example cursor */
+            transition: background-color 0.2s ease; /* Source transition */
+            font-size: 0.98em; /* Source size */
+            align-items: center; /* Vertically align label and text */
+        }
+        .option-item:hover { /* From source */
+            background-color: #e9ecef;
+        }
+        .option-item.correct { /* From example */
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            font-weight: bold; /* Make correct answer bold */
+        }
+        .option-item.correct:hover { /* From example */
+            background-color: #c3e6cb;
+        }
+        .option-label { /* From example */
+            width: 25px;
+            height: 25px;
+            min-width: 25px; /* Ensure width doesn't shrink */
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .option-item.correct .option-label { /* From example */
+            background-color: #28a745;
+        }
+        .option-text { /* New element for text part */
+             flex-grow: 1; /* Allow text to take remaining space */
+        }
+         /* Keyword Highlighting within options/question/explanation */
+        .keyword-highlight {
+             background-color: #ffff0030; /* Light yellow background */
+             /* padding: 0.1em 0.2em; */ /* Optional padding */
+             /* border-radius: 3px; */ /* Optional rounded corners */
+        }
+
+        .explanation-container { /* Renamed answer-explanation */
+            background-color: #eef7ff; /* Source background */
+            padding: 15px; /* Source padding */
+            border-radius: 5px; /* Source radius */
+            margin-top: 15px; /* Source margin */
+            /* display: block; /* Initially shown (controlled by JS) */
+            display: none; /* Start hidden by default */
+            border-top: 1px dashed #ced4da; /* From source */
+            font-size: 0.95em; /* Source font size */
+        }
+        .explanation-header { /* From example */
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .explanation-content { /* From example (holds explanation text) */
+            line-height: 1.6; /* Example */
+            color: #000000; /* Source color */
+        }
+        /* Controls styling (From example) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Add gap for better spacing */
+        }
+        .filter-container, .search-container, .star-filter-container, .toggle-explanations { /* Grouped controls */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            flex-basis: calc(50% - 10px); /* Two controls per line on wider screens */
+            flex-grow: 1;
+        }
+        .search-container { flex-basis: 100%; } /* Search takes full width */
+        .toggle-explanations { flex-basis: auto; flex-grow: 0; } /* Button takes natural width */
+
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap; /* Prevent label wrapping */
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1; /* Allow input/select to grow */
+            min-width: 150px; /* Ensure minimum width */
+        }
+         input[type="text"] {
+            flex-grow: 1; /* Adjust search input growth if needed */
+         }
+        button { /* Base button style */
+            padding: 9px 18px; /* Source padding */
+            background-color: #007bff; /* Source background */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Source radius */
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease; /* Source transition */
+            font-size: 0.95em; /* Source size */
+            margin-left: 5px; /* Add margin for buttons in controls */
+            white-space: nowrap; /* Prevent button text wrapping */
+        }
+        button:hover { /* Source hover */
+            background-color: #0056b3;
+        }
+        #searchButton { /* Specific button style example */
+           /* Inherits base button style */
+        }
+        #toggleExplanations { /* Specific button style example */
+           /* Inherits base button style */
+           margin-left: 0; /* No left margin needed here */
+        }
+        /* Back to top button (From example) */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+            text-decoration: none; /* Remove underline if it appears */
+            font-size: 1.5rem; /* Make arrow bigger */
+        }
+        .back-to-top:hover {
+            background-color: #2980b9;
+            opacity: 1;
+        }
+        /* Progress bar (From example) */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+        }
+        /* RWD (Combined and adjusted) */
+        @media (max-width: 992px) {
+             .controls {
+                flex-direction: column;
+                align-items: stretch; /* Make items full width */
+            }
+            .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+                width: 100%;
+                flex-basis: auto; /* Reset basis */
+                /* justify-content: space-between; /* Better alignment when stacked */
+            }
+             select, input[type="text"] {
+                 width: auto; /* Reset width */
+                 flex-grow: 1; /* Allow growth */
+             }
+             button { /* Ensure buttons don't shrink too much */
+                 flex-shrink: 0;
+             }
+             .search-container button {
+                margin-left: 10px;
+             }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 20px; /* Source padding */
+            }
+            .directions-grid {
+                grid-template-columns: 1fr; /* Example */
+            }
+             h1 {
+                 font-size: 1.5em; /* Source */
+             }
+             .option-item, .explanation-container, button {
+                 font-size: 0.9em; /* Source */
+             }
+             .option-label {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+                font-size: 0.9em;
+             }
+        }
+         @media (max-width: 600px) { /* From source */
+             body {
+                 /* margin: 15px; /* Removing body margin might be better */
+             }
+             .container {
+                 padding: 15px 20px;
+                 margin: 15px auto; /* Add margin back to container */
+             }
+             h1 {
+                 font-size: 1.5em;
+             }
+             .option-item, button, .explanation-container { /* Source */
+                 font-size: 0.9em;
+             }
+             .header-container h1 { font-size: 1.6rem; } /* Adjust header h1 size */
+             .header-container div { font-size: 1rem; } /* Adjust header subtitle size */
+             .question-content { font-size: 1rem; } /* Adjust question text size */
+         }
+         /* No results message style */
+         #noResultsMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+         }
+
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 初級</h1>
+            <div>生成式AI應用與規劃 小道消息001</div> <!-- Updated subtitle -->
+        </div>
+
+        <div class="controls">
+            <div class="filter-container">
+                <label for="directionFilter" class="filter-label">篩選主題：</label> <!-- Updated Label -->
+                <select id="directionFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">主題一：No code / Low code 概念</option>
+                    <option value="2">主題二：生成式 AI 應用領域與工具使用</option>
+                    <option value="3">主題三：生成式 AI 導入評估規劃</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <!-- Defaulting to 4 stars as per example, adjust if needed -->
+                    <option value="4">★★★★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入題目、選項或解析關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+        </div>
+
+        <div class="directions-container">
+            <div class="directions-title">主題分類</div> <!-- Updated Title -->
+            <div class="directions-grid" id="directionsGrid">
+                 <!-- Updated categories based on PDF structure -->
+                <div class="direction-item" onclick="filterByDirection(1)">
+                    <div class="direction-number">1</div>
+                    <div class="direction-text">No code / Low code 概念</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(2)">
+                    <div class="direction-number">2</div>
+                    <div class="direction-text">生成式 AI 應用領域與工具使用</div>
+                </div>
+                <div class="direction-item" onclick="filterByDirection(3)">
+                    <div class="direction-number">3</div>
+                    <div class="direction-text">生成式 AI 導入評估規劃</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <!-- Question 1 (PDF Page 3-12, Q1) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於 <strong style="color: rgb(0, 0, 255);">無程式碼</strong> (<strong style="color: red;">No Code</strong>) 與 <strong style="color: rgb(0, 0, 255);">低程式碼</strong> (<strong style="color: red;">Low Code</strong>) 的基本概念，以下哪一項<strong style="color: red;">最為正確</strong>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><strong style="color: red;">No Code</strong> 平台完全不需要任何技術知識，<strong style="color: red;">Low Code</strong> 平台僅適合專業開發者使用。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><strong style="color: red;">No Code</strong> 平台主要依靠<span class="keyword-highlight">圖形化介面</span> (<strong style="color: purple;">UI</strong>) 進行開發，而 <strong style="color: red;">Low Code</strong> 平台結合了<span class="keyword-highlight">簡單程式設計與視覺化工具</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><strong style="color: red;">No Code</strong> 與 <strong style="color: red;">Low Code</strong> 平台主要針對傳統 <strong style="color: red;">IT</strong> 團隊而設計。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><strong style="color: red;">Low Code</strong> 平台完全不需要程式設計知識。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-14)</div>
+                    <div class="explanation-content">
+                        <strong style="color: red;">No Code</strong> 平台的核心特點是使用<span class="keyword-highlight">視覺化、拖放式</span>的<strong style="color: rgb(0, 0, 255);">圖形化介面</strong> (<strong style="color: purple;">UI</strong>)，讓<span class="keyword-highlight">沒有程式設計背景的使用者</span>也能開發應用程式。
+                        <br><strong style="color: red;">Low Code</strong> 平台則<span class="keyword-highlight">結合了視覺化開發工具和少量程式碼編寫的能力</span>，主要面向<span class="keyword-highlight">具有一定技術背景</span>（但不一定是專業程式設計師）的使用者，或讓專業開發者能<span class="keyword-highlight">更快地建構和客製化</span>應用，特別是需要<span class="keyword-highlight">深度整合或複雜邏輯</span>時。
+                        <br>選項 (B) 準確描述了兩者的核心差異與特點。
+                        <br>選項 (A) 錯誤，<strong style="color: red;">Low Code</strong> 也可被非專業開發者使用，只是允許進一步程式設計；<strong style="color: red;">No Code</strong> 雖然目標是無技術知識，但基本邏輯概念還是需要的。
+                        <br>選項 (C) 兩者都旨在降低開發門檻，<span class="keyword-highlight">讓非 IT 背景人員也能參與</span>，而非僅針對 IT 團隊。
+                        <br>選項 (D) 錯誤，<strong style="color: red;">Low Code</strong> 平台<span class="keyword-highlight">允許</span>（有時甚至需要）<span class="keyword-highlight">少量程式設計</span>來實現進階功能。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 (PDF Page 3-12, Q2) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 技術的主要優勢<strong style="color: red;">不包括</strong>以下哪一項？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="keyword-highlight">加速開發流程</span>，<span class="keyword-highlight">降低企業開發成本</span>。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">幫助非技術人員創建應用</span>和自動化流程。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="keyword-highlight">完全消除對專業技術人員的需求</span>。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="keyword-highlight">加速企業數位轉型</span>並提升競爭力。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-14)</div>
+                    <div class="explanation-content">
+                        <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台的主要優勢在於<span class="keyword-highlight">降低開發門檻、加速開發速度、降低成本</span>，並使<span class="keyword-highlight">非技術人員也能參與開發</span>，進而推動<span class="keyword-highlight">數位轉型</span>。
+                        <br>選項 (A), (B), (D) 都是這些平台帶來的顯著好處。
+                        <br>然而，選項 (C) 的說法過於絕對。<span class="keyword-highlight">雖然這些平台大幅降低了對專業程式設計師的依賴</span>，尤其是在簡單應用或原型設計上，但對於<span class="keyword-highlight">複雜系統的整合、深度客製化、安全性維護、效能調優</span>以及平台本身的<span class="keyword-highlight">管理與擴展</span>，仍然<span class="keyword-highlight">需要專業技術人員的參與和支持</span>。<strong style="color: red;">Low Code</strong> 平台更是明確允許專業人員介入編碼。因此，這些平台是<span class="keyword-highlight">賦能而非完全取代</span>專業技術人員。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 3 (PDF Page 3-12, Q3) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者<strong style="color: red;">最能表達</strong> <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台的主要特色？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">需要撰寫大量程式碼。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">運用<span class="keyword-highlight">模板</span>快速建立應用程式。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">僅供專業開發人員使用。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">只能製作靜態網站。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-14)</div>
+                    <div class="explanation-content">
+                        <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台的一個核心特色是<span class="keyword-highlight">提供視覺化的開發介面</span>和<span class="keyword-highlight">預先構建好的模組、元件或模板</span>。使用者可以透過<span class="keyword-highlight">拖放</span>、配置參數等方式，<span class="keyword-highlight">快速地將這些現成的元素組合起來</span>，從而<span class="keyword-highlight">大幅縮短應用程式的開發時間</span>和降低技術門檻。因此，運用模板快速建立應用程式 (選項 B) 是其主要特色之一。
+                        <br>選項 (A) 與 No Code/Low Code 的理念相反。
+                        <br>選項 (C) No Code 主要面向非專業人員，Low Code 也降低了專業門檻。
+                        <br>選項 (D) 這些平台通常支援開發<span class="keyword-highlight">具有動態功能和互動性</span>的應用程式，不僅限於靜態網站。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 (PDF Page 3-12, Q4) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於 <strong style="color: red;">No Code</strong> 平台，下列敘述何者<strong style="color: red;">較為準確</strong>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">已經完全取代傳統的 <strong style="color: purple;">AI</strong> 開發模式。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">只適用於大型企業。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">是一種<span class="keyword-highlight">降低</span> <strong style="color: purple;">AI</strong> <span class="keyword-highlight">技術複雜性</span>和<span class="keyword-highlight">開發成本</span>的新興方法。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">工具都具有完全相同的功能和效能。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-14)</div>
+                    <div class="explanation-content">
+                        <strong style="color: red;">No Code</strong> 平台的出現，其主要目的就是<span class="keyword-highlight">透過圖形化介面和預建模組，簡化應用程式的開發過程</span>，讓使用者<span class="keyword-highlight">無需編寫程式碼</span>即可創建應用。這有效地<span class="keyword-highlight">降低了開發 <strong style="color: purple;">AI</strong> 驅動或其他類型應用的技術門檻和複雜性</span>，同時也因為<span class="keyword-highlight">減少了對專業開發人力的依賴和縮短了開發週期</span>，進而<span class="keyword-highlight">降低了開發成本</span>。因此，選項 (C) 是對 No Code 平台較為準確的描述。
+                        <br>選項 (A) <strong style="color: red;">No Code</strong> 是對傳統開發模式的補充和賦能，尤其是在特定場景下，但<span class="keyword-highlight">並未完全取代</span>需要深度開發的傳統模式。
+                        <br>選項 (B) <strong style="color: red;">No Code</strong> <span class="keyword-highlight">特別適合中小型企業、部門級應用或個人開發者</span>，因為它成本相對較低、上手快。大型企業也可能使用，但非唯一適用對象。
+                        <br>選項 (D) 不同的 <strong style="color: red;">No Code</strong> 平台在功能、效能、專注領域、整合能力等方面<span class="keyword-highlight">存在差異</span>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 (PDF Page 3-12, Q5) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#5</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於 <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台，下列敘述何者<strong style="color: red;">較正確</strong>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">兩者完全相同。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><strong style="color: red;">Low Code</strong> 平台不需要任何程式設計知識。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><strong style="color: red;">Low Code</strong> 平台更適合開發<span class="keyword-highlight">靈活且可擴展</span>的解決方案。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><strong style="color: red;">No Code</strong> 平台可以無限客製化。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-14)</div>
+                    <div class="explanation-content">
+                        <strong style="color: red;">No Code</strong> 和 <strong style="color: red;">Low Code</strong> 平台雖然相似（都使用視覺化工具），但有明顯差異。<strong style="color: red;">No Code</strong> 完全針對非技術使用者，<span class="keyword-highlight">幾乎不允許或完全不允許編寫程式碼</span>，因此<span class="keyword-highlight">客製化程度和靈活性受限</span> (選項 D 錯誤)。<strong style="color: red;">Low Code</strong> 則<span class="keyword-highlight">允許開發者透過少量程式碼進行更深度的客製化、整合與邏輯擴展</span>，因此通常<span class="keyword-highlight">具備更大的靈活性和擴展性</span>，更適合開發需要<span class="keyword-highlight">應對複雜需求或未來可能需要調整擴展</span>的解決方案 (選項 C 正確)。
+                        <br>選項 (A) 兩者不同。
+                        <br>選項 (B) <strong style="color: red;">Low Code</strong> 平台<span class="keyword-highlight">允許（甚至鼓勵）使用少量程式碼</span>，因此需要使用者具備基本的程式設計知識才能充分利用其潛力。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 6 (PDF Page 3-13, Q6) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一項<strong style="color: red;">不是</strong> <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台在推動 <strong style="color: purple;">AI</strong> <strong style="color: rgb(0, 0, 255);">民主化</strong> (<strong style="color: red;">AI Democratization</strong>) 過程中的挑戰？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用者缺乏對 <strong style="color: purple;">AI</strong> 的<span class="keyword-highlight">深層理解</span>。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">可能引發<span class="keyword-highlight">模型偏差或誤用</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">需要加強人員相關<span class="keyword-highlight">教育和規範</span>。</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text">提供<span class="keyword-highlight">昂貴的</span>開發工具。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-15)</div>
+                    <div class="explanation-content">
+                        <strong style="color: purple;">AI</strong> <strong style="color: rgb(0, 0, 255);">民主化</strong>意指讓更多人能夠使用和受益於 <strong style="color: purple;">AI</strong> 技術。<strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台是實現此目標的重要工具，因為它們降低了技術門檻。然而，這個過程也伴隨著挑戰：
+                        <ul>
+                            <li>(A) 使用者可能只會操作工具，但<span class="keyword-highlight">缺乏對底層 <strong style="color: purple;">AI</strong> 原理和限制的深入理解</span>。</li>
+                            <li>(B) 由於理解不足或平台限制，使用者可能<span class="keyword-highlight">無意中引入偏差或在不適當的場景誤用 <strong style="color: purple;">AI</strong></span>。</li>
+                            <li>(C) 為應對 A 和 B，需要<span class="keyword-highlight">加強相關的教育訓練</span>，讓使用者了解 <strong style="color: purple;">AI</strong> 的能力與風險，並<span class="keyword-highlight">建立使用規範</span>以確保負責任地應用。</li>
+                        </ul>
+                        選項 (D) <span class="keyword-highlight">提供昂貴的開發工具</span> <strong style="color: red;">不是</strong>這些平台推動民主化過程中的挑戰。相反地，<strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台通常旨在<span class="keyword-highlight">降低開發成本</span>（相較於傳統的從頭開發模式），使得更多中小型企業或個人能夠負擔得起，這本身就是<span class="keyword-highlight">推動民主化</span>的一個因素，而不是挑戰。挑戰在於如何正確、負責任地使用這些變得更容易取得的工具。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 (PDF Page 3-13, Q7) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#7</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 在<strong style="color: rgb(0, 0, 255);">金融業</strong>的應用<strong style="color: red;">不包括</strong>以下哪一項？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="keyword-highlight">風險評估與管理</span></div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">投資組合優化</span></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="keyword-highlight">自動化生成病歷</span></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">提供<span class="keyword-highlight">個人化投資建議</span></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-15, p3-3)</div>
+                    <div class="explanation-content">
+                        PDF 文件中提到了<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 在金融業的應用實例（p3-3），包括：
+                        <ul>
+                            <li>(A) <span class="keyword-highlight">風險評估與管理</span>：模擬市場情境，協助進行風險評估與策略規劃。</li>
+                            <li>(B) <span class="keyword-highlight">投資組合優化</span>：結合數據與趨勢分析，提供投資組合建議。</li>
+                            <li>(D) 提供<span class="keyword-highlight">個人化投資建議</span>：分析客戶數據，生成個人化的建議（類似個人化行銷的延伸）。</li>
+                            <li>此外還提到自動化合規監管。</li>
+                        </ul>
+                        選項 (C) <span class="keyword-highlight">自動化生成病歷</span>，是 <strong style="color: purple;">GAI</strong> 在<strong style="color: rgb(0, 0, 255);">醫療保健領域</strong>的應用（p3-3），例如整理病歷、提供初步診斷建議等，而<span class="keyword-highlight">不屬於金融業</span>的典型應用。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 (PDF Page 3-13, Q8) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#8</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content"><strong style="color: red;">No Code</strong> 平台的設計目標是<span class="keyword-highlight">降低技術門檻</span>，使哪一類使用者能夠開發應用程式，而<span class="keyword-highlight">無需撰寫程式碼</span>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">技術專家</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">非技術背景的使用者</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資深開發者</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">系統管理員</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-15)</div>
+                    <div class="explanation-content">
+                        根據 PDF 的描述 (p3-1, p3-2, p3-4)，<strong style="color: red;">No Code</strong> 平台的<span class="keyword-highlight">核心目標群體</span>就是那些<span class="keyword-highlight">沒有或僅有很少程式設計背景的「非技術背景使用者」</span>。這些平台透過<span class="keyword-highlight">直觀的圖形化介面、拖放操作和預置模板</span>，讓這些使用者也能夠<span class="keyword-highlight">獨立創建應用程式或自動化工作流程</span>，解決他們在業務中遇到的問題，而<span class="keyword-highlight">不需要學習複雜的程式語言</span>。這也是 <strong style="color: purple;">AI</strong> 民主化得以推動的關鍵因素之一。
+                        <br>技術專家、資深開發者和系統管理員通常具備程式設計能力，他們可能更傾向於使用 <strong style="color: red;">Low Code</strong> 平台或傳統開發工具以獲得更高的靈活性和控制權，儘管他們有時也可能利用 <strong style="color: red;">No Code</strong> 工具快速搭建原型或簡單應用。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 9 (PDF Page 3-13, Q9) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">關於<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 與 <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台的應用，下列何者<strong style="color: red;">最不適合</strong>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><span class="keyword-highlight">自動生成程式碼</span>以實現客製化功能。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">自動化生成行銷文案</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">快速開發<span class="keyword-highlight">個人化 App</span>。</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="keyword-highlight">自動化生成法律判決</span>。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-15)</div>
+                    <div class="explanation-content">
+                        PDF 文件提到了 <strong style="color: purple;">GAI</strong> 結合 <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 的多種應用場景 (p3-2)：
+                        <ul>
+                            <li>(A) <span class="keyword-highlight">自動生成程式碼</span>：<strong style="color: purple;">AI</strong> 協助開發客製化功能，節省時間。</li>
+                            <li>(B) <span class="keyword-highlight">自動化行銷文案生成</span>：輸入產品資訊，<strong style="color: purple;">AI</strong> 產生行銷內容。</li>
+                            <li>(C) <span class="keyword-highlight">個人化 App 快速開發</span>：<strong style="color: purple;">AI</strong> 透過用戶數據分析，生成符合需求的應用。</li>
+                        </ul>
+                        選項 (D) <span class="keyword-highlight">自動化生成法律判決</span>，這是一個高度專業、涉及複雜倫理、法律解釋和社會影響的領域。<目前的 <strong style="color: purple;">AI</strong> 技術（無論是否結合 No/Low Code 平台）<span class="keyword-highlight">遠未達到能夠獨立、可靠地做出法律判決的程度</span>。法律判決需要<span class="keyword-highlight">專業的法律知識、嚴謹的邏輯推理、對案情的細緻理解以及符合法規和倫理的判斷</span>，這<span class="keyword-highlight">超出了當前自動化工具的常見應用範疇</span>，並且涉及重大的<span class="keyword-highlight">合規性和責任風險</span>。因此，這<strong style="color: red;">最不適合</strong>作為目前的應用。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 10 (PDF Page 3-13, Q10) -->
+            <div class="question-card" data-direction="1" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#10</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在選擇 <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台時，下列何者為考慮<strong style="color: rgb(0, 0, 255);">功能與擴展性</strong>時<strong style="color: red;">最重要</strong>的因素？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">平台的購買成本。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">平台的<span class="keyword-highlight">技術整合能力</span>和<span class="keyword-highlight">自訂性</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">使用者的程式設計能力。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">平台的市場評價。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-15, p3-5)</div>
+                    <div class="explanation-content">
+                        根據 PDF 第 3-5 頁的平台選擇與評估因素，<strong style="color: rgb(0, 0, 255);">功能與擴展性</strong>是核心考量之一。這主要體現在以下兩點：
+                        <ul>
+                            <li><span class="keyword-highlight">系統整合能力</span> (技術整合能力)：平台是否能與企業現有的系統（如 <strong style="color: purple;">CRM</strong>, <strong style="color: purple;">ERP</strong> 等）順暢地<span class="keyword-highlight">連接和交換數據</span>，確保業務流程的連續性。</li>
+                            <li><span class="keyword-highlight">高度自訂性</span>：平台是否提供足夠的選項和靈活性，讓開發者能夠根據<span class="keyword-highlight">特定的業務需求進行調整和客製化</span>，而不是只能使用固定的模板或功能。</li>
+                        </ul>
+                        這兩個因素直接決定了平台能否滿足當前及未來可能變化的業務需求，是評估其<span class="keyword-highlight">功能深度和未來擴展潛力</span>的關鍵。因此，選項 (B) 是最重要的因素。
+                        <br>選項 (A) 購買成本是成本效益考量。
+                        <br>選項 (C) 使用者的能力是選擇 No Code 或 Low Code 的前提，但不是平台本身功能擴展性的衡量標準。
+                        <br>選項 (D) 市場評價是參考因素，但不如具體的技術整合與自訂能力來得直接。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 11 (PDF Page 3-27, Q1) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#11</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者是使用<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 進行<span class="keyword-highlight">圖像生成</span>時需要考慮的問題？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">生成圖像的<span class="keyword-highlight">解析度</span>。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">版權</span>和<span class="keyword-highlight">合法性</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">模型的<span class="keyword-highlight">推論時間</span>（生成速度）。</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="keyword-highlight">以上皆是</span>。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29)</div>
+                    <div class="explanation-content">
+                        使用<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 生成圖像時，需要綜合考慮多個方面的問題，以確保生成結果符合預期且合規可用：
+                        <ul>
+                            <li>(A) <span class="keyword-highlight">解析度</span>：生成的圖像是否足夠清晰，滿足應用需求（例如，網頁使用 vs. 印刷品使用）。</li>
+                            <li>(B) <span class="keyword-highlight">版權和合法性</span>：生成的圖像是否可能<span class="keyword-highlight">侵犯他人的版權</span>（例如模仿特定風格或包含受版權保護的元素）？生成的圖像本身是否具有版權？使用生成的圖像是否符合相關法律法規？尤其是在<span class="keyword-highlight">商業應用</span>中，這是非常重要的考量。</li>
+                            <li>(C) <span class="keyword-highlight">推論時間</span>：模型生成一張圖像需要多長時間？這關係到<span class="keyword-highlight">使用者體驗</span>和<span class="keyword-highlight">應用的可行性</span>，特別是在需要<span class="keyword-highlight">即時生成</span>的場景。</li>
+                        </ul>
+                        因此，解析度、版權合法性以及推論時間都是使用 GAI 生成圖像時需要重點考慮的問題。選項 (D) 正確。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 12 (PDF Page 3-27, Q2) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#12</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">學校教師應如何引導學生<span class="keyword-highlight">正確使用</span><strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 工具？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">不應使用 <strong style="color: purple;">AI</strong> 工具於教學場域。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">無限制地使用 <strong style="color: purple;">AI</strong> 工具。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="keyword-highlight">訂立清晰的使用規範</span>並進行說明。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">僅鼓勵學生利用 <strong style="color: purple;">AI</strong> 完成課堂作業。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29)</div>
+                    <div class="explanation-content">
+                        <strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 工具具有強大的潛力，但也伴隨著<span class="keyword-highlight">誤用、過度依賴和倫理風險</span>。在教育場景中，完全禁止（選項 A）或無限制使用（選項 B）都非理想做法。僅鼓勵用來完成作業（選項 D）可能導致學生失去獨立思考和學習的機會。
+                        <br>最恰當的方式是<span class="keyword-highlight">正視 <strong style="color: purple;">AI</strong> 工具的存在和影響力</span>，並採取<span class="keyword-highlight">積極引導</span>的策略。選項 (C) <span class="keyword-highlight">訂立清晰的使用規範</span>，並向學生<span class="keyword-highlight">說明工具的適用場景、潛在限制、倫理考量</span>（如學術誠信、內容偏見、版權問題等），以及如何<span class="keyword-highlight">將 <strong style="color: purple;">AI</strong> 作為輔助學習和激發創意的工具，而非替代思考和努力</span>，這才能幫助學生建立<span class="keyword-highlight">批判性思維</span>和<span class="keyword-highlight">負責任的使用態度</span>，實現<span class="keyword-highlight">平衡使用</span>的教育目標。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 13 (PDF Page 3-27, Q3) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#13</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一種技術方案<span class="keyword-highlight">最適用</span>於<strong style="color: rgb(0, 0, 255);">改善客戶體驗</strong>，例如提供自動化客服或個人化推薦？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">預測性維護工具</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><strong style="color: rgb(0, 0, 255);">自然語言處理</strong> (<strong style="color: purple;">NLP</strong>) 和<strong style="color: rgb(0, 0, 255);">生成式回應模組</strong></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">智慧排程系統</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">消費行為洞察模型</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29)</div>
+                    <div class="explanation-content">
+                        改善客戶體驗通常涉及<span class="keyword-highlight">更自然、更智能、更個人化的互動</span>。
+                        <br>選項 (B) <strong style="color: rgb(0, 0, 255);">自然語言處理</strong> (<strong style="color: red;">Natural Language Processing</strong>, <strong style="color: purple;">NLP</strong>) 技術使機器能夠<span class="keyword-highlight">理解人類的語言</span>（例如客戶的詢問或反饋），而<strong style="color: rgb(0, 0, 255);">生成式回應模組</strong>（通常基於<strong style="color: rgb(0, 0, 255);">生成式 AI</strong>）則能夠<span class="keyword-highlight">生成自然、相關且有用的回應</span>。這兩者的結合是實現<span class="keyword-highlight">智能客服機器人（Chatbot）、自動化郵件回覆、個人化產品推薦或內容生成</span>等功能的<span class="keyword-highlight">核心技術</span>，這些都能直接提升客戶的互動體驗和滿意度。
+                        <br>選項 (A) 預測性維護主要應用於工業設備維護。
+                        <br>選項 (C) 智慧排程系統主要用於資源或任務調度。
+                        <br>選項 (D) 消費行為洞察模型主要用於分析，雖然其結果可用於驅動個人化推薦，但 (B) 中的技術方案是實現這些互動體驗的更直接的手段。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 14 (PDF Page 3-27, Q4) -->
+            <div class="question-card" data-direction="3" data-stars="4"> <!-- Q relates to HR/Training, fitting 3.3 -->
+                <div class="question-header">
+                    <div class="question-id">#14</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一種方式可以<span class="keyword-highlight">最有效</span>幫助<strong style="color: rgb(0, 0, 255);">現職員工</strong>提升 <strong style="color: purple;">AI</strong> <span class="keyword-highlight">應用能力</span>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提高薪資來吸引 <strong style="color: purple;">AI</strong> 人才。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">安排<span class="keyword-highlight">跨部門交流</span>和<span class="keyword-highlight">測試專案</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">減少員工的工作負擔。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">員工視需求選擇性自學 <strong style="color: purple;">AI</strong> 技術。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29, p3-32)</div>
+                    <div class="explanation-content">
+                        提升現職員工的 <strong style="color: purple;">AI</strong> 應用能力，需要<span class="keyword-highlight">結合理論學習與實踐應用</span>。
+                        <br>選項 (B) 安排<span class="keyword-highlight">跨部門交流</span>可以讓員工了解不同業務場景下 <strong style="color: purple;">AI</strong> 的潛在應用；參與<span class="keyword-highlight">測試專案</span>（試點應用）則提供了<span class="keyword-highlight">實際操作和解決問題</span>的機會（<span class="keyword-highlight">實務操作</span>，如 p3-32 所述）。這種「做中學」的方式，讓員工在<span class="keyword-highlight">真實的工作情境中接觸、使用並驗證 <strong style="color: purple;">AI</strong> 技術</span>，通常比單純的理論學習或被動等待外部人才更為有效，也更能<span class="keyword-highlight">培養內部解決問題的能力和推動 <strong style="color: purple;">AI</strong> 在組織內的落地</span>。
+                        <br>選項 (A) 是<span class="keyword-highlight">引進</span>外部人才的方式，而非提升<span class="keyword-highlight">現有</span>員工能力。
+                        <br>選項 (C) 減少工作負擔本身不直接提升能力，需要配合學習或實踐安排。
+                        <br>選項 (D) 自學很重要，但<span class="keyword-highlight">缺乏組織性的引導、實踐機會和交流</span>，效果可能不如結構化的專案參與來得快速和深入。提供<span class="keyword-highlight">客製化培訓課程</span>和<span class="keyword-highlight">實務操作機會</span>（p3-32）是更主動的做法。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 15 (PDF Page 3-27, Q5) -->
+            <div class="question-card" data-direction="3" data-stars="4"> <!-- Q relates to impact, fitting 3.3 -->
+                <div class="question-header">
+                    <div class="question-id">#15</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者為企業導入 <strong style="color: purple;">AI</strong> 技術後<strong style="color: red;">最直接</strong>的影響？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加人力需求。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">提升生產力和效率</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">減少數據處理能力。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">降低市場競爭力。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29, p3-19)</div>
+                    <div class="explanation-content">
+                        企業導入 <strong style="color: purple;">AI</strong> 技術（包括<strong style="color: rgb(0, 0, 255);">生成式 AI</strong>）的一個<span class="keyword-highlight">最主要和最直接的目標與影響</span>，就是透過<span class="keyword-highlight">自動化重複性任務</span>、<span class="keyword-highlight">優化流程</span>、<span class="keyword-highlight">輔助決策</span>、<span class="keyword-highlight">加速內容創建</span>等方式，來<span class="keyword-highlight">提升整體的生產力和營運效率</span>（p3-19 直接效益）。
+                        <br>選項 (A) <strong style="color: purple;">AI</strong> 可能會改變人力需求的結構（例如減少重複性工作，增加 <strong style="color: purple;">AI</strong> 訓練師等新職務），但<span class="keyword-highlight">不一定直接導致總人力需求的增加</span>，甚至可能因自動化而減少某些崗位。
+                        <br>選項 (C) <strong style="color: purple;">AI</strong> 通常<span class="keyword-highlight">增強</span>而非減少數據處理能力。
+                        <br>選項 (D) 成功導入 <strong style="color: purple;">AI</strong> 通常旨在<span class="keyword-highlight">提升</span>而非降低市場競爭力。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 16 (PDF Page 3-28, Q6) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#16</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一項技術是<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的基礎？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">決策樹模型</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><strong style="color: rgb(0, 0, 255);">生成對抗網路</strong> (<strong style="color: purple;">GAN</strong>)</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">聚類演算法</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">隨機森林技術</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29, p3-20)</div>
+                    <div class="explanation-content">
+                        <strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 指的是能夠<span class="keyword-highlight">生成新內容</span>的 AI 模型。PDF 文件在第 3-20 頁明確指出，<strong style="color: purple;">GAI</strong> 的技術突破<span class="keyword-highlight">主要得益於幾項關鍵技術</span>，其中包括：
+                        <ul>
+                            <li><strong style="color: rgb(0, 0, 255);">生成對抗網路</strong> (<strong style="color: red;">Generative Adversarial Networks</strong>, <strong style="color: purple;">GAN</strong>): 引領了高品質圖像生成潮流。</li>
+                            <li><strong style="color: rgb(0, 0, 255);">變分自編碼器</strong> (<strong style="color: purple;">VAE</strong>) 和流式模型 (<strong style="color: red;">Flow-based Generative Model</strong>): 提供穩定的生成方法。</li>
+                            <li><strong style="color: red;">Transformer</strong> 架構與<strong style="color: red;">Self-attention</strong>: 改變了語言生成，支持多模態。</li>
+                            <li><strong style="color: rgb(0, 0, 255);">擴散模型</strong> (<strong style="color: red;">Diffusion Models</strong>): 在圖像生成中表現優異。</li>
+                        </ul>
+                        選項 (B) <strong style="color: purple;">GAN</strong> 是這些核心技術中<span class="keyword-highlight">最具代表性</span>的生成模型之一，是 <strong style="color: purple;">GAI</strong> 的重要基礎。
+                        <br>選項 (A) 決策樹、(C) 聚類演算法、(D) 隨機森林 主要是<span class="keyword-highlight">鑑別式模型</span>（用於分類、迴歸）或<span class="keyword-highlight">非監督式分群</span>的方法，其核心目標<span class="keyword-highlight">不是生成新的數據</span>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 17 (PDF Page 3-28, Q7) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#17</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者是<strong style="color: rgb(0, 0, 255);">人工智慧</strong> (<strong style="color: purple;">AI</strong>) 未來發展中<strong style="color: red;">最迫切需要解決</strong>的挑戰？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">計算資源的過剩。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">資料隱私</span>與<span class="keyword-highlight">道德規範</span>問題。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">人才培育與跨領域合作的不足。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">無法應用於小型企業場景。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-29, p3-19, p3-45)</div>
+                    <div class="explanation-content">
+                        PDF 文件中多次強調了 <strong style="color: purple;">AI</strong> 發展（特別是<strong style="color: rgb(0, 0, 255);">生成式 AI</strong>）所面臨的挑戰，其中<span class="keyword-highlight">資料隱私、安全性、倫理偏見、法律合規性以及責任歸屬</span>等問題被反覆提及 (p3-19 技術層面挑戰, p3-45 風險管理重點)。這些問題不僅涉及技術本身，更關乎<span class="keyword-highlight">社會接受度、使用者信任以及法律框架的建立</span>，是 <strong style="color: purple;">AI</strong> 要能<span class="keyword-highlight">健康、可持續且負責任地發展所必須優先解決</span>的關鍵挑戰。因此，選項 (B) 是最迫切需要解決的問題。
+                        <br>選項 (A) 計算資源通常是<span class="keyword-highlight">需求大於供給</span>，尤其是對於大型模型訓練，不太可能過剩。
+                        <br>選項 (C) 人才培育與跨領域合作<span class="keyword-highlight">確實是挑戰</span> (p3-19 社會層面, p3-32 C)，但相較於隱私與道德規範的<span class="keyword-highlight">根本性</span>和<span class="keyword-highlight">緊迫性</span>，可能稍次。
+                        <br>選項 (D) <strong style="color: red;">No Code</strong> / <strong style="color: red;">Low Code</strong> 平台以及 <strong style="color: purple;">AIaaS</strong> 的發展<span class="keyword-highlight">正在降低 <strong style="color: purple;">AI</strong> 的應用門檻</span>，使其逐漸能應用於小型企業場景 (p3-11, p3-15)，所以這<span class="keyword-highlight">不是</span>最迫切或普遍的挑戰。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 18 (PDF Page 3-28, Q8) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#18</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">使用<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 生成的內容時，應採取什麼措施以<span class="keyword-highlight">確保內容品質</span>與<span class="keyword-highlight">避免學術不端</span>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用內容直接進行學術報告。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">適當標注引用來源</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">減少人工參與的審查過程。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">排除所有生成的資料。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-30)</div>
+                    <div class="explanation-content">
+                        <strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 生成的內容可能基於其訓練數據，<span class="keyword-highlight">不一定保證完全原創或絕對準確</span>。在學術或其他正式場合使用時，為了確保內容品質、<span class="keyword-highlight">尊重知識產權</span>並<span class="keyword-highlight">避免抄襲或學術不端行為</span>，採取適當的措施至關重要。
+                        <br>選項 (B) <span class="keyword-highlight">適當標注引用來源</span>，是<span class="keyword-highlight">最基本且必要的措施</span>。如果 <strong style="color: purple;">AI</strong> 生成的內容參考或整合了某些來源的信息，或者使用者將 <strong style="color: purple;">AI</strong> 作為一種工具輔助寫作，都應該<span class="keyword-highlight">誠實地註明</span>，說明 <strong style="color: purple;">AI</strong> 在其中的作用或標示出參考的原始來源（如果可追溯）。這有助於<span class="keyword-highlight">維持內容的可追溯性與可靠性</span>，並<span class="keyword-highlight">避免抄襲的指控</span>。
+                        <br>選項 (A) 直接使用生成的內容進行學術報告，可能<span class="keyword-highlight">構成學術不端</span>。
+                        <br>選項 (C) <span class="keyword-highlight">人工審查</span>對於確保 <strong style="color: purple;">AI</strong> 生成內容的<span class="keyword-highlight">準確性、適當性和原創性</span>非常重要，不應減少。
+                        <br>選項 (D) 完全排除生成的資料過於極端，<span class="keyword-highlight">無法充分利用 <strong style="color: purple;">AI</strong> 技術的潛力</span>。關鍵在於<span class="keyword-highlight">負責任地使用和適當標註</span>。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 19 (PDF Page 3-28, Q9) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#19</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列哪一項<strong style="color: red;">不是</strong> <strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 工具在<strong style="color: rgb(0, 0, 255);">使用者體驗</strong> (<strong style="color: purple;">UX</strong>) 方面的優化方向？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提供更<span class="keyword-highlight">直觀的操作設計</span>。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">支援<span class="keyword-highlight">自然語言指令</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">提供<span class="keyword-highlight">智慧化的參數調整建議</span>。</div></div>
+                    <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><span class="keyword-highlight">限制使用者自訂生成內容</span>。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-30)</div>
+                    <div class="explanation-content">
+                        優化<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 工具的<strong style="color: rgb(0, 0, 255);">使用者體驗</strong> (<strong style="color: red;">User Experience</strong>, <strong style="color: purple;">UX</strong>)，目的是讓使用者能夠<span class="keyword-highlight">更方便、更有效、更愉悅地</span>使用這些工具來達成目標。
+                        <br>選項 (A)、(B)、(C) 都是提升使用者體驗的常見方向：
+                        <ul>
+                            <li>(A) <span class="keyword-highlight">更直觀的操作設計</span>：簡化介面，讓使用者容易上手。</li>
+                            <li>(B) <span class="keyword-highlight">支援自然語言指令</span>：讓使用者可以用說話或打字的方式下指令，降低操作難度。</li>
+                            <li>(C) <span class="keyword-highlight">智慧化的參數調整建議</span>：對於調整生成結果的各種參數（如溫度、風格強度等），提供智能建議或預設選項，幫助使用者更容易得到想要的結果。</li>
+                        </ul>
+                        選項 (D) <span class="keyword-highlight">限制使用者自訂生成內容</span>，這通常會<span class="keyword-highlight">降低工具的靈活性和使用者的控制感</span>，反而<span class="keyword-highlight">不利於使用者體驗</span>。<span class="keyword-highlight">優化方向</span>通常是提供<span class="keyword-highlight">更多、更易用的自訂選項</span>（在合理範圍內），讓使用者能夠更好地控制生成結果，滿足其個性化需求。因此，限制自訂<strong style="color: red;">不是</strong>優化使用者體驗的方向。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 20 (PDF Page 3-52, Q1) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#20</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">企業導入<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的<strong style="color: red;">第一步</strong>應是什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">確保硬體設備升級。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">設定可量化、可追蹤的經營目標</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">安排員工進行 <strong style="color: purple;">AI</strong> 相關培訓。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">購買<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 相關軟體。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-54)</div>
+                    <div class="explanation-content">
+                        根據 PDF 第 3-31 頁及 3-34 頁的描述，企業導入<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的<span class="keyword-highlight">起始階段（規劃初期）</span>，最重要的一步是<span class="keyword-highlight">明確導入 <strong style="color: purple;">AI</strong> 的目的</span>。這意味著需要<span class="keyword-highlight">定義清晰的經營目標</span>，例如希望透過 <strong style="color: purple;">AI</strong> 解決哪些業務痛點、提升哪些效率、達成哪些業績增長等。這些目標應該是<span class="keyword-highlight">具體的、可量化的、可追蹤的</span>，這樣才能在後續的導入過程中<span class="keyword-highlight">評估成效</span>，並確保 <strong style="color: purple;">AI</strong> 的應用與企業的整體<span class="keyword-highlight">策略方向保持一致</span>。有了明確的目標，才能接著進行需求分析、資源評估、方案選擇等後續步驟。
+                        <br>選項 (A) 硬體升級、(C) 員工培訓、(D) 購買軟體 都是導入過程中可能需要的環節，但它們都應該<span class="keyword-highlight">服務於預先設定好的經營目標</span>，因此<span class="keyword-highlight">設定目標是更為優先的第一步</span>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 21 (PDF Page 3-52, Q2) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#21</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">以下哪一項屬於企業在評估導入<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 時需<span class="keyword-highlight">識別的問題領域</span>（痛點）？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="keyword-highlight">市場趨勢預測能力有限</span>。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">設計更高效能的運算資源。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">增加銷售團隊人力。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">減少 <strong style="color: purple;">AI</strong> 模型參數數量。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-54)</div>
+                    <div class="explanation-content">
+                        導入 <strong style="color: purple;">AI</strong> 的<span class="keyword-highlight">前提是識別出現有的業務挑戰或「痛點」</span>，也就是 <strong style="color: purple;">AI</strong> 可以幫助解決的問題領域。企業需要分析<span class="keyword-highlight">現有營運模式與挑戰</span> (p3-31)，挖掘<span class="keyword-highlight">流程瓶頸、資源分配失衡或決策過程的不足</span> (p3-31)。
+                        <br>選項 (A) <span class="keyword-highlight">市場趨勢預測能力有限</span>，這是一個典型的<span class="keyword-highlight">業務挑戰或痛點</span>。<strong style="color: purple;">AI</strong>（包括 GAI 或其他分析型 AI）可以透過分析大量數據來提升預測的準確性，輔助企業制定更有效的市場策略。
+                        <br>選項 (B) 設計運算資源是解決方案的一部分，不是問題本身。
+                        <br>選項 (C) 增加銷售人力是可能的策略，但不屬於 <strong style="color: purple;">AI</strong> 導入前要識別的問題領域（痛點）。
+                        <br>選項 (D) 減少模型參數是模型優化技術，不是業務痛點。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 22 (PDF Page 3-52, Q3) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#22</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">企業若要有效支援<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的運行，內部 <strong style="color: red;">IT</strong> 環境<strong style="color: red;">最需要</strong>具備下列何種條件？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提供更多的辦公設備，以提升員工生產力。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">精簡企業內部流程，以加速決策效率。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">擁有<span class="keyword-highlight">高效能運算資源</span>與<span class="keyword-highlight">彈性儲存空間</span>，以支援 <strong style="color: purple;">AI</strong> 模型訓練與推理。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">增加部門之間的交流機會，以促進跨部門合作。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-54)</div>
+                    <div class="explanation-content">
+                        <strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 模型，尤其是大型模型，其<span class="keyword-highlight">訓練和運行（推理）通常需要大量的計算資源和數據儲存</span>。因此，企業的 <strong style="color: red;">IT</strong> 基礎設施必須能夠滿足這些需求。
+                        <br>選項 (C) 明確指出了<span class="keyword-highlight">高效能的運算資源</span>（例如強大的伺服器、<strong style="color: red;">GPU</strong>）和<span class="keyword-highlight">彈性的儲存空間</span>（能夠處理和儲存大量訓練數據及模型本身）是<span class="keyword-highlight">支援 <strong style="color: purple;">AI</strong> 模型訓練和推理的關鍵條件</span>。這包括了企業自建的<strong style="color: red;">伺服器</strong>、<strong style="color: red;">雲端服務</strong>等硬體與系統架構 (p3-31)。
+                        <br>選項 (A) 辦公設備與 <strong style="color: purple;">AI</strong> 核心運算需求關聯不大。
+                        <br>選項 (B) 精簡流程是管理優化，雖有助於 <strong style="color: purple;">AI</strong> 導入，但非 IT 環境的核心條件。
+                        <br>選項 (D) 跨部門合作是組織文化層面，而非 IT 環境條件。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 23 (PDF Page 3-52, Q4) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#23</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 導入過程中，<strong style="color: rgb(0, 0, 255);">資料安全</strong>與<strong style="color: rgb(0, 0, 255);">隱私保護</strong>的哪一方面是<strong style="color: red;">最重要</strong>的考量？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="keyword-highlight">權限控管</span>與<span class="keyword-highlight">合規要求</span>。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增強客服回饋（反饋）能力。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">資料視覺化能力。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">設定目標優先級。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-54)</div>
+                    <div class="explanation-content">
+                        <strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的訓練和應用常涉及大量數據，其中可能包含<span class="keyword-highlight">敏感的個人資訊或商業機密</span>。因此，<span class="keyword-highlight">確保資料安全和隱私保護</span>是導入過程中<span class="keyword-highlight">至關重要的環節</span>。
+                        <br>選項 (A) <span class="keyword-highlight">權限控管</span>（確保只有授權人員能存取敏感數據和模型）與<span class="keyword-highlight">合規要求</span>（遵守相關的資料保護法規，如 <strong style="color: purple;">GDPR</strong>、<strong style="color: purple;">CCPA</strong> 等）是<span class="keyword-highlight">保障資料安全與隱私的核心措施</span> (p3-32, p3-45)。未能妥善處理這些問題可能導致數據洩露、法律訴訟和聲譽損害。
+                        <br>選項 (B) 客服回饋、(C) 資料視覺化、(D) 設定目標優先級，這些雖然在 <strong style="color: purple;">AI</strong> 導入或營運中可能相關，但<span class="keyword-highlight">不屬於資料安全與隱私保護的最核心考量</span>。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 24 (PDF Page 3-52, Q5) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#24</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">成功導入<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的關鍵在於哪<strong style="color: red;">三個</strong>因素？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提供更多數據、加強合作、減少成本。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">清晰定義痛點</span>、<span class="keyword-highlight">技術匹配</span>、<span class="keyword-highlight">培養人才</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">投資高端設備、增加技術人員、縮短流程。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">推行技術改革、調整市場策略、強化品牌。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-54)</div>
+                    <div class="explanation-content">
+                        成功導入<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 是一個系統工程，需要多方面的配合。綜合 PDF 中關於導入評估與規劃的內容 (Section 3.3)，可以歸納出幾個關鍵成功因素：
+                        <ol>
+                            <li><span class="keyword-highlight">清晰定義痛點/目標</span> (p3-31, p3-35 A.a)：首先必須明確<span class="keyword-highlight">要用 <strong style="color: purple;">AI</strong> 解決什麼具體的業務問題</span>或達成什麼目標。</li>
+                            <li><span class="keyword-highlight">技術匹配/可行性</span> (p3-31 (1), p3-35 B.a, p3-37 C.a)：選擇的 <strong style="color: purple;">AI</strong> 技術方案需要<span class="keyword-highlight">能夠有效地解決定義的問題</span>，並且在<span class="keyword-highlight">技術上是可行的、與現有基礎設施能對接</span>的。</li>
+                            <li><span class="keyword-highlight">人才培養/組織能力</span> (p3-31 (2), p3-32 C, p3-34 C)：需要有<span class="keyword-highlight">足夠的技術人才</span>來開發、部署和維護 <strong style="color: purple;">AI</strong> 系統，同時也需要<span class="keyword-highlight">培養員工使用 <strong style="color: purple;">AI</strong> 工具的能力</span>，並營造<span class="keyword-highlight">支持創新的企業文化</span>。</li>
+                        </ol>
+                        選項 (B) 涵蓋了這三個核心要素：<span class="keyword-highlight">定義問題（痛點）</span>、<span class="keyword-highlight">選擇合適的技術方案（技術匹配）</span>以及<span class="keyword-highlight">建立相應的人才儲備（培養人才）</span>。
+                        <br>其他選項雖然包含了一些相關因素，但不如 (B) 全面和核心。(A) 減少成本是結果而非要素，數據多不代表好。(C) 設備投資和人員增加是資源投入，縮短流程是目標之一，但非全部關鍵。(D) 這些偏向更高層次的策略調整，而非導入本身的關鍵執行因素。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 25 (PDF Page 3-53, Q6) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#25</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在導入<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的<strong style="color: rgb(0, 0, 255);">構想（初始）階段</strong>，企業應首先專注於什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提升內部資料儲存容量。</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">明確經營目標與核心價值</span>。</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">進行員工 <strong style="color: purple;">AI</strong> 基礎培訓。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">購買市面上的 <strong style="color: purple;">AI</strong> 軟體。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-60)</div>
+                    <div class="explanation-content">
+                        與第 20 題類似，導入 <strong style="color: purple;">AI</strong> 的<span class="keyword-highlight">最初階段（構想階段）</span>，最關鍵的是<span class="keyword-highlight">確立方向和目的</span>。企業需要<span class="keyword-highlight">回歸到自身的經營目標和核心價值</span> (p3-34)，思考<span class="keyword-highlight">導入 <strong style="color: purple;">AI</strong> 究竟是為了達成什麼戰略目的</span>？是提升效率、降低成本、改善客戶體驗、還是開拓新的業務模式？<span class="keyword-highlight">只有明確了這些高層次的目標</span>，後續的技術選型、資源投入、人才培養等才能<span class="keyword-highlight">有依據且聚焦</span>。
+                        <br>選項 (A)、(C)、(D) 都是後續執行階段可能需要考慮的事情，但在最初的構想階段，<span class="keyword-highlight">確立戰略目標和價值定位</span>是首要任務。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 26 (PDF Page 3-53, Q7) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#26</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">在 <strong style="color: purple;">AI</strong> 導入<strong style="color: rgb(0, 0, 255);">正式實施階段</strong>，企業應<span class="keyword-highlight">優先</span>進行的活動是什麼？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加行銷預算。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">調整產品價格。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">確保相關人員<span class="keyword-highlight">熟悉新流程與工具</span>。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">減少生產規模以減少風險。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-60, p3-42)</div>
+                    <div class="explanation-content">
+                        當 <strong style="color: purple;">AI</strong> 解決方案開發完成並進入<span class="keyword-highlight">正式實施（導入實務運作）階段</span>時，一個<span class="keyword-highlight">關鍵的成功因素是確保使用者能夠順利地接納和使用新的系統或流程</span>。因此，<span class="keyword-highlight">優先</span>活動應包括：
+                        <ul>
+                            <li><span class="keyword-highlight">員工培訓</span> (p3-42 c)：幫助員工<span class="keyword-highlight">熟悉 <strong style="color: purple;">AI</strong> 系統的功能與操作</span>。</li>
+                            <li><span class="keyword-highlight">流程整合</span> (p3-42 a)：將 <strong style="color: purple;">AI</strong> 方案<span class="keyword-highlight">嵌入現有業務流程</span>，明確角色分工。</li>
+                            <li><span class="keyword-highlight">使用者支援</span>：提供必要的技術支持和問題解答。</li>
+                        </ul>
+                        選項 (C) 確保相關人員<span class="keyword-highlight">熟悉新流程與工具</span>，直接對應了員工培訓和流程適應這兩個核心環節，是<span class="keyword-highlight">確保 <strong style="color: purple;">AI</strong> 系統能夠在實際工作中被有效使用的基礎</span>，因此是此階段應優先進行的活動。
+                        <br>選項 (A) 行銷預算、(B) 產品價格調整 屬於市場或商業策略層面。
+                        <br>選項 (D) 減少生產規模通常不是導入新技術的直接目的。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 27 (PDF Page 3-53, Q8) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#27</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">下列何者為<strong style="color: rgb(0, 0, 255);">風險分析</strong>階段的主要目的？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">找到更多的數據來源。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增強模型的效能。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">評估風險的<span class="keyword-highlight">影響</span>與<span class="keyword-highlight">發生可能性</span>。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">降低模型運行成本。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-60, p3-49)</div>
+                    <div class="explanation-content">
+                        <strong style="color: rgb(0, 0, 255);">風險管理</strong>是 <strong style="color: purple;">AI</strong> 導入過程中的重要環節 (p3-45)。<strong style="color: rgb(0, 0, 255);">風險分析</strong>是風險管理的第一步，其<span class="keyword-highlight">主要目的</span>在於<span class="keyword-highlight">識別出潛在的風險</span>，並<span class="keyword-highlight">評估這些風險可能帶來的負面影響程度</span>（Impact）以及<span class="keyword-highlight">它們發生的可能性</span>（Probability/Likelihood）。透過這種評估，可以<span class="keyword-highlight">了解各類風險的嚴重性（權重）</span>，從而<span class="keyword-highlight">決定哪些風險需要優先處理</span>，並為後續制定應對策略（如風險緩解、轉移、接受或規避）提供依據（p3-49 A, p3-50 D）。因此，選項 (C) 是風險分析階段的核心目的。
+                        <br>選項 (A) 找數據來源、(B) 增強模型效能、(D) 降低運行成本，這些都不是風險分析本身的主要目的。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 28 (PDF Page 3-53, Q9) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#28</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">若企業將資料安全管理<span class="keyword-highlight">外包</span>給第三方服務供應商，屬於哪種<strong style="color: rgb(0, 0, 255);">風險應對策略</strong>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">風險緩解</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><span class="keyword-highlight">風險轉移</span></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">風險接受</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">風險規避</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-60, p3-51)</div>
+                    <div class="explanation-content">
+                        風險應對策略通常包括緩解、轉移、接受和規避。
+                        <ul>
+                            <li>風險緩解：採取措施降低風險發生的可能性或影響。</li>
+                            <li><span class="keyword-highlight">風險轉移</span>：將風險的全部或部分後果<span class="keyword-highlight">轉移給第三方承擔</span>，常見方式包括<span class="keyword-highlight">購買保險</span>或<span class="keyword-highlight">將特定業務/管理職能外包</span>給專業服務商。</li>
+                            <li>風險接受：認知到風險存在，但不採取措施改變它（通常適用於影響小的風險）。</li>
+                            <li>風險規避：改變計畫或策略以完全避免風險。</li>
+                        </ul>
+                        將資料安全管理<span class="keyword-highlight">外包給第三方服務供應商</span>，意味著將<span class="keyword-highlight">與資料安全相關的部分責任和潛在損失</span>（例如因安全事件導致的賠償）<span class="keyword-highlight">轉移給了該供應商</span>。這正是<strong style="color: red;">風險轉移</strong> (p3-51 F) 策略的典型應用。儘管如此，企業仍需保留監督和審核的權利與責任。
+                    </div>
+                </div>
+            </div>
+
+             <!-- Question 29 (PDF Page 3-53, Q10) -->
+            <div class="question-card" data-direction="3" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#29</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">為了確保<strong style="color: rgb(0, 0, 255);">風險管理</strong>的持續有效性，當企業發現原有風險管理策略的效果下降時，應如何應對？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">繼續沿用原策略。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">停止 <strong style="color: purple;">AI</strong> 應用以防意外。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="keyword-highlight">快速調整並進行必要改進</span>。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">將策略移交給外部顧問。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-60, p3-50)</div>
+                    <div class="explanation-content">
+                        風險管理是一個<span class="keyword-highlight">動態且持續的過程</span>，因為內外部環境（如技術、市場、法規、威脅）總是在變化。當監控顯示<span class="keyword-highlight">原有的風險管理策略效果下降</span>（例如，未能有效預防新的風險事件，或控制措施不再適用）時，<span class="keyword-highlight">固守原有策略顯然是不恰當的</span> (選項 A 錯誤)。
+                        <br>選項 (C) <span class="keyword-highlight">快速調整並進行必要改進</span>，體現了風險管理的<span class="keyword-highlight">持續改進原則</span>。企業應<span class="keyword-highlight">分析效果下降的原因</span>，<span class="keyword-highlight">重新評估風險</span>，並<span class="keyword-highlight">更新或修改應對策略</span>，以<span class="keyword-highlight">確保風險管理措施能持續有效地應對當前的風險狀況</span> (p3-50 B, D)。
+                        <br>選項 (B) 停止 <strong style="color: purple;">AI</strong> 應用過於消極，可能喪失 <strong style="color: purple;">AI</strong> 帶來的價值。
+                        <br>選項 (D) 尋求外部顧問意見可以，但最終調整和執行的責任仍在企業自身，不能完全移交。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 30 (Placeholder/Example - Not directly from PDF Q&A, but based on content) -->
+            <div class="question-card" data-direction="2" data-stars="4">
+                <div class="question-header">
+                    <div class="question-id">#30</div>
+                    <div class="question-frequency">★★★★</div>
+                </div>
+                <div class="question-content">像是 <strong style="color: red;">DALL-E</strong> 或 <strong style="color: red;">Midjourney</strong> 這類工具，它們主要應用了<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 的哪種能力來實現「文生圖」？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">大型語言模型 (<strong style="color: purple;">LLM</strong>) 的文本摘要能力。</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">生成對抗網路 (<strong style="color: purple;">GAN</strong>) 的數據分類能力。</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="keyword-highlight">多模態生成</span>能力，將<span class="keyword-highlight">文本描述轉化為圖像</span>內容。</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">強化學習 (<strong style="color: purple;">RLHF</strong>) 的人類偏好對齊能力。</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析 (Ref: p3-20, p3-21, p3-22)</div>
+                    <div class="explanation-content">
+                        <strong style="color: red;">DALL-E</strong> 和 <strong style="color: red;">Midjourney</strong> 是著名的「文生圖」工具，它們的核心能力在於<span class="keyword-highlight">理解輸入的文字描述</span>，並<span class="keyword-highlight">生成符合描述的全新圖像</span>。這體現了<strong style="color: rgb(0, 0, 255);">生成式 AI</strong> (<strong style="color: purple;">GAI</strong>) 在<span class="keyword-highlight">多模態（Multi-modal）處理</span>方面的進展，即能夠<span class="keyword-highlight">跨越不同的數據類型（文本和圖像）進行理解和生成</span> (p3-21 A, p3-22 (2))。它們通常基於 <strong style="color: red;">Transformer</strong> 架構（如 <strong style="color: purple;">GPT</strong> 系列啟發了 DALL-E）或 <strong style="color: rgb(0, 0, 255);">擴散模型</strong> (<strong style="color: red;">Diffusion Models</strong>) (p3-20, p3-21 C) 等先進的生成模型技術。
+                        <br>選項 (A) 文本摘要是 <strong style="color: purple;">LLM</strong> 的能力之一，但不是文生圖的核心。
+                        <br>選項 (B) <strong style="color: purple;">GAN</strong> 本身是生成模型，但這裡強調的是跨模態生成，且分類是鑑別器的任務。
+                        <br>選項 (D) <strong style="color: purple;">RLHF</strong> 用於使模型輸出更符合人類偏好，是訓練優化技術，而非核心生成機制本身。
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Message area for no results -->
+             <div id="noResultsMessage"></div>
+
+        </div> <!-- End questions-container -->
+
+        <a href="#" class="back-to-top" id="backToTop">↑</a> <!-- Changed to anchor -->
+    </div> <!-- End container -->
+
+    <script>
+        let explanationsVisible = false; // Start with explanations hidden
+        let answersVisible = true; // Track if answers are currently shown
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // Smooth scroll for back-to-top
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter by direction (called from direction items)
+        function filterByDirection(directionNumber) {
+            document.getElementById('directionFilter').value = directionNumber === 'all' ? 'all' : String(directionNumber);
+            document.getElementById('searchInput').value = ''; // Clear search when applying direction filter
+            filterAndSearchQuestions();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("directionFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            // Filter as user types or on Enter key
+            // if (event.key === "Enter") { // Optional: only search on Enter
+                 filterAndSearchQuestions();
+            // }
+        });
+
+        // Combined filter and search function
+        function filterAndSearchQuestions() {
+            let direction = document.getElementById("directionFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let questions = document.querySelectorAll(".question-card");
+            let anyVisible = false; // Track if any questions match
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const questionsContainer = document.getElementById('questionsContainer');
+
+            questions.forEach(function(question) {
+                const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+                const matchesStars = (stars === "all" || question.dataset.stars === stars);
+                // Search in question content, options, and explanation
+                const questionTextElement = question.querySelector('.question-content');
+                const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+                const explanationTextElement = question.querySelector('.explanation-container .explanation-content'); // Target only content within explanation
+
+                let combinedText = '';
+                if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+                combinedText += ' ' + optionsText;
+                // Only include explanation text in search if explanations are currently visible globally OR if the search needs to always cover it
+                if (explanationsVisible && explanationTextElement) { // Search explanation only if globally visible
+                     combinedText += ' ' + explanationTextElement.textContent.toLowerCase();
+                }
+                // Alternatively, always search explanation:
+                // if (explanationTextElement) {
+                //     combinedText += ' ' + explanationTextElement.textContent.toLowerCase();
+                // }
+
+
+                const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+
+                // Question must match all active criteria
+                if (matchesDirection && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+             // Display message if no questions match
+             if (noResultsMessage) {
+                 if (anyVisible) {
+                    noResultsMessage.style.display = 'none';
+                    questionsContainer.style.minHeight = '0'; // Reset minHeight
+                 } else {
+                    noResultsMessage.style.display = 'block';
+                    if(searchText){
+                        noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的題目。';
+                    } else {
+                        noResultsMessage.textContent = '沒有找到符合目前篩選條件的題目。';
+                    }
+                    // Ensure container doesn't collapse completely
+                    questionsContainer.style.minHeight = '100px'; // Give some height when empty
+                 }
+             }
+        }
+
+        // Toggle ALL explanations visibility
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+            let button = document.getElementById("toggleExplanations");
+
+            explanations.forEach(function(explanation) {
+                // Only toggle explanations for questions that are currently visible
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+
+        // Toggle ALL answers visibility
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+
+        // On page load, mark which options are originally correct
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // ... existing code ...
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            allOptions.forEach(function(opt) {
+                if (opt.classList.contains('correct')) {
+                    opt.dataset.originalCorrect = 'true';
+                } else {
+                    opt.dataset.originalCorrect = 'false';
+                }
+            });
+        });
+
+        // Toggle INDIVIDUAL explanation visibility on clicking option
+        let options = document.querySelectorAll(".option-item");
+        options.forEach(function(option) {
+            option.addEventListener("click", function() {
+                const questionCard = this.closest('.question-card');
+                if (!questionCard) return;
+                const explanation = questionCard.querySelector('.explanation-container');
+                if (explanation) {
+                    // Toggle individual explanation display
+                    const isCurrentlyVisible = explanation.style.display === 'block';
+                    explanation.style.display = isCurrentlyVisible ? 'none' : 'block';
+                }
+            });
+        });
+
+
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+             toggleBackToTopButton();
+             updateProgressBar();
+
+             // Ensure explanations start hidden based on initial state `explanationsVisible = false;`
+             let initialExplanations = document.querySelectorAll(".explanation-container");
+             initialExplanations.forEach(function(explanation) {
+                explanation.style.display = "none"; // Explicitly hide all initially
+             });
+             // Set initial state for toggle button text
+             document.getElementById("toggleExplanations").textContent = "顯示全部解析";
+
+             filterAndSearchQuestions(); // Apply initial filter/search state AFTER setting initial explanation visibility
+         });
+
+    </script>
+</body>
+</html>

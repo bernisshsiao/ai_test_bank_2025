@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI 應用規劃師 - 產發署題目</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif; /* Updated font stack */
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 20px 30px;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        .header-container {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 5px;
+        }
+        .header-container div {
+             font-size: 1.1rem;
+        }
+        .responsive-img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+        }
+        /* 問題卡片樣式 */
+        .questions-container { }
+        .question-card {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 18px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-id {
+            font-weight: bold;
+            color: #3498db;
+            font-size: 0.95em;
+        }
+        .question-frequency {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .question-content {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+            list-style: none;
+            padding-left: 0;
+        }
+        .option-item {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            cursor: default;
+            transition: background-color 0.2s ease;
+            font-size: 0.98em;
+            align-items: center;
+        }
+        .option-item:hover {
+            background-color: #e9ecef;
+        }
+        .option-item.correct {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            font-weight: bold;
+        }
+        .option-item.correct:hover {
+            background-color: #c3e6cb;
+        }
+        .option-label {
+            width: 25px;
+            height: 25px;
+            min-width: 25px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .option-item.correct .option-label {
+            background-color: #28a745;
+        }
+        .option-text {
+             flex-grow: 1;
+             word-break: break-word;
+        }
+        .explanation-container {
+            background-color: #eef7ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none; /* Start hidden */
+            border-top: 1px dashed #ced4da;
+            font-size: 0.95em;
+        }
+        .explanation-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .explanation-content {
+            line-height: 1.6;
+            color: #333;
+        }
+        /* Formatting Styles */
+        .highlight { /* General highlight if needed */
+            background-color: #ffff0030;
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+        .chinese-term {
+             color: rgb(0, 0, 255); /* Blue */
+             font-weight: bold;
+        }
+        .acronym-term {
+             color: rgb(128, 0, 128); /* Purple */
+             font-weight: bold;
+        }
+        .english-term {
+             color: rgb(255, 0, 0); /* Red */
+             font-weight: bold;
+        }
+
+        /* Controls styling */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+        select, input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            min-width: 150px;
+        }
+         input[type="text"] {
+            flex-grow: 2;
+         }
+        button {
+            padding: 9px 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease;
+            font-size: 0.95em;
+            margin-left: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #toggleExplanations {
+           margin-left: 0;
+        }
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s;
+            z-index: 1000;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        .back-to-top:hover {
+            background-color: #2980b9;
+            opacity: 1;
+        }
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #f1f1f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #3498db;
+            width: 0%;
+        }
+        /* RWD */
+        @media (max-width: 992px) {
+             .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-container, .search-container, .star-filter-container, .toggle-explanations {
+                width: 100%;
+                justify-content: space-between;
+            }
+             select, input[type="text"] {
+                 width: auto;
+                 flex-grow: 1;
+             }
+             button {
+                 flex-shrink: 0;
+             }
+             .search-container button {
+                margin-left: 10px;
+             }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px 20px; }
+             h1 { font-size: 1.5em; }
+             .option-item, .explanation-container, button { font-size: 0.9em; }
+             .option-label { width: 22px; height: 22px; min-width: 22px; font-size: 0.9em; }
+        }
+         @media (max-width: 600px) {
+             .container { padding: 15px; margin: 10px auto; }
+             h1 { font-size: 1.4em; }
+             .header-container h1 { font-size: 1.6rem; }
+             .header-container div { font-size: 1rem; }
+             .option-item, button, .explanation-container { font-size: 0.9em; }
+         }
+         /* No results message style */
+         #noResultsMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI 應用規劃師</h1>
+            <div>產發署50題</div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-container">
+                <label for="directionFilter" class="filter-label">篩選出題方向：</label>
+                <select id="directionFilter">
+                    <option value="all">全部方向</option>
+                    <option value="1">方向 1: ML基礎與分類</option>
+                    <option value="2">方向 2: ML模型評估與優化</option>
+                    <option value="3">方向 3: 特定ML演算法</option>
+                    <option value="4">方向 4: 電腦視覺基礎</option>
+                    <option value="5">方向 5: 特定CV技術</option>
+                    <option value="6">方向 6: 自然語言處理基礎</option>
+                    <option value="7">方向 7: 特定NLP技術</option>
+                    <option value="8">方向 8: 生成式AI基礎</option>
+                    <option value="9">方向 9: 特定GenAI技術與應用</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">篩選重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="3">★★★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入題目或選項關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+
+            <div class="toggle-explanations">
+                <button id="toggleExplanations">顯示全部解析</button>
+                <button id="toggleAnswers" style="margin-left:8px;">隱藏全部答案</button>
+            </div>
+        </div>
+
+        <div class="questions-container" id="questionsContainer">
+
+            <!-- Question 1 -->
+            <div class="question-card" data-direction="1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#1</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在以下提供的選項中，請仔細考慮並指出哪一個選項不屬於<b class="chinese-term">監督式學習</b>的範疇？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">回歸分析</b>方法，主要用於預測連續型目標變數</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">分類技術</b>，主要用於將數據分類到不同的類別中</div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b>，一種常見的<b class="chinese-term">非監督式學習</b>方法</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">降維技術</b>，用於減少數據的特徵數量</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">監督式學習</b> (<span class="english-term">Supervised Learning</span>) 的核心特徵是使用帶有標籤（即正確答案或目標輸出）的資料來訓練模型。模型學習輸入特徵與輸出標籤之間的對應關係。<br/>
+                    (A) <b class="chinese-term">回歸分析</b> (<span class="english-term">Regression Analysis</span>) 是預測連續數值（如房價、溫度）的<b class="chinese-term">監督式學習</b>任務。<br/>
+                    (B) <b class="chinese-term">分類技術</b> (<span class="english-term">Classification Techniques</span>) 是將資料點分配到預定義的離散類別（如垃圾郵件/非垃圾郵件、貓/狗）的<b class="chinese-term">監督式學習</b>任務。<br/>
+                    (C) <b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b> (<span class="english-term">K-means Clustering Algorithm</span>) 是一種典型的<b class="chinese-term">非監督式學習</b> (<span class="english-term">Unsupervised Learning</span>) 方法。它在沒有標籤的資料中尋找資料點的自然分組（<b class="chinese-term">簇</b>），目的是最小化簇內資料點的變異性。<br/>
+                    (D) <b class="chinese-term">降維技術</b> (<span class="english-term">Dimensionality Reduction Techniques</span>)，例如<b class="chinese-term">主成分分析</b> (<span class="acronym-term">PCA</span>, <span class="english-term">Principal Component Analysis</span>)，可以是<b class="chinese-term">非監督式</b>的，但也有一些<b class="chinese-term">監督式</b>的降維方法（如 <span class="acronym-term">LDA</span>, <span class="english-term">Linear Discriminant Analysis</span>）。然而，<b class="acronym-term">K-means</b> 明確屬於<b class="chinese-term">非監督式學習</b>。因此，選項 C 是唯一明確不屬於<b class="chinese-term">監督式學習</b>範疇的選項。</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#2</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">機器學習</b>的過程中，通常使用哪一種<b class="chinese-term">資料集</b>來評估和測試模型的整體效能和準確性？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">訓練集</b>，主要用於訓練模型</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">測試集</b>，專門用於評估模型在未見過數據上的表現</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">驗證集</b>，用於調整模型的參數</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">開發集</b>，通常用於模型的初步開發和測試</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">在<b class="chinese-term">機器學習</b> (<span class="acronym-term">ML</span>, <span class="english-term">Machine Learning</span>) 中，<b class="chinese-term">資料集</b>通常被劃分為三個部分：<br/>
+                    1. <b class="chinese-term">訓練集</b> (<span class="english-term">Training Set</span>)：用於訓練模型，讓模型學習資料中的模式和參數。<br/>
+                    2. <b class="chinese-term">驗證集</b> (<span class="english-term">Validation Set</span>)：用於在模型訓練過程中調整<b class="chinese-term">超參數</b> (<span class="english-term">Hyperparameters</span>)（例如學習率、神經網路層數）以及進行模型選擇，以避免在<b class="chinese-term">測試集</b>上過度擬合。<br/>
+                    3. <b class="chinese-term">測試集</b> (<span class="english-term">Test Set</span>)：用於在模型最終訓練完成後，評估模型在從未見過的全新資料上的<b class="chinese-term">泛化能力</b> (<span class="english-term">Generalization Ability</span>) 和最終效能。這個評估結果是用來衡量模型實際應用效果的指標。<br/>
+                    <b class="chinese-term">開發集</b> (<span class="english-term">Development Set</span>) 有時與<b class="chinese-term">驗證集</b>同義。因此，專門用於評估最終模型整體效能和準確性的是<b class="chinese-term">測試集</b>。</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" data-direction="1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#3</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">機器學習</b>領域中，以下哪一種演算法被歸類為<b class="chinese-term">非監督式學習</b>方法？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">支持向量機</b>（ <span class="acronym-term">SVM</span>） ，常用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b>，一種廣泛應用於<b class="chinese-term">數據聚類</b>的<b class="chinese-term">非監督式學習</b>方法</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">線性回歸</b>，用於預測連續目標變數</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">決策樹</b>，主要用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b>任務</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">非監督式學習</b> (<span class="english-term">Unsupervised Learning</span>) 的主要目標是在沒有標籤的資料中發現隱藏的模式或結構。<br/>
+                    (A) <b class="chinese-term">支持向量機</b> (<span class="acronym-term">SVM</span>, <span class="english-term">Support Vector Machine</span>) 是一種<b class="chinese-term">監督式學習</b>演算法。<br/>
+                    (B) <b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b> (<span class="english-term">K-means Clustering Algorithm</span>) 將資料點分組成 <span class="acronym-term">K</span> 個<b class="chinese-term">簇</b>，使得每個資料點都屬於與其最近的<b class="chinese-term">均值</b> (<span class="english-term">Mean</span>) 或<b class="chinese-term">中心點</b> (<span class="english-term">Centroid</span>) 所對應的<b class="chinese-term">簇</b>。這個過程不需要預先知道資料的類別標籤，因此是<b class="chinese-term">非監督式學習</b>。<br/>
+                    (C) <b class="chinese-term">線性回歸</b> (<span class="english-term">Linear Regression</span>) 是一種<b class="chinese-term">監督式學習</b>演算法。<br/>
+                    (D) <b class="chinese-term">決策樹</b> (<span class="english-term">Decision Tree</span>) 通常用於<b class="chinese-term">監督式學習</b>（分類或回歸）。</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#4</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">決策樹演算法</b>的應用中，通常使用哪一種指標來選擇最適合的<b class="chinese-term">分裂點</b>，以便有效地劃分數據？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">平均絕對誤差</b>，用於衡量預測值與實際值之間的平均差異</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">熵</b>，作為衡量數據純度和不確定性的指標</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">均方誤差</b>，用於衡量預測值與實際值之間的平方差</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">精確度</b>，評估模型正確預測的比例</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">在構建<b class="chinese-term">決策樹</b> (<span class="english-term">Decision Tree</span>) 時，特別是<b class="chinese-term">分類樹</b> (<span class="english-term">Classification Tree</span>)，目標是在每個節點選擇一個最佳的特徵和<b class="chinese-term">分裂點</b> (<span class="english-term">Split Point</span>) 來劃分資料，使得劃分後的子集盡可能地「純粹」（即包含的類別盡量單一）。常用的衡量純度或不確定性的指標包括：<br/>
+                    1. <b class="chinese-term">資訊增益</b> (<span class="english-term">Information Gain</span>)：基於<b class="chinese-term">熵</b> (<span class="english-term">Entropy</span>) 計算，選擇能最大程度減少<b class="chinese-term">熵</b>（增加資訊量）的分裂。<b class="chinese-term">熵</b>衡量的是數據集的不確定性。<br/>
+                    2. <b class="chinese-term">資訊增益率</b> (<span class="english-term">Gain Ratio</span>)：對<b class="chinese-term">資訊增益</b>進行修正，以避免偏向具有較多取值的特徵。<br/>
+                    3. <b class="chinese-term">基尼不純度</b> (<span class="english-term">Gini Impurity</span>)：衡量隨機選取的樣本被錯誤分類的機率。<br/>
+                    因此，<b class="chinese-term">熵</b>是直接相關的指標，用於計算<b class="chinese-term">資訊增益</b>來選擇<b class="chinese-term">分裂點</b>。<br/>
+                    (A) <b class="chinese-term">平均絕對誤差</b> (<span class="acronym-term">MAE</span>, <span class="english-term">Mean Absolute Error</span>) 和 (C) <b class="chinese-term">均方誤差</b> (<span class="acronym-term">MSE</span>, <span class="english-term">Mean Squared Error</span>) 主要用於<b class="chinese-term">回歸樹</b> (<span class="english-term">Regression Tree</span>) 的分裂標準或效能評估。<br/>
+                    (D) <b class="chinese-term">精確度</b> (<span class="english-term">Accuracy</span>) 是<b class="chinese-term">分類模型</b>的效能評估指標，通常不用於選擇<b class="chinese-term">分裂點</b>。</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#5</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">交叉驗證</b>技術在<b class="chinese-term">機器學習</b>中主要用來達成什麼目的，以確保模型的<b class="chinese-term">泛化能力</b>？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text">減少模型<b class="chinese-term">過度擬合</b>的風險，提升模型在新數據上的表現</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">增加<b class="chinese-term">資料集</b>的大小，提供更多訓練數據</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">提高模型的計算速度，縮短訓練時間</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">提升模型的複雜度，使其能夠捕捉更多的數據特徵</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">交叉驗證</b> (<span class="english-term">Cross-validation</span>) 是一種模型評估技術，尤其在<b class="chinese-term">資料集</b>有限的情況下很有用。它將原始<b class="chinese-term">訓練集</b>分成 <span class="acronym-term">K</span> 個子集（<span class="acronym-term">K-折交叉驗證</span>, <span class="english-term">K-Fold Cross-validation</span>），然後進行 <span class="acronym-term">K</span> 次訓練和驗證：每次使用 <span class="acronym-term">K</span>-1 個子集進行訓練，剩下的 1 個子集進行驗證。最終將 <span class="acronym-term">K</span> 次的驗證結果平均，得到一個更穩健的模型效能評估。<br/>
+                    其主要目的包括：<br/>
+                    1.  更可靠地評估模型的<b class="chinese-term">泛化能力</b> (<span class="english-term">Generalization Ability</span>)，即模型在未見過數據上的表現。<br/>
+                    2.  幫助檢測和避免<b class="chinese-term">過度擬合</b> (<span class="english-term">Overfitting</span>)，因為如果模型在<b class="chinese-term">訓練集</b>上表現很好但在<b class="chinese-term">驗證集</b>上表現差，則可能存在<b class="chinese-term">過度擬合</b>。<br/>
+                    3.  用於模型選擇和<b class="chinese-term">超參數調整</b> (<span class="english-term">Hyperparameter Tuning</span>)。<br/>
+                    (B) 它不增加<b class="chinese-term">資料集</b>大小。(C) 它通常會增加總訓練時間。(D) 其目的是評估和控制複雜度，而不是盲目提升複雜度。因此，選項 A 最能描述<b class="chinese-term">交叉驗證</b>的主要目的。</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#6</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">支持向量機</b>（<span class="acronym-term">SVM</span>）在<b class="chinese-term">機器學習</b>中的主要目的是什麼，特別是在處理 <b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b>問題時？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">生成數據，用於數據增強</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">進行<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b>分析，找出最佳的<b class="chinese-term">分隔超平面</b></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">特徵提取</b>，從原始數據中提取有用特徵</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">聚類數據</b>，將數據點分組到不同的<b class="chinese-term">集群</b>中</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">支持向量機</b> (<span class="acronym-term">SVM</span>, <span class="english-term">Support Vector Machine</span>) 是一種強大的<b class="chinese-term">監督式學習</b>模型。<br/>
+                    - 在<b class="chinese-term">分類</b> (<span class="english-term">Classification</span>) 問題中，<span class="acronym-term">SVM</span> 的目標是找到一個能夠將不同類別的資料點分開的最佳<b class="chinese-term">超平面</b> (<span class="english-term">Hyperplane</span>)。這個「最佳」通常指<b class="chinese-term">間隔</b> (<span class="english-term">Margin</span>) 最大化，即<b class="chinese-term">超平面</b>與最接近的任一類別的資料點（稱為<b class="chinese-term">支持向量</b>, <span class="english-term">Support Vectors</span>）之間的距離最大化，這有助於提高模型的<b class="chinese-term">泛化能力</b>。<br/>
+                    - <span class="acronym-term">SVM</span> 也可以擴展到<b class="chinese-term">回歸</b> (<span class="english-term">Regression</span>) 問題，稱為<b class="chinese-term">支持向量回歸</b> (<span class="acronym-term">SVR</span>, <span class="english-term">Support Vector Regression</span>)，其目標是找到一個<b class="chinese-term">超平面</b>，使得盡可能多的資料點落在<b class="chinese-term">間隔帶</b> (<span class="english-term">Margin Band</span>) 內，同時最小化超出<b class="chinese-term">間隔帶</b>的誤差。<br/>
+                    (A) <span class="acronym-term">SVM</span> 不是生成模型。(C) <span class="acronym-term">SVM</span> 利用特徵進行分類/回歸，但不直接進行<b class="chinese-term">特徵提取</b>。(D) <b class="chinese-term">聚類</b>是<b class="chinese-term">非監督式學習</b>的任務。因此，選項 B 最準確地描述了 <span class="acronym-term">SVM</span> 的核心目的。</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#7</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在處理<b class="chinese-term">高維數據</b>時，以下哪一種方法通常被用來減少<b class="chinese-term">特徵數量</b>，從而 簡化模型並提高計算效率？</div>
+                <div class="options-container">
+                    <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">主成分分析</b>（ <span class="acronym-term">PCA</span>） ，一種常用的<b class="chinese-term">降維</b>技術</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">決策樹</b>，主要用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">K 最近鄰</b>（ <span class="acronym-term">KNN</span>） ，用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">隨機森林</b>，集成多個<b class="chinese-term">決策樹</b>來提高預測準確性</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content">處理<b class="chinese-term">高維數據</b> (<span class="english-term">High-dimensional Data</span>) 時，可能會遇到「<b class="chinese-term">維度災難</b>」(<span class="english-term">Curse of Dimensionality</span>) 問題，導致模型訓練困難、計算成本高且容易<b class="chinese-term">過度擬合</b>。<b class="chinese-term">降維</b> (<span class="english-term">Dimensionality Reduction</span>) 技術旨在減少資料的<b class="chinese-term">特徵數量</b>（維度），同時盡可能保留重要資訊。<br/>
+                    (A) <b class="chinese-term">主成分分析</b> (<span class="acronym-term">PCA</span>, <span class="english-term">Principal Component Analysis</span>) 是一種非常流行的<b class="chinese-term">非監督式降維</b>方法，它通過線性變換找到資料變異數最大的方向（<b class="chinese-term">主成分</b>），將資料投影到這些方向上，從而達到<b class="chinese-term">降維</b>的目的。<br/>
+                    (B) <b class="chinese-term">決策樹</b> (<span class="english-term">Decision Tree</span>)、(C) <b class="chinese-term">K 最近鄰</b> (<span class="acronym-term">KNN</span>, <span class="english-term">K-Nearest Neighbors</span>) 和 (D) <b class="chinese-term">隨機森林</b> (<span class="english-term">Random Forest</span>) 都是<b class="chinese-term">監督式學習</b>模型，主要用於<b class="chinese-term">分類</b>或<b class="chinese-term">回歸</b>，而不是直接用於<b class="chinese-term">降維</b>（儘管某些方法如<b class="chinese-term">隨機森林</b>可以評估特徵重要性，間接輔助<b class="chinese-term">降維</b>）。因此，<span class="acronym-term">PCA</span> 是最直接用於<b class="chinese-term">降維</b>的技術。</div>
+                </div>
+            </div>
+
+             <!-- Question 8 -->
+            <div class="question-card" data-direction="3" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#8</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">隨機森林演算法</b>在<b class="chinese-term">機器學習</b>中屬於哪一類型的演算法，其主要特點是結合 多個基礎模型以提升整體效能？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">聚類演算法</b>，用於將數據分組</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">集成學習方法</b>，通過結合多個基礎模型來提高預測準確性</div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">強化學習方法</b>，通過與環境互動來學習策略</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">降維技術</b>，用於減少數據的<b class="chinese-term">特徵數量</b></div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">集成學習</b> (<span class="english-term">Ensemble Learning</span>) 是一種<b class="chinese-term">機器學習</b>策略，它通過構建並結合多個<b class="chinese-term">學習器</b>（或稱<b class="chinese-term">基礎模型</b>、<b class="chinese-term">弱學習器</b>）來完成學習任務，以獲得比單個<b class="chinese-term">學習器</b>更好的預測效能。<b class="chinese-term">隨機森林</b> (<span class="english-term">Random Forest</span>) 是<b class="chinese-term">集成學習</b>中 <b class="chinese-term">Bagging</b> (<span class="english-term">Bootstrap Aggregating</span>) 方法的一個擴展變體。<br/>
+                    <b class="chinese-term">隨機森林</b>構建多個<b class="chinese-term">決策樹</b>，每棵樹在訓練時使用隨機抽樣的資料子集（<b class="english-term">Bootstrap Sampling</b>）和隨機選取的特徵子集。最終的預測結果由所有<b class="chinese-term">決策樹</b>的預測結果通過投票（<b class="chinese-term">分類</b>）或平均（<b class="chinese-term">回歸</b>）來決定。這種集成方式可以有效降低模型的<b class="chinese-term">變異數</b> (<span class="english-term">Variance</span>) 並提高<b class="chinese-term">泛化能力</b>。<br/>
+                    (A) <b class="chinese-term">聚類</b>是<b class="chinese-term">非監督式學習</b>。(C) <b class="chinese-term">強化學習</b>是通過獎勵學習策略。(D) <b class="chinese-term">降維</b>是減少特徵維度。因此，<b class="chinese-term">隨機森林</b>屬於<b class="chinese-term">集成學習方法</b>。</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card" data-direction="2" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#9</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content">在<b class="chinese-term">機器學習</b>中，<b class="acronym-term">L1</b> <b class="chinese-term">正則化</b>技術主要用於達成什麼目的，以防止模型 的<b class="chinese-term">過度擬合</b>？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">增加模型的複雜度，使其能夠捕捉更多的數據特徵</div></div>
+                    <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">減少模型的<b class="chinese-term">過度擬合</b>風險，通過懲罰過大的<b class="chinese-term">權重</b></div></div>
+                    <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">增加訓練數據的數量，提供更多的學習樣本</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">增強<b class="chinese-term">特徵提取</b>的效果，提升模型的表現</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">正則化</b> (<span class="english-term">Regularization</span>) 是一種在<b class="chinese-term">機器學習</b>中用於防止<b class="chinese-term">過度擬合</b> (<span class="english-term">Overfitting</span>) 的技術，它通過向模型的<b class="chinese-term">損失函數</b> (<span class="english-term">Loss Function</span>) 中添加一個<b class="chinese-term">懲罰項</b> (<span class="english-term">Penalty Term</span>) 來限制模型的複雜度。<br/>
+                    <b class="acronym-term">L1</b> <b class="chinese-term">正則化</b>（又稱 <b class="chinese-term">Lasso 回歸</b>, <span class="english-term">Lasso Regression</span>）添加的<b class="chinese-term">懲罰項</b>是模型<b class="chinese-term">權重</b> (<span class="english-term">Weights</span>) 的絕對值之和（<span class="acronym-term">L1</span> <b class="chinese-term">範數</b>, <span class="english-term">L1 Norm</span>）。這種懲罰方式有兩個主要效果：<br/>
+                    1.  懲罰過大的權重：迫使模型學習較小的<b class="chinese-term">權重</b>，降低模型的複雜度。<br/>
+                    2.  產生稀疏權重：傾向於將一些不重要的特徵的<b class="chinese-term">權重</b>壓縮到恰好為零，從而實現自動的<b class="chinese-term">特徵選擇</b> (<span class="english-term">Feature Selection</span>)。<br/>
+                    這兩個效果都有助於減少模型的<b class="chinese-term">過度擬合</b>風險，提高模型的<b class="chinese-term">泛化能力</b>。<br/>
+                    (A) <b class="acronym-term">L1</b> <b class="chinese-term">正則化</b>是降低複雜度。(C) 它與訓練數據數量無直接關係。(D) 它可能通過<b class="chinese-term">特徵選擇</b>簡化模型，但不直接增強<b class="chinese-term">特徵提取</b>。因此，選項 B 是其主要目的。</div>
+                </div>
+                <br>
+                <img src="image/L1-and-L2-Regularization-Penalty.png" class="responsive-img">
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card" data-direction="1" data-stars="3">
+                <div class="question-header">
+                    <div class="question-id">#10</div>
+                    <div class="question-frequency">★★★</div>
+                </div>
+                <div class="question-content"><b class="chinese-term">強化學習</b>領域中，主要的策略目標是什麼，以指導<b class="chinese-term">智能體</b>在<b class="chinese-term">環境</b> 中做出最佳行動決策？</div>
+                <div class="options-container">
+                    <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">使用隨機搜索來探索行動空間</div></div>
+                    <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">應用<b class="chinese-term">誤差反向傳播</b>來調整模型<b class="chinese-term">權重</b></div></div>
+                    <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">獎勵最大化</b>，通過獲取最大化累積<b class="chinese-term">獎勵</b>來優化策略</div></div>
+                    <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">進行<b class="chinese-term">監督學習</b>，利用標註數據來訓練模型</div></div>
+                </div>
+                <div class="explanation-container">
+                    <div class="explanation-header">答案解析</div>
+                    <div class="explanation-content"><b class="chinese-term">強化學習</b> (<span class="acronym-term">RL</span>, <span class="english-term">Reinforcement Learning</span>) 是一種<b class="chinese-term">機器學習</b>範式，其中<b class="chinese-term">智能體</b> (<span class="english-term">Agent</span>) 通過與<b class="chinese-term">環境</b> (<span class="english-term">Environment</span>) 互動來學習。 <b class="chinese-term">智能體</b>執行<b class="chinese-term">動作</b> (<span class="english-term">Action</span>)，觀察<b class="chinese-term">環境</b>的<b class="chinese-term">狀態</b> (<span class="english-term">State</span>) 變化，並獲得<b class="chinese-term">獎勵</b> (<span class="english-term">Reward</span>) 或<b class="chinese-term">懲罰</b> (<span class="english-term">Penalty</span>) 信號。<br/>
+                    <b class="chinese-term">強化學習</b>的最終目標是學習一個<b class="chinese-term">策略</b> (<span class="english-term">Policy</span>)，即在給定<b class="chinese-term">狀態</b>下選擇哪個<b class="chinese-term">動作</b>的規則，使得<b class="chinese-term">智能體</b>能夠獲得的長期累積<b class="chinese-term">獎勵</b>總和（通常是帶有<b class="chinese-term">折扣因子</b>的未來<b class="chinese-term">獎勵</b>之和）最大化。因此，<b class="chinese-term">獎勵最大化</b> (<span class="english-term">Reward Maximization</span>) 是 <span class="acronym-term">RL</span> 的核心目標。<br/>
+                    (A) 隨機搜索可用於探索，但不是最終目標。(B) <b class="chinese-term">誤差反向傳播</b> (<span class="english-term">Backpropagation</span>) 是<b class="chinese-term">監督學習</b>中訓練神經網路的方法。(D) <span class="acronym-term">RL</span> 通常不依賴標註數據，而是通過<b class="chinese-term">獎勵</b>信號學習。</div>
+                    <br>
+                    <img src="image/Reinforcement Learning.jpg" class="responsive-img">
+                </div>
+
+            </div>
+
+            <!-- Repeat structure for Q11 to Q50 with detailed explanations and styling -->
+
+            <!-- Question 11 -->
+             <div class="question-card" data-direction="3" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#11</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">機器學習</b>的應用中，以下哪一種方法主要用於處理<b class="chinese-term">分類</b>問題，特別 是在將數據分配到不同類別的過程中？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">回歸分析方法</b>，主要用於預測連續型目標變數</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">聚類分析技術</b>，用於將數據分組到不同的<b class="chinese-term">集群</b>中</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">支持向量機</b>（ <span class="acronym-term">SVM</span>） ，一種常用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b>的<b class="chinese-term">監督式學習演算法</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">主成分分析</b>（ <span class="acronym-term">PCA</span>） ，一種用於<b class="chinese-term">降維</b>的<b class="chinese-term">非監督式學習</b>方法</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">分類</b> (<span class="english-term">Classification</span>) 是<b class="chinese-term">機器學習</b>中<b class="chinese-term">監督式學習</b>的一項核心任務，目標是將輸入的數據實例分配到預先定義好的離散類別中。<br/>
+                     (A) <b class="chinese-term">回歸分析</b> (<span class="english-term">Regression Analysis</span>) 用於預測連續值，不是<b class="chinese-term">分類</b>。<br/>
+                     (B) <b class="chinese-term">聚類分析</b> (<span class="english-term">Clustering Analysis</span>) 是<b class="chinese-term">非監督式學習</b>，用於發現數據中的分組，沒有預定義的類別。<br/>
+                     (C) <b class="chinese-term">支持向量機</b> (<span class="acronym-term">SVM</span>, <span class="english-term">Support Vector Machine</span>) 是一種非常有效的<b class="chinese-term">分類</b>演算法，它尋找能夠最好地區分不同類別的<b class="chinese-term">決策邊界</b> (<span class="english-term">Decision Boundary</span>) 或<b class="chinese-term">超平面</b> (<span class="english-term">Hyperplane</span>)。雖然它也能用於<b class="chinese-term">回歸</b>，但其在<b class="chinese-term">分類</b>任務中尤為著名和常用。<br/>
+                     (D) <b class="chinese-term">主成分分析</b> (<span class="acronym-term">PCA</span>, <span class="english-term">Principal Component Analysis</span>) 主要用於<b class="chinese-term">降維</b>，減少數據的<b class="chinese-term">特徵數量</b>。</div>
+                     <br>
+                     <img src="image/SVM.png" class="responsive-img">
+                 </div>
+             </div>
+
+            <!-- Question 12 -->
+             <div class="question-card" data-direction="2" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#12</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">機器學習</b>的訓練過程中，以下哪一種方法主要用於減少模型<b class="chinese-term">過度擬合</b>的風險，通過對模型的複雜度進行懲罰來提升模型的<b class="chinese-term">泛化能力</b>？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">正則化</b>技術，通過添加<b class="chinese-term">懲罰項</b>來控制模型複雜度</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">遺傳演算法</b>，通過模擬自然選擇來優化模型</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">貝氏網路</b>，基於<b class="chinese-term">機率</b>推理的模型</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">K 最近鄰</b>（ <span class="acronym-term">KNN</span>）演算法，基於鄰近樣本進行預測</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">過度擬合</b> (<span class="english-term">Overfitting</span>) 指的是<b class="chinese-term">機器學習</b>模型在<b class="chinese-term">訓練集</b>上表現過好，但對未見過的新數據（<b class="chinese-term">測試集</b>）表現較差的現象，即模型的<b class="chinese-term">泛化能力</b> (<span class="english-term">Generalization Ability</span>) 不足。這通常發生在模型過於複雜，學習到了<b class="chinese-term">訓練集</b>中的雜訊或特定模式時。<br/>
+                     (A) <b class="chinese-term">正則化</b> (<span class="english-term">Regularization</span>) 技術（如 <span class="acronym-term">L1</span>、<span class="acronym-term">L2</span> <b class="chinese-term">正則化</b>）通過在模型的<b class="chinese-term">損失函數</b>中增加一個對模型參數（<b class="chinese-term">權重</b>）大小的<b class="chinese-term">懲罰項</b>，來限制模型的複雜度，從而降低<b class="chinese-term">過度擬合</b>的風險。<br/>
+                     (B) <b class="chinese-term">遺傳演算法</b> (<span class="english-term">Genetic Algorithm</span>) 是一種優化演算法，可用於模型訓練或<b class="chinese-term">超參數搜索</b>，但本身不是直接針對<b class="chinese-term">過度擬合</b>的技術。<br/>
+                     (C) <b class="chinese-term">貝氏網路</b> (<span class="english-term">Bayesian Network</span>) 是一種<b class="chinese-term">機率圖模型</b>，用於表示變數間的依賴關係，其本身與<b class="chinese-term">過度擬合</b>控制無直接關係，但模型選擇時可能考慮複雜度。<br/>
+                     (D) <b class="chinese-term">K 最近鄰</b> (<span class="acronym-term">KNN</span>, <span class="english-term">K-Nearest Neighbors</span>) 是一種基於實例的學習演算法，其複雜度與 K 值有關，但<b class="chinese-term">正則化</b>是更通用的控制模型複雜度、防止<b class="chinese-term">過度擬合</b>的策略。</div>
+                 </div>
+             </div>
+
+            <!-- Question 13 -->
+             <div class="question-card" data-direction="1" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#13</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">機器學習</b>的範疇中，以下哪一種方法被歸類為<b class="chinese-term">非監督式學習</b>的例 子，特別是在未使用標註數據的情況下進行<b class="chinese-term">數據聚類</b>？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">決策樹演算法</b>，主要用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b>，一種常見的<b class="chinese-term">非監督式學習</b>方法</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">線性回歸</b>，用於預測連續目標變數</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">邏輯回歸</b>，用於二<b class="chinese-term">分類</b>問題</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">非監督式學習</b> (<span class="english-term">Unsupervised Learning</span>) 處理的是未標註的數據，其目標是從數據中發現結構、模式或關係。<b class="chinese-term">數據聚類</b> (<span class="english-term">Data Clustering</span>) 是<b class="chinese-term">非監督式學習</b>的一個主要應用，旨在將相似的數據點分到同一個<b class="chinese-term">簇</b> (<span class="english-term">Cluster</span>) 中。<br/>
+                     (A) <b class="chinese-term">決策樹</b> (<span class="english-term">Decision Tree</span>)、(C) <b class="chinese-term">線性回歸</b> (<span class="english-term">Linear Regression</span>) 和 (D) <b class="chinese-term">邏輯回歸</b> (<span class="english-term">Logistic Regression</span>) 都是典型的<b class="chinese-term">監督式學習</b>演算法，需要帶有標籤的數據進行訓練。<br/>
+                     (B) <b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b> (<span class="english-term">K-means Clustering Algorithm</span>) 根據數據點之間的距離將其分組，無需預先知道類別標籤，是<b class="chinese-term">非監督式學習</b>中<b class="chinese-term">聚類</b>任務的代表性演算法。</div>
+                 </div>
+             </div>
+
+            <!-- Question 14 -->
+             <div class="question-card" data-direction="4" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#14</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">影像處理</b>的領域中，以下哪一種演算法主要用於檢測圖像中的<b class="chinese-term">邊緣</b>，從而識別物體的輪廓？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b>，用於<b class="chinese-term">影像分割</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">Canny 邊緣檢測演算法</b>，專門用於識別圖像中的<b class="chinese-term">邊緣</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">主成分分析</b>（ <span class="acronym-term">PCA</span>） ，用於<b class="chinese-term">降維</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">支持向量機</b>（ <span class="acronym-term">SVM</span>） ，用於<b class="chinese-term">分類</b>任務</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">邊緣檢測</b> (<span class="english-term">Edge Detection</span>) 是<b class="chinese-term">影像處理</b> (<span class="english-term">Image Processing</span>) 和<b class="chinese-term">電腦視覺</b> (<span class="acronym-term">CV</span>, <span class="english-term">Computer Vision</span>) 中的一項基本任務，旨在識別圖像中亮度（或顏色）發生顯著變化的點集，這些點通常構成物體的邊界或輪廓。<br/>
+                     (A) <b class="acronym-term">K-means</b> 可用於<b class="chinese-term">影像分割</b>，但不是專門的<b class="chinese-term">邊緣檢測</b>演算法。<br/>
+                     (B) <b class="chinese-term">Canny 邊緣檢測演算法</b> (<span class="english-term">Canny Edge Detection Algorithm</span>) 是一種多階段的優化<b class="chinese-term">邊緣檢測</b>方法，以其良好的檢測效果（低錯誤率、精確定位、單一響應）而聞名，是<b class="chinese-term">邊緣檢測</b>領域的經典演算法。<br/>
+                     (C) <span class="acronym-term">PCA</span> 用於<b class="chinese-term">降維</b>。<br/>
+                     (D) <span class="acronym-term">SVM</span> 用於<b class="chinese-term">分類</b>。</div>
+                     <br>
+                     <img src="image/Canny Edge Detection.png" class="responsive-img">
+                 </div>
+             </div>
+
+            <!-- Question 15 -->
+             <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#15</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">影像分類</b>的應用中，以下哪一種<b class="chinese-term">神經網路</b>的縮寫代表了專門用於 處理<b class="chinese-term">影像數據</b>的<b class="chinese-term">卷積神經網路</b>？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>）</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>） ，專為<b class="chinese-term">影像處理</b>設計</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">生成對抗網路</b>（ <span class="acronym-term">GAN</span>）</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">卷積神經網路</b> (<span class="acronym-term">CNN</span>, <span class="english-term">Convolutional Neural Network</span>) 是<b class="chinese-term">深度學習</b> (<span class="acronym-term">DL</span>, <span class="english-term">Deep Learning</span>) 中專門設計來處理具有網格狀拓撲結構數據（如<b class="chinese-term">影像數據</b>, <span class="english-term">Image Data</span>，可以看作是像素的二維網格）的一類<b class="chinese-term">神經網路</b> (<span class="english-term">Neural Network</span>)。<br/>
+                     <span class="acronym-term">CNN</span> 的核心是<b class="chinese-term">卷積層</b> (<span class="english-term">Convolutional Layer</span>) 和<b class="chinese-term">池化層</b> (<span class="english-term">Pooling Layer</span>)，這些層能夠有效地捕捉影像的空間層次結構特徵（如邊緣、紋理、物體部件），使其在<b class="chinese-term">影像分類</b> (<span class="english-term">Image Classification</span>)、<b class="chinese-term">物體檢測</b> (<span class="english-term">Object Detection</span>) 等<b class="chinese-term">電腦視覺</b>任務中表現非常出色。<br/>
+                     (A) <b class="chinese-term">循環神經網路</b> (<span class="acronym-term">RNN</span>, <span class="english-term">Recurrent Neural Network</span>) 和 (C) <b class="chinese-term">長短期記憶網路</b> (<span class="acronym-term">LSTM</span>, <span class="english-term">Long Short-Term Memory</span>) 主要用於處理序列數據（如文本、時間序列）。<br/>
+                     (D) <b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>, <span class="english-term">Generative Adversarial Network</span>) 是一種生成模型，常用於生成新的影像等數據。</div>
+                     <br>
+                     <img src="image/CNN.webp" class="responsive-img">
+                 </div>
+             </div>
+
+            <!-- Question 16 -->
+             <div class="question-card" data-direction="4" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#16</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">電腦視覺</b>的應用中，<b class="chinese-term">影像分割</b>技術的主要目的是什麼，特別是在 將影像拆分成不同區域的過程中？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">邊緣檢測</b>，用於識別影像<b class="chinese-term">邊緣</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">特徵提取</b>，從影像中提取有用<b class="chinese-term">特徵</b></div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">將影像分成具有意義的不同部分或區域</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">降噪</b>，去除影像中的<b class="chinese-term">雜訊</b></div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">影像分割</b> (<span class="english-term">Image Segmentation</span>) 是<b class="chinese-term">電腦視覺</b> (<span class="acronym-term">CV</span>, <span class="english-term">Computer Vision</span>) 中的一項關鍵任務，其目標是將數位影像劃分成多個<b class="chinese-term">影像片段</b> (<span class="english-term">Segments</span>) 或區域 (<span class="english-term">Regions</span>)，使得每個片段對應於影像中的某個特定物體或有意義的部分。換句話說，它試圖在像素層級上理解影像，為影像中的每個像素分配一個標籤，指示該像素屬於哪個物體或區域。<br/>
+                     與<b class="chinese-term">影像分類</b>（對整個影像進行分類）和<b class="chinese-term">物體檢測</b>（標出物體位置的邊界框）相比，<b class="chinese-term">影像分割</b>提供了更精細的影像理解。<br/>
+                     (A) <b class="chinese-term">邊緣檢測</b>是識別<b class="chinese-term">邊緣</b>，是<b class="chinese-term">分割</b>的基礎之一，但不是最終目的。(B) <b class="chinese-term">特徵提取</b>是<b class="chinese-term">分割</b>等任務的中間步驟。(D) <b class="chinese-term">降噪</b>是<b class="chinese-term">影像預處理</b>。因此，選項 C 最能描述<b class="chinese-term">影像分割</b>的目的。</div>
+                 </div>
+             </div>
+
+            <!-- Question 17 -->
+             <div class="question-card" data-direction="4" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#17</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content"><b class="chinese-term">影像增強</b>技術中，以下哪一種方法不屬於<b class="chinese-term">影像增強</b>的範疇，並且 主要用於<b class="chinese-term">數據降維</b>？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">直方圖均衡化</b>，用於改善影像對比度</div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">高斯模糊</b>，用於平滑影像</div></div>
+                     <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">主成分分析</b>（ <span class="acronym-term">PCA</span>） ，主要用於<b class="chinese-term">降維</b></div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">形態學變換</b>，用於處理影像的形狀</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">影像增強</b> (<span class="english-term">Image Enhancement</span>) 的目的是改善影像的視覺品質或突顯影像中的某些感興趣的資訊，以便於人類觀察或後續的機器分析。<br/>
+                     (A) <b class="chinese-term">直方圖均衡化</b> (<span class="english-term">Histogram Equalization</span>) 通過重新分佈影像的像素強度來提高影像的全局對比度，屬於<b class="chinese-term">影像增強</b>。<br/>
+                     (B) <b class="chinese-term">高斯模糊</b> (<span class="english-term">Gaussian Blur</span>) 是一種<b class="chinese-term">影像平滑</b>技術，常用於<b class="chinese-term">降噪</b>，廣義上也屬於<b class="chinese-term">影像處理</b>（有時也視為<b class="chinese-term">影像增強</b>的一種預處理）。<br/>
+                     (D) <b class="chinese-term">形態學變換</b> (<span class="english-term">Morphological Transformations</span>)，如<b class="chinese-term">膨脹</b> (<span class="english-term">Dilation</span>)、<b class="chinese-term">腐蝕</b> (<span class="english-term">Erosion</span>) 等，用於分析和處理影像的幾何結構（形狀），可應用於<b class="chinese-term">降噪</b>、<b class="chinese-term">分割</b>預處理等，屬於<b class="chinese-term">影像處理</b>範疇。<br/>
+                     (C) <b class="chinese-term">主成分分析</b> (<span class="acronym-term">PCA</span>, <span class="english-term">Principal Component Analysis</span>) 是一種統計學方法，主要用於<b class="chinese-term">降維</b> (<span class="english-term">Dimensionality Reduction</span>)，即減少數據集的變數（特徵）數量，同時盡量保留原始數據的變異性。它不屬於典型的<b class="chinese-term">影像增強</b>技術。</div>
+                     <br>
+                     <img src="image/PCA.jpg" class="responsive-img">
+                 </div>
+                 
+             </div>
+
+            <!-- Question 18 -->
+             <div class="question-card" data-direction="4" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#18</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">影像處理</b>的過程中，通常使用哪一種技術來去除影像中的<b class="chinese-term">雜訊</b>， 從而改善影像的質量？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">邊緣檢測</b>，用於識別影像<b class="chinese-term">邊緣</b></div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">濾波技術</b>，專門用於<b class="chinese-term">降噪</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">形態學變換</b>，用於處理影像的形狀</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">影像增強</b>技術，用於提升影像的視覺效果</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">影像降噪</b> (<span class="english-term">Image Denoising</span>) 是<b class="chinese-term">影像處理</b>中的一個重要環節，目的是去除或減少影像採集或傳輸過程中引入的<b class="chinese-term">雜訊</b> (<span class="english-term">Noise</span>)，以恢復原始影像的資訊或改善視覺品質。<br/>
+                     (B) <b class="chinese-term">濾波技術</b> (<span class="english-term">Filtering Techniques</span>) 是實現<b class="chinese-term">影像降噪</b>的主要手段。根據<b class="chinese-term">雜訊</b>的類型和特性，可以選用不同的<b class="chinese-term">濾波器</b>，例如：<br/>
+                     -   <b class="chinese-term">均值濾波器</b> (<span class="english-term">Mean Filter</span>) 和 <b class="chinese-term">高斯濾波器</b> (<span class="english-term">Gaussian Filter</span>) 對於去除<b class="chinese-term">高斯雜訊</b>效果較好，但會使影像模糊。<br/>
+                     -   <b class="chinese-term">中值濾波器</b> (<span class="english-term">Median Filter</span>) 對於去除<b class="chinese-term">椒鹽雜訊</b> (<span class="english-term">Salt-and-pepper Noise</span>) 效果較好，且能較好地保留<b class="chinese-term">邊緣</b>資訊。<br/>
+                     (A) <b class="chinese-term">邊緣檢測</b>的目的是找<b class="chinese-term">邊緣</b>。(C) <b class="chinese-term">形態學變換</b>主要處理形狀。(D) <b class="chinese-term">影像增強</b>是更廣泛的概念，<b class="chinese-term">降噪</b>可以視為其中的一步。因此，<b class="chinese-term">濾波技術</b>是專門用於<b class="chinese-term">降噪</b>的核心方法。</div>
+                 </div>
+             </div>
+
+            <!-- Question 19 -->
+             <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#19</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">在<b class="chinese-term">卷積神經網路</b>（<span class="acronym-term">CNN</span>）中，<b class="chinese-term">卷積操作</b>的主要功能是什麼，特別是 在從影像中提取<b class="chinese-term">特徵</b>的過程中？</div>
+                 <div class="options-container">
+                     <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text">進行<b class="chinese-term">特徵提取</b>，從原始影像中提取有用的<b class="chinese-term">特徵</b></div></div>
+                     <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">執行<b class="chinese-term">資料標註</b>，為數據添加標 籤</div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">進行<b class="chinese-term">數據增強</b>，擴展訓練數據集</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">執行<b class="chinese-term">影像分割</b>，將影像分成不同部分</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><b class="chinese-term">卷積操作</b> (<span class="english-term">Convolution Operation</span>) 是<b class="chinese-term">卷積神經網路</b> (<span class="acronym-term">CNN</span>, <span class="english-term">Convolutional Neural Network</span>) 的核心運算。它通過將一個可學習的<b class="chinese-term">卷積核</b> (<span class="english-term">Convolution Kernel</span>) 或<b class="chinese-term">濾波器</b> (<span class="english-term">Filter</span>) 在輸入影像（或<b class="chinese-term">特徵圖</b>）上滑動，並計算<b class="chinese-term">卷積核</b>與其覆蓋的局部區域之間的<b class="chinese-term">內積</b> (<span class="english-term">Dot Product</span>) 或<b class="chinese-term">加權和</b> (<span class="english-term">Weighted Sum</span>)，來生成輸出<b class="chinese-term">特徵圖</b> (<span class="english-term">Feature Map</span>)。<br/>
+                     這個過程的本質是<b class="chinese-term">特徵提取</b> (<span class="english-term">Feature Extraction</span>)。每個<b class="chinese-term">卷積核</b>可以被看作是一個<b class="chinese-term">特徵檢測器</b> (<span class="english-term">Feature Detector</span>)，用於檢測輸入中的特定模式，例如<b class="chinese-term">邊緣</b>、角點、紋理或更複雜的形狀。通過堆疊多個<b class="chinese-term">卷積層</b>，<span class="acronym-term">CNN</span> 可以學習到從低級到高級的層次化<b class="chinese-term">特徵表示</b> (<span class="english-term">Hierarchical Feature Representations</span>)。<br/>
+                     (B) <b class="chinese-term">資料標註</b>是數據準備階段的工作。(C) <b class="chinese-term">數據增強</b>是擴充<b class="chinese-term">訓練集</b>的技術。(D) <b class="chinese-term">影像分割</b>是<span class="acronym-term">CNN</span> 的應用之一，但<b class="chinese-term">卷積操作</b>本身的功能是<b class="chinese-term">特徵提取</b>。</div>
+                     <br>
+                     <img src="image/CNN.webp" class="responsive-img">
+                 </div>
+             </div>
+
+            <!-- Question 20 -->
+             <div class="question-card" data-direction="5" data-stars="3">
+                 <div class="question-header">
+                     <div class="question-id">#20</div>
+                     <div class="question-frequency">★★★</div>
+                 </div>
+                 <div class="question-content">使用 <span class="acronym-term">R-CNN</span> 技術在<b class="chinese-term">電腦視覺</b>中的主要目的是什麼，特別是在處理 影像中的<b class="chinese-term">物體</b>時？</div>
+                 <div class="options-container">
+                     <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">影像分類</b>，將整張影像分類到特定類別</div></div>
+                     <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">物體檢測</b>，識別並定位影像中的特定<b class="chinese-term">物體</b></div></div>
+                     <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">影像生成</b>，創建新的影像數據</div></div>
+                     <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">數據增強</b>，擴展影像數據集</div></div>
+                 </div>
+                 <div class="explanation-container">
+                     <div class="explanation-header">答案解析</div>
+                     <div class="explanation-content"><span class="acronym-term">R-CNN</span> (<span class="english-term">Regions with CNN features</span>) 及其後續演進（如 <span class="acronym-term">Fast R-CNN</span>, <span class="acronym-term">Faster R-CNN</span>）是<b class="chinese-term">深度學習</b>時代<b class="chinese-term">物體檢測</b> (<span class="english-term">Object Detection</span>) 領域的開創性工作。<b class="chinese-term">物體檢測</b>的任務不僅僅是識別影像中有哪些<b class="chinese-term">物體</b>（<b class="chinese-term">分類</b>），更重要的是要精確地定位出這些<b class="chinese-term">物體</b>在影像中的位置，通常使用<b class="chinese-term">邊界框</b> (<span class="english-term">Bounding Box</span>) 來表示。<br/>
+                     <span class="acronym-term">R-CNN</span> 的基本思路是：首先使用某種<b class="chinese-term">區域提議</b> (<span class="english-term">Region Proposal</span>) 方法（如 <span class="english-term">Selective Search</span>）生成大量可能包含<b class="chinese-term">物體</b>的候選區域，然後對每個區域使用 <span class="acronym-term">CNN</span> 提取<b class="chinese-term">特徵</b>，最後用<b class="chinese-term">分類器</b>（如 <span class="acronym-term">SVM</span>）判斷區域的類別並用<b class="chinese-term">迴歸器</b> (<span class="english-term">Regressor</span>) 修正<b class="chinese-term">邊界框</b>位置。<br/>
+                     (A) <b class="chinese-term">影像分類</b>只判斷影像內容，不定位。(C) <b class="chinese-term">影像生成</b>是創建影像。(D) <b class="chinese-term">數據增強</b>是擴充數據。因此，<span class="acronym-term">R-CNN</span> 的主要目的是<b class="chinese-term">物體檢測</b>。</div>
+                 </div>
+             </div>
+
+            <!-- ... Rest of the questions (Q21-Q50) follow the same structure with detailed explanations and styling ... -->
+             <!-- Question 21 -->
+              <div class="question-card" data-direction="5" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#21</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content">在<b class="chinese-term">電腦視覺</b>的應用中，為了縮小影像的尺寸以減少計算量，通常會 使用哪一種方法？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">決策樹演算法</b>，用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                      <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">池化層</b>（ <span class="english-term">Pooling</span>） ，用於縮小影像尺寸</div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">過濾技術</b>，用於<b class="chinese-term">影像增強</b></div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">特徵提取</b>方法，用於提取影像<b class="chinese-term">特徵</b></div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">池化層</b> (<span class="english-term">Pooling Layer</span>) 是<b class="chinese-term">卷積神經網路</b> (<span class="acronym-term">CNN</span>) 中的常用組件，通常放置在<b class="chinese-term">卷積層</b>之後。它的主要作用是對輸入的<b class="chinese-term">特徵圖</b> (<span class="english-term">Feature Map</span>) 進行<b class="chinese-term">下採樣</b> (<span class="english-term">Downsampling</span>)，即縮小其空間尺寸（寬度和高度）。<br/>
+                      常見的<b class="chinese-term">池化</b>操作包括<b class="chinese-term">最大池化</b> (<span class="english-term">Max Pooling</span>) 和<b class="chinese-term">平均池化</b> (<span class="english-term">Average Pooling</span>)，它們分別取局部區域內的最大值或平均值作為輸出。這樣做的好處包括：<br/>
+                      1.  減少計算量：降低後續層的參數數量和計算複雜度。<br/>
+                      2.  增大感受野：使後續層的<b class="chinese-term">神經元</b>能看到更廣闊的輸入區域。<br/>
+                      3.  提高穩健性：對輸入的微小平移、旋轉或變形具有一定的不變性。<br/>
+                      (A) <b class="chinese-term">決策樹</b>是<b class="chinese-term">機器學習</b>模型。(C) <b class="chinese-term">過濾</b>可用於<b class="chinese-term">影像增強</b>或<b class="chinese-term">降噪</b>。(D) <b class="chinese-term">特徵提取</b>是<span class="acronym-term">CNN</span> 的整體目標，<b class="chinese-term">池化</b>是其中的一步。因此，專門用於縮小尺寸、減少計算量的是<b class="chinese-term">池化層</b>。</div>
+                      <br>
+                      <img src="image/CNN.webp" class="responsive-img">
+                  </div>
+              </div>
+
+            <!-- Question 22 -->
+              <div class="question-card" data-direction="5" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#22</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content"><span class="acronym-term">YOLO</span> 演算法在<b class="chinese-term">電腦視覺</b>中的主要用途是什麼，特別是在即時<b class="chinese-term">物體檢測</b>方面？</div>
+                  <div class="options-container">
+                      <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">物體檢測</b>，實時識別和定位影像中的<b class="chinese-term">物體</b></div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">影像分割</b>，將影像分成不同部分</div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">特徵提取</b>，從影像中提取<b class="chinese-term">特徵</b></div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">影像增強</b>，提升影像的視覺效果</div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><span class="acronym-term">YOLO</span> (<span class="english-term">You Only Look Once</span>) 是一種非常流行的<b class="chinese-term">物體檢測</b> (<span class="english-term">Object Detection</span>) 演算法，屬於<b class="chinese-term">一階段檢測器</b> (<span class="english-term">One-Stage Detector</span>)。與 <span class="acronym-term">R-CNN</span> 系列等<b class="chinese-term">兩階段檢測器</b> (<span class="english-term">Two-Stage Detector</span>) 不同，<span class="acronym-term">YOLO</span> 將<b class="chinese-term">物體檢測</b>視為一個<b class="chinese-term">回歸</b>問題，直接從整個輸入影像預測出所有<b class="chinese-term">物體</b>的<b class="chinese-term">邊界框</b> (<span class="english-term">Bounding Boxes</span>) 和<b class="chinese-term">類別機率</b> (<span class="english-term">Class Probabilities</span>)。<br/>
+                      這種端到端的設計使得 <span class="acronym-term">YOLO</span> 具有非常快的檢測速度，能夠達到實時（<span class="english-term">Real-time</span>）處理的要求，因此在需要快速響應的應用中（如自動駕駛、影片監控）得到廣泛應用。其主要用途就是進行快速且相對準確的<b class="chinese-term">物體檢測</b>。<br/>
+                      (B) <b class="chinese-term">影像分割</b>是像素級分類。(C) <b class="chinese-term">特徵提取</b>是<b class="chinese-term">物體檢測</b>的基礎。(D) <b class="chinese-term">影像增強</b>是預處理。</div>
+                      <br>
+                      <img src="image/You Only Look Once.png" class="responsive-img">
+                  </div>
+              </div>
+
+            <!-- Question 23 -->
+              <div class="question-card" data-direction="4" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#23</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content">在<b class="chinese-term">影像處理</b>的過程中，通常使用哪一種技術來實現影像的<b class="chinese-term">平滑效果</b>，以減少影像中的<b class="chinese-term">雜訊</b>和細節？</div>
+                  <div class="options-container">
+                      <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">高斯模糊</b>，通過應用<b class="chinese-term">高斯濾波器</b>來<b class="chinese-term">平滑</b>影像</div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">邊緣檢測</b>，用於識別影像<b class="chinese-term">邊緣</b></div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">主成分分析</b>（ <span class="acronym-term">PCA</span>） ，用於<b class="chinese-term">降維</b></div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">決策樹演算法</b>，用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">影像平滑</b> (<span class="english-term">Image Smoothing</span>) 或<b class="chinese-term">影像模糊</b> (<span class="english-term">Image Blurring</span>) 的目的是減少影像中的<b class="chinese-term">雜訊</b> (<span class="english-term">Noise</span>) 和不必要的細節，使影像看起來更<b class="chinese-term">平滑</b>。這通常通過各種<b class="chinese-term">濾波</b> (<span class="english-term">Filtering</span>) 技術來實現。<br/>
+                     (A) <b class="chinese-term">高斯模糊</b> (<span class="english-term">Gaussian Blur</span>) 是一種常用的線性<b class="chinese-term">平滑</b>技術。它使用一個<b class="chinese-term">高斯濾波器</b>（其<b class="chinese-term">權重</b>由<b class="chinese-term">高斯函數</b>決定）對影像進行<b class="chinese-term">卷積</b>，相當於對每個像素計算其鄰域像素的加權平均值，權重隨距離中心像素的遠近呈<b class="chinese-term">高斯分佈</b>。這能有效抑制<b class="chinese-term">高斯雜訊</b>並產生<b class="chinese-term">平滑效果</b>。<br/>
+                     (B) <b class="chinese-term">邊緣檢測</b>是尋找影像強度變化劇烈的地方。(C) <span class="acronym-term">PCA</span> 用於<b class="chinese-term">降維</b>。(D) <b class="chinese-term">決策樹</b>是<b class="chinese-term">機器學習</b>模型。因此，<b class="chinese-term">高斯模糊</b>是實現<b class="chinese-term">平滑效果</b>的代表性技術。</div>
+                     <br>
+                     <img src="image/Gaussian Blur.jpg" class="responsive-img">
+                  </div>
+              </div>
+
+            <!-- Question 24 -->
+              <div class="question-card" data-direction="5" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#24</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content">在<b class="chinese-term">電腦視覺</b>的應用中，以下哪一種技術主要用於<b class="chinese-term">物體檢測</b>，特別是 在即時識別和定位影像中的<b class="chinese-term">物體</b>方面？</div>
+                  <div class="options-container">
+                      <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>） ，專門用於處理和分析<b class="chinese-term">影像數據</b></div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>） ，主要用於處理<b class="chinese-term">序列數據</b></div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">自然語言處理</b>技術，用於處理和理解人類語言</div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">強化學習</b>方法，通過與環境互動來學習策略</div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">物體檢測</b> (<span class="english-term">Object Detection</span>) 是<b class="chinese-term">電腦視覺</b> (<span class="acronym-term">CV</span>, <span class="english-term">Computer Vision</span>) 的核心任務之一，目標是識別影像中的<b class="chinese-term">物體</b>並確定它們的位置（通常用<b class="chinese-term">邊界框</b>標示）。<br/>
+                     (A) <b class="chinese-term">卷積神經網路</b> (<span class="acronym-term">CNN</span>, <span class="english-term">Convolutional Neural Network</span>) 是現代<b class="chinese-term">物體檢測</b>演算法的基石。無論是 <span class="acronym-term">R-CNN</span> 系列、<span class="acronym-term">YOLO</span>、<span class="acronym-term">SSD</span> (<span class="english-term">Single Shot MultiBox Detector</span>) 等主流<b class="chinese-term">物體檢測</b>框架，都依賴 <span class="acronym-term">CNN</span> 作為其<b class="chinese-term">骨幹網路</b> (<span class="english-term">Backbone Network</span>) 來提取影像的強大<b class="chinese-term">視覺特徵</b> (<span class="english-term">Visual Features</span>)。這些<b class="chinese-term">特徵</b>包含了識別和定位<b class="chinese-term">物體</b>所需的關鍵資訊。<br/>
+                     (B) <span class="acronym-term">LSTM</span> 主要處理時序或序列資訊。(C) <b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>, <span class="english-term">Natural Language Processing</span>) 處理文本。(D) <b class="chinese-term">強化學習</b> (<span class="acronym-term">RL</span>, <span class="english-term">Reinforcement Learning</span>) 主要用於決策制定。因此，<span class="acronym-term">CNN</span> 是<b class="chinese-term">物體檢測</b>最核心的技術基礎。</div>
+                     <br>
+                     <img src="image/CNN.webp" class="responsive-img">
+                  </div>
+
+              </div>
+
+            <!-- Question 25 -->
+              <div class="question-card" data-direction="4" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#25</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content"><b class="chinese-term">影像分割</b>技術在<b class="chinese-term">電腦視覺</b>中通常應用於哪一種領域，特別是在將影 像中的不同部分進行細分和識別方面？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">文字生成</b>，用於創建新的文本內容</div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">影像分類</b>，將影像分配到不同的類別</div></div>
+                      <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">影像修復</b>，用於修補損壞的影像部分</div></div>
+                      <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">醫療影像分析</b>，用於<b class="chinese-term">分割</b>和識別<b class="chinese-term">醫療影像</b>中的不同組織和結構</div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">影像分割</b> (<span class="english-term">Image Segmentation</span>) 的目標是對影像進行像素級的分類，為每個像素分配一個類別標籤，從而將影像精確地劃分成不同的區域。這項技術在許多領域都有重要應用，其中<b class="chinese-term">醫療影像分析</b> (<span class="english-term">Medical Image Analysis</span>) 是最典型的應用之一。<br/>
+                     在<b class="chinese-term">醫療影像</b>（如 <span class="acronym-term">CT</span>、<span class="acronym-term">MRI</span>、<span class="acronym-term">X光</span>）中，<b class="chinese-term">影像分割</b>可用於：<br/>
+                     -   精確地勾勒出<b class="chinese-term">腫瘤</b> (<span class="english-term">Tumor</span>) 的邊界，以評估大小和位置。<br/>
+                     -   <b class="chinese-term">分割</b>出特定的<b class="chinese-term">器官</b> (<span class="english-term">Organ</span>) 或<b class="chinese-term">組織</b> (<span class="english-term">Tissue</span>)，進行體積測量或形態學分析。<br/>
+                     -   識別<b class="chinese-term">病灶區域</b> (<span class="english-term">Lesion Area</span>)。<br/>
+                     這些<b class="chinese-term">分割</b>結果對疾病診斷、手術規劃和治療監測至關重要。<br/>
+                     (A) <b class="chinese-term">文字生成</b>屬於 <span class="acronym-term">NLP</span>。(B) <b class="chinese-term">影像分類</b>是對整個影像。(C) <b class="chinese-term">影像修復</b> (<span class="english-term">Image Inpainting</span>) 是填補影像缺失部分。</div>
+                  </div>
+              </div>
+
+            <!-- Question 26 -->
+              <div class="question-card" data-direction="4" data-stars="3">
+                  <div class="question-header">
+                      <div class="question-id">#26</div>
+                      <div class="question-frequency">★★★</div>
+                  </div>
+                  <div class="question-content">在<b class="chinese-term">電腦視覺</b>中，<b class="chinese-term">邊緣檢測</b>技術通常用於實現什麼目的，特別是在識 別和定位影像中的<b class="chinese-term">目標物體</b>方面？</div>
+                  <div class="options-container">
+                      <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">強化學習</b>，通過<b class="chinese-term">獎勵</b>機制來優化模型</div></div>
+                      <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">影像增強</b>，提升影像的視覺效果</div></div>
+                      <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">目標檢測</b>，識別並定位影像中的特定 <b class="chinese-term">物體</b></div></div>
+                      <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">影像變換</b>，改變影像的形狀和結構</div></div>
+                  </div>
+                  <div class="explanation-container">
+                      <div class="explanation-header">答案解析</div>
+                      <div class="explanation-content"><b class="chinese-term">邊緣檢測</b> (<span class="english-term">Edge Detection</span>) 是識別影像中亮度或顏色強度發生顯著變化的點的過程。這些變化通常發生在<b class="chinese-term">物體</b>的邊界處。<br/>
+                     雖然<b class="chinese-term">邊緣檢測</b>本身並不直接完成<b class="chinese-term">目標檢測</b> (<span class="english-term">Object Detection</span>) 的所有工作（<b class="chinese-term">目標檢測</b>還需要識別<b class="chinese-term">物體</b>類別並給出精確的<b class="chinese-term">邊界框</b>），但檢測到的<b class="chinese-term">邊緣</b>資訊提供了關於<b class="chinese-term">物體</b>形狀、輪廓和可能位置的重要線索。因此，<b class="chinese-term">邊緣檢測</b>是許多<b class="chinese-term">目標檢測</b>、<b class="chinese-term">影像分割</b>和<b class="chinese-term">物體識別</b>演算法中的一個基礎且關鍵的預處理步驟或組成部分。可以說，<b class="chinese-term">邊緣檢測</b>服務於<b class="chinese-term">目標檢測</b>等更高級的視覺任務。<br/>
+                     (A) <b class="chinese-term">強化學習</b>用於決策。(B) <b class="chinese-term">影像增強</b>是改善影像品質。(D) <b class="chinese-term">影像變換</b> (<span class="english-term">Image Transformation</span>) 指幾何操作或色彩空間轉換等。因此，選項 C 是<b class="chinese-term">邊緣檢測</b>最相關的應用目的。</div>
+                  </div>
+              </div>
+
+            <!-- Question 27 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#27</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>領域中，以下哪一種演算法被用於將句子中的詞語進 行<b class="chinese-term">分割</b>和<b class="chinese-term">標註</b>？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="acronym-term">TF-IDF</span>（<b class="chinese-term">詞頻-逆文件頻率</b>）</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">隱馬可夫模型</b>（ <span class="acronym-term">HMM</span>） ，常用於<b class="chinese-term">詞性標註</b>和<b class="chinese-term">分詞</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>）</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>, <span class="english-term">Natural Language Processing</span>) 中的<b class="chinese-term">序列標註</b> (<span class="english-term">Sequence Labeling</span>) 任務是為輸入序列（如句子）中的每個元素（如詞語）分配一個標籤。常見的<b class="chinese-term">序列標註</b>任務包括：<br/>
+                       -   <b class="chinese-term">分詞</b> (<span class="english-term">Word Segmentation</span>)：將連續的字元序列切分成詞語（尤其在中文等無空格語言中）。<br/>
+                       -   <b class="chinese-term">詞性標註</b> (<span class="english-term">Part-of-Speech Tagging</span>, <span class="acronym-term">POS Tagging</span>)：為每個詞語標註其語法類別（如名詞、動詞、形容詞）。<br/>
+                       (C) <b class="chinese-term">隱馬可夫模型</b> (<span class="acronym-term">HMM</span>, <span class="english-term">Hidden Markov Model</span>) 是一種經典的生成式<b class="chinese-term">機率圖模型</b>，由於其能夠對序列數據進行建模，在傳統 <span class="acronym-term">NLP</span> 中被廣泛用於<b class="chinese-term">分詞</b>和<b class="chinese-term">詞性標註</b>等<b class="chinese-term">序列標註</b>任務。<br/>
+                       (A) <span class="acronym-term">LSTM</span> 和 (D) <span class="acronym-term">RNN</span> 是<b class="chinese-term">深度學習</b>模型，也常用於<b class="chinese-term">序列標註</b>，且效果通常優於 <span class="acronym-term">HMM</span>，但 <span class="acronym-term">HMM</span> 是該領域的基礎演算法之一，且題目描述符合其應用場景。(B) <span class="acronym-term">TF-IDF</span> (<span class="english-term">Term Frequency-Inverse Document Frequency</span>) 用於計算詞語權重，不是<b class="chinese-term">序列標註</b>演算法。</div>
+                   </div>
+               </div>
+
+            <!-- Question 28 -->
+               <div class="question-card" data-direction="6" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#28</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>中，<b class="chinese-term">詞嵌入</b>技術主要用於什麼目的，以表示詞語之 間的<b class="chinese-term">語義關係</b>？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">分詞</b>，將句子拆分成單詞</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">表示詞語的<b class="chinese-term">語義</b>，將詞語轉換為<b class="chinese-term">向量表示</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">生成文本</b>，自動創建新的句子</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">語音識別</b>，將語音轉換為文本</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">詞嵌入</b> (<span class="english-term">Word Embedding</span>) 是<b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>) 中將詞語從離散的符號表示（如 <span class="english-term">one-hot encoding</span>）轉換為連續的、低維的、稠密的<b class="chinese-term">向量表示</b> (<span class="english-term">Vector Representation</span>) 的技術。例如 <span class="english-term">Word2Vec</span>、<span class="english-term">GloVe</span> 等。<br/>
+                     這種<b class="chinese-term">向量表示</b>的主要優點是能夠捕捉詞語之間的<b class="chinese-term">語義</b> (<span class="english-term">Semantic</span>) 和句法 (<span class="english-term">Syntactic</span>) 關係。在學習到的<b class="chinese-term">向量空間</b>中，<b class="chinese-term">語義</b>相近的詞語（如「貓」和「狗」，或「跑」和「走」）其對應的<b class="chinese-term">向量</b>在空間中的距離也較近。這種表示方式使得計算機能夠更好地理解詞語的含義和它們之間的聯繫，是許多下游 <span class="acronym-term">NLP</span> 任務（如文本分類、情感分析、機器翻譯）的重要基礎。<br/>
+                     (A) <b class="chinese-term">分詞</b>是將文本切分成詞。(C) <b class="chinese-term">文本生成</b>是創建文本。(D) <b class="chinese-term">語音識別</b>處理語音。</div>
+                   </div>
+               </div>
+
+            <!-- Question 29 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#29</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content"><span class="acronym-term">BERT</span> 模型在<b class="chinese-term">自然語言處理</b>中的主要應用是什麼，特別是在理解和 生成語言方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">生成文本</b>，自動創建新的句子或段落</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">分詞</b>，將句子拆分成單詞</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">預訓練語言模型</b>，用於理解上下文和<b class="chinese-term">語義</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">語音合成</b>，將文本轉換為語音</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><span class="acronym-term">BERT</span> (<span class="english-term">Bidirectional Encoder Representations from Transformers</span>) 是一種基於 <span class="english-term">Transformer</span> <b class="chinese-term">編碼器</b> (<span class="english-term">Encoder</span>) 架構的<b class="chinese-term">預訓練語言模型</b> (<span class="english-term">Pre-trained Language Model</span>)。它通過在海量文本數據上進行<b class="chinese-term">預訓練</b>（主要任務是<b class="chinese-term">掩碼語言模型</b> <span class="english-term">Masked Language Model, MLM</span> 和<b class="chinese-term">下一句預測</b> <span class="english-term">Next Sentence Prediction, NSP</span>），學習到了深層次的、雙向的上下文<b class="chinese-term">語義表示</b> (<span class="english-term">Semantic Representation</span>)。<br/>
+                     <span class="acronym-term">BERT</span> 的核心優勢在於其強大的語言理解能力。通過<b class="chinese-term">預訓練</b>獲得的通用語言知識，可以通過<b class="chinese-term">微調</b> (<span class="english-term">Fine-tuning</span>) 輕鬆遷移到各種下游 <span class="acronym-term">NLP</span> 任務，如<b class="chinese-term">文本分類</b>、<b class="chinese-term">命名實體識別</b> (<span class="acronym-term">NER</span>)、<b class="chinese-term">問答系統</b> (<span class="acronym-term">QA</span>) 等，並在這些任務上取得了突破性的成果。<br/>
+                     (A) <span class="acronym-term">BERT</span> 的架構主要是<b class="chinese-term">編碼器</b>，其強項在於理解而非生成（生成任務通常由 <span class="acronym-term">GPT</span> 等基於<b class="chinese-term">解碼器</b>的模型主導）。(B) <b class="chinese-term">分詞</b>是 <span class="acronym-term">NLP</span> 的預處理步驟。(D) <b class="chinese-term">語音合成</b>處理語音。因此，選項 C 最準確。</div>
+                   </div>
+               </div>
+
+            <!-- Question 30 -->
+               <div class="question-card" data-direction="6" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#30</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">情感分析</b>的應用中，主要用於標註<b class="chinese-term">情感極性</b>的技術是什麼，以便 識別文本中的<b class="chinese-term">情感傾向</b>？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">分詞</b>，將句子拆分成單詞</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">詞嵌入</b>，將詞語轉換為<b class="chinese-term">向量表示</b></div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">標註</b>，對文本中的<b class="chinese-term">情感</b>進行標記</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">聚類</b>，將文本分組到不同的<b class="chinese-term">情感</b>類別中</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">情感分析</b> (<span class="english-term">Sentiment Analysis</span>)，也稱為<b class="chinese-term">意見挖掘</b> (<span class="english-term">Opinion Mining</span>)，旨在識別和提取文本資料中表達的主觀資訊，特別是說話者或作者的態度、評價、觀點和<b class="chinese-term">情感</b> (<span class="english-term">Emotion</span>)。<br/>
+                     判斷文本的<b class="chinese-term">情感極性</b> (<span class="english-term">Sentiment Polarity</span>)（例如，正面、負面、中性）是<b class="chinese-term">情感分析</b>中最常見的任務。從技術角度看，這通常被建模為一個<b class="chinese-term">文本分類</b> (<span class="english-term">Text Classification</span>) 問題，即為給定的文本分配一個預定義的<b class="chinese-term">情感</b>類別標籤。<br/>
+                     因此，無論是人工準備<b class="chinese-term">訓練數據</b>的過程（需要對文本進行<b class="chinese-term">情感標註</b>），還是模型最終輸出的結果（預測文本的<b class="chinese-term">情感標籤</b>），「<b class="chinese-term">標註</b>」 (<span class="english-term">Labeling/Annotation</span>) 都是描述這個核心過程的關鍵詞。<br/>
+                     (A) <b class="chinese-term">分詞</b>是預處理。(B) <b class="chinese-term">詞嵌入</b>是表示方法。(D) <b class="chinese-term">聚類</b>是<b class="chinese-term">非監督式</b>的，而<b class="chinese-term">情感分析</b>通常是<b class="chinese-term">監督式</b>的（需要標註數據）。</div>
+                   </div>
+               </div>
+
+            <!-- Question 31 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#31</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">機器翻譯</b>的應用中，以下哪一種模型類型被廣泛使用，以實現不 同語言之間的自動翻譯？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>）</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>） ，特別是<b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">隨機森林演算法</b>，用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">決策樹演算法</b>，用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">機器翻譯</b> (<span class="english-term">Machine Translation</span>, <span class="acronym-term">MT</span>) 是將一種自然語言（源語言）的文本自動轉換為另一種自然語言（目標語言）的文本。<br/>
+                     早期的<b class="chinese-term">神經機器翻譯</b> (<span class="english-term">Neural Machine Translation</span>, <span class="acronym-term">NMT</span>) 模型廣泛採用基於<b class="chinese-term">循環神經網路</b> (<span class="acronym-term">RNN</span>, <span class="english-term">Recurrent Neural Network</span>) 的<b class="chinese-term">序列到序列</b> (<span class="english-term">Sequence-to-Sequence</span>, <span class="acronym-term">Seq2Seq</span>) 架構。<b class="chinese-term">Seq2Seq</b> 模型通常包含一個<b class="chinese-term">編碼器</b> (<span class="english-term">Encoder</span>) <span class="acronym-term">RNN</span>（讀取源語言句子並生成上下文向量）和一個<b class="chinese-term">解碼器</b> (<span class="english-term">Decoder</span>) <span class="acronym-term">RNN</span>（根據上下文向量生成目標語言句子）。由於標準 <span class="acronym-term">RNN</span> 難以處理長序列的依賴關係，其變體如<b class="chinese-term">長短期記憶網路</b> (<span class="acronym-term">LSTM</span>, <span class="english-term">Long Short-Term Memory</span>) 和<b class="chinese-term">門控循環單元</b> (<span class="acronym-term">GRU</span>, <span class="english-term">Gated Recurrent Unit</span>) 更為常用。<br/>
+                     雖然現在基於 <span class="english-term">Transformer</span> 的模型已成為 <span class="acronym-term">NMT</span> 的主流，但 <span class="acronym-term">RNN</span>/ <span class="acronym-term">LSTM</span> 仍然是理解其發展和基礎的重要模型類型。(A) <span class="acronym-term">CNN</span> 主要用於影像。(C, D) 是傳統<b class="chinese-term">機器學習</b>模型，不直接用於 <span class="acronym-term">NMT</span>。</div>
+                   </div>
+               </div>
+
+            <!-- Question 32 -->
+               <div class="question-card" data-direction="6" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#32</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>中，<b class="chinese-term">文本分類</b>的主要目的是什麼，特別是在將文本 內容組織到不同預定義類別的過程中？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">分詞</b>，將句子拆分成單詞</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">情感分析</b>，識別文本中的<b class="chinese-term">情感傾向</b></div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">將文本分配到預定義的類別中，如主題分類</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">資訊檢索</b>，從大量數據中找到相關資訊</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">文本分類</b> (<span class="english-term">Text Classification</span>) 是<b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>, <span class="english-term">Natural Language Processing</span>) 中的一項基本且重要的任務。它的核心目標是根據文本的內容，將其自動分配到一個或多個預先設定好的、有意義的類別 (<span class="english-term">Category</span>) 或標籤 (<span class="english-term">Label</span>) 中。例如：<br/>
+                       -   新聞主題分類：將新聞文章歸類到「體育」、「政治」、「科技」、「娛樂」等主題。<br/>
+                       -   垃圾郵件檢測：將郵件分為「垃圾郵件」或「非垃圾郵件」。<br/>
+                       -   意圖識別：判斷使用者輸入的查詢屬於哪個意圖（如「查詢天氣」、「播放音樂」）。<br/>
+                     (A) <b class="chinese-term">分詞</b>是預處理。(B) <b class="chinese-term">情感分析</b>可以看作是<b class="chinese-term">文本分類</b>的一種特殊應用（將文本分為正面/負面/中性等情感類別），但<b class="chinese-term">文本分類</b>本身涵蓋更廣泛的應用。(D) <b class="chinese-term">資訊檢索</b> (<span class="english-term">Information Retrieval</span>) 是根據查詢找到相關文件，與<b class="chinese-term">分類</b>不同。因此，選項 C 最準確地描述了<b class="chinese-term">文本分類</b>的主要目的。</div>
+                   </div>
+               </div>
+
+            <!-- Question 33 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#33</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content"><span class="acronym-term">LSTM</span> 模型在<b class="chinese-term">自然語言處理</b>中常用於什麼應用，特別是在處理和生 成<b class="chinese-term">序列數據</b>的任務中？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">影像分類</b>，將影像分配到不同的類別</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">序列建模</b>，處理<b class="chinese-term">時間序列數據</b>和<b class="chinese-term">語言數據</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">特徵提取</b>，從數據中提取有用的<b class="chinese-term">特徵</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">降維</b>，減少數據的 <b class="chinese-term">特徵數量</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">長短期記憶網路</b> (<span class="acronym-term">LSTM</span>, <span class="english-term">Long Short-Term Memory</span>) 是一種特殊的<b class="chinese-term">循環神經網路</b> (<span class="acronym-term">RNN</span>)，設計用來解決標準 <span class="acronym-term">RNN</span> 在處理長<b class="chinese-term">序列數據</b> (<span class="english-term">Sequential Data</span>) 時遇到的<b class="chinese-term">梯度消失</b> (<span class="english-term">Vanishing Gradient</span>) 和<b class="chinese-term">梯度爆炸</b> (<span class="english-term">Exploding Gradient</span>) 問題。<br/>
+                     由於其能夠有效地學習和記憶<b class="chinese-term">序列</b>中的長期依賴關係，<span class="acronym-term">LSTM</span> 非常適用於各種<b class="chinese-term">序列建模</b> (<span class="english-term">Sequence Modeling</span>) 任務。在<b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>) 領域，<b class="chinese-term">語言數據</b>本質上就是<b class="chinese-term">序列數據</b>（詞語或字元的序列），因此 <span class="acronym-term">LSTM</span> 被廣泛應用於：<br/>
+                     -   <b class="chinese-term">語言模型</b> (<span class="english-term">Language Modeling</span>)<br/>
+                     -   <b class="chinese-term">機器翻譯</b> (<span class="english-term">Machine Translation</span>)<br/>
+                     -   <b class="chinese-term">文本生成</b> (<span class="english-term">Text Generation</span>)<br/>
+                     -   <b class="chinese-term">情感分析</b> (<span class="english-term">Sentiment Analysis</span>)<br/>
+                     -   <b class="chinese-term">序列標註</b> (<span class="english-term">Sequence Labeling</span>)，如<b class="chinese-term">命名實體識別</b> (<span class="acronym-term">NER</span>)<br/>
+                     同時，它也適用於其他領域的<b class="chinese-term">時間序列數據</b> (<span class="english-term">Time Series Data</span>) 處理，如<b class="chinese-term">語音識別</b> (<span class="english-term">Speech Recognition</span>) 或<b class="chinese-term">股票預測</b> (<span class="english-term">Stock Prediction</span>)。<br/>
+                     (A) <b class="chinese-term">影像分類</b>通常用 <span class="acronym-term">CNN</span>。(C) <b class="chinese-term">特徵提取</b>是過程，不是應用。(D) <b class="chinese-term">降維</b>用於減少<b class="chinese-term">特徵</b>。</div>
+                   </div>
+               </div>
+
+            <!-- Question 34 -->
+               <div class="question-card" data-direction="6" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#34</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>中，<b class="chinese-term">命名實體識別</b>（<span class="acronym-term">NER</span>）的主要用途是什麼，特 別是在識別和分類文本中的<b class="chinese-term">專有名詞</b>時？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">確定文本中的<b class="chinese-term">關鍵詞</b>，提取重要資訊</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text">將文本分配到不同的類別中，如主題分類</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">查找並分類文本中的有<b class="chinese-term">名稱</b>的<b class="chinese-term">實體</b>，如<b class="chinese-term">人名</b>、<b class="chinese-term">地名</b>和<b class="chinese-term">組織名</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">生成文本</b>，自動創建新的句子</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">命名實體識別</b> (<span class="acronym-term">NER</span>, <span class="english-term">Named Entity Recognition</span>) 是<b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>) 和<b class="chinese-term">資訊提取</b> (<span class="english-term">Information Extraction</span>) 的一項基礎任務。它的目標是定位文本中提及的<b class="chinese-term">命名實體</b> (<span class="english-term">Named Entity</span>)（通常是<b class="chinese-term">專有名詞</b>）的邊界，並將它們分類到預定義的類別中。<br/>
+                     常見的<b class="chinese-term">實體</b>類別包括：<br/>
+                     -   <b class="chinese-term">人名</b> (<span class="english-term">Person</span>, PER)<br/>
+                     -   <b class="chinese-term">組織機構名</b> (<span class="english-term">Organization</span>, ORG)<br/>
+                     -   <b class="chinese-term">地名</b>/位置 (<span class="english-term">Location</span>/Geopolitical Entity, LOC/GPE)<br/>
+                     -   時間表達式（日期 <span class="english-term">Date</span>, 時間 <span class="english-term">Time</span>）<br/>
+                     -   數值表達式（貨幣 <span class="english-term">Money</span>, 百分比 <span class="english-term">Percent</span>）<br/>
+                     <span class="acronym-term">NER</span> 對於理解文本內容、構建<b class="chinese-term">知識圖譜</b> (<span class="english-term">Knowledge Graph</span>)、<b class="chinese-term">問答系統</b> (<span class="acronym-term">QA</span>) 等應用至關重要。<br/>
+                     (A) <b class="chinese-term">關鍵詞提取</b> (<span class="english-term">Keyword Extraction</span>) 目標不同。(B) 這是<b class="chinese-term">文本分類</b>。(D) 這是<b class="chinese-term">文本生成</b>。</div>
+                   </div>
+               </div>
+
+             <!-- Question 35 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#35</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>中，<span class="acronym-term">TF-IDF</span> 技術的主要作用是什麼，以衡量詞語在 文本中的重要性？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">分詞</b>，將句子拆分成單詞</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">計算詞語在文本中的重要性，通過<b class="chinese-term">詞頻</b>和<b class="chinese-term">逆文件頻率</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">生成文本</b>，自動創建新的句子</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">音素標註</b>，標記語音中的<b class="chinese-term">音素</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><span class="acronym-term">TF-IDF</span> (<span class="english-term">Term Frequency-Inverse Document Frequency</span>) 是一種用於<b class="chinese-term">資訊檢索</b> (<span class="english-term">Information Retrieval</span>) 與<b class="chinese-term">文本挖掘</b> (<span class="english-term">Text Mining</span>) 的常用加權技術。它是一種統計方法，用以評估一個詞語對於一個文件集（<b class="chinese-term">語料庫</b>, <span class="english-term">Corpus</span>）或其中一份文件的重要程度。<br/>
+                     一個詞語的重要性隨着它在文件中出現的次數成正比增加（即<b class="chinese-term">詞頻</b>, <span class="acronym-term">TF</span>），但同時會隨着它在<b class="chinese-term">語料庫</b>中出現的頻率成反比下降（即<b class="chinese-term">逆文件頻率</b>, <span class="acronym-term">IDF</span>）。<span class="acronym-term">IDF</span> 的主要思想是，如果一個詞語在很多文件中都出現，那麼它可能是一個通用詞語，對於區分特定文件的重要性較低；反之，如果一個詞語只在少數文件中出現，則它可能更能代表這些文件的內容。<br/>
+                     <span class="acronym-term">TF-IDF</span> 將這兩者結合起來，計算出一個詞語在特定文件中的相對重要性分數。<br/>
+                     (A) <b class="chinese-term">分詞</b>是預處理。(C) <b class="chinese-term">文本生成</b>是創建。(D) <b class="chinese-term">音素標註</b>處理語音。</div>
+                   </div>
+               </div>
+
+            <!-- Question 36 -->
+               <div class="question-card" data-direction="6" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#36</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>中，用於測試<b class="chinese-term">語言模型</b>效能的常見指標是什麼，特 別是在衡量模型預測能力方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">精確率</b>，評估模型正確預測的比例</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">召回率</b>，評估模型捕捉相關樣本的能力</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">困惑度</b>（ <span class="english-term">Perplexity</span> ） ，衡量<b class="chinese-term">語言模型</b>對數據的預測不確定性</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">特徵提取</b>，從數據中提取有用<b class="chinese-term">特徵</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">語言模型</b> (<span class="english-term">Language Model</span>, <span class="acronym-term">LM</span>) 的主要任務是估計一個詞語序列（句子）出現的機率。評估 <span class="acronym-term">LM</span> 效能的一個常用且重要的指標是<b class="chinese-term">困惑度</b> (<span class="english-term">Perplexity</span>, <span class="acronym-term">PPL</span>)。<br/>
+                     <b class="chinese-term">困惑度</b>可以被直觀地理解為<b class="chinese-term">語言模型</b>在預測下一個詞時平均有多少個可能的選擇。它基本上是<b class="chinese-term">測試集</b>中每個詞的平均機率的倒數（通常基於交叉熵損失計算）。<b class="chinese-term">困惑度</b>越低，表示<b class="chinese-term">語言模型</b>對測試數據的機率估計越準確，模型對序列的預測能力越強，效能越好。<br/>
+                     (A) <b class="chinese-term">精確率</b> (<span class="english-term">Precision</span>) 和 (B) <b class="chinese-term">召回率</b> (<span class="english-term">Recall</span>) 是<b class="chinese-term">分類</b>任務常用的評估指標。(D) <b class="chinese-term">特徵提取</b>是過程。</div>
+                   </div>
+               </div>
+
+            <!-- Question 37 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#37</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">自然語言處理</b>的領域中，以下哪一種模型被廣泛用於<b class="chinese-term">語音識別</b>， 特別是在將語音信號轉換為文字的過程中？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">支持向量機</b>（ <span class="acronym-term">SVM</span>） ，主要用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">隨機森林演算法</b>，主要用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b>任務</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">隱馬可夫模型</b>（ <span class="acronym-term">HMM</span>） ，常用於<b class="chinese-term">語音識別</b>和<b class="chinese-term">序列標註</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="acronym-term">K-means</b> <b class="chinese-term">聚類演算法</b>，主要用於<b class="chinese-term">非監督式學習</b>的<b class="chinese-term">聚類</b>任務</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">語音識別</b> (<span class="english-term">Speech Recognition</span>)，或稱<b class="chinese-term">自動語音識別</b> (<span class="english-term">Automatic Speech Recognition</span>, <span class="acronym-term">ASR</span>)，是將人類語音轉換為文字的技術。<br/>
+                     傳統 <span class="acronym-term">ASR</span> 系統通常包含<b class="chinese-term">聲學模型</b> (<span class="english-term">Acoustic Model</span>) 和<b class="chinese-term">語言模型</b> (<span class="english-term">Language Model</span>)。<b class="chinese-term">隱馬可夫模型</b> (<span class="acronym-term">HMM</span>, <span class="english-term">Hidden Markov Model</span>) 在過去幾十年中一直是構建<b class="chinese-term">聲學模型</b>的主流方法。它用於對語音的基本單元（如<b class="chinese-term">音素</b> <span class="english-term">Phoneme</span>）及其時間演變過程進行機率建模。通常 <span class="acronym-term">HMM</span> 會與<b class="chinese-term">高斯混合模型</b> (<span class="acronym-term">GMM</span>, <span class="english-term">Gaussian Mixture Model</span>) 結合使用（<span class="acronym-term">GMM-HMM</span> 系統）來對每個 <span class="acronym-term">HMM</span> 狀態的聲學特徵分佈進行建模。<br/>
+                     雖然現代 <span class="acronym-term">ASR</span> 系統更多採用<b class="chinese-term">深度學習</b>方法（如基於 <span class="acronym-term">RNN</span>、<span class="acronym-term">CNN</span>、<span class="english-term">Transformer</span> 的端到端模型），但 <span class="acronym-term">HMM</span> 仍然是<b class="chinese-term">語音識別</b>歷史上和理論上非常重要的模型。<br/>
+                     (A, B, D) 是<b class="chinese-term">機器學習</b>中的其他演算法，不直接是<b class="chinese-term">語音識別</b>的核心模型。</div>
+                   </div>
+               </div>
+
+             <!-- Question 38 -->
+               <div class="question-card" data-direction="7" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#38</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">機器翻譯</b>的應用中，以下哪一種模型類型被廣泛使用，特別是在 實現不同語言之間的自動翻譯功能方面？</div>
+                   <div class="options-container">
+                       <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>） ，特別是<b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>） ，主要用於<b class="chinese-term">影像處理</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">支持向量機</b>（ <span class="acronym-term">SVM</span>） ，主要用於<b class="chinese-term">分類</b>和<b class="chinese-term">回歸</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">潛在狄利克雷分配</b>（ <span class="acronym-term">LDA</span>） ，主要用於<b class="chinese-term">主題建模</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content">（此題與 Q31 重複，答案和解析相同）<br/>
+                     <b class="chinese-term">機器翻譯</b> (<span class="english-term">Machine Translation</span>, <span class="acronym-term">MT</span>) 是將一種自然語言（源語言）的文本轉換為另一種自然語言（目標語言）的文本。<br/>
+                     早期的<b class="chinese-term">神經機器翻譯</b> (<span class="english-term">Neural Machine Translation</span>, <span class="acronym-term">NMT</span>) 模型廣泛採用基於<b class="chinese-term">循環神經網路</b> (<span class="acronym-term">RNN</span>, <span class="english-term">Recurrent Neural Network</span>) 的<b class="chinese-term">序列到序列</b> (<span class="english-term">Sequence-to-Sequence</span>, <span class="acronym-term">Seq2Seq</span>) 架構。<b class="chinese-term">Seq2Seq</b> 模型通常包含一個<b class="chinese-term">編碼器</b> (<span class="english-term">Encoder</span>) <span class="acronym-term">RNN</span>（讀取源語言句子並生成上下文向量）和一個<b class="chinese-term">解碼器</b> (<span class="english-term">Decoder</span>) <span class="acronym-term">RNN</span>（根據上下文向量生成目標語言句子）。由於標準 <span class="acronym-term">RNN</span> 難以處理長序列的依賴關係，其變體如<b class="chinese-term">長短期記憶網路</b> (<span class="acronym-term">LSTM</span>, <span class="english-term">Long Short-Term Memory</span>) 和<b class="chinese-term">門控循環單元</b> (<span class="acronym-term">GRU</span>, <span class="english-term">Gated Recurrent Unit</span>) 更為常用。<br/>
+                     雖然現在基於 <span class="english-term">Transformer</span> 的模型已成為 <span class="acronym-term">NMT</span> 的主流，但 <span class="acronym-term">RNN</span>/<span class="acronym-term">LSTM</span> 仍然是理解其發展和基礎的重要模型類型。(B) <span class="acronym-term">CNN</span> 主要用於影像。(C) <span class="acronym-term">SVM</span> 用於<b class="chinese-term">分類</b><b class="chinese-term">回歸</b>。(D) <b class="chinese-term">潛在狄利克雷分配</b> (<span class="acronym-term">LDA</span>, <span class="english-term">Latent Dirichlet Allocation</span>) 用於<b class="chinese-term">主題建模</b> (<span class="english-term">Topic Modeling</span>)。</div>
+                   </div>
+               </div>
+
+            <!-- Question 39 -->
+               <div class="question-card" data-direction="8" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#39</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content"><b class="chinese-term">生成對抗網路</b>（<span class="acronym-term">GAN</span>）在<b class="chinese-term">生成式 AI</b> 中的主要應用是什麼，特別是 在創建新的<b class="chinese-term">影像</b>方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">影像分類</b>，將<b class="chinese-term">影像</b>分配到不同的類別</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">生成影像</b>，創建逼真的新<b class="chinese-term">影像</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">自然語言處理</b>，處理和<b class="chinese-term">生成文本</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">數據增強</b>，擴展訓練數據集</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">生成式 AI</b> (<span class="english-term">Generative AI</span>) 指的是能夠創造新的、原創內容的<b class="chinese-term">人工智能</b>系統。<b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>, <span class="english-term">Generative Adversarial Network</span>) 是<b class="chinese-term">生成式 AI</span> 領域中最著名和最成功的模型之一，尤其在<b class="chinese-term">影像生成</b> (<span class="english-term">Image Generation</span>) 方面取得了令人矚目的成就。<br/>
+                     <span class="acronym-term">GAN</span> 通過<b class="chinese-term">生成器</b> (<span class="english-term">Generator</span>) 和<b class="chinese-term">鑑別器</b> (<span class="english-term">Discriminator</span>) 之間的對抗性學習過程，能夠學習真實數據的複雜分佈，並生成高度逼真、多樣化的新<b class="chinese-term">影像</b>，例如生成人臉、風景、藝術作品等。此外，<span class="acronym-term">GAN</span> 也可用於<b class="chinese-term">影像</b>風格轉換、超解析度等任務。<br/>
+                     (A) <b class="chinese-term">影像分類</b>是判別任務。(C) <span class="acronym-term">GAN</span> 也可用於文本生成，但其在<b class="chinese-term">影像生成</b>上的應用更為突出和典型。(D) <b class="chinese-term">數據增強</b>可以利用生成模型，但不是 <span class="acronym-term">GAN</span> 的主要應用目標。</div>
+                   </div>
+               </div>
+
+            <!-- Question 40 -->
+               <div class="question-card" data-direction="8" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#40</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content"><b class="chinese-term">生成模型</b>在<b class="chinese-term">生成式 AI</b> 中的主要目的是什麼，特別是在創建與訓練數據相似的新數據方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">提取<b class="chinese-term">特徵</b>，從數據中提取有用<b class="chinese-term">特徵</b></div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">生成新數據</b>，創建與原始數據相似的數據</div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">分類數據</b>，將數據分配到不同的類別中</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">聚類數據</b>，將數據分組到不同的<b class="chinese-term">集群</b>中</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">生成式 AI</b> (<span class="english-term">Generative AI</span>) 的核心在於使用<b class="chinese-term">生成模型</b> (<span class="english-term">Generative Model</span>)。與學習如何區分不同類別數據的<b class="chinese-term">判別模型</b> (<span class="english-term">Discriminative Model</span>) 不同，<b class="chinese-term">生成模型</b>的目標是學習訓練數據的潛在<b class="chinese-term">機率分佈</b> <span class="english-term">P(X)</span>，或者學習輸入 <span class="english-term">X</span> 和輸出 <span class="english-term">Y</span> 的聯合<b class="chinese-term">機率分佈</b> <span class="english-term">P(X, Y)</span>。<br/>
+                     通過學習這個分佈，<b class="chinese-term">生成模型</b>就能夠從該分佈中進行採樣，<b class="chinese-term">生成</b> (<span class="english-term">Generate</span>) 全新的、與原始訓練數據具有相似統計特性和結構的<b class="chinese-term">數據樣本</b> (<span class="english-term">Data Samples</span>)。這些新數據可以是影像、文本、音樂、程式碼等各種形式。<br/>
+                     (A) <b class="chinese-term">特徵提取</b>是過程。(C) <b class="chinese-term">分類</b>是判別任務。(D) <b class="chinese-term">聚類</b>是<b class="chinese-term">非監督</b>發現結構。</div>
+                   </div>
+               </div>
+
+             <!-- Question 41 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#41</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成文本</b>的過程中，以下哪一種模型被廣泛使用，以實現自然流 暢的文本生成？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>）</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">生成對抗網路</b>（ <span class="acronym-term">GAN</span>）</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">GPT</span>（<b class="chinese-term">生成預訓練變換器</b>） ，用於<b class="chinese-term">生成自然語言文本</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>）</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content">(此題與 Q43 相似)<br/>
+                     <span class="acronym-term">GPT</span> (<span class="english-term">Generative Pre-trained Transformer</span>) 系列模型是基於 <span class="english-term">Transformer</span> 架構的<b class="chinese-term">大型語言模型</b> (<span class="english-term">Large Language Model</span>, <span class="acronym-term">LLM</span>)，在<b class="chinese-term">生成自然語言文本</b> (<span class="english-term">Natural Language Text Generation</span>) 方面表現尤為突出。它們能夠理解上下文並生成連貫、流暢、語義豐富且多樣化的文本，是當前<b class="chinese-term">文本生成</b>領域最先進、最廣泛使用的模型之一。<br/>
+                     (A) <span class="acronym-term">CNN</span> 主要用於影像。(B) <span class="acronym-term">GAN</span> 主要用於影像生成，雖然也有文本 <span class="acronym-term">GAN</span>，但不如 <span class="acronym-term">GPT</span> 常用。(D) <span class="acronym-term">RNN</span> (包括 <span class="acronym-term">LSTM</span>/ <span class="acronym-term">GRU</span>) 也能生成文本，但在捕捉長距離依賴和生成品質方面通常不如基於 <span class="english-term">Transformer</span> 的模型。</div>
+                   </div>
+               </div>
+
+             <!-- Question 42 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#42</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成式 AI</b> 中，以下哪一種技術常用於<b class="chinese-term">生成音樂</b>，特別是創作具 有連貫性和旋律性的音樂片段？</div>
+                   <div class="options-container">
+                       <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>） ，特別是<b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>）</div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">生成對抗網路</b>（ <span class="acronym-term">GAN</span>）</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div> <!-- Note: Option D is identical to A -->
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content">音樂具有明顯的時序結構，音符、節奏、和弦等元素按時間順序排列並相互影響。<b class="chinese-term">循環神經網路</b> (<span class="acronym-term">RNN</span>, <span class="english-term">Recurrent Neural Network</span>) 及其變體，特別是<b class="chinese-term">長短期記憶網路</b> (<span class="acronym-term">LSTM</span>, <span class="english-term">Long Short-Term Memory</span>)，被設計用來處理<b class="chinese-term">序列數據</b> (<span class="english-term">Sequential Data</span>) 並捕捉時間上的依賴關係。<br/>
+                     因此，<span class="acronym-term">RNN</span>/<span class="acronym-term">LSTM</span> 非常適合用於<b class="chinese-term">音樂生成</b> (<span class="english-term">Music Generation</span>)。它們可以學習音樂序列中的模式，並預測接下來的音符或和弦，從而創作出具有連貫性和旋律性的新音樂片段。<br/>
+                     (B) <span class="acronym-term">CNN</span> 也可用於音樂（例如將音樂表示為頻譜圖），但 <span class="acronym-term">RNN</span> 更直接地處理時序性。(C) <span class="acronym-term">GAN</span> 也可以生成音樂，但 <span class="acronym-term">RNN</span>/<span class="acronym-term">LSTM</span> 是該領域常用的基礎技術。選項 A 和 D 內容相同，均指向 <span class="acronym-term">RNN</span>/<span class="acronym-term">LSTM</span>。</div>
+                   </div>
+               </div>
+
+            <!-- Question 43 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#43</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成式 AI</b> 中，以下哪一種技術常用於<b class="chinese-term">生成自然語言文本</b>，特別 是在創建連貫且有意義的句子方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>）</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>）</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text"><span class="acronym-term">GPT</span>（<b class="chinese-term">生成預訓練變換器</b>）</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content">（此題與 Q41 基本相同，答案和解析類似）<br/>
+                     <span class="acronym-term">GPT</span> (<span class="english-term">Generative Pre-trained Transformer</span>) 模型是目前<b class="chinese-term">生成自然語言文本</b> (<span class="english-term">Natural Language Text Generation</span>) 的主流技術。它基於 <span class="english-term">Transformer</span> 架構，利用<b class="chinese-term">預訓練</b>和<b class="chinese-term">自注意力機制</b> (<span class="english-term">Self-Attention Mechanism</span>)，能夠有效地捕捉文本中的長距離依賴關係，生成連貫、流暢且符合語法和語義的文本。<br/>
+                     (A) <span class="acronym-term">RNN</span> 和 (D) <span class="acronym-term">LSTM</span> 也能生成文本，但效果通常不如 <span class="acronym-term">GPT</span>。(B) <span class="acronym-term">CNN</span> 主要應用於影像。</div>
+                   </div>
+               </div>
+
+            <!-- Question 44 -->
+               <div class="question-card" data-direction="8" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#44</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成對抗網路</b>（<span class="acronym-term">GAN</span>）中，<b class="chinese-term">鑑別器</b>的主要作用是什麼，特別是在 區分真實數據和生成數據方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">訓練<b class="chinese-term">生成器</b>，通過反饋來改進生成數據</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text">區分真實數據和生成數據，提供反饋給<b class="chinese-term">生成器</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">提取<b class="chinese-term">特徵</b>，從數據中提取有用<b class="chinese-term">特徵</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">分類數據</b>，將數據分配到不同的類別中</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>, <span class="english-term">Generative Adversarial Network</span>) 由兩個核心部分組成：<br/>
+                     1.  <b class="chinese-term">生成器</b> (<span class="english-term">Generator</span>)：負責學習真實數據的分佈，並嘗試生成看起來像真實數據的假數據。<br/>
+                     2.  <b class="chinese-term">鑑別器</b> (<span class="english-term">Discriminator</span>)：負責學習區分輸入的數據是來自真實數據集，還是由<b class="chinese-term">生成器</b>產生的假數據。<br/>
+                     <b class="chinese-term">鑑別器</b>的目標是盡可能準確地判斷數據的來源（真實 vs. 生成），它就像一個評判者。它的判斷結果（例如，判斷為假數據的機率）會被用來計算損失，並通過<b class="chinese-term">反向傳播</b> (<span class="english-term">Backpropagation</span>) 提供<b class="chinese-term">梯度</b> (<span class="english-term">Gradient</span>) 信號（即反饋）給<b class="chinese-term">生成器</b>，指導<b class="chinese-term">生成器</b>改進其生成策略，以產生更逼真的數據來"欺騙"<b class="chinese-term">鑑別器</b>。<br/>
+                     因此，<b class="chinese-term">鑑別器</b>的主要作用是區分真假數據，並通過這個過程提供反饋給<b class="chinese-term">生成器</b>。選項 B 準確描述了這兩點。(A) <b class="chinese-term">鑑別器</b>不直接訓練<b class="chinese-term">生成器</b>，而是提供反饋。(C, D) 不是<b class="chinese-term">鑑別器</b>在 <span class="acronym-term">GAN</span> 中的核心作用。</div>
+                   </div>
+               </div>
+
+            <!-- Question 45 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#45</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成式 AI</b> 中，為了提高<b class="chinese-term">生成文本</b>的品質，通常會採用哪一種方 法，特別是在使用<b class="chinese-term">預訓練模型</b>的基礎上進行調整？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">資料增強</b>，通過增加訓練數據來提升品質</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">微調預訓練模型</b>，根據特定任務調整模型 <b class="chinese-term">參數</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text">提高數據量，使用更多的訓練數據</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">使用<b class="chinese-term">卷積層</b>，增加模型的複雜度</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">預訓練模型</b> (<span class="english-term">Pre-trained Model</span>)，如 <span class="acronym-term">GPT</span> 或 <span class="acronym-term">BERT</span>，已經在海量的通用文本數據上學習了豐富的語言知識和模式。為了讓這些模型在特定的下游任務（如特定風格的<b class="chinese-term">文本生成</b>、特定領域的問答）上表現更好，常用的方法是<b class="chinese-term">微調</b> (<span class="english-term">Fine-tuning</span>)。<br/>
+                     <b class="chinese-term">微調</b>指的是在<b class="chinese-term">預訓練模型</b>的基礎上，使用與特定任務相關的、相對較小的標籤數據集進行進一步的訓練。在這個過程中，模型的<b class="chinese-term">參數</b> (<span class="english-term">Parameters</span>) 會被輕微調整，以適應該任務的數據分佈和要求，從而提高在該任務上的效能和生成品質。<br/>
+                     (A) <b class="chinese-term">資料增強</b> (<span class="english-term">Data Augmentation</span>) 是擴充數據的方法。(C) 提高數據量用於<b class="chinese-term">預訓練</b>或<b class="chinese-term">微調</b>，但<b class="chinese-term">微調</b>本身是關鍵步驟。(D) <b class="chinese-term">卷積層</b> (<span class="english-term">Convolutional Layer</span>) 主要用於 <span class="acronym-term">CNN</span>。因此，選項 B 是利用<b class="chinese-term">預訓練模型</b>提升特定任務品質的核心方法。</div>
+                   </div>
+               </div>
+
+            <!-- Question 46 -->
+               <div class="question-card" data-direction="8" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#46</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成對抗網路</b>（<span class="acronym-term">GAN</span>）中，主要面臨的挑戰是什麼，特別是在模 型訓練過程中經常出現的<b class="chinese-term">不穩定性</b>問題？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">數據標註</b>，確保訓練數據的準確性</div></div>
+                       <div class="option-item correct" data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">訓練不穩定</b>，<b class="chinese-term">生成器</b>和<b class="chinese-term">鑑別器</b>之間的平衡難以維持</div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">特徵提取</b>，從數據中提取有用<b class="chinese-term">特徵</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">訓練速度慢，模型訓練需要較長時間</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>, <span class="english-term">Generative Adversarial Network</span>) 的訓練過程是一個<b class="chinese-term">生成器</b> (<span class="english-term">Generator</span>) 和<b class="chinese-term">鑑別器</b> (<span class="english-term">Discriminator</span>) 相互競爭、共同進化的動態<b class="chinese-term">博弈</b> (<span class="english-term">Game</span>) 過程。這使得 <span class="acronym-term">GAN</span> 的訓練相當困難且<b class="chinese-term">不穩定</b> (<span class="english-term">Unstable</span>)。<br/>
+                     主要的挑戰包括：<br/>
+                     -   難以收斂 (<span class="english-term">Non-convergence</span>)：<b class="chinese-term">生成器</b>和<b class="chinese-term">鑑別器</b>之間的平衡很難達到，可能導致訓練過程震盪或無法收斂。<br/>
+                     -   模式崩潰 (<span class="english-term">Mode Collapse</span>)：<b class="chinese-term">生成器</b>可能只學會生成少數幾種能夠騙過<b class="chinese-term">鑑別器</b>的樣本，無法覆蓋真實數據的多樣性。<br/>
+                     -   梯度消失/爆炸 (<span class="english-term">Vanishing/Exploding Gradients</span>)：在訓練過程中可能出現<b class="chinese-term">梯度</b>問題，導致學習停滯或發散。<br/>
+                     -   鑑別器過強或過弱：如果<b class="chinese-term">鑑別器</b>太強，<b class="chinese-term">生成器</b>的<b class="chinese-term">梯度</b>可能消失；如果太弱，<b class="chinese-term">生成器</b>無法得到有效指導。<br/>
+                     因此，維持兩者之間的平衡是 <span class="acronym-term">GAN</span> 訓練中的核心挑戰，導致<b class="chinese-term">訓練不穩定</b>。<br/>
+                     (A) <span class="acronym-term">GAN</span> 通常是<b class="chinese-term">非監督</b>的，不需要<b class="chinese-term">數據標註</b>。(C) <b class="chinese-term">特徵提取</b>是過程。(D) 訓練速度慢也是問題，但<b class="chinese-term">不穩定性</b>是更根本的挑戰。</div>
+                   </div>
+               </div>
+
+            <!-- Question 47 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#47</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content"><span class="acronym-term">GPT</span> 模型在<b class="chinese-term">生成式 AI</b> 中的全稱是什麼，特別是在描述其架構和功能時？</div>
+                   <div class="options-container">
+                       <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><span class="english-term">Generative Pre-trained Transformer</span> ，指<b class="chinese-term">生成預訓練變換器</b></div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><span class="english-term">General Predictive Transformer</span> ，一種通用的<b class="chinese-term">預測變換器</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><span class="english-term">Generative Predictive Text</span> ，用於<b class="chinese-term">生成預測文本</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><span class="english-term">General Pre-training Text</span> ，指通用的<b class="chinese-term">預訓練文本</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><span class="acronym-term">GPT</span> 是由 <span class="english-term">OpenAI</span> 開發的一系列<b class="chinese-term">大型語言模型</b> (<span class="acronym-term">LLM</span>) 的名稱縮寫。其全稱為 <span class="english-term">Generative Pre-trained Transformer</span>。<br/>
+                     這個名稱精確地反映了該模型的三個核心特點：<br/>
+                     -   <span class="english-term">Generative</span> (<b class="chinese-term">生成式</b>)：表明該模型的主要功能是生成新的內容，特別是文本。<br/>
+                     -   <span class="english-term">Pre-trained</span> (<b class="chinese-term">預訓練</b>)：指模型首先在海量的無標籤文本數據上進行了大規模的<b class="chinese-term">預訓練</b>，學習了廣泛的語言知識和模式。<br/>
+                     -   <span class="english-term">Transformer</span> (<b class="chinese-term">變換器</b>)：指其底層的神經網路架構採用了 <span class="english-term">Transformer</span> 模型，特別是其<b class="chinese-term">解碼器</b> (<span class="english-term">Decoder</span>) 部分，利用<b class="chinese-term">自注意力機制</b> (<span class="english-term">Self-Attention Mechanism</span>) 來處理長距離依賴關係。<br/>
+                     其他選項是對 <span class="acronym-term">GPT</span> 全稱的錯誤解釋或縮寫。</div>
+                   </div>
+               </div>
+
+            <!-- Question 48 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#48</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成式 AI</b> 中，<b class="chinese-term">強化學習</b>主要用於什麼目的，特別是在提升生成 數據的品質方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text">訓練<b class="chinese-term">生成器</b>，通過<b class="chinese-term">獎勵</b>機制優化生成數據</div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">分類數據</b>，將數 據分配到不同的類別中</div></div>
+                       <div class="option-item correct" data-option="C"><div class="option-label">C</div><div class="option-text">提高生成數據的品質，通過<b class="chinese-term">獎勵信號</b>指導生成過程</div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text">提取<b class="chinese-term">特徵</b>，從數據中提取有用<b class="chinese-term">特徵</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">強化學習</b> (<span class="acronym-term">RL</span>, <span class="english-term">Reinforcement Learning</span>)，特別是<b class="chinese-term">基於人類反饋的強化學習</b> (<span class="acronym-term">RLHF</span>, <span class="english-term">Reinforcement Learning from Human Feedback</span>)，在<b class="chinese-term">生成式 AI</b>（尤其是<b class="chinese-term">大型語言模型</b> <span class="acronym-term">LLM</span>）的<b class="chinese-term">對齊</b> (<span class="english-term">Alignment</span>) 和優化中扮演著重要角色。<br/>
+                     單純的<b class="chinese-term">預訓練</b>或<b class="chinese-term">監督式微調</b>可能無法完全捕捉到人類對於「好」的生成內容的複雜偏好（例如，有用性、無害性、真實性、風格等）。<span class="acronym-term">RLHF</span> 通過以下步驟來解決這個問題：<br/>
+                     1.  訓練一個<b class="chinese-term">獎勵模型</b> (<span class="english-term">Reward Model</span>)，該模型學習預測人類評分者會給予某個生成輸出的<b class="chinese-term">獎勵</b>分數。<br/>
+                     2.  使用<b class="chinese-term">強化學習演算法</b>（如 <span class="acronym-term">PPO</span>, <span class="english-term">Proximal Policy Optimization</span>)來<b class="chinese-term">微調</b> <span class="acronym-term">LLM</span> 的<b class="chinese-term">策略</b>，使其生成的內容能夠最大化<b class="chinese-term">獎勵模型</b>給出的分數。<br/>
+                     這個過程通過引入明確的<b class="chinese-term">獎勵信號</b> (<span class="english-term">Reward Signal</span>) 來指導<b class="chinese-term">生成模型</b>，使其學習生成更高品質、更符合人類偏好的內容。<br/>
+                     選項 A 和 C 都描述了這個過程，但 C 更側重於最終目標「提高生成數據的品質」。(B) <b class="chinese-term">分類</b>是判別任務。(D) <b class="chinese-term">特徵提取</b>是過程。</div>
+                   </div>
+               </div>
+
+            <!-- Question 49 -->
+               <div class="question-card" data-direction="8" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#49</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成式 AI</b> 中，通常用於<b class="chinese-term">生成影像</b>的模型是什麼，特別是在創建 高品質和逼真的影像方面？</div>
+                   <div class="options-container">
+                       <div class="option-item correct" data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">生成對抗網路</b>（ <span class="acronym-term">GAN</span>） ，專門用於<b class="chinese-term">生成高品質影像</b></div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>） ，主要用於<b class="chinese-term">影像分類</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>） ，主要用於<b class="chinese-term">序列數據處理</b></div></div>
+                       <div class="option-item " data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">支持向量機</b>（ <span class="acronym-term">SVM</span>） ，主要用於<b class="chinese-term">分類</b>任務</div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content">（此題與 Q39 相似）<br/>
+                     <b class="chinese-term">生成對抗網路</b> (<span class="acronym-term">GAN</span>, <span class="english-term">Generative Adversarial Network</span>) 是<b class="chinese-term">生成式 AI</b> (<span class="english-term">Generative AI</span>) 在<b class="chinese-term">影像生成</b> (<span class="english-term">Image Generation</span>) 領域的代表性模型。它通過<b class="chinese-term">生成器</b>和<b class="chinese-term">鑑別器</b>的對抗訓練，能夠學習捕捉真實<b class="chinese-term">影像</b>數據的複雜分佈，並生成具有高視覺保真度和逼真度的新<b class="chinese-term">影像</b>。許多令人驚嘆的 AI 生成<b class="chinese-term">影像</b>（如不存在的人臉、藝術畫作）都是基於 <span class="acronym-term">GAN</span> 或其變體技術產生的。<br/>
+                     近年來，<b class="chinese-term">擴散模型</b> (<span class="english-term">Diffusion Models</span>) 在<b class="chinese-term">影像生成</b>品質上取得了超越 <span class="acronym-term">GAN</span> 的成果，但 <span class="acronym-term">GAN</span> 仍然是該領域非常重要和常用的模型。<br/>
+                     (B) <span class="acronym-term">CNN</span> 主要用於分析<b class="chinese-term">影像</b>。(C) <span class="acronym-term">RNN</span> 主要用於序列數據。(D) <span class="acronym-term">SVM</span> 主要用於<b class="chinese-term">分類</b>。</div>
+                   </div>
+               </div>
+
+            <!-- Question 50 -->
+               <div class="question-card" data-direction="9" data-stars="3">
+                   <div class="question-header">
+                       <div class="question-id">#50</div>
+                       <div class="question-frequency">★★★</div>
+                   </div>
+                   <div class="question-content">在<b class="chinese-term">生成式 AI</b> 的應用中，以下哪一種模型通常用於<b class="chinese-term">生成自然語言文 本</b>，特別是在創建連貫且有意義的句子方面？</div>
+                   <div class="options-container">
+                       <div class="option-item " data-option="A"><div class="option-label">A</div><div class="option-text"><b class="chinese-term">生成對抗網路</b>（ <span class="acronym-term">GAN</span>） ，主要用於<b class="chinese-term">生成影像</b></div></div>
+                       <div class="option-item " data-option="B"><div class="option-label">B</div><div class="option-text"><b class="chinese-term">卷積神經網路</b>（ <span class="acronym-term">CNN</span>） ，主要用於<b class="chinese-term">影像處理</b></div></div>
+                       <div class="option-item " data-option="C"><div class="option-label">C</div><div class="option-text"><b class="chinese-term">循環神經網路</b>（ <span class="acronym-term">RNN</span>） ，特別是<b class="chinese-term">長短期記憶網路</b>（ <span class="acronym-term">LSTM</span>）</div></div>
+                       <div class="option-item correct" data-option="D"><div class="option-label">D</div><div class="option-text"><b class="chinese-term">變換器模型</b>（ <span class="english-term">Transformer</span> ），  如 <span class="acronym-term">GPT</span>，用於<b class="chinese-term">生成自然語言文本</b></div></div>
+                   </div>
+                   <div class="explanation-container">
+                       <div class="explanation-header">答案解析</div>
+                       <div class="explanation-content"><b class="chinese-term">自然語言文本生成</b> (<span class="english-term">Natural Language Text Generation</span>) 是<b class="chinese-term">生成式 AI</b> 的一個核心應用領域。<br/>
+                     (D) <b class="chinese-term">變換器模型</b> (<span class="english-term">Transformer Model</span>)，由 <span class="english-term">Google</span> 在 2017 年提出，以其<b class="chinese-term">自注意力機制</b> (<span class="english-term">Self-Attention Mechanism</span>) 徹底改變了<b class="chinese-term">自然語言處理</b> (<span class="acronym-term">NLP</span>) 領域。基於 <span class="english-term">Transformer</span> 架構的<b class="chinese-term">預訓練語言模型</b>，特別是其<b class="chinese-term">解碼器</b>部分（如 <span class="acronym-term">GPT</span> 系列），在<b class="chinese-term">文本生成</b>任務上表現極其出色，能夠生成高品質、連貫且符合上下文的文本。<br/>
+                     (A) <span class="acronym-term">GAN</span> 主要用於<b class="chinese-term">影像生成</b>。(B) <span class="acronym-term">CNN</span> 主要用於<b class="chinese-term">影像分析</b>。(C) <span class="acronym-term">RNN</span>/<span class="acronym-term">LSTM</span> 雖然也能生成文本，但在捕捉長距離依賴和生成品質方面通常不如 <span class="english-term">Transformer</span> 模型。因此，<span class="english-term">Transformer</span> 模型（如 <span class="acronym-term">GPT</span>）是當前<b class="chinese-term">文本生成</b>的主流和最先進的模型。</div>
+                   </div>
+               </div>
+
+
+            <!-- Message area for no results -->
+            <div id="noResultsMessage"></div>
+
+        </div> <!-- End questions-container -->
+
+        <a href="#" class="back-to-top" id="backToTop">↑</a> <!-- Changed to anchor -->
+    </div> <!-- End container -->
+
+    <script>
+        let explanationsVisible = false; // Start with explanations hidden
+        let answersVisible = true; // Track if answers are currently shown
+
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() {
+            updateProgressBar();
+            toggleBackToTopButton();
+        };
+
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                 let scrolled = (winScroll / height) * 100;
+                 progressBar.style.width = scrolled + "%";
+            } else {
+                 progressBar.style.width = "0%";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        function toggleBackToTopButton() {
+             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // Smooth scroll for back-to-top
+        backToTopButton.addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Filter by direction (called from dropdown)
+        function filterByDirection(directionNumber) {
+            // This function is kept for potential future use if visual filters are re-added
+            // Currently, filtering is handled directly by the dropdown event listener
+            document.getElementById('directionFilter').value = directionNumber === 'all' ? 'all' : String(directionNumber);
+            document.getElementById('searchInput').value = ''; // Clear search when applying direction filter
+            document.getElementById('starFilter').value = 'all'; // Reset star filter
+            filterAndSearchQuestions();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("directionFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+            document.getElementById('searchInput').value = ''; // Clear search on filter change
+            filterAndSearchQuestions();
+        });
+        document.getElementById("searchButton").addEventListener("click", filterAndSearchQuestions);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            // Filter as user types
+            filterAndSearchQuestions();
+        });
+
+        // Combined filter and search function
+        function filterAndSearchQuestions() {
+            let direction = document.getElementById("directionFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let questions = document.querySelectorAll(".question-card");
+            let anyVisible = false; // Track if any questions match
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            questions.forEach(function(question) {
+                const matchesDirection = (direction === "all" || question.dataset.direction === direction);
+                const matchesStars = (stars === "all" || question.dataset.stars === stars);
+                // Search in question content, options, and explanation
+                const questionTextElement = question.querySelector('.question-content');
+                const optionsText = Array.from(question.querySelectorAll('.option-text')).map(el => el.textContent.toLowerCase()).join(' ');
+                const explanationContainer = question.querySelector('.explanation-container');
+                const explanationText = explanationContainer ? explanationContainer.textContent.toLowerCase() : '';
+
+                let combinedText = '';
+                if (questionTextElement) combinedText += questionTextElement.textContent.toLowerCase();
+                combinedText += ' ' + optionsText;
+                combinedText += ' ' + explanationText; // Include explanation in search
+
+                const matchesSearch = (searchText === "" || combinedText.includes(searchText));
+
+                // Question must match all active criteria
+                if (matchesDirection && matchesStars && matchesSearch) {
+                    question.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    question.style.display = "none";
+                }
+            });
+
+             // Display message if no questions match
+             if (noResultsMessage) {
+                 if (anyVisible) {
+                    noResultsMessage.style.display = 'none';
+                 } else {
+                    noResultsMessage.style.display = 'block';
+                    noResultsMessage.textContent = '沒有找到符合條件的題目。請嘗試調整篩選條件或搜尋關鍵字。';
+                 }
+             }
+             // After filtering, update the state of the global explanations toggle button
+             updateGlobalToggleState();
+        }
+
+        // Toggle ALL explanations visibility
+        document.getElementById("toggleExplanations").addEventListener("click", function() {
+            let explanations = document.querySelectorAll(".explanation-container");
+            explanationsVisible = !explanationsVisible;
+            let button = document.getElementById("toggleExplanations");
+            explanations.forEach(function(explanation) {
+                const questionCard = explanation.closest('.question-card');
+                if (questionCard && questionCard.style.display !== 'none') {
+                    explanation.style.display = explanationsVisible ? "block" : "none";
+                }
+            });
+            button.textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+        });
+
+        // Toggle ALL answers visibility
+        document.getElementById("toggleAnswers").addEventListener("click", function() {
+            answersVisible = !answersVisible;
+            let button = document.getElementById("toggleAnswers");
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            if (!answersVisible) {
+                allOptions.forEach(function(opt){
+                    opt.classList.remove('correct');
+                });
+                button.textContent = "顯示全部答案";
+            } else {
+                allOptions.forEach(function(opt){
+                    if (opt.dataset.originalCorrect === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+                button.textContent = "隱藏全部答案";
+            }
+        });
+
+        // On page load, mark which options are originally correct
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let allOptions = document.querySelectorAll('.option-item[data-option]');
+            allOptions.forEach(function(opt) {
+                if (opt.classList.contains('correct')) {
+                    opt.dataset.originalCorrect = 'true';
+                } else {
+                    opt.dataset.originalCorrect = 'false';
+                }
+            });
+        });
+
+         // Toggle INDIVIDUAL explanation visibility on clicking the QUESTION CONTENT
+         let questionContents = document.querySelectorAll(".question-content");
+         questionContents.forEach(function(content) {
+            content.addEventListener("click", function() {
+                const questionCard = this.closest('.question-card');
+                if (!questionCard) return;
+                const explanation = questionCard.querySelector('.explanation-container');
+                if (explanation) {
+                    // Toggle individual explanation display
+                    explanation.style.display = (explanation.style.display === 'none' || explanation.style.display === '') ? 'block' : 'none';
+                    // Update global toggle button state if necessary
+                    updateGlobalToggleState();
+                }
+            });
+         });
+
+         // Function to update the global toggle button based on individual states
+         function updateGlobalToggleState() {
+            const allVisibleExplanations = document.querySelectorAll('.question-card:not([style*="display: none"]) .explanation-container');
+            let allCurrentlyVisible = allVisibleExplanations.length > 0; // Assume visible if there are visible cards with explanations
+            allVisibleExplanations.forEach(exp => {
+                if (exp.style.display === 'none' || exp.style.display === '') {
+                    allCurrentlyVisible = false;
+                }
+            });
+            explanationsVisible = allCurrentlyVisible; // Update the global state tracker
+            document.getElementById("toggleExplanations").textContent = explanationsVisible ? "隱藏全部解析" : "顯示全部解析";
+         }
+
+
+         // Initial setup
+         document.addEventListener('DOMContentLoaded', (event) => {
+             toggleBackToTopButton();
+             updateProgressBar();
+             filterAndSearchQuestions(); // Apply initial filter/search state
+             // Set initial state for toggle button text based on the initial value of explanationsVisible
+             // Ensure explanations start hidden or visible based on initial state
+             let initialExplanations = document.querySelectorAll(".explanation-container");
+             initialExplanations.forEach(function(explanation) {
+                explanation.style.display = explanationsVisible ? "block" : "none";
+             });
+             updateGlobalToggleState(); // Update button state after initial setup
+         });
+
+    </script>
+</body>
+</html>

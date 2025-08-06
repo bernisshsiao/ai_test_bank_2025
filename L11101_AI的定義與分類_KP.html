@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 L11101 AI的定義與分類</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        /* Chinese proper nouns: Blue, Bold */
+        .chinese-proper-noun {
+            color: #0000FF; /* Blue */
+            font-weight: bold;
+        }
+        /* English abbreviations: Purple, Bold */
+        .english-abbr {
+            color: purple;
+            font-weight: bold;
+        }
+        /* English full names/concepts: Red, Bold */
+        .english-fullname {
+            color: red;
+            font-weight: bold;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+        /* Keyword highlighting */
+        .highlight {
+            background-color: #ffff0030; /* Light yellow background */
+            padding: 0.1em 0.2em;
+            border-radius: 3px;
+        }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+         /* Make sure span formatting doesn't add extra lines */
+         .chinese-proper-noun, .english-abbr, .english-fullname, .highlight {
+             display: inline; /* Prevent block behavior */
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 考試重點</h1>
+            <div>L11101 AI的定義與分類</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">人工智慧基礎概念與演進</option>
+                    <option value="2">資料基本概念與分析</option>
+                    <option value="3">機器學習基本原理</option>
+                    <option value="4">鑑別式與生成式AI原理與應用</option>
+                    <option value="5">No Code/Low Code 基本概念</option>
+                    <option value="6">生成式AI應用領域與工具</option>
+                    <option value="7">生成式AI導入評估與規劃</option>
+                    <!-- Max 8 categories -->
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">人工智慧基礎概念與演進</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">資料基本概念與分析</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">機器學習基本原理</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">鑑別式與生成式AI原理與應用</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">No Code/Low Code 基本概念</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">生成式AI應用領域與工具</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">生成式AI導入評估與規劃</div>
+                </div>
+                <!-- Max 8 -->
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Category 1: 人工智慧基礎概念與演進 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic"><span class="chinese-proper-noun">人工智慧</span> (<span class="english-abbr">AI</span>) 的定義與範疇</div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        瞭解<span class="chinese-proper-noun">人工智慧</span>的<span class="highlight">基本定義、核心目標與發展演進</span>。 知道<span class="english-abbr">AI</span>技術涵蓋的<span class="highlight">主要領域</span>，如<span class="chinese-proper-noun">機器學習</span>、<span class="chinese-proper-noun">深度學習</span>、<span class="chinese-proper-noun">自然語言處理</span>、<span class="chinese-proper-noun">電腦視覺</span>等。
+                        對應能力：K01, K09
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic"><span class="chinese-proper-noun">AI 治理</span>與<span class="chinese-proper-noun">倫理概念</span></div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        理解<span class="english-abbr">AI</span>技術在<span class="highlight">隱私、安全性與倫理層面可能面臨的挑戰</span>。 瞭解<span class="chinese-proper-noun">AI 治理</span> (<span class="english-fullname">AI Governance</span>) 的重要性，包含<span class="highlight">倫理原則、偏見防範、透明度、可解釋性</span>等議題。
+                        對應能力：K10, K12, K13, S02, S03
+                    </div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="3">
+                 <div class="focus-header">
+                     <div class="focus-id">#3</div>
+                     <div class="focus-importance">★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic"><span class="english-abbr">AI</span> 技術發展趨勢</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         掌握<span class="english-abbr">AI</span>技術的<span class="highlight">最新發展與未來趨勢</span>，瞭解其對不同產業的潛在影響。
+                         對應能力：P1.1.1, P4.2.1, K01, K02, S01, S02
+                     </div>
+                 </div>
+            </div>
+
+             <!-- Category 2: 資料基本概念與分析 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#4</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">資料基本概念 (定義與分類)</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         理解<span class="highlight">資料的定義、來源、類型</span>（如<span class="chinese-proper-noun">結構化</span>、<span class="chinese-proper-noun">非結構化</span>）與<span class="highlight">特性</span>（如<span class="chinese-proper-noun">大量性</span>、<span class="chinese-proper-noun">高速性</span>、<span class="chinese-proper-noun">多樣性</span> - <span class="english-fullname">Volume, Velocity, Variety</span>）。
+                         對應能力：K04, K11
+                     </div>
+                 </div>
+             </div>
+            <div class="focus-card" data-category="2" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#5</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">資料處理的基本方法</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         瞭解資料處理流程，包括<span class="highlight">資料收集、清洗、轉換、整合</span>等基本步驟與常用技術。
+                         對應能力：K11, S08
+                     </div>
+                 </div>
+             </div>
+            <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header">
+                     <div class="focus-id">#6</div>
+                     <div class="focus-importance">★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">資料分析流程與統計方法</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         掌握<span class="highlight">描述性統計</span>、<span class="highlight">探索性資料分析</span> (<span class="english-abbr">EDA</span>) 的基本概念與流程。 瞭解常用<span class="highlight">統計方法</span>（如平均數、中位數、標準差）及其應用。
+                         對應能力：K03, K11, S08
+                     </div>
+                 </div>
+             </div>
+            <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header">
+                     <div class="focus-id">#7</div>
+                     <div class="focus-importance">★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">資料分析工具簡介與應用案例</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         認識常用資料分析工具（如 <span class="english-fullname">Excel</span>, <span class="english-fullname">Python</span> 函式庫 <span class="english-fullname">Pandas</span>, <span class="english-fullname">Tableau</span> 等）及其<span class="highlight">基本功能與應用場景</span>。 理解<span class="chinese-proper-noun">資料視覺化</span> (<span class="english-fullname">Data Visualization</span>) 的重要性。
+                         對應能力：K11, S09, S10
+                     </div>
+                 </div>
+             </div>
+             <div class="focus-card" data-category="2" data-stars="4">
+                  <div class="focus-header">
+                      <div class="focus-id">#8</div>
+                      <div class="focus-importance">★★★★</div>
+                  </div>
+                  <div class="focus-topic-container">
+                      <div class="focus-topic">資料隱私與安全</div>
+                  </div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">
+                          瞭解<span class="highlight">個人資料保護法</span> (<span class="chinese-proper-noun">個資法</span>) 的基本要求，以及在資料處理過程中<span class="highlight">保護資料隱私與安全</span>的重要性與常用方法（如<span class="chinese-proper-noun">去識別化</span>）。
+                          對應能力：K12, K13
+                      </div>
+                  </div>
+             </div>
+              <div class="focus-card" data-category="2" data-stars="3">
+                   <div class="focus-header">
+                       <div class="focus-id">#9</div>
+                       <div class="focus-importance">★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic">資料在 <span class="english-abbr">AI</span> 模型中的角色與作用</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           理解<span class="highlight">資料品質對 AI 模型訓練的重要性</span>，以及資料在<span class="highlight">特徵工程</span> (<span class="english-fullname">Feature Engineering</span>) 中的應用。
+                           對應能力：K04, K05, K11
+                       </div>
+                   </div>
+              </div>
+
+              <!-- Category 3: 機器學習基本原理 -->
+             <div class="focus-card" data-category="3" data-stars="5">
+                  <div class="focus-header">
+                      <div class="focus-id">#10</div>
+                      <div class="focus-importance">★★★★★</div>
+                  </div>
+                  <div class="focus-topic-container">
+                      <div class="focus-topic"><span class="chinese-proper-noun">機器學習</span> (<span class="english-abbr">ML</span>) 基本原理與架構</div>
+                  </div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">
+                          瞭解<span class="chinese-proper-noun">機器學習</span>的<span class="highlight">定義、核心概念</span>（如<span class="chinese-proper-noun">訓練資料</span>、<span class="chinese-proper-noun">模型</span>、<span class="chinese-proper-noun">預測</span>）與<span class="highlight">基本架構</span>。
+                          對應能力：K01, K05
+                      </div>
+                  </div>
+             </div>
+             <div class="focus-card" data-category="3" data-stars="5">
+                  <div class="focus-header">
+                      <div class="focus-id">#11</div>
+                      <div class="focus-importance">★★★★★</div>
+                  </div>
+                  <div class="focus-topic-container">
+                      <div class="focus-topic"><span class="chinese-proper-noun">機器學習</span>類型與常見模型</div>
+                  </div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">
+                          區分<span class="highlight">監督式學習</span> (<span class="english-fullname">Supervised Learning</span>)、<span class="highlight">非監督式學習</span> (<span class="english-fullname">Unsupervised Learning</span>)、<span class="highlight">強化學習</span> (<span class="english-fullname">Reinforcement Learning</span>) 等主要類型。 認識常見模型如<span class="chinese-proper-noun">線性迴歸</span>、<span class="chinese-proper-noun">邏輯迴歸</span>、<span class="chinese-proper-noun">決策樹</span>、<span class="chinese-proper-noun">K-means</span> 等及其適用場景。
+                          對應能力：K05, L11302
+                      </div>
+                  </div>
+             </div>
+             <div class="focus-card" data-category="3" data-stars="4">
+                  <div class="focus-header">
+                      <div class="focus-id">#12</div>
+                      <div class="focus-importance">★★★★</div>
+                  </div>
+                  <div class="focus-topic-container">
+                      <div class="focus-topic">資料處理及模型訓練與評估</div>
+                  </div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">
+                          瞭解<span class="highlight">模型訓練</span> (<span class="english-fullname">Training</span>)、<span class="highlight">驗證</span> (<span class="english-fullname">Validation</span>) 與<span class="highlight">測試</span> (<span class="english-fullname">Testing</span>) 的基本流程。 認識常見的<span class="highlight">模型評估指標</span>（如<span class="chinese-proper-noun">準確率</span> <span class="english-abbr">Accuracy</span>、<span class="chinese-proper-noun">精確率</span> <span class="english-abbr">Precision</span>、<span class="chinese-proper-noun">召回率</span> <span class="english-abbr">Recall</span>、<span class="chinese-proper-noun">F1-Score</span>）。 理解<span class="highlight">過度擬合</span> (<span class="english-fullname">Overfitting</span>) 與<span class="highlight">不足擬合</span> (<span class="english-fullname">Underfitting</span>) 的概念。
+                          對應能力：K05, K11, S03, S08, S10
+                      </div>
+                  </div>
+             </div>
+             <div class="focus-card" data-category="3" data-stars="3">
+                 <div class="focus-header">
+                     <div class="focus-id">#13</div>
+                     <div class="focus-importance">★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic"><span class="chinese-proper-noun">機器學習</span>應用案例</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         透過實際案例了解<span class="chinese-proper-noun">機器學習</span>在<span class="highlight">不同領域</span>（如金融、醫療、零售）的應用。
+                         對應能力：K02, K05, S01, S10
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Category 4: 鑑別式與生成式AI原理與應用 -->
+             <div class="focus-card" data-category="4" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#14</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic"><span class="chinese-proper-noun">鑑別式AI</span> (<span class="english-fullname">Discriminative AI</span>) 與<span class="chinese-proper-noun">生成式AI</span> (<span class="english-fullname">Generative AI</span>) 的基本原理與比較</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         理解<span class="chinese-proper-noun">鑑別式AI</span>（<span class="highlight">學習決策邊界</span>，如分類）與<span class="chinese-proper-noun">生成式AI</span>（<span class="highlight">學習資料分佈</span>，以生成新資料）的<span class="highlight">核心差異、優缺點及適用場景</span>。
+                         對應能力：K09, L11401
+                     </div>
+                 </div>
+             </div>
+             <div class="focus-card" data-category="4" data-stars="4">
+                  <div class="focus-header">
+                      <div class="focus-id">#15</div>
+                      <div class="focus-importance">★★★★</div>
+                  </div>
+                  <div class="focus-topic-container">
+                      <div class="focus-topic"><span class="chinese-proper-noun">鑑別式AI</span> 與<span class="chinese-proper-noun">生成式AI</span> 的基本核心技術介紹</div>
+                  </div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">
+                          簡介<span class="highlight">鑑別式模型</span>（如 <span class="english-abbr">SVM</span>, <span class="chinese-proper-noun">邏輯迴歸</span>）與<span class="highlight">生成式模型</span>（如 <span class="english-abbr">GAN</span>, <span class="english-abbr">VAE</span>, <span class="chinese-proper-noun">Transformer</span>）的<span class="highlight">基本概念</span>。
+                          對應能力：K05, K09
+                      </div>
+                  </div>
+             </div>
+              <div class="focus-card" data-category="4" data-stars="4">
+                   <div class="focus-header">
+                       <div class="focus-id">#16</div>
+                       <div class="focus-importance">★★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic"><span class="chinese-proper-noun">鑑別式AI</span> 與<span class="chinese-proper-noun">生成式AI</span> 的整合應用案例分享</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           瞭解兩種<span class="english-abbr">AI</span>模型如何<span class="highlight">結合應用</span>以解決更複雜的問題，例如在<span class="highlight">影像生成與辨識</span>、<span class="highlight">自然語言處理</span>等領域。
+                           對應能力：K09, L11402, S10, S15
+                       </div>
+                   </div>
+              </div>
+               <div class="focus-card" data-category="4" data-stars="3">
+                    <div class="focus-header">
+                        <div class="focus-id">#17</div>
+                        <div class="focus-importance">★★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 的倫理與風險</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            探討<span class="chinese-proper-noun">生成式 AI</span> 可能帶來的<span class="highlight">倫理挑戰</span>（如<span class="chinese-proper-noun">深度偽造 Deepfake</span>、<span class="chinese-proper-noun">版權問題</span>）與<span class="highlight">相關風險</span>。
+                            對應能力：K10, K12, K15
+                        </div>
+                    </div>
+               </div>
+
+             <!-- Category 5: No Code / Low Code 基本概念 -->
+             <div class="focus-card" data-category="5" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#18</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic"><span class="english-fullname">No Code</span> / <span class="english-fullname">Low Code</span> 平台的基本概念與比較</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         理解 <span class="english-fullname">No Code</span>（<span class="highlight">無需編程</span>）與 <span class="english-fullname">Low Code</span>（<span class="highlight">少量編程</span>）平台的定義、<span class="highlight">核心差異、目標用戶與適用場景</span>。
+                         對應能力：L12101
+                     </div>
+                 </div>
+             </div>
+             <div class="focus-card" data-category="5" data-stars="4">
+                 <div class="focus-header">
+                     <div class="focus-id">#19</div>
+                     <div class="focus-importance">★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic"><span class="english-fullname">No Code</span> / <span class="english-fullname">Low Code</span> 平台在<span class="chinese-proper-noun">生成式 AI</span> 應用中的功用與優勢</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         瞭解這些平台如何<span class="highlight">簡化 AI 應用開發流程</span>，<span class="highlight">降低技術門檻</span>，使非專業開發者也能快速建構和部署 <span class="english-abbr">AI</span> 應用（如聊天機器人、自動化流程）。
+                         對應能力：L12102, S10
+                     </div>
+                 </div>
+             </div>
+              <div class="focus-card" data-category="5" data-stars="3">
+                  <div class="focus-header">
+                      <div class="focus-id">#20</div>
+                      <div class="focus-importance">★★★</div>
+                  </div>
+                  <div class="focus-topic-container">
+                      <div class="focus-topic">選擇與評估 <span class="english-fullname">No Code</span> / <span class="english-fullname">Low Code</span> 平台</div>
+                  </div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">
+                          掌握<span class="highlight">選擇合適平台</span>的考量因素，如<span class="highlight">功能性、易用性、擴展性、成本、安全性</span>及社群支援。
+                          對應能力：S03, S04, S10
+                      </div>
+                  </div>
+              </div>
+              <div class="focus-card" data-category="5" data-stars="4">
+                   <div class="focus-header">
+                       <div class="focus-id">#21</div>
+                       <div class="focus-importance">★★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic">使用 <span class="english-fullname">No Code</span> / <span class="english-fullname">Low Code</span> 工具進行 <span class="english-abbr">AI</span> 解決方案設計與測試</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           瞭解如何利用平台的<span class="highlight">視覺化介面和預建構模組</span>來設計、建構和測試 <span class="english-abbr">AI</span> 應用，<span class="highlight">無需或少量編寫程式碼</span>。
+                           對應能力：P1.3.2, S10, S15
+                       </div>
+                   </div>
+              </div>
+
+             <!-- Category 6: 生成式AI應用領域與工具 -->
+             <div class="focus-card" data-category="6" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#22</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 基本概念與核心技術</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         再次強調<span class="chinese-proper-noun">生成式 AI</span> 的定義，並深入介紹其<span class="highlight">核心技術</span>，如<span class="chinese-proper-noun">大型語言模型</span> (<span class="english-abbr">LLM</span>)、<span class="chinese-proper-noun">生成對抗網路</span> (<span class="english-abbr">GAN</span>) 等。
+                         對應能力：K09
+                     </div>
+                 </div>
+             </div>
+             <div class="focus-card" data-category="6" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#23</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">常見<span class="chinese-proper-noun">生成式 AI</span> 工具介紹與基本操作</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         介紹市面上常見的<span class="chinese-proper-noun">生成式 AI</span> 工具（如 <span class="english-fullname">ChatGPT</span>, <span class="english-fullname">Midjourney</span>, <span class="english-fullname">Copilot</span> 等），並示範其<span class="highlight">基本操作方式</span>與<span class="highlight">應用技巧</span>（如<span class="chinese-proper-noun">提示工程 Prompt Engineering</span>）。
+                         對應能力：L12201, L12202, S10
+                     </div>
+                 </div>
+             </div>
+              <div class="focus-card" data-category="6" data-stars="4">
+                   <div class="focus-header">
+                       <div class="focus-id">#24</div>
+                       <div class="focus-importance">★★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 在各領域的應用發展</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           探討<span class="chinese-proper-noun">生成式 AI</span> 在<span class="highlight">內容創作、程式碼生成、客戶服務、數據增強</span>等不同領域的實際應用案例與發展潛力。
+                           對應能力：K02, L12201, S02, S10
+                       </div>
+                   </div>
+              </div>
+               <div class="focus-card" data-category="6" data-stars="4">
+                    <div class="focus-header">
+                        <div class="focus-id">#25</div>
+                        <div class="focus-importance">★★★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 應用時面臨的挑戰與風險管理</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            討論在應用<span class="chinese-proper-noun">生成式 AI</span> 時可能遇到的<span class="highlight">挑戰</span>（如<span class="highlight">幻覺 Hallucination</span>、<span class="highlight">偏見</span>、<span class="highlight">資料安全</span>）以及相應的<span class="highlight">風險管理策略</span>。
+                            對應能力：K10, K12, K13, K15, P4.2.1, S03, S14
+                        </div>
+                    </div>
+               </div>
+
+              <!-- Category 7: 生成式AI導入評估與規劃 -->
+              <div class="focus-card" data-category="7" data-stars="5">
+                   <div class="focus-header">
+                       <div class="focus-id">#26</div>
+                       <div class="focus-importance">★★★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 的商業價值與應用前景</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           分析<span class="chinese-proper-noun">生成式 AI</span> 能為企業或組織帶來的<span class="highlight">潛在商業價值</span>（如<span class="highlight">提升效率、降低成本、創造新服務</span>），評估其應用前景。
+                           對應能力：K03, K07, S02, S14
+                       </div>
+                   </div>
+              </div>
+               <div class="focus-card" data-category="7" data-stars="5">
+                    <div class="focus-header">
+                        <div class="focus-id">#27</div>
+                        <div class="focus-importance">★★★★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 導入評估框架與標準</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            介紹評估是否導入<span class="chinese-proper-noun">生成式 AI</span> 的<span class="highlight">框架</span>，包含<span class="highlight">需求分析、可行性評估、效益評估、風險評估</span>等面向的考量標準。
+                            對應能力：L12301, S03, S04, S11, S14
+                        </div>
+                    </div>
+               </div>
+               <div class="focus-card" data-category="7" data-stars="5">
+                    <div class="focus-header">
+                        <div class="focus-id">#28</div>
+                        <div class="focus-importance">★★★★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 導入的規劃流程</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            掌握導入<span class="chinese-proper-noun">生成式 AI</span> 的<span class="highlight">初步規劃步驟</span>，包括<span class="highlight">定義目標、確認需求、選擇工具/技術、規劃資源（人力、預算）、設定時程、試用測試</span>等。
+                            對應能力：L12302, P1.2.1, P1.3.1, P2.1.1, K08, S04, S05, S06, S07
+                        </div>
+                    </div>
+               </div>
+               <div class="focus-card" data-category="7" data-stars="4">
+                    <div class="focus-header">
+                        <div class="focus-id">#29</div>
+                        <div class="focus-importance">★★★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 導入實施與運營</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            瞭解<span class="english-abbr">AI</span>導入後的<span class="highlight">實施、整合、監控與維護</span>流程，確保系統<span class="highlight">穩定運行並持續優化</span>。
+                            對應能力：P1.3.2, P3.2.1, K08, K19, S07, S10, S14
+                        </div>
+                    </div>
+               </div>
+                <div class="focus-card" data-category="7" data-stars="5">
+                     <div class="focus-header">
+                         <div class="focus-id">#30</div>
+                         <div class="focus-importance">★★★★★</div>
+                     </div>
+                     <div class="focus-topic-container">
+                         <div class="focus-topic"><span class="chinese-proper-noun">生成式 AI</span> 風險管理</div>
+                     </div>
+                     <div class="focus-details-container">
+                         <div class="details-header">核心概念</div>
+                         <div class="details-content">
+                             識別、評估與管理導入<span class="chinese-proper-noun">生成式 AI</span> 過程中可能遇到的<span class="highlight">各類風險</span>（如<span class="highlight">技術風險、資料風險、倫理風險、法律合規風險</span>），並制定應對策略。
+                             對應能力：L12303, K10, K12, K13, K15, K20, P1.3.1, S03, S05, S07, S11, S13, S20
+                         </div>
+                     </div>
+                 </div>
+             <!-- Add more focus-card elements here for other key concepts -->
+             <!-- ... up to 60 points total for this file -->
+
+             <div class="focus-card" data-category="1" data-stars="2">
+                 <div class="focus-header">
+                     <div class="focus-id">#31</div>
+                     <div class="focus-importance">★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">早期 <span class="english-abbr">AI</span> 的發展歷史</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         簡略了解<span class="english-abbr">AI</span>從早期<span class="highlight">符號主義</span>到<span class="highlight">連接主義</span>的發展歷程，認識重要里程碑（如<span class="english-fullname">Dartmouth Workshop</span>）。
+                         對應能力：K01
+                     </div>
+                 </div>
+             </div>
+             <div class="focus-card" data-category="2" data-stars="3">
+                 <div class="focus-header">
+                     <div class="focus-id">#32</div>
+                     <div class="focus-importance">★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">資料倉儲 (<span class="english-fullname">Data Warehouse</span>) 與資料湖 (<span class="english-fullname">Data Lake</span>) 的概念</div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         理解<span class="highlight">資料倉儲</span>（儲存結構化資料用於分析）與<span class="highlight">資料湖</span>（儲存原始、多樣化資料）的<span class="highlight">區別與用途</span>。
+                         對應能力：K04, K11
+                     </div>
+                 </div>
+             </div>
+              <div class="focus-card" data-category="3" data-stars="4">
+                   <div class="focus-header">
+                       <div class="focus-id">#33</div>
+                       <div class="focus-importance">★★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic">交叉驗證 (<span class="english-fullname">Cross-Validation</span>)</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           瞭解<span class="highlight">交叉驗證</span>是一種常用的<span class="highlight">模型評估技術</span>，用以<span class="highlight">更可靠地評估模型</span>在<span class="highlight">未見數據上的表現</span>，並減少因<span class="highlight">單次數據劃分</span>帶來的<span class="highlight">隨機性</span>。常見方法如 <span class="english-fullname">K-fold Cross-Validation</span>。
+                           對應能力：K05, S03, S11
+                       </div>
+                   </div>
+              </div>
+              <div class="focus-card" data-category="4" data-stars="3">
+                   <div class="focus-header">
+                       <div class="focus-id">#34</div>
+                       <div class="focus-importance">★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic">大型語言模型 (<span class="english-abbr">LLM</span>) 基礎</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           認識<span class="chinese-proper-noun">大型語言模型</span>是<span class="chinese-proper-noun">生成式 AI</span> 的核心技術之一，通常基於 <span class="chinese-proper-noun">Transformer</span> 架構，透過<span class="highlight">大規模文本資料預訓練</span>而成，能理解和生成<span class="highlight">自然語言</span>。
+                           對應能力：K09
+                       </div>
+                   </div>
+              </div>
+               <div class="focus-card" data-category="5" data-stars="2">
+                    <div class="focus-header">
+                        <div class="focus-id">#35</div>
+                        <div class="focus-importance">★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic">公民開發者 (<span class="english-fullname">Citizen Developer</span>)</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            瞭解<span class="highlight">公民開發者</span>是指<span class="highlight">非專業</span>的<span class="highlight">軟體開發人員</span>，他們利用 <span class="english-fullname">Low Code</span>/<span class="english-fullname">No Code</span> 平台來<span class="highlight">建立業務應用程式</span>。
+                            對應能力：L12101
+                        </div>
+                    </div>
+               </div>
+               <div class="focus-card" data-category="6" data-stars="4">
+                    <div class="focus-header">
+                        <div class="focus-id">#36</div>
+                        <div class="focus-importance">★★★★</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic">提示工程 (<span class="english-fullname">Prompt Engineering</span>)</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-header">核心概念</div>
+                        <div class="details-content">
+                            理解<span class="chinese-proper-noun">提示工程</span>是設計和<span class="highlight">優化輸入提示</span>(<span class="english-fullname">Prompt</span>)以引導<span class="chinese-proper-noun">大型語言模型</span>生成<span class="highlight">期望輸出</span>的過程。良好的提示能顯著提升<span class="highlight">生成內容的質量和相關性</span>。
+                            對應能力：L12202, S10
+                        </div>
+                    </div>
+               </div>
+               <div class="focus-card" data-category="7" data-stars="4">
+                   <div class="focus-header">
+                       <div class="focus-id">#37</div>
+                       <div class="focus-importance">★★★★</div>
+                   </div>
+                   <div class="focus-topic-container">
+                       <div class="focus-topic">成本效益分析 (<span class="english-fullname">Cost-Benefit Analysis</span>)</div>
+                   </div>
+                   <div class="focus-details-container">
+                       <div class="details-header">核心概念</div>
+                       <div class="details-content">
+                           在<span class="english-abbr">AI</span>導入評估中，<span class="highlight">成本效益分析</span>是評估項目<span class="highlight">潛在收益與所需成本</span>的方法，用以判斷項目是否<span class="highlight">值得投資</span>。
+                           對應能力：K03, K07, K08, S14, S20
+                       </div>
+                   </div>
+               </div>
+                <div class="focus-card" data-category="7" data-stars="3">
+                     <div class="focus-header">
+                         <div class="focus-id">#38</div>
+                         <div class="focus-importance">★★★</div>
+                     </div>
+                     <div class="focus-topic-container">
+                         <div class="focus-topic">人力資源管理 (<span class="english-fullname">HRM</span>) 考量</div>
+                     </div>
+                     <div class="focus-details-container">
+                         <div class="details-header">核心概念</div>
+                         <div class="details-content">
+                             導入 <span class="english-abbr">AI</span> 時需考量對<span class="highlight">人力資源</span>的影響，包括<span class="highlight">技能需求變化、員工培訓、工作流程調整、潛在的職位變動</span>等。
+                             對應能力：K20, S07
+                         </div>
+                     </div>
+                 </div>
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints();
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value; // Keep current category filter
+            let stars = document.getElementById("starFilter").value; // Keep current star filter
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints(); // Re-apply filters only
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

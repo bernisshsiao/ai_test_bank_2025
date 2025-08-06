@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS AI應用規劃師 考試重點整理 - L11102 AI治理概念</title>
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #1a5276, #21618c); /* Governance-themed gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section */
+        .categories-container {
+            background-color: #eaf2f8; /* Lighter blue for governance */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5499c7; /* Governance blue border */
+            border-radius: 5px;
+        }
+        .categories-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a5276;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6eaf8;
+        }
+        .category-item:hover {
+            background-color: #5499c7;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5499c7;
+        }
+        .category-number {
+            width: 30px;
+            height: 30px;
+            background-color: #5499c7;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5499c7;
+        }
+        .category-text {
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling */
+        .focus-points-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .focus-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(26, 82, 118, 0.1); /* Governance shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(26, 82, 118, 0.15);
+        }
+        .focus-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id {
+            font-weight: bold;
+            color: #5499c7; /* Governance blue ID */
+            font-size: 1rem;
+            background-color: #eaf2f8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container {
+             padding: 25px 25px 20px 25px;
+             border-bottom: 1px dashed #eee;
+        }
+
+        .focus-topic {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 1.4;
+            color: #1a5276; /* Governance dark blue */
+        }
+
+        /* Terminology Styling */
+        .chinese-proper-noun { color: #0000FF; font-weight: bold; display: inline; }
+        .english-abbr { color: purple; font-weight: bold; display: inline; }
+        .english-fullname { color: red; font-weight: bold; display: inline; }
+        .highlight { background-color: #ffff0030; padding: 0.1em 0.2em; border-radius: 3px; display: inline; }
+
+
+        /* Details Section Styling */
+        .focus-details-container {
+            padding: 20px 25px 25px 25px;
+        }
+        .details-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #21618c; /* Governance mid blue */
+            font-size: 1.2rem;
+        }
+        .details-content {
+            line-height: 1.75;
+            color: #444;
+            font-size: 1.05rem;
+        }
+        .details-content ul {
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px;
+         }
+
+        /* Controls Styling */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5499c7; /* Governance blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #2980b9; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; }
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5499c7; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #2980b9; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #eaf2f8; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5499c7, #a9cce3); /* Governance gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS AI應用規劃師 考試重點</h1>
+            <div>L11102 AI治理概念 (AI Governance Concepts)</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">治理與問責機制</option>
+                    <option value="2">倫理、公平性與偏見</option>
+                    <option value="3">風險管理與安全性</option>
+                    <option value="4">法規、標準與合規性</option>
+                    <option value="5">透明度與可解釋性</option>
+                    <option value="6">資料治理考量</option>
+                    <!-- Max 8 -->
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">治理與問責機制</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">倫理、公平性與偏見</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">風險管理與安全性</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">法規、標準與合規性</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">透明度與可解釋性</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">資料治理考量</div>
+                </div>
+                 <!-- Max 8 -->
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Category 1: 治理與問責機制 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI治理</span> (<span class="english-fullname">AI Governance</span>) 的定義與重要性</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">理解<span class="chinese-proper-noun">AI治理</span>是指<span class="highlight">建立一套框架、流程、政策和標準，以確保 AI 技術的開發、部署和使用符合組織的價值觀、倫理原則、法律法規和社會期望</span>。其重要性在於<span class="highlight">管理風險、建立信任、促進創新</span>。 (來源：金融指引、公部門手冊) (對應能力 K10)</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">建立<span class="chinese-proper-noun">治理</span>及<span class="chinese-proper-noun">問責機制</span> (<span class="english-fullname">Accountability</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content"><span class="highlight">金融機構/組織</span>應對其使用的 <span class="english-abbr">AI</span> 系統承擔相應的<span class="highlight">內部和外部責任</span>。需建立清晰的<span class="highlight">內部治理架構</span>，指定<span class="highlight">高階主管或委員會</span>負責監督，明確各部門<span class="highlight">角色與職責</span>，並確保<span class="highlight">決策過程和結果可追溯、可歸責</span>。 (來源：金融指引 核心原則一) (對應能力 K10)</div>
+                </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI 系統生命週期</span> (<span class="english-fullname">AI System Lifecycle</span>) 管理</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">治理應涵蓋 <span class="english-abbr">AI</span> 的<span class="highlight">完整生命週期</span>：<span class="highlight">規劃設計、資料蒐集、模型建立/驗證、部署監控</span>。需針對各階段建立<span class="highlight">管理規範和控制點</span>。 (來源：金融指引 總則、公部門手冊 2.1) (對應能力 K08, K10)</div>
+                 </div>
+            </div>
+            <div class="focus-card" data-category="1" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic">第三方<span class="english-abbr">AI</span>系統的治理</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">若使用<span class="highlight">第三方開發或營運</span>的 <span class="english-abbr">AI</span> 系統，組織仍需進行<span class="highlight">適當的風險管理和監督</span>，包括<span class="highlight">盡職調查、合約規範、監控供應商</span>表現等。 (來源：金融指引 總則、核心原則四) (對應能力 K10, K12)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="1" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic">人員知識與能力</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">確保組織內相關人員 (包括決策者、開發者、使用者) 對 <span class="english-abbr">AI</span> <span class="highlight">有足夠的知識和能力</span>，能理解其潛力與風險，並做出<span class="highlight">適當的決策與監督</span>。需提供<span class="highlight">持續的教育訓練</span>。 (來源：金融指引 核心原則一、公部門手冊 3.5) (對應能力 K10, K20)</div>
+                 </div>
+            </div>
+
+            <!-- Category 2: 倫理、公平性與偏見 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic">重視<span class="chinese-proper-noun">公平性</span> (<span class="english-fullname">Fairness</span>) 與避免<span class="chinese-proper-noun">偏見</span> (<span class="english-fullname">Bias</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">在使用 <span class="english-abbr">AI</span> 過程中，應<span class="highlight">儘可能避免演算法偏見</span>所造成的不公平。需<span class="highlight">識別</span>潛在的偏見來源（如<span class="highlight">資料、模型設計、人類判斷</span>），並採取措施<span class="highlight">減輕或消除歧視</span> (<span class="english-fullname">Discrimination</span>)。 (來源：金融指引 核心原則二、公部門手冊 4.2) (對應能力 K10, K12)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">以人為本</span> (<span class="english-fullname">Human-Centricity</span>) 的價值觀</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content"><span class="english-abbr">AI</span> 的運用應符合<span class="highlight">以人為本</span>及<span class="highlight">人類可控</span> (<span class="english-fullname">Human Controllability</span>) 的原則，<span class="highlight">尊重法治、民主價值、人類自主權與基本人權</span>。 (來源：金融指引 核心原則二) (對應能力 K10)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic">人類監督機制</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">根據 <span class="english-abbr">AI</span> 系統的風險程度，建立不同層級的<span class="highlight">人類監督機制</span>，例如：<span class="highlight">人在指揮</span> (<span class="english-fullname">Human-in-command</span>)、<span class="highlight">人在迴圈內</span> (<span class="english-fullname">Human-in-the-loop</span>, <span class="english-abbr">HITL</span>)、<span class="highlight">人在迴圈上</span> (<span class="english-fullname">Human-over-the-loop</span>, <span class="english-abbr">HOTL</span>)。確保在關鍵決策或異常情況下，人類能夠介入干預。 (來源：金融指引 Ch2、公部門手冊 4.2) (對應能力 K10)</div>
+                 </div>
+            </div>
+              <div class="focus-card" data-category="2" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#9</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">生成式AI</span>的倫理考量</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">針對<span class="chinese-proper-noun">生成式AI</span>，需特別關注其產出內容的<span class="highlight">真實性、偏見、潛在濫用</span>（如<span class="highlight">生成不實資訊</span>、<span class="highlight">侵犯版權</span>）等倫理問題，並由專業人員進行<span class="highlight">客觀管控</span>。 (來源：金融指引 核心原則二、公部門手冊 4.2) (對應能力 K09, K10, K12)</div>
+                  </div>
+             </div>
+
+            <!-- Category 3: 風險管理與安全性 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#10</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI 風險管理</span> (<span class="english-fullname">AI Risk Management</span>) 框架</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">建立全面且有效的<span class="chinese-proper-noun">AI 風險管理機制</span>，<span class="highlight">識別、評估、監控及減緩</span> <span class="english-abbr">AI</span> 在<span class="highlight">整個生命週期</span>中可能產生的各種風險，並將其<span class="highlight">整合至現有的風險管理流程</span>中。 (來源：金融指引 核心原則一、四) (對應能力 K12)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="3" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#11</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資訊安全</span> (<span class="english-fullname">Information Security / Cybersecurity</span>) 概念</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">理解<span class="chinese-proper-noun">資訊安全</span>的基本要素：<span class="highlight">機密性</span> (<span class="english-fullname">Confidentiality</span>)、<span class="highlight">完整性</span> (<span class="english-fullname">Integrity</span>)、<span class="highlight">可用性</span> (<span class="english-fullname">Availability</span>)。<span class="english-abbr">AI</span>系統的安全性包含<span class="highlight">防禦外部攻擊</span>（如<span class="highlight">對抗性攻擊</span> <span class="english-fullname">Adversarial Attacks</span>）、<span class="highlight">資料洩露</span>等威脅。 (來源：金融指引 核心原則四、公部門手冊 4.4) (對應能力 K13, K12)</div>
+                 </div>
+            </div>
+              <div class="focus-card" data-category="3" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#12</div><div class="focus-importance">★★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">系統<span class="chinese-proper-noun">穩健性</span> (<span class="english-fullname">Robustness</span>)</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content"><span class="english-abbr">AI</span>系統應具備<span class="highlight">穩健性</span>，能在<span class="highlight">預期操作條件及壓力情境下</span>（如<span class="highlight">異常輸入、環境變化</span>）<span class="highlight">可靠地運行</span>，並具備一定的<span class="highlight">容錯能力</span>。包含<span class="highlight">穩定性、準確性、可重製性</span>等概念。 (來源：金融指引 核心原則四) (對應能力 K12)</div>
+                  </div>
+             </div>
+             <div class="focus-card" data-category="3" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#13</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">模型風險管理</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">針對 <span class="english-abbr">AI</span> 模型進行<span class="highlight">生命週期管理</span>，包括<span class="highlight">開發前的概念審查、持續的驗證與測試、性能監控、定期審查與更新</span>，以管理模型<span class="highlight">失效或表現不佳</span>的風險。 (來源：金融指引 Ch1, Ch4) (對應能力 K05, K12, S07)</div>
+                  </div>
+             </div>
+
+            <!-- Category 4: 法規、標準與合規性 -->
+            <div class="focus-card" data-category="4" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#14</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">AI 相關法規與原則</span></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">認識國內外與 <span class="english-abbr">AI</span> 相關的<span class="highlight">重要法律規範</span>（如<span class="chinese-proper-noun">個資法</span>、<span class="chinese-proper-noun">資通安全管理法</span>）、<span class="highlight">行政指導</span>（如<span class="highlight">金融業AI指引</span>、<span class="highlight">公部門AI參考手冊</span>）及<span class="highlight">國際原則</span>（如 <span class="english-abbr">OECD AI</span> 原則、<span class="english-abbr">EU AI Act</span> 概念）。 (來源：金融指引、公部門手冊 1.6) (對應能力 K15, K12)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="4" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#15</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">合規性</span> (<span class="english-fullname">Compliance</span>) 要求</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">確保 <span class="english-abbr">AI</span> 系統的開發與應用<span class="highlight">符合所有適用的法律法規、行業標準和內部政策</span>。這涉及<span class="highlight">持續監控法規變化</span>並<span class="highlight">調整系統與流程</span>。 (來源：金融指引 核心原則一) (對應能力 K12, K15)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="4" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#16</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">國際 <span class="english-abbr">AI</span> 治理趨勢</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">了解主要國家和國際組織在 <span class="english-abbr">AI</span> <span class="highlight">治理和監管方面的最新動態與發展方向</span>，例如對<span class="highlight">高風險 AI 系統</span>的<span class="highlight">監管加強趨勢</span>。 (來源：金融指引 附錄) (對應能力 K15, S02)</div>
+                  </div>
+             </div>
+
+            <!-- Category 5: 透明度與可解釋性 -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#17</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">透明度</span> (<span class="english-fullname">Transparency</span>) 的概念</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content"><span class="chinese-proper-noun">透明度</span>是指<span class="highlight">對外提供</span>關於 <span class="english-abbr">AI</span> 系統的<span class="highlight">相關資訊</span>，使其<span class="highlight">如何運作、使用何種資料、可能影響</span>等對利害關係人是<span class="highlight">可見且可理解</span>的。 (來源：金融指引 核心原則五) (對應能力 K10)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="5" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#18</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">可解釋性</span> (<span class="english-fullname">Explainability / Interpretability</span>) 的概念</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content"><span class="chinese-proper-noun">可解釋性</span>是指能夠<span class="highlight">清楚說明</span> <span class="english-abbr">AI</span> 系統<span class="highlight">做出特定決策或預測的原因與邏輯</span>，特別是針對其<span class="highlight">內部運作機制</span>。 (來源：金融指引 核心原則五) (對應能力 K10)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="5" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#19</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">透明度與可解釋性的重要性</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">這兩者對於<span class="highlight">建立信任、確保公平、促進問責、偵錯與改善模型</span>至關重要，也是<span class="highlight">滿足監管要求</span>的基礎。 (來源：金融指引 核心原則五) (對應能力 K10, K15)</div>
+                  </div>
+             </div>
+             <div class="focus-card" data-category="5" data-stars="2">
+                  <div class="focus-header"><div class="focus-id">#20</div><div class="focus-importance">★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">實現透明度與可解釋性的方法 (概念層級)</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">了解有不同方法可以提高 <span class="english-abbr">AI</span> 的<span class="highlight">透明度和可解釋性</span>，例如<span class="highlight">選擇本質上較易解釋的模型</span>、使用<span class="highlight">事後解釋技術</span>、提供<span class="highlight">清晰的文件說明和使用者介面</span>等。 (來源：金融指引 Ch5) (對應能力 K10)</div>
+                  </div>
+             </div>
+
+            <!-- Category 6: 資料治理考量 -->
+            <div class="focus-card" data-category="6" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#21</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料治理</span> (<span class="english-fullname">Data Governance</span>) 與 <span class="english-abbr">AI</span> 治理的關係</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">良好的<span class="chinese-proper-noun">資料治理</span>是<span class="chinese-proper-noun">AI治理</span>的<span class="highlight">基礎</span>。<span class="highlight">資料的品質、來源、隱私、安全和使用方式</span>直接影響 <span class="english-abbr">AI</span> 系統的<span class="highlight">表現、公平性和合規性</span>。 (對應能力 K04, K10, K11, K13)</div>
+                </div>
+            </div>
+             <div class="focus-card" data-category="6" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#22</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料品質</span> (<span class="english-fullname">Data Quality</span>) 的重要性</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content"><span class="highlight">高品質的資料</span>（<span class="highlight">準確、完整、一致、及時</span>）是訓練<span class="highlight">可靠且有效</span> <span class="english-abbr">AI</span> 模型的<span class="highlight">前提</span>。低品質資料會導致<span class="highlight">模型偏見、預測失準</span>等問題。 (來源：金融指引 Ch4) (對應能力 K04, K11, S08)</div>
+                 </div>
+            </div>
+             <div class="focus-card" data-category="6" data-stars="5">
+                  <div class="focus-header"><div class="focus-id">#23</div><div class="focus-importance">★★★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic"><span class="chinese-proper-noun">資料隱私保護</span> (<span class="english-fullname">Data Privacy Protection</span>)</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">在使用資料訓練或運行 <span class="english-abbr">AI</span> 時，必須遵守<span class="chinese-proper-noun">個資法</span>等<span class="highlight">隱私法規</span>，保護<span class="highlight">個人資料</span>不被<span class="highlight">濫用或洩露</span>。需採取<span class="highlight">去識別化、加密、存取控制</span>等措施。 (來源：金融指引 核心原則三、公部門手冊 4.3) (對應能力 K13, K15)</div>
+                  </div>
+             </div>
+             <div class="focus-card" data-category="6" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#24</div><div class="focus-importance">★★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">資料生命週期管理</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">對用於 <span class="english-abbr">AI</span> 的資料進行<span class="highlight">全生命週期的管理</span>，包括<span class="highlight">資料的獲取、儲存、使用、共享、歸檔和銷毀</span>，確保各階段<span class="highlight">合規且安全</span>。 (對應能力 K04, K11, K13)</div>
+                  </div>
+             </div>
+              <div class="focus-card" data-category="6" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#25</div><div class="focus-importance">★★★</div></div>
+                  <div class="focus-topic-container"><div class="focus-topic">資料偏見的識別與處理</div></div>
+                  <div class="focus-details-container">
+                      <div class="details-header">核心概念</div>
+                      <div class="details-content">在<span class="chinese-proper-noun">資料治理</span>中需包含<span class="highlight">識別和處理</span>訓練資料中<span class="highlight">潛在偏見</span>的流程，以<span class="highlight">減少 AI 模型的歧視性輸出</span>。 (來源：金融指引 Ch2) (對應能力 K10, K11, K12, S08)</div>
+                  </div>
+             </div>
+
+
+             <!-- Add more focus-card elements here for other key concepts -->
+             <!-- ... up to 60 points total for this file -->
+
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints();
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value; // Keep current category filter
+            let stars = document.getElementById("starFilter").value; // Keep current star filter
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints(); // Re-apply filters only
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>
