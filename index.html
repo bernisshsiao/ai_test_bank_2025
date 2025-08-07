@@ -6,9 +6,10 @@
     <title>ai test bank 2025</title>
     <style>body { display: none; }</style>
     <script>
+        // --- 密碼驗證邏輯 (您的這段是正確的) ---
         const correctPassword = "55556366";
         const input = prompt("請輸入密碼才能進入");
-    
+
         if (input && input.trim() === correctPassword) {
             // 密碼正確，註冊事件以顯示內容
             document.addEventListener("DOMContentLoaded", () => {
@@ -22,7 +23,11 @@
             throw new Error("Access denied");
         }
     </script>
-<style>
+    <style>
+        /* --- 主要樣式設定 --- */
+        body { 
+            display: none; /* 初始狀態為隱藏，這是唯一控制顯示的 CSS */
+        }
         * {
             margin: 0;
             padding: 0;
@@ -33,9 +38,7 @@
             overflow: hidden; /* 防止雙重滾動條 */
             font-family: Arial, sans-serif;
         }
-        body {
-            display: flex;
-        }
+        
         .sidebar {
             width: 300px;
             background: #2c3e50;
@@ -76,7 +79,6 @@
             height: 100%;
             border: none;
         }
-        /* 手機/平板時的隱藏與按鈕切換 */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -89,7 +91,6 @@
                 width: 100%;
             }
         }
-        /* 樣式修飾：標題、子標題、連結等 */
         .section-title {
             font-weight: bold;
             font-size: 1.1rem;
@@ -117,7 +118,6 @@
         .sidebar a:hover {
             background: #936915;
         }
-        /* 作用中第3層連結 (active-link) 設定為萊姆綠背景、黑色文字 */
         .sidebar a.active-link {
             background-color: #e3b14e; /* Lime */
             color: #000; /* 黑色文字 */
